@@ -1,0 +1,112 @@
+{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf480
+{\fonttbl\f0\fnil\fcharset77 AndaleMono;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww9720\viewh14780\viewkind0
+\pard\tx566\tx1700\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 key:	\
+	wrt. means "with respect to".\
+	Jac. means "Jacobian"\
+\
+Data objects for SLAM\
+---------------------\
+\
+R	Robot\
+	id	identifier\
+	name	robot name\
+	type	type\
+	sensors	installed sensors list\
+	frame	frame\
+	vel	velocities\
+	x,P	state\
+	size	size of state\
+	r	state range in Map\
+	\
+S	Sensor\
+	id	identifier\
+	name	sensor name\
+	type	type of sensor\
+	robot	robot id where it is installed\
+	frame 	frame\
+	imSize	image size\
+	k 	intrinsic\
+	d 	distortion\
+	c 	correction\
+	x,P	state\
+	size	size of state\
+	r	state range in Map\
+	\
+L	Landmark\
+	id	identifier\
+	type	type of landmark - point, idp, plucker, etc.\
+	x,P	geometric params in map\
+	size	size of params in map\
+	r	range in Map\
+	params	other parameters\
+	sig	signature - appearance\
+	nsearch	number of times searched \
+	nmatch	number of times matched\
+	ninlier	number of times validated as inlier\
+\
+O	Observation\
+	rid	robot id\
+	sid	sensor id\
+	lid	landmark id\
+	e,E	expectation\
+	n,N	predicted non-measurable\
+	y,R	measurement\
+	z,Z,iZ	innovation\
+	MD	Mahalanobis distance\
+	pApp	predicted appearance\
+	cApp	current appearance\
+	sc	appearance match score\
+	H_r	Jac. wrt. robot state\
+	H_s	Jac. wrt. sensor state\
+	H_l	Jac. wrt. landmark state\
+	G_r	Jac. of inverse wrt. robot state\
+	G_s	Jac. of inverse wrt. sensor state\
+	G_o	Jac. of inverse wrt. observation\
+	G_n	Jac. of inverse wrt. non-observed DOFs\
+	vis	lmk is visible?\
+	\
+M	Map\
+	id	identifier\
+	type	type of map\
+	\{R\}	Robot id list\
+	\{S\}	Sensor id list\
+	\{L\}	Landmark id list\
+	X	mean\
+	P	covariances matrix\
+	N	maximum size in number of states\
+	n	current size\
+	used	used states\
+\
+U	Control or proprioceptive sensing\
+	u,U	control\
+\
+N	Non measurable DOFs\
+	n,N	non-measurable prior\
+\
+Functions for SLAM\
+------------------\
+\
+\{ key:\
+f()	Function name\
+	out	in	general expression\
+\}\
+\
+f()	Motion\
+	R	R, U	[R, F_r, F_u] = f(R,U)\
+\
+g()	Inverse Observation\
+	L	R, S, O, N	[L, G_r, G_s, G_o, G_n] = g(R, S, O, N)\
+\
+h()	Observation\
+	O	R, S, L	[O, H_r, H_s, H_l] = h(R, S, L)\
+\
+j()	Reparametrization\
+	L	L	[L, J_l] = j(L)\
+\
+\
+\
+}

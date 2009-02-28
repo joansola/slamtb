@@ -35,8 +35,6 @@ Sen = initSensors(Sen);
 % Create Observations
 Obs = createObservations(Sen,Lmk);
 
-return
-
 % Create source and/or destination files and paths
 
 %% III. Initialize graphics objects

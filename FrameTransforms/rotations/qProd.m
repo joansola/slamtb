@@ -5,15 +5,8 @@ function [q,Qq1,Qq2] = qProd(q1,q2)
 %
 %   [Q,Qq1,Qq2] = QPROD(...) gives the Jacobians wrt Q1 and Q2.
 
-a = q1(1);
-b = q1(2);
-c = q1(3);
-d = q1(4);
-
-w = q2(1);
-x = q2(2);
-y = q2(3);
-z = q2(4);
+[a,b,c,d] = split(q1);
+[w,x,y,z] = split(q2);
 
 q = [...
     a*w-b*x-c*y-d*z

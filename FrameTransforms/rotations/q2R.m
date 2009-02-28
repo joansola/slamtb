@@ -11,10 +11,7 @@ function [R,Rq] = q2R(q)
 %
 %   [R,Rq] = (...) returns the Jacobian wrt q.
 
-a  = q(1);
-b  = q(2);
-c  = q(3);
-d  = q(4);
+[a,b,c,d] = split(q);
 
 a2 = a^2;
 ab = 2*a*b;

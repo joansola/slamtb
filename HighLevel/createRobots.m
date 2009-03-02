@@ -9,11 +9,12 @@ for rob = 1:numel(Robot)
     Ri = Robot{rob}; % user input robot
 
     % identification
-    Ro.name = Ri.name;
-    Ro.id   = Ri.id;
-    Ro.type = Ri.type;
+    Ro.id      = Ri.id;
+    Ro.name    = Ri.name;
+    Ro.type    = Ri.type;
+    Ro.motion  = Ri.motion;
 
-    Ro.sensors = Ri.sensorsList;
+    Ro.sensors = Ri.sensors;
 
     % Robot frame
     ep = [Ri.position;deg2rad(Ri.orientationDegrees)];
@@ -44,7 +45,9 @@ for rob = 1:numel(Robot)
     Ro.size = numel(Ro.x);   % state size
 
     Ro.r  = [];
-
+    
+    Ro.graphics = thickVehicle(0.8);
+    
     Rob(rob) = Ro; % output robot structure
 
 end

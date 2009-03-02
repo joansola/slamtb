@@ -35,11 +35,18 @@ Sen = initSensors(Sen);
 % Create Observations
 Obs = createObservations(Sen,Lmk);
 
+% Create world
+Wrd = createWorld(World);
+
 % Create source and/or destination files and paths
 
 %% III. Initialize graphics objects
 % Init map figure
+MapFig = createMapFig(Rob,Sen,Lmk,Wrd,MapFigure);
+
 % Init sensor's measurement space figures
+SenFig = initSenFig(Sen);
+
 % Init data logging plots
 
 %% IV. Temporal loop

@@ -45,6 +45,13 @@ for sen = 1:numel(Sensor)
     end
     So.r     = [];
     
+    switch So.type
+        case {'pinHole'}
+            So.graphics = camGraphics(0.1);
+        otherwise
+            So.graphics = camGraphics(0.1);
+    end
+    
     Sen(sen) = So;
 
 end

@@ -34,23 +34,23 @@ Time = struct(...
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
 World = struct(...
-    'xmin',                 -20,...         % playground limits
-    'xmax',                 20,...
-    'ymin',                 -20,...
-    'ymax',                 20,...
-    'zmin',                 -10,...
-    'zmax',                 20,...
+    'xMin',                 -20,...         % playground limits
+    'xMax',                 20,...
+    'yMin',                 -20,...
+    'yMax',                 20,...
+    'zMin',                 -10,...
+    'zMax',                 20,...
     'points',               thickCloister(-5,5,-5,5,2,9),...    % point lmks
     'segments',             zeros(6,0));    % segment lmks
 
 % Sensor things 
 %   - each sensor's type and parameters, noise, non-measurable prior
 Sensor{1} = struct(...
-    'name',                 'Dala',...      % sensor name
-    'type',                 'pinHole',...   % type of sensor
     'id',                   1,...           % sensor identifier
-    'position',             [0;0;0],...     % position in robot
-    'orientationDegrees',   [0;0;0],...     % orientation in robot, roll pitch yaw
+    'name',                 'Micropix',...      % sensor name
+    'type',                 'pinHole',...   % type of sensor
+    'position',             [0;0.15;1],...     % position in robot
+    'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
     'imageSize',            [640;480],...   % image size
@@ -59,11 +59,11 @@ Sensor{1} = struct(...
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 Sensor{2} = struct(...
-    'name',                 'Dala',...      % sensor name
-    'type',                 'pinHole',...   % type of sensor
     'id',                   2,...           % sensor identifier
-    'position',             [0;0;0],...     % position in robot
-    'orientationDegrees',   [0;0;0],...     % orientation in robot, roll pitch yaw
+    'name',                 'Micropix',...      % sensor name
+    'type',                 'pinHole',...   % type of sensor
+    'position',             [0;-0.15;1],...     % position in robot
+    'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
     'imageSize',            [640;480],...   % image size
@@ -75,22 +75,24 @@ Sensor{2} = struct(...
 % Robot things 
 %   - each robot's type and initial config, controls
 Robot{1} = struct(...
-    'name',                 'Dala',...      % robot name
-    'type',                 'constVel',...  % motion model, type of robot
     'id',                   1,...           % robot identifier
-    'position',             [0;0;0],...     % robot position in map
-    'orientationDegrees',   [0;0;0],...     % orientation, in degrees, roll pitch yaw.
-    'positionStd',          [0;0;0],...     % position error, std
-    'orientationStd',       [0;0;0],...     % orient. error, std
-    'velocity',             [0;0;0],...     % lin. velocity
-    'angularVelDegrees',    [0;0;0],...     % ang. velocity
-    'velStd',               [0;0;0],...     % lin. vel. error, std
-    'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
-    'sensorsList',          1);             % list of sensors in robot
-Robot{2} = struct(...
     'name',                 'Dala',...      % robot name
-    'type',                 'constVel',...  % motion model, type of robot
+    'type',                 'atrv',...      % type of robot
+    'motion',               'constVel',...  % motion model
+    'position',             [1;0;0],...     % robot position in map
+    'orientationDegrees',   [0;0;45],...     % orientation, in degrees, roll pitch yaw.
+    'positionStd',          [0;0;0],...     % position error, std
+    'orientationStd',       [0;0;0],...     % orient. error, std
+    'velocity',             [0;0;0],...     % lin. velocity
+    'angularVelDegrees',    [0;0;0],...     % ang. velocity
+    'velStd',               [0;0;0],...     % lin. vel. error, std
+    'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
+    'sensors',              [1]);             % list of sensors in robot
+Robot{2} = struct(...
     'id',                   2,...           % robot identifier
+    'name',                 'Dala',...      % robot name
+    'type',                 'atrv',...      % motion model, type of robot
+    'motion',               'constVel',...  % motion model
     'position',             [0;0;0],...     % robot position in map
     'orientationDegrees',   [0;0;0],...     % orientation, in degrees, roll pitch yaw.
     'positionStd',          [0;0;0],...     % position error, std
@@ -99,7 +101,7 @@ Robot{2} = struct(...
     'angularVelDegrees',    [0;0;0],...     % ang. velocity
     'velStd',               [0;0;0],...     % lin. vel. error, std
     'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
-    'sensorsList',          2);             % list of sensors in robot
+    'sensors',              [2]);             % list of sensors in robot
     
 % Landmark things 
 %   - landmark types, max nbr of lmks, lmk management options
@@ -114,10 +116,11 @@ Landmark{2} = struct(...
     
 % Visualization options 
 %   - view, projection, video, ellipses
-MapView{1} = struct(...
+MapFigure = struct(...
+    'renderer',             'opengl',...    % renderer
     'projection',           'persp',...     % projection of the 3d figure
     'view',                 'norm');        % viewpoint
-SensorView{1} = struct(...
+SensorViewFigure{1} = struct(...
     'ellipses',             true);          % show 3d ellipsoids?
 Video = struct(...
     'createVideo',          false);         % create video sequence?

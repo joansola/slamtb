@@ -2,7 +2,7 @@
 {\fonttbl\f0\fnil\fcharset77 AndaleMono;}
 {\colortbl;\red255\green255\blue255;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww9720\viewh14780\viewkind0
-\pard\tx566\tx1700\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\pard\tx866\tx2000\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
 \f0\fs24 \cf0 key:	\
 	wrt. means "with respect to".\
@@ -11,10 +11,11 @@
 Data objects for SLAM\
 ---------------------\
 \
-R	Robot\
+Rob	Robot\
 	id	identifier\
 	name	robot name\
 	type	type\
+	motion	motion model\
 	sensors	installed sensors list\
 	frame	frame\
 	vel	velocities\
@@ -22,7 +23,7 @@ R	Robot\
 	size	size of state\
 	r	state range in Map\
 	\
-S	Sensor\
+Sen	Sensor\
 	id	identifier\
 	name	sensor name\
 	type	type of sensor\
@@ -36,7 +37,7 @@ S	Sensor\
 	size	size of state\
 	r	state range in Map\
 	\
-L	Landmark\
+Lmk	Landmark\
 	id	identifier\
 	type	type of landmark - point, idp, plucker, etc.\
 	x,P	geometric params in map\
@@ -48,18 +49,15 @@ L	Landmark\
 	nmatch	number of times matched\
 	ninlier	number of times validated as inlier\
 \
-O	Observation\
+Obs	Observation\
 	rid	robot id\
 	sid	sensor id\
 	lid	landmark id\
-	e,E	expectation\
-	n,N	predicted non-measurable\
-	y,R	measurement\
-	z,Z,iZ	innovation\
-	MD	Mahalanobis distance\
-	pApp	predicted appearance\
-	cApp	current appearance\
-	sc	appearance match score\
+	exp	expectation: \{e,E\}\
+	nob	predicted non-measurable: \{n,N\}\
+	meas	measurement: \{y,R\}\
+	inn	innovation: \{z,Z,iZ,MD\}\
+	match	data association: \{pApp,cApp,sc\}\
 	H_r	Jac. wrt. robot state\
 	H_s	Jac. wrt. sensor state\
 	H_l	Jac. wrt. landmark state\
@@ -69,7 +67,7 @@ O	Observation\
 	G_n	Jac. of inverse wrt. non-observed DOFs\
 	vis	lmk is visible?\
 	\
-M	Map\
+Map	Map\
 	id	identifier\
 	type	type of map\
 	\{R\}	Robot id list\
@@ -77,14 +75,13 @@ M	Map\
 	\{L\}	Landmark id list\
 	X	mean\
 	P	covariances matrix\
-	N	maximum size in number of states\
-	n	current size\
+	size	maximum size in number of states\
 	used	used states\
 \
-U	Control or proprioceptive sensing\
+Con	Control or proprioceptive sensing\
 	u,U	control\
 \
-N	Non measurable DOFs\
+Nob	Non measurable DOFs\
 	n,N	non-measurable prior\
 \
 Functions for SLAM\

@@ -1,0 +1,17 @@
+function [cim,r,c,s] = harris(im,sgm,th,rd,DSP)
+
+% HARRIS  Stupid point extractor simulator
+%   [CIM,R,C,SC] = HARRIS(IM,SGM,TH,RD) returns 100 ficticious
+%   Harris points in image IM. SGM, TH and RD are not used but
+%   accepted for compatibility with the true Harris function. CIM
+%   is returned as a 100x100 null matrix, r is a 1x100 vector 
+%   with row-coordinates, c is the same for column, sc are the
+%   scores.
+
+rsze = size(im,1);
+csze = size(im,2);
+
+cim = zeros(100);
+r = ceil(rsze*rand(1,100));
+c = ceil(csze*rand(1,100));
+s = th + 1000*rand(1,100);

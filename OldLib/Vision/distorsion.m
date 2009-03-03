@@ -1,0 +1,123 @@
+function kc = distorsion(kd,n,cal,draw)
+
+% DISTORSION  Radial distortion correction calibration.
+%
+%   Kc = DISTORSION(Kd,n) computes the least squares optimal set
+%   of n parameters of the correction radial distortion function
+%   for a normalized camera:
+%
+%     r = c(rd) = rd (1 + c2 rd^2 + ... + c2n rd^2n)
+%
+%   that best approximates the inverse of the distortion function
+%
+%     rd = d(r) = r (1 + d2 r^2 + d4 r^4 + ...)
+%
+%   which can be of any length.
+%
+%   Kc = DISTORSION(Kd,n,cal) accepts the intrinsic parameters
+%   of the camera  cal = [a_u, a_v, u_0, v_0].
+%
+%   The format of the distortion and correction vectors is
+%
+%     Kd = [d2, d4, d6, ...]
+%     Kc = [c2, c4, ..., c2n]
+%
+%   Kc = DISTORSION(...,DRAW) with DRAW~=0 additionally plots the
+%   distortion and correction mappings r_d=d(r) and r=c(r_d)
+%   and the error (r - r_d).
+%
+
+%     (c) 2006 Joan Sola @ LAAS-CNRS
+
+if numel(kd) == 0
+    kc = [];
+else
+
+    if nargin == 2 || isempty(cal)
+        cal = [1 1 1 1];
+    end
+
+    % fprintf('  Obtaining correction vector from distortion vector...');
+    rmax2 = (cal(1)/cal(3))^2 + (cal(2)/cal(4))^2;
+    rmax  = sqrt(rmax2); % maximum radius in normalized coordinates
+
+    rdmax = 1.1*rmax;
+    % N=101 sampling points of d(r)
+    rc = [0:.01*rdmax:rdmax]; % rc is the undistorted radius vector
+    rd = c2d(kd,rc); % rd is the distorted radius vector
+
+
+    % 1. non-linear least-squares method (for other than radial distortion)
+    % comment out for testing against psudo-inverse method
+    % x0 = zeros(1,n);
+    % kc = lsqnonlin(@(x) fun(x,rc,rd),x0);
+
+    % 2. pseudo-inverse method (indicated for radial distortion)
+    % we solve the system A*Kc = rc-rd via Kc = pinv(A)*(rc-rd).
+
+    A  = []; % construction of A for Kc of length n
+    for i = 1:n
+        A  = [A  rd'.^(2*i+1)];
+    end
+
+    B  = pinv(A);
+    kc = (rc-rd)*B'; % All transposed because we are working with row-vectors
+
+    % fprintf(' OK.\n');
+
+    if nargin == 4 && draw
+
+        % normalized error
+        erc = d2c(kc,rd);
+
+        % correction and distortion functions
+        figure(9)
+        subplot(3,1,[1 2])
+        plot(rc,rd,'linewidth',2)
+        title('Distortion mapping'),xlabel('r'),ylabel('rd'),grid
+        set(gca,'xlim',[0 rdmax])
+
+        hold on
+        plot(erc,rd,'r--','linewidth',2)
+        hold off
+
+        % error function (in pixels)
+        subplot(3,1,3)
+        plot(rc,cal(3)*(rc-erc))
+        title('Correction error [pix]'),xlabel('r'),ylabel('error'),grid
+        set(gca,'xlim',[0 rdmax])
+
+        % error values
+        err_max  = cal(3)*max (abs(rc-erc));
+        err_mean = cal(3)*mean(rc-erc);
+        err_std  = cal(3)*std (rc-erc);
+        fprintf(1,'  Errors. Max: %.2f | Mean: %.2f | Std: %.2f pixels.\n',err_max,err_mean,err_std)
+
+    end
+
+end
+
+
+% Necessary functions
+
+% corr- to dis- conversion
+function rd = c2d(kd,rc)
+c = ones(1,length(rc));
+for i=1:length(kd)
+    c = c+kd(i)*rc.^(2*i);
+end
+rd = rc.*c;
+
+% dis- to corr- conversion
+function rc = d2c(kc,rd)
+c = ones(1,length(rd));
+for i=1:length(kc)
+    c = c+kc(i)*rd.^(2*i);
+end
+rc = rd.*c;
+
+% error function (only for non-linear least squares - normally
+% not necessary)
+function e = fun(kc,rc,rd)
+e = d2c(kc,rd) - rc;
+

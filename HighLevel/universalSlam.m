@@ -59,7 +59,7 @@ for currentFrame = firstFrame : lastFrame
     for rob = 1:nrob
 
         % Simulate sensor observations
-        for sens = Rob(rob).sensorsList
+        for sens = Rob(rob).sensors
 
             % Observe landmarks
                 

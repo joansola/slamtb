@@ -6,7 +6,7 @@ function Rob = createRobots(Robot)
 
 for rob = 1:numel(Robot)
 
-    Ri = Robot{rob}; % user input robot
+    Ri = Robot{rob}; % input robot structure
 
     % identification
     Ro.id      = Ri.id;

@@ -6,7 +6,7 @@ function Sen = createSensors(Sensor)
 
 for sen = 1:numel(Sensor)
 
-    Si = Sensor{sen};
+    Si = Sensor{sen}; % input sensor structure
 
     % identification
     So.name  = Si.name;
@@ -52,7 +52,7 @@ for sen = 1:numel(Sensor)
             So.graphics = camGraphics(0.1);
     end
     
-    Sen(sen) = So;
+    Sen(sen) = So; % output sensor structure
 
 end
 

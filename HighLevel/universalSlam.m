@@ -32,7 +32,7 @@ Map = createMap(Rob,Sen,Lmk);
 Rob = initRobots(Rob);
 Sen = initSensors(Sen);
 
-% Create Observations
+% Create Observations (matrix: [ line=sensor , colums=landmark ])
 Obs = createObservations(Sen,Lmk);
 
 % Create world
@@ -50,13 +50,15 @@ SenFig = createSenFig(Sen,Obs,SensorFigure);
 % Init data logging plots
 
 %% IV. Temporal loop
+firstFrame = 1 ;
+lastFrame = 10 ;
 for currentFrame = firstFrame : lastFrame
     
     % 1. SIMULATION 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     % Simulate robots
-    for rob = 1:nrob
+    for rob = 1:numel(Rob)
 
         % Simulate sensor observations
         for sens = Rob(rob).sensors
@@ -66,7 +68,7 @@ for currentFrame = firstFrame : lastFrame
         end % end process sensors
         
         % Robot motion
-        Rob(rob) = motion(Rob(rob),Control(rob),dt,noise);
+        %Rob(rob) = motion(Rob(rob),Control(rob),dt,noise);
         
     end % end process robots
     
@@ -75,43 +77,54 @@ for currentFrame = firstFrame : lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     % Process robots
-    for rob = 1:nrob
+    for rob = 1:numel(Rob)
 
         % Process sensor observations
-        for sens = Rob(rob).sensorsList
+        for sens = Rob(rob).sensors
 
             % Observe knowm landmark
-            obsKnownLmks;
+            %obsKnownLmks;
                 
             % Initialize new landmarks
-            initNewLmks;
+            %initNewLmks;
             
         end % end process sensors
         
         % Robot motion
-        Rob(rob) = motion(Rob(rob),Control(rob),dt);
+        %Rob(rob) = motion(Rob(rob),Control(rob),dt);
         
     end % end process robots
 
     % 3. VISUALIZATION 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % Visualize robots
-    for rob = 1:nrob
-
+    % Figure of the Map:
+    updateMapFig(MapFig,Lmk) ;
+    
+    % Figures for each sensors
+    updateSensFigs(SenFig, Obs, Sen, Lmk) ;
+    
+    % Visualize landmarks in map view
+    %for lm = 1:numel(Lmk)
+       %dispLandMarksInMap(MapFig, Lmk(lm)) ;
+    %end
+    
+    % visualize the sensors views
+    %for rob = 1:numel(Sen)
         % Visualize sensor's measurement spaces
-        for sens = Rob(rob).sensorsList
-
+        %for sens = Rob(rob).sensors
             % Visualize knowm landmarks
+            %updateSensorFig(SenFig);
             % Visualize other robots and sensors
             
-        end % end measurement spaces
+        %end % end measurement spaces
         
         % Visualize Robot 
+        
         % Visualize sensors
         % Visualize landmarks
         
-    end % end visualize robots
+    %end % end visualize robots
     
     % 4. DATA LOGGING
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

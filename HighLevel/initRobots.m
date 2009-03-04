@@ -6,8 +6,8 @@ function Rob = initRobots(Rob)
 
 for rob = 1:numel(Rob)
 
-    fr = addToMap(Rob(rob).frame.X,Rob(rob).frame.P); % range in Map
-    vr = addToMap(Rob(rob).vel.v,Rob(rob).vel.V);
+    fr = addToMap(Rob(rob).frame.x,Rob(rob).frame.P); % range in Map
+    vr = addToMap(Rob(rob).vel.x,Rob(rob).vel.P);
     
     Rob(rob).frame.r = fr;
     Rob(rob).vel.r = vr;

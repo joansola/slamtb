@@ -24,8 +24,8 @@ function F = updateFrame(F)
 %   See also Q2R, Q2PI, PI2PC
 
 % F.X(4:7) = F.X(4:7)/norm(F.X(4:7)); % normalize quaternion
-F.t  = F.X(1:3);
-F.q  = F.X(4:7);
+F.t  = F.x(1:3);
+F.q  = F.x(4:7);
 F.R  = q2R(F.q);
 F.Rt = F.R';
 F.Pi = q2Pi(F.q);

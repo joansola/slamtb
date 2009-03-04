@@ -16,8 +16,19 @@ for lmkClass = 1:numel(Landmark)
         Lo.id   = id;
         Lo.type = Li.type;
 
-        Lo.x = [];
-        Lo.p = [];
+        % state
+        Lo.state.x = [];
+        switch Li.type
+            case {'eucPnt'}
+                Lo.state.size = 3;
+            case {'homPnt'}
+                Lo.state.size = 4;
+            case {'idpPnt','plkLin'}
+                Lo.state.size = 6;
+        end
+
+        % other parameters
+        Lo.par = [];
         
         Lo.sig = [];
         
@@ -27,22 +38,13 @@ for lmkClass = 1:numel(Landmark)
 
         % Non observable priors
         if isfield(Li,'nonObsMean')
-            Lo.n = Li.nonObsMean;
-            Lo.N = diag(Li.nonObsStd.^2);
+            Lo.nob.n = Li.nonObsMean;
+            Lo.nob.N = diag(Li.nonObsStd.^2);
         else
-            Lo.n = [];
-            Lo.N = [];
+            Lo.nob.n = [];
+            Lo.nob.N = [];
         end
         
-        switch Li.type
-            case {'eucPnt'}
-                Lo.size = 3;
-            case {'homPnt'}
-                Lo.size = 4;
-            case {'idpPnt','plkLin'}
-                Lo.size = 6;
-        end
-
         Lmk(id) = Lo;
         
     end

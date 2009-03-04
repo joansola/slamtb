@@ -22,7 +22,7 @@ for rob = 1:numel(Robot)
 
     [qp,QP] = propagateUncertainty(ep,EP,@epose2qpose); % frame and cov. in quaternion
 
-    Ro.frame.X  = qp;
+    Ro.frame.x  = qp;
     Ro.frame.P  = QP;
     Ro.frame    = updateFrame(Ro.frame);
     Ro.frame.r  = [];
@@ -31,20 +31,20 @@ for rob = 1:numel(Robot)
     if ~isempty(Ri.velocity)
         v = [Ri.velocity;deg2rad(Ri.angularVelDegrees)];
         V = diag([Ri.velStd;deg2rad(Ri.angVelStd)].^2);
-        Ro.vel.v = v;
-        Ro.vel.V = V;
+        Ro.vel.x = v;
+        Ro.vel.P = V;
     else
-        Ro.vel.v = [];
-        Ro.vel.V = [];
+        Ro.vel.x = [];
+        Ro.vel.P = [];
     end
     Ro.vel.r = [];
 
-    % global
-    Ro.x    = [Ro.frame.X;Ro.vel.v]; % state
-    Ro.P    = blkdiag(Ro.frame.P,Ro.vel.V);
-    Ro.size = numel(Ro.x);   % state size
+    % state
+    Ro.state.x    = [Ro.frame.x;Ro.vel.x]; % state
+    Ro.state.P    = blkdiag(Ro.frame.P,Ro.vel.P);
+    Ro.state.size = numel(Ro.state.x);   % state size
 
-    Ro.r  = [];
+    Ro.state.r  = [];
     
     Ro.graphics = thickVehicle(0.8);
     

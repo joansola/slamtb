@@ -6,9 +6,9 @@ function Sen = initSensors(Sen)
 
 for sen = 1:numel(Sen)
 
-    r = addToMap(Sen(sen).x,Sen(sen).P);
+    r = addToMap(Sen(sen).state.x,Sen(sen).state.P);
 
     Sen(sen).frame.r = r;
-    Sen(sen).r = r;
+    Sen(sen).state.r = r;
 
 end

@@ -45,7 +45,7 @@ Wrd = createWorld(World);
 MapFig = createMapFig(Rob,Sen,Lmk,Wrd,MapFigure);
 
 % Init sensor's measurement space figures
-SenFig = initSenFig(Sen);
+SenFig = createSenFig(Sen,Obs,SensorFigure);
 
 % Init data logging plots
 

@@ -21,29 +21,29 @@ for sen = 1:numel(Sensor)
 
     [qp,QP] = propagateUncertainty(ep,EP,@epose2qpose); % frame and cov. in quaternion
 
-    So.frame.X  = qp;
+    So.frame.x  = qp;
     So.frame.P  = QP;
     So.frame    = updateFrame(So.frame);    
     So.frame.r  = [];
 
-    % transducer
-    So.imSize = Si.imageSize;
-    So.pixErr = Si.pixErrorStd;
-    So.k = Si.intrinsic;
-    So.d = Si.distortion;
-    So.c = distorsion(So.d,numel(So.d),So.k);
+    % transducer parameters
+    So.par.imSize = Si.imageSize;
+    So.par.pixErr = Si.pixErrorStd;
+    So.par.k = Si.intrinsic;
+    So.par.d = Si.distortion;
+    So.par.c = distorsion(So.par.d,numel(So.par.d),So.par.k);
 
-    % general
+    % state
     if Si.frameInMap
-        So.x    = So.frame.X;
-        So.P    = So.frame.P;
-        So.size = numel(So.x);
+        So.state.x    = So.frame.x;
+        So.state.P    = So.frame.P;
+        So.state.size = numel(So.state.x);
     else
-        So.x    = [];
-        So.P    = [];
-        So.size = 0;
+        So.state.x    = [];
+        So.state.P    = [];
+        So.state.size = 0;
     end
-    So.r     = [];
+    So.state.r     = [];  % robot is not yet in the Map.
     
     switch So.type
         case {'pinHole'}

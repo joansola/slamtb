@@ -1,4 +1,4 @@
-function SenFig = initSenFig(Sen)
+function SenFig = initSenFig(Sen,Obs,SensorFigure)
 
 % initialize the figure for each sensors.
 % the figure id begin at '10' and grow by 1-steps until all sensors

@@ -3,7 +3,7 @@ function SenFig = initSenFig(Sen,Obs,SensorFigure)
 % initialize the figure for each sensors.
 % the figure id begin at '10' and grow by 1-steps until all sensors
 
-SenFig.figs = [] ; % array of figures
+% SenFig.figs = [] ; % array of figures
 
 
 for sen = 1:numel(Sen)
@@ -11,8 +11,8 @@ for sen = 1:numel(Sen)
     % Sen(sen).imSize
     
     % Figure
-    SenFig.figs(sen).fig = figure(9+sen); % if sen==1, [figure_id=10]
-    set(SenFig.figs(sen).fig,...
+    SenFig(sen).fig = figure(9+sen); % if sen==1, [figure_id=10]
+    set(SenFig(sen).fig,...
         'renderer','opengl');
     %     'position',[ 1   331   410   340],...
     clf
@@ -27,10 +27,10 @@ for sen = 1:numel(Sen)
         case {'pinHole'}
             % axes
             axis equal
-            ax21 = gca;
-            set(get(ax21,'title'),...
+            SenFig(sen).axes = gca;
+            set(get(SenFig(sen).axes,'title'),...
                 'string',['Robot [',Sen(sen).robot,']''s sensor [',Sen(sen).name,'] view [',Sen(sen).type,']']);
-            set(ax21,...
+            set(SenFig(sen).axes,...
                 'position',[.05 .05 .9 .9],...
                 'xlim',[0 Sen(sen).par.imSize(1)],...
                 'xaxislocation','top',...

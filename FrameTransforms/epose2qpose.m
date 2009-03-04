@@ -8,11 +8,11 @@ function [qp,QPe] = epose2qpose(ep)
 %   [QP,Jep] = EPOSE2QPOSE(...) returns also the Jacobian matrix
 
 if any(size(ep) ~= [6,1])
-    warning('Input pose should be a column 7-vector')
+    warning('Input Euler-pose should be a column 6-vector')
 end
 
-qp = zeros(7,1);
-qp(1:3) = ep(1:3);
-P = eye(3);
-[qp(4:7),Qe] = e2q(ep(4:6));
-QPe = [P zeros(3);zeros(4,3) Qe];
+qp           = zeros(7,1);  % empty quaternion pose
+qp(1:3)      = ep(1:3);     % position copy
+P            = eye(3);      % Jacobian of copy function
+[qp(4:7),Qe] = e2q(ep(4:6));% orientation and Jacobian
+QPe          = [P zeros(3);zeros(4,3) Qe]; % Full Jacobian

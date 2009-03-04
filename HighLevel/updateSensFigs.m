@@ -24,9 +24,12 @@ function updateSensFigs(SenFig, Obs, Sen, Lmk)
                             case {'idpPnt'}
                                 
                                 % the measurement:
-                                xy = Obs(sen,lmk).meas.y ;
-                                [X,Y] = cov2elli(Obs(sen,lmk).meas.y, Obs(sen,lmk).meas.R, 3, 10) ;
-                                
+%                                 if Lmk(lmk).vis
+%                                     xy = Obs(sen,lmk).meas.y ;
+%                                     [X,Y] = cov2elli(Obs(sen,lmk).meas.y, Obs(sen,lmk).meas.R, 3, 10) ;
+%                                 else
+%                                     
+%                                 end
                                 
                                 
                                 

@@ -98,33 +98,15 @@ for currentFrame = firstFrame : lastFrame
     % 3. VISUALIZATION 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+    % Create test Obs
+    Obs(1,1) = testObs(Obs(1,1));
+    
     % Figure of the Map:
-    MapFig = updateMapFig(MapFig,Lmk) ;
+    MapFig = updateMapFig(MapFig, Lmk) ;
     
     % Figures for each sensors
     SenFig = updateSenFig(SenFig, Obs, Sen, Lmk) ;
     
-    % Visualize landmarks in map view
-    %for lm = 1:numel(Lmk)
-       %dispLandMarksInMap(MapFig, Lmk(lm)) ;
-    %end
-    
-    % visualize the sensors views
-    %for rob = 1:numel(Sen)
-        % Visualize sensor's measurement spaces
-        %for sens = Rob(rob).sensors
-            % Visualize knowm landmarks
-            %updateSensorFig(SenFig);
-            % Visualize other robots and sensors
-            
-        %end % end measurement spaces
-        
-        % Visualize Robot 
-        
-        % Visualize sensors
-        % Visualize landmarks
-        
-    %end % end visualize robots
     
     % 4. DATA LOGGING
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

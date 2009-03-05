@@ -1,6 +1,6 @@
 function Rob = initRobots(Rob)
 
-if Ro.frameInMap
+if Rob.frameInMap
     fr = newRange(7);
     Ro.fr = fr;
     Map.used(fr) = fr;

@@ -1,4 +1,4 @@
-function SenFig = initSenFig(Sen,Obs,SensorFigure)
+function SenFig = createSenFig(Sen,Obs,SensorFigure)
 
 % initialize the figure for each sensors.
 % the figure id begin at '10' and grow by 1-steps until all sensors
@@ -7,21 +7,21 @@ function SenFig = initSenFig(Sen,Obs,SensorFigure)
 
 
 for sen = 1:numel(Sen)
-    
+
     % Sen(sen).imSize
-    
+
     % Figure
     SenFig(sen).fig = figure(9+sen); % if sen==1, [figure_id=10]
     set(SenFig(sen).fig,...
         'renderer','opengl');
     %     'position',[ 1   331   410   340],...
     clf
-    
-    
+
+
     % Sensor type:
     % ------------
     switch Sen(sen).type
-        
+
         % camera pinhole
         % --------------
         case {'pinHole'}
@@ -37,16 +37,33 @@ for sen = 1:numel(Sen)
                 'ylim',[0,Sen(sen).par.imSize(2)],... % size of the image of sensor
                 'ydir','reverse',...
                 'layer','top',...
-                'fontsize',8);  
-            
+                'fontsize',8);
+            SenFig(sen).img = [];
+            for lmk = 1:size(Obs,2)
+                SenFig(sen).measure(lmk) = line(...
+                    'parent',SenFig(sen).axes,...
+                    'linestyle','none',...
+                    'marker','.',...
+                    'xdata',[],...
+                    'ydata',[]);
+                SenFig(sen).ellipse(lmk) = line(...
+                    'parent',SenFig(sen).axes,...
+                    'xdata',[],...
+                    'ydata',[]);
+                SenFig(sen).label(lmk) = text(...
+                    'parent',SenFig(sen).axes,...
+                    'position',[50 50],...
+                    'string',num2str(lmk),...
+                    'color','m');
+            end
 
-        % ADD HERE FOR INITIALIZATION OF NEW SENSORS's FIGURES
-        % case {'newSensor'}
+            % ADD HERE FOR INITIALIZATION OF NEW SENSORS's FIGURES
+            % case {'newSensor'}
             % do something
-        
-        
-        % unknown
-        % -------
+
+
+            % unknown
+            % -------
         otherwise
             % TODO : print an error and go out
             fprintf(['\n Error, the sensor type is unknows in (initSenFig.m), cannot display the sensor ',Sen(sen).name,' with type=',Sen(sen).type,'!\n\n\n']);

@@ -99,10 +99,10 @@ for currentFrame = firstFrame : lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Figure of the Map:
-    updateMapFig(MapFig,Lmk) ;
+    MapFig = updateMapFig(MapFig,Lmk) ;
     
     % Figures for each sensors
-    updateSensFigs(SenFig, Obs, Sen, Lmk) ;
+    SenFig = updateSenFig(SenFig, Obs, Sen, Lmk) ;
     
     % Visualize landmarks in map view
     %for lm = 1:numel(Lmk)

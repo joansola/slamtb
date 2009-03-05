@@ -32,69 +32,17 @@ for sen = 1:size(Obs,1)     %numel(Sen)
                         case {'idpPnt'}
 
                             colors = ['m' 'r']; % magenta/red
-
                             drawObsPoint(SenFig(sen).measure(lmk), SenFig(sen).ellipse(lmk), SenFig(sen).label(lmk), colors, Obs(sen,lmk).measured, Obs(sen,lmk).updated, Obs(sen,lmk)) ;
-
-%                             % the measurement:
-%                             y = Obs(sen,lmk).meas.y;
-%                             set(SenFig(sen).measure(lmk),...
-%                                 'xdata', y(1),...
-%                                 'ydata', y(2),...
-%                                 'color', colors(1),...
-%                                 'vis',   visible{1+Obs(sen,lmk).measured});
-% 
-%                             % the ellipse
-%                             [X,Y] = cov2elli(Obs(sen,lmk).exp.e, Obs(sen,lmk).exp.E, 3, 10) ;
-%                             set(SenFig(sen).ellipse(lmk),...
-%                                 'xdata', X,...
-%                                 'ydata', Y,...
-%                                 'color', colors(1+Obs(sen,lmk).updated),...
-%                                 'vis',   'on');
-% 
-%                             % the label
-%                             pos = Obs(sen,lmk).exp.e + posOffset;
-%                             set(SenFig(sen).label(lmk),...
-%                                 'position', pos,...
-%                                 'vis',      'on');
-
 
                             % euclidian
                             % ---------
                         case {'eucPnt'}
 
                             colors = ['b' 'c']; % magenta/red
-
-                            
                             drawObsPoint(SenFig(sen).measure(lmk), SenFig(sen).ellipse(lmk), SenFig(sen).label(lmk), colors, Obs(sen,lmk).measured, Obs(sen,lmk).updated, Obs(sen,lmk)) ;
 
-                          
-%                             % the measurement:
-%                             y = Obs(sen,lmk).meas.y;
-%                             set(SenFig(sen).measure(lmk),...
-%                                 'xdata', y(1),...
-%                                 'ydata', y(2),...
-%                                 'color', colors(1),...
-%                                 'vis',   'on');
-% 
-%                             % the ellipse
-%                             [X,Y] = cov2elli(Obs(sen,lmk).exp.e, Obs(sen,lmk).exp.E, 3, 10) ;
-%                             set(SenFig(sen).ellipse(lmk),...
-%                                 'xdata', X,...
-%                                 'ydata', Y,...
-%                                 'color', colors(1+Obs(sen,lmk).updated),...
-%                                 'vis',   'on');
-% 
-%                             % the label
-%                             pos = Obs(sen,lmk).exp.e + posOffset;
-%                             set(SenFig(sen).label(lmk),...
-%                                 'position', pos,...
-%                                 'vis',      'on');
 
-
-
-
-
-                            % ADD HERE FOR INITIALIZATION OF NEW LANDMARK's
+                            % ADD HERE FOR INITIALIZATION OF NEW LANDMARK
                             % type
                             % case {'newLandmark'}
                             % do something

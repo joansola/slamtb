@@ -1,5 +1,17 @@
 function drawObsPoint(measureFig, ellipseFig, labelFig, colors, measured, updated, Obs)
-% DRAWPINHOLELMK ()  (re)draw a landmark on the pinHole sensor figure.
+% DRAWOBSPOINT(MEASUREFIG, ELLIPSEFIG, LABELFIG, COLORS, MEASURED, UPDATED,
+% OBS)  (re)draw a landmark on the pinHole sensor figure.
+%
+% MEASUREFIG is the Figure where we have the measurement
+% ELLIPSEFIG is the figure with the ellipse
+% LABELFIG is the figure with the label
+% COLORS is the colors witch apply to the point figure. ex:
+%    colors = ['m' 'r']; % magenta/red or
+%    colors = ['b' 'c']; % blue/cyan
+% MEASURED,UPDATED are boolean for the state of the landmark
+% OBS is the observation of the couple (landmark/sensor).
+%
+%
 
 visible = {'off','on'};
 posOffset = [0;0];

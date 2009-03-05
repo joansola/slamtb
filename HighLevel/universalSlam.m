@@ -91,7 +91,12 @@ for currentFrame = firstFrame : lastFrame
         end % end process sensors
         
         % Robot motion
-        %Rob(rob) = motion(Rob(rob),Control(rob),dt);
+            % [DEBUG]
+            Control = [] ;
+            Control(rob).v = [1,0,0]' ; % vx, vy, vz
+            dt = 1 ; % seconds
+            % [/DEBUG]
+            Rob(rob) = motion(Rob(rob),Control(rob),dt);
         
     end % end process robots
 
@@ -99,13 +104,13 @@ for currentFrame = firstFrame : lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Create test Obs
-    Obs(1,1) = testObs(Obs(1,1));
+    Obs(1,1) = testObs(Obs(1,1)); 
     
     % Figure of the Map:
-    MapFig = updateMapFig(MapFig, Lmk) ;
+    MapFig = drawMapFig(MapFig, Lmk, Rob, Sen) ;
     
     % Figures for each sensors
-    SenFig = updateSenFig(SenFig, Obs, Sen, Lmk) ;
+    SenFig = drawSenFig(SenFig, Obs, Sen, Lmk) ;
     
     
     % 4. DATA LOGGING

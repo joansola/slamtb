@@ -65,9 +65,9 @@ camera.X      = [ 0;0;1.1;0.5;-0.5;0.5;-0.5];
 if fmax < fmin, fmax = fmin; end
 Nframes = fmax-fmin+1;
 initConst;
-if stats
-    simultPnt = UpPerFrame(nn); % overwrite updates per frame
-end
+%if stats
+%    simultPnt = UpPerFrame(nn); % overwrite updates per frame
+%end
 initRobot;
 initCamera;
 initWorld;
@@ -364,10 +364,10 @@ for f = fmin:fmax
     Ct = diag(Pt);
     Ce = diag(Pe);
     
-    if stats
-        ErrorTraj(:,f,nn) = [t-ts;e-es];
-        SigmaTraj(:,f,nn) = sqrt([Ct;Ce]);
-    end
+    %if stats
+    %    ErrorTraj(:,f,nn) = [t-ts;e-es];
+    %    SigmaTraj(:,f,nn) = sqrt([Ct;Ce]);
+    %end
 
 
 %%

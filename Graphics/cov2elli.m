@@ -1,9 +1,11 @@
 function [X,Y] = cov2elli(x,P,ns,NP)
 
 % COV2ELLI  Ellipse points from mean and covariances matrix.
-%   [X,Y] = COV2ELLI(M,P,NS,NP) returns X and Y coordinates
-%   of the NP points of the the NS-sigma bound ellipse of
-%   the Gaussian defined by mean XM and covariances matrix P.
+%   COV2ELLI(M,P,NS,NP) returns X and Y coordinates of the NP
+%   points of the the NS-sigma bound ellipse of the Gaussian defined by
+%   mean XM and covariances matrix P.
+
+
 
 persistent cercle
 

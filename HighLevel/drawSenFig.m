@@ -1,9 +1,12 @@
-function SenFig = updateSenFig(SenFig, Obs, Sen, Lmk)
+function SenFig = drawSenFig(SenFig, Obs, Sen, Lmk)
 
-% UPDATESENFIG Update sensors figures.
+% DRAWSENFIG (SENFIG, OBS, SEN, LMK)  (re)draw the sensors figures.
+% return the SENFIG
+
 
 visible = {'off','on'};
 posOffset = [0;0];
+
 
 for sen = 1:size(Obs,1)     %numel(Sen)
 
@@ -60,7 +63,7 @@ for sen = 1:size(Obs,1)     %numel(Sen)
                             colors = ['b' 'c']; % magenta/red
 
                             % the measurement:
-                            y = Obs(sen,lmk).y;
+                            y = Obs(sen,lmk).meas.y;
                             set(SenFig(sen).measure(lmk),...
                                 'xdata', y(1),...
                                 'ydata', y(2),...
@@ -111,8 +114,7 @@ for sen = 1:size(Obs,1)     %numel(Sen)
                 % unknown
                 % -------
             otherwise
-                % TODO : print an error and go out
-                fprintf(['\n Error, the sensor type is unknows in (updateSensFigs.m), cannot display the sensor ',Sen(sen).name,' with type=',Sen(sen).type,'!\n\n\n']);
+                error(['The sensor type is unknows, cannot display the sensor ',Sen(sen).name,' with type=',Sen(sen).type,'!']);
         end
 
 

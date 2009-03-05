@@ -105,6 +105,7 @@ for currentFrame = firstFrame : lastFrame
 
     % Create test Obs
     Obs(1,1) = testObs(Obs(1,1)); 
+    Obs(1,25) = testObs(Obs(1,25), [350;50], [5^2,0;0,10^2]); 
     
     % Figure of the Map:
     MapFig = drawMapFig(MapFig, Lmk, Rob, Sen) ;

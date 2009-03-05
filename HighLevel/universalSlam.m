@@ -13,7 +13,7 @@ userData;
 %% II. Initialize data structures from user data
 % Create robots and controls
 Rob = createRobots(Robot);
-% Con = createControls(Robot);
+Con = createControls(Robot);
 
 % Create sensors
 Sen = createSensors(Sensor);
@@ -51,7 +51,7 @@ SenFig = createSenFig(Sen,Obs,SensorFigure);
 
 %% IV. Temporal loop
 firstFrame = 1 ;
-lastFrame = 10 ;
+lastFrame = 100 ;
 for currentFrame = firstFrame : lastFrame
     
     % 1. SIMULATION 
@@ -59,6 +59,8 @@ for currentFrame = firstFrame : lastFrame
     
     % Simulate robots
     for rob = 1:numel(Rob)
+        
+        Con(rob).u = [.1;0;0;0;0;0.01];
 
         % Simulate sensor observations
         for sens = Rob(rob).sensors
@@ -68,7 +70,8 @@ for currentFrame = firstFrame : lastFrame
         end % end process sensors
         
         % Robot motion
-        %Rob(rob) = motion(Rob(rob),Control(rob),dt,noise);
+%         dt = .1 ; % seconds
+%         Rob(rob) = motion(Rob(rob),Con(rob),dt);
         
     end % end process robots
     
@@ -92,11 +95,9 @@ for currentFrame = firstFrame : lastFrame
         
         % Robot motion
             % [DEBUG]
-            Control = [] ;
-            Control(rob).v = [1,0,0]' ; % vx, vy, vz
-            dt = 1 ; % seconds
+            dt = .1 ; % seconds
             % [/DEBUG]
-            Rob(rob) = motion(Rob(rob),Control(rob),dt);
+            Rob(rob) = motion(Rob(rob),Con(rob),dt);
         
     end % end process robots
 
@@ -112,6 +113,8 @@ for currentFrame = firstFrame : lastFrame
     
     % Figures for each sensors
     SenFig = drawSenFig(SenFig, Obs, Sen, Lmk) ;
+    
+    drawnow;
     
     
     % 4. DATA LOGGING

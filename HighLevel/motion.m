@@ -1,16 +1,18 @@
 
 
 
-function Rob_i = motion(Rob_i, Control_i, dt)
+function Rob = motion(Rob, Con, dt)
    
     %% motion of the real robot:
-    switch Rob_i.motion
+    switch Rob.motion
         
         % const velocity
         case  {'constVel'}
-            Rob_i.frame.x = Rob_i.frame.x+[dt*Control_i.v(1:3)', 0,0,0,0]' ;
+            Rob.state.x = constVel(Rob.state.x,Con.u,dt);
        
-            Rob_i.frame = updateFrame(Rob_i.frame);
+            Rob.frame.x = Rob.state.x(1:7);
+            Rob.vel.x   = Rob.state.x(8:13);
+            Rob.frame   = updateFrame(Rob.frame);
             
          % other motion type:
 %         case  {'constVel'}

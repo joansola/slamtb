@@ -34,10 +34,10 @@ switch nargin
         end
 end
 
-W  = w2omega(w);
 
 switch lower(met)
     case 'tustin'
+        W  = w2omega(w);
         q1 = q + .5*dt*W*q; % Tustin integration - fits with Jacobians
     case 'exact'
         q1 = qProd(q,v2q(w*dt)); % True value - Jacobians based on tustin form
@@ -46,6 +46,7 @@ switch lower(met)
 end
 
 if nargout > 1
+    W  = w2omega(w);
     Uq = eye(4) + 0.5*dt*W;
     Uw = 0.5*dt*q2Pi(q);
 end

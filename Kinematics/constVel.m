@@ -42,7 +42,7 @@ if nargout == 1
 
     % time step
     x = rpredict(x,v,dt);
-    q = qpredict(q,w,dt);
+    q = qpredict(q,w,dt,'exact');
     v = v + uv;
     w = w + uw;
     

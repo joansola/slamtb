@@ -102,7 +102,17 @@ Robot{2} = struct(...
     'velStd',               [0;0;0],...     % lin. vel. error, std
     'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
     'sensors',              [2]);             % list of sensors in robot
-    
+
+% Control things
+%   - each robot has a control structure
+Control{1} = struct(...
+    'robot',                [],...          % robot id to be applied
+    'motion',               'constVel',...  % motion model
+    'dv',                   [1;0;0],...     % veolcity increment
+    'dwDegrees',            [0;0;0],...     % ang. vel. increment, degrees
+    'dvStd',                [0;0;0],...     % vel perturbation std
+    'dwStd',                [0;0;0]);       % ang vel pert. std, degrees
+
 % Landmark things 
 %   - landmark types, max nbr of lmks, lmk management options
 Landmark{1} = struct(...

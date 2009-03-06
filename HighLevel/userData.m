@@ -92,7 +92,7 @@ Robot{2} = struct(...
     'id',                   2,...           % robot identifier
     'name',                 'Dala',...      % robot name
     'type',                 'atrv',...      % motion model, type of robot
-    'motion',               'constVel',...  % motion model
+    'motion',               'odometry',...  % motion model
     'position',             [0;0;0],...     % robot position in map
     'orientationDegrees',   [0;0;0],...     % orientation, in degrees, roll pitch yaw.
     'positionStd',          [0;0;0],...     % position error, std

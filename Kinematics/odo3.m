@@ -29,22 +29,22 @@ if nargout == 1
 
     x = fromFrame(Rob,dx); % Position update
 
-    q  = Rob.X(4:end);
+    q  = Rob.x(4:end);
     q2 = qProd(q,v2q(dv)); % quaternion update
 
-    Rob.X = [x;q2]; % frame update
+    Rob.x = [x;q2]; % frame update
 
 
 else  % Jacobians
 
     [x,Xr,Xdx] = fromFrame(Rob,dx); % Position update and jacobians
 
-    q  = Rob.X(4:end);
+    q  = Rob.x(4:end);
     [dq,DQdv] = v2q(dv);
     [q2,Q2q,Q2dq] = qProd(q,dq); % quaternion update
     Q2dv = Q2dq*DQdv;
 
-    Rob.X = [x;q2]; % frame update
+    Rob.x = [x;q2]; % frame update
 
     if nargout <= 3 % build full Jacobians
         Fr = [Xr;zeros(4,3) Q2q];
@@ -62,7 +62,7 @@ return
 %% Jac
 syms x y z a b c d real
 syms dx dy dz dp dq dr real
-Rob.X=[x;y;z;a;b;c;d];
+Rob.x=[x;y;z;a;b;c;d];
 Dx = [dx;dy;dz];
 Dv = [dp;dq;dr];
 
@@ -70,8 +70,8 @@ Rob = updateFrame(Rob);
 
 [R,Rr,Ru] = odo3(Rob,Dx,Dv);
 
-Rrs = jacobian(R.X,Rob.X);
-Rus = jacobian(R.X,[Dx;Dv]);
+Rrs = jacobian(R.x,Rob.x);
+Rus = jacobian(R.x,[Dx;Dv]);
 
 simplify(Rr-Rrs)
 simplify(Ru-Rus)

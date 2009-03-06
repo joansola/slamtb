@@ -32,14 +32,14 @@ for sen = 1:size(Obs,1)     %numel(Sen)
                         case {'idpPnt'}
 
                             colors = ['m' 'r']; % magenta/red
-                            drawObsPoint(SenFig(sen).measure(lmk), SenFig(sen).ellipse(lmk), SenFig(sen).label(lmk), colors, Obs(sen,lmk).measured, Obs(sen,lmk).updated, Obs(sen,lmk)) ;
+                            drawObsPoint(SenFig(sen), Obs(sen,lmk), colors);
 
                             % euclidian
                             % ---------
                         case {'eucPnt'}
 
                             colors = ['b' 'c']; % magenta/red
-                            drawObsPoint(SenFig(sen).measure(lmk), SenFig(sen).ellipse(lmk), SenFig(sen).label(lmk), colors, Obs(sen,lmk).measured, Obs(sen,lmk).updated, Obs(sen,lmk)) ;
+                            drawObsPoint(SenFig(sen), Obs(sen,lmk), colors);
 
 
                             % ADD HERE FOR INITIALIZATION OF NEW LANDMARK

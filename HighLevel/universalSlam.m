@@ -85,7 +85,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         
         % Robot motion
 %         dt = .1 ; % seconds
-%         Rob(rob) = motion(Rob(rob),Con(rob),dt);
+        SimRob(rob) = motion(SimRob(rob),Con(rob),Tim.dt);
         
     end % end process robots
     
@@ -108,10 +108,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         end % end process sensors
         
         % Robot motion
-            % [DEBUG]
-            dt = .1 ; % seconds
-            % [/DEBUG]
-            Rob(rob) = motion(Rob(rob),Con(rob),dt);
+            Rob(rob) = motion(Rob(rob),Con(rob),Tim.dt);
         
     end % end process robots
 
@@ -123,7 +120,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     Obs(1,25) = testObs(Obs(1,25), [350;50], [5^2,0;0,10^2]); 
     
     % Figure of the Map:
-    MapFig = drawMapFig(MapFig, Lmk, Rob, Sen) ;
+    MapFig = drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen) ;
     
     % Figures for each sensors
     SenFig = drawSenFig(SenFig, Obs, Sen, Lmk) ;

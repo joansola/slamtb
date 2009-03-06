@@ -27,9 +27,9 @@ Experiment = struct(...
 % Time variables 
 %   - sampling time, first and last frames
 Time = struct(...
-    'dt',                   1,...           % sampling time
+    'dt',                   .1,...           % sampling time
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            100);           % last frame #
+    'lastFrame',            80);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -84,8 +84,8 @@ Robot{1} = struct(...
     'positionStd',          [0;0;0],...     % position error, std
     'orientationStd',       [0;0;0],...     % orient. error, std
     'velocity',             [1;0;0],...     % lin. velocity
-    'angularVelDegrees',    [0;0;0],...     % ang. velocity
-    'velStd',               [0;0;0.1],...     % lin. vel. error, std
+    'angularVelDegrees',    [0;0;10],...     % ang. velocity
+    'velStd',               [0;0;0],...     % lin. vel. error, std
     'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
     'sensors',              [1]);             % list of sensors in robot
 Robot{2} = struct(...
@@ -129,7 +129,7 @@ Landmark{2} = struct(...
 MapFigure = struct(...
     'renderer',             'opengl',...    % renderer
     'projection',           'persp',...     % projection of the 3d figure
-    'view',                 'norm');        % viewpoint
+    'view',                 'view');        % viewpoint
 SensorFigure{1} = struct(...
     'ellipses',             true);          % show 3d ellipsoids?
 Video = struct(...

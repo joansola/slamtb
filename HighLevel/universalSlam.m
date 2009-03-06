@@ -35,32 +35,46 @@ Sen = initSensors(Sen);
 % Create Observations (matrix: [ line=sensor , colums=landmark ])
 Obs = createObservations(Sen,Lmk);
 
+% Create time variables
+Tim = createTime(Time);
+
+
+%% III. Initialize wimulation structures
+% Create robots and controls
+SimRob = createRobots(Robot);
+
+% Create sensors
+SimSen = createSensors(Sensor);
+
+% Install sensors in robots
+[SimRob,SimSen] = installSensors(SimRob,SimSen);
+
 % Create world
-Wrd = createWorld(World);
+SimLmk = createSimLmk(World);
 
 % Create source and/or destination files and paths
 
-%% III. Initialize graphics objects
+%% IV. Initialize graphics objects
 % Init map figure
-MapFig = createMapFig(Rob,Sen,Lmk,Wrd,MapFigure);
+MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,MapFigure);
 
 % Init sensor's measurement space figures
 SenFig = createSenFig(Sen,Obs,SensorFigure);
 
 % Init data logging plots
 
-%% IV. Temporal loop
-firstFrame = 1 ;
-lastFrame = 100 ;
-for currentFrame = firstFrame : lastFrame
+%% V. Temporal loop
+for currentFrame = Tim.firstFrame : Tim.lastFrame
     
     % 1. SIMULATION 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
+    Con(1).u = [0;0;0;0;0;0];
+    Con(2).u = [.1;0;0;0;0;0.05];
+    
     % Simulate robots
     for rob = 1:numel(Rob)
         
-        Con(rob).u = [.1;0;0;0;0;0.01];
 
         % Simulate sensor observations
         for sens = Rob(rob).sensors
@@ -122,4 +136,4 @@ for currentFrame = firstFrame : lastFrame
 
 end
 
-%% V. Post-processing
+%% VI. Post-processing

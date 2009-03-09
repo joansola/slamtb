@@ -10,7 +10,7 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %   It uses reference frames {RDF,RD} (right-down-front for the 3D world
 %   points and right-down for the pixel), according to this scheme:
 %
-%          / z
+%          / z (forward)
 %         /
 %        /
 %       +------- x      +------- u
@@ -31,8 +31,8 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %   with R^2 = sum(U.^2), being U the projected point in the image plane
 %   for a camera with unit focal length.
 %
-%   If P is a points matrix, PINHOLE(P,...) returns a pixel matrix U, with
-%   these matrices defined as
+%   If P is a points matrix, PINHOLE(P,...) returns a pixel matrix U.
+%   P and U matrices defined as
 %     P = [p1 ... pn];   pi = [xi;yi;zi]
 %     U = [U1 ... Un];   Ui = [ui;vi]
 %
@@ -95,9 +95,9 @@ return
 
 %% jacobians
 syms x y z u0 v0 au av d2 d4 d6 real
-p=[x;y;z];
-k=[u0;v0;au;av];
-d=[d2;d4;d6];
+p = [x;y;z];
+k = [u0;v0;au;av];
+d = [d2;d4;d6];
 
 [u, s, U_p, U_k, U_d] = pinHole(p,k,d);
 

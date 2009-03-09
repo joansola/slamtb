@@ -24,7 +24,6 @@ for sen = 1:numel(Sen)
         O.cApp    = [];         % current appearence
         O.sc      = 0;          % match score
         O.vis     = false;      % lmk is visible?
-        O.lastVis = false;      % lmk was visible on last frame?
         O.measured= false;      % lmk has been measured?
         O.matched = false;      % lmk has been matched?
         O.updated = false;      % lmk has been updated?

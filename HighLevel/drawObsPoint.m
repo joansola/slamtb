@@ -9,7 +9,7 @@ function drawObsPoint(SenFig, Obs, colors)
 %
 
 
-posOffset = [0;0];
+posOffset = [0;-15];
 
 % get the lmk id
 lmk = Obs.lid;

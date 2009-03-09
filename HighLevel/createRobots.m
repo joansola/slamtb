@@ -14,7 +14,7 @@ for rob = 1:numel(Robot)
     Ro.type    = Ri.type;
     Ro.motion  = Ri.motion;
 
-    Ro.sensors = Ri.sensors;
+    Ro.sensors = [];
 
     % Robot frame
     ep = [Ri.position;deg2rad(Ri.orientationDegrees)];

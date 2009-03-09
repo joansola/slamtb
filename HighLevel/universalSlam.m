@@ -116,6 +116,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Create test Obs
+    % FIXME: these two lines to be removed
     Obs(1,1)  = testObs(Obs(1,1)); 
     Obs(1,25) = testObs(Obs(1,25), [350;50], [5^2,0;0,10^2]); 
     

@@ -13,7 +13,7 @@ for sen = 1:numel(Sensor)
     So.id    = sen;
     So.type  = Si.type;
     
-    So.robot = [];
+    So.robot = Si.robot;
 
     % frame
     ep = [Si.position;deg2rad(Si.orientationDegrees)];

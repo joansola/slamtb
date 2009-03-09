@@ -49,6 +49,7 @@ Sensor{1} = struct(...
     'id',                   1,...           % sensor identifier
     'name',                 'Micropix',...      % sensor name
     'type',                 'pinHole',...   % type of sensor
+    'robot',                2,...           % robot where it is mounted
     'position',             [0;0.15;1],...    % position in robot
     'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
@@ -62,6 +63,7 @@ Sensor{2} = struct(...
     'id',                   2,...           % sensor identifier
     'name',                 'Micropix',...      % sensor name
     'type',                 'pinHole',...   % type of sensor
+    'robot',                2,...           % robot where it is mounted
     'position',             [0;-0.15;1],...     % position in robot
     'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
@@ -87,7 +89,6 @@ Robot{1} = struct(...
     'angularVelDegrees',    [0;0;10],...     % ang. velocity
     'velStd',               [0;0;0],...     % lin. vel. error, std
     'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
-    'sensors',              [1,2],...         % list of sensors in robot
     'dv',                   [1;0;0],...     % veolcity increment
     'dwDegrees',            [0;0;0],...     % ang. vel. increment, degrees
     'dvStd',                [0;0;0],...     % vel perturbation std
@@ -105,7 +106,6 @@ Robot{2} = struct(...
     'angularVelDegrees',    [0;0;0],...     % ang. velocity
     'velStd',               [0;0;0],...     % lin. vel. error, std
     'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
-    'sensors',              [],...         % list of sensors in robot
     'dx',                   [1;0;0],...     % position increment
     'daDegrees',            [0;0;5],...     % angle increment, degrees
     'dxStd',                [0;0;0],...     % vel perturbation std

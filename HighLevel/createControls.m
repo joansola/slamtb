@@ -22,11 +22,17 @@ for rob = 1:numel(Robot)
     
     switch Robot{rob}.motion
         
-        case {'constVel','odometry'}
+        case {'constVel'}
             
-            Con(rob).u    = zeros(6,1);
-            Con(rob).uStd = zeros(6,1);
-            Con(rob).U    = zeros(6,6);
+            Con(rob).u    = [Robot{rob}.dv;deg2rad(Robot{rob}.dwDegrees)];
+            Con(rob).uStd = [Robot{rob}.dvStd;deg2rad(Robot{rob}.dwStd)];
+            Con(rob).U    = diag(Con(rob).uStd.^2);
+                        
+        case {'odometry'}
+            
+            Con(rob).u    = [Robot{rob}.dx;deg2rad(Robot{rob}.daDegrees)];
+            Con(rob).uStd = [Robot{rob}.dxStd;deg2rad(Robot{rob}.daStd)];
+            Con(rob).U    = diag(Con(rob).uStd.^2);
                         
         otherwise
             error('Unknown motion model %s from robot %d.',Robot{rob}.motion,Robot{rob}.id);

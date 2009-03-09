@@ -29,7 +29,7 @@ Experiment = struct(...
 Time = struct(...
     'dt',                   .1,...           % sampling time
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            80);           % last frame #
+    'lastFrame',            100);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -49,13 +49,13 @@ Sensor{1} = struct(...
     'id',                   1,...           % sensor identifier
     'name',                 'Micropix',...      % sensor name
     'type',                 'pinHole',...   % type of sensor
-    'position',             [0;0.15;1],...     % position in robot
-    'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
+    'position',             [0;0.15;1],...    % position in robot
+    'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
     'imageSize',            [640;480],...   % image size
     'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [320;320;200;200],...   % intrinsic params
+    'intrinsic',            [320;240;200;200],...   % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 Sensor{2} = struct(...
@@ -72,7 +72,7 @@ Sensor{2} = struct(...
     'distortion',           [],...          % distortion params
     'frameInMap',           true );         % add sensor frame in slam map?
 
-% Robot things 
+% Robot things with their controls
 %   - each robot's type and initial config, controls
 Robot{1} = struct(...
     'id',                   1,...           % robot identifier
@@ -87,7 +87,11 @@ Robot{1} = struct(...
     'angularVelDegrees',    [0;0;10],...     % ang. velocity
     'velStd',               [0;0;0],...     % lin. vel. error, std
     'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
-    'sensors',              [1]);             % list of sensors in robot
+    'sensors',              [1,2],...         % list of sensors in robot
+    'dv',                   [1;0;0],...     % veolcity increment
+    'dwDegrees',            [0;0;0],...     % ang. vel. increment, degrees
+    'dvStd',                [0;0;0],...     % vel perturbation std
+    'dwStd',                [0;0;1]);       % ang vel pert. std, degrees
 Robot{2} = struct(...
     'id',                   2,...           % robot identifier
     'name',                 'Dala',...      % robot name
@@ -101,17 +105,12 @@ Robot{2} = struct(...
     'angularVelDegrees',    [0;0;0],...     % ang. velocity
     'velStd',               [0;0;0],...     % lin. vel. error, std
     'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
-    'sensors',              [2]);             % list of sensors in robot
+    'sensors',              [],...         % list of sensors in robot
+    'dx',                   [1;0;0],...     % position increment
+    'daDegrees',            [0;0;5],...     % angle increment, degrees
+    'dxStd',                [0;0;0],...     % vel perturbation std
+    'daStd',                [0;0;1]);       % ang vel pert. std, degrees
 
-% Control things
-%   - each robot has a control structure
-Control{1} = struct(...
-    'robot',                [],...          % robot id to be applied
-    'motion',               'constVel',...  % motion model
-    'dv',                   [1;0;0],...     % veolcity increment
-    'dwDegrees',            [0;0;0],...     % ang. vel. increment, degrees
-    'dvStd',                [0;0;0],...     % vel perturbation std
-    'dwStd',                [0;0;0]);       % ang vel pert. std, degrees
 
 % Landmark things 
 %   - landmark types, max nbr of lmks, lmk management options
@@ -119,10 +118,10 @@ Landmark{1} = struct(...
     'type',                 'idpPnt',...    % type of landmark
     'nonObsMean',           1e-5,...        % mean of non obs. for initialization
     'nonObsStd',            0.5,...         % std of non obs for initialization
-    'maxNbr',               20);            % max. nbr. of lmks of this type in map
+    'maxNbr',               15);            % max. nbr. of lmks of this type in map
 Landmark{2} = struct(...
     'type',                 'eucPnt',...    % type of landmark
-    'maxNbr',               100);           % max. nbr. of lmks of this type in map
+    'maxNbr',               80);           % max. nbr. of lmks of this type in map
     
 % Visualization options 
 %   - view, projection, video, ellipses

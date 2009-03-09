@@ -84,8 +84,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         end % end process sensors
         
         % Robot motion
-%         dt = .1 ; % seconds
-        SimRob(rob) = motion(SimRob(rob),Con(rob),Tim.dt);
+        SimCon(rob).u = Con(rob).u + Con(rob).uStd.*randn(6,1);
+        SimRob(rob) = motion(SimRob(rob),SimCon(rob),Tim.dt);
         
     end % end process robots
     

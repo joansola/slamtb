@@ -73,13 +73,15 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     Con(2).u = [.1;0;0;0;0;0.05];
     
     % Simulate robots
-    for rob = 1:numel(Rob)
+    for rob = 1:numel(SimRob)
         
-
         % Simulate sensor observations
-        for sens = Rob(rob).sensors
-
+        for sens = SimRob(rob).sensors
+            
             % Observe landmarks
+            Obs(rob, sens) = SimObservation(SimRob(rob), Sen(sens), Obs(rob, sens), SimLmk) ;
+ 
+            % SimRobObserve(rob, sens, Obs(rob));
                 
         end % end process sensors
         

@@ -1,8 +1,8 @@
-function kc = distorsion(kd,n,cal,draw)
+function kc = invDistortion(kd,n,cal,draw)
 
-% DISTORSION  Radial distortion correction calibration.
+% INVDISTORTION  Radial distortion correction calibration.
 %
-%   Kc = DISTORSION(Kd,n) computes the least squares optimal set
+%   Kc = INVDISTORTION(Kd,n) computes the least squares optimal set
 %   of n parameters of the correction radial distortion function
 %   for a normalized camera:
 %
@@ -14,7 +14,7 @@ function kc = distorsion(kd,n,cal,draw)
 %
 %   which can be of any length.
 %
-%   Kc = DISTORSION(Kd,n,cal) accepts the intrinsic parameters
+%   Kc = INVDISTORTION(Kd,n,cal) accepts the intrinsic parameters
 %   of the camera  cal = [a_u, a_v, u_0, v_0].
 %
 %   The format of the distortion and correction vectors is
@@ -22,7 +22,7 @@ function kc = distorsion(kd,n,cal,draw)
 %     Kd = [d2, d4, d6, ...]
 %     Kc = [c2, c4, ..., c2n]
 %
-%   Kc = DISTORSION(...,DRAW) with DRAW~=0 additionally plots the
+%   Kc = INVDISTORTION(...,DRAW) with DRAW~=0 additionally plots the
 %   distortion and correction mappings r_d=d(r) and r=c(r_d)
 %   and the error (r - r_d).
 %

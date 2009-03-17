@@ -14,9 +14,9 @@ low = zeros(1,nlm);
 high  = low + h;
 world = [plane plane;low high];
 
-nid = 2*nlm;
+% nid = 2*nlm;
 
-ids = 1:nid;
+% ids = 1:nid;
 
 % id = 0;
 % ids = zeros(1,nid);
@@ -25,4 +25,4 @@ ids = 1:nid;
 %     ids(i) = id;
 % end
 
-world = [ids;world];
+% world = [ids;world];

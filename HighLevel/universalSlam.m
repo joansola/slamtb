@@ -79,10 +79,10 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     for rob = 1:numel(SimRob)
         
         % Simulate sensor observations
-        for sens = SimRob(rob).sensors
+        for sen = SimRob(rob).sensors
             
             % Observe simulated landmarks
-            Obs(rob, sens) = SimObservation(SimRob(rob), Sen(sens), Obs(rob, sens), SimLmk) ;
+            SimObs(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
  
             % SimRobObserve(rob, sens, Obs(rob));
                 

@@ -1,8 +1,7 @@
 
-function  Obs = SimObservation(Rob, Sen, Obs, SimLmk)
+function  SimObs = SimObservation(SimRob, SimSen, SimLmk)
 
-% SIMOBSERVATION  Operate an observation with sumulated landmarks and
-% simulated robot.
+% SIMOBSERVATION  Simulated observation.
 %   OBS = SIMOBSERVATION(ROB, SEN, OBS, SIMLMK) returns the Observation for
 %   the robot ROB with the sensor SEN into the structure OBS for the
 %   landmarks SIMLMK.
@@ -13,29 +12,19 @@ function  Obs = SimObservation(Rob, Sen, Obs, SimLmk)
 %
 
 
-    switch Sen.type
-        
-        % camera pinHole
-        case {'pinHole'}
-            
-            % TODO : ne pas faire de boucle sur chaque amer.
-            for pos3dLmk = SimLmk.points(2:4,:)
-                
-                % TODO : faire la fonction
-                projectEuclPntIntoPinHoleOnRob(Rob.frame, Sen.frame, Sen.par.k, Sen.par.d, pos3dLmk)
-                % et l'appeller sans demander les jacobiennes.
-                
-            end
-            
+switch SimSen.type
+
+    % camera pinHole
+    case {'pinHole'}
+
+        SimObs.points = projectEuclPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
+
         % unknown
         % -------
-        otherwise
-            % Print an error and exit
-            error(['Unknown sensor type. Cannot operate an simulated observation with ''',Sen.type,''' sensor ''',Sen.name,'''.']);
-    end % and of the "switch" on sensor type
-        
-    
+    otherwise
+        % Print an error and exit
+        error(['Unknown sensor type. Cannot operate an simulated observation with ''',Sen.type,''' sensor ''',Sen.name,'''.']);
+
+end % end of the "switch" on sensor type
 
 
-
-end

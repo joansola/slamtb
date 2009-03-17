@@ -30,23 +30,23 @@ else % Jacobians
 end
 return
 
-%% Jacobians
+%% test Jacobians - WARNING! IT TAKES AGES TO COMPUTE !!
 syms rx ry rz ra rb rc rd sx sy sz sa sb sc sd u0 v0 au av d2 d4 d6 lx ly lz real
 
-Rf.x=[rx;ry;rz;ra;rb;rc;rd]
-Sf.x=[sx;sy;sz;sa;sb;sc;sd] 
+Rf.x=[rx;ry;rz;ra;rb;rc;rd];
+Sf.x=[sx;sy;sz;sa;sb;sc;sd] ;
 
-Rf = updateFrame(Rf)
-Sf = updateFrame(Sf)
+Rf = updateFrame(Rf);
+Sf = updateFrame(Sf);
 Spk = [u0;v0;au;av];
 Spd = [d2;d4;d6];
-l = [lx;ly;lz]
+l = [lx;ly;lz];
 
 [u,s,U_r,U_s,U_k,U_d,U_l]=projectEuclPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, l);
 
 
-% simplify(U_r - jacobian(u,Rf.x))
-% simplify(U_s - jacobian(u,Sf.x))
+simplify(U_r - jacobian(u,Rf.x))
+simplify(U_s - jacobian(u,Sf.x))
 simplify(U_k - jacobian(u,Spk))
 simplify(U_d - jacobian(u,Spd))
 simplify(U_l - jacobian(u,l))

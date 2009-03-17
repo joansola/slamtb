@@ -4,10 +4,6 @@ function SenFig = drawSenFig(SenFig, Obs, Sen, Lmk)
 % return the SENFIG
 
 
-% visible = {'off','on'};
-% posOffset = [0;0];
-
-
 for sen = 1:size(Obs,1)     %numel(Sen)
 
     %     for lmk = 1:size(Obs,2) %numel(Lmk)

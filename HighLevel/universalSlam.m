@@ -131,7 +131,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     MapFig = drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen) ;
     
     % Figures for each sensors
-    SenFig = drawSenFig(SenFig, Obs, Sen, Lmk) ;
+    SenFig = drawSenFig(SenFig, Obs, Sen, Lmk, SimObs) ;
     
     drawnow;
     

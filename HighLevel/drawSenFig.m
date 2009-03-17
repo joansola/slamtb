@@ -1,4 +1,4 @@
-function SenFig = drawSenFig(SenFig, Obs, Sen, Lmk)
+function SenFig = drawSenFig(SenFig, Obs, Sen, Lmk, SimObs)
 
 % DRAWSENFIG (SENFIG, OBS, SEN, LMK)  (re)draw the sensors figures.
 % return the SENFIG
@@ -16,6 +16,11 @@ for sen = 1:size(Obs,1)     %numel(Sen)
         % --------------
         case {'pinHole'}
 
+            %Simulated landmark visualisation
+            set(SenFig(sen).raw,...
+                'xdata',SimObs(sen).points(1,:),...
+                'ydata',SimObs(sen).points(2,:))
+
             % process only visible landmarks
 
             % first erase lmks that were drawn but are no longer visible
@@ -26,6 +31,7 @@ for sen = 1:size(Obs,1)     %numel(Sen)
             set(SenFig(sen).measure(erase),'vis','off');
             set(SenFig(sen).ellipse(erase),'vis','off');
             set(SenFig(sen).label(erase),  'vis','off');
+
 
             % now draw only visible landmarks
             for lmk = find(vis)

@@ -1,4 +1,6 @@
-% SLAM wireframe - a universal SLAM algorithm
+% SLAM wireframe - a universal SLAM algorithm.
+%
+%   
 
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
@@ -39,7 +41,7 @@ Obs = createObservations(Sen,Lmk);
 Tim = createTime(Time);
 
 
-%% III. Initialize wimulation structures
+%% III. Initialize simulation structures
 % Create robots and controls
 SimRob = createRobots(Robot);
 
@@ -69,6 +71,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 1. SIMULATION 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
+    % FIXME: this is hard/coded. Should be done better.
     Con(1).u = [0;0;0;0;0;0];
     Con(2).u = [.1;0;0;0;0;0.05];
     
@@ -78,7 +81,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % Simulate sensor observations
         for sens = SimRob(rob).sensors
             
-            % Observe landmarks
+            % Observe simulated landmarks
             Obs(rob, sens) = SimObservation(SimRob(rob), Sen(sens), Obs(rob, sens), SimLmk) ;
  
             % SimRobObserve(rob, sens, Obs(rob));
@@ -86,6 +89,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         end % end process sensors
         
         % Robot motion
+        % FIXME: see how to include noise in a clever way.
         SimCon(rob).u = Con(rob).u + Con(rob).uStd.*randn(6,1);
         SimRob(rob) = motion(SimRob(rob),SimCon(rob),Tim.dt);
         
@@ -118,7 +122,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Create test Obs
-    % FIXME: these two lines to be removed
+    % FIXME: these two lines to be removed, they are here just to have
+    % something to plot in the sensors figures.
     Obs(1,1)  = testObs(Obs(1,1)); 
     Obs(1,25) = testObs(Obs(1,25), [350;50], [5^2,0;0,10^2]); 
     

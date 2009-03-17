@@ -1,6 +1,6 @@
 function [pix,depth,front] = robCamPhoto(R,cam,p)
 
-% ROBCAMPHOTO Take photo from a robot with a camera
+% ROBCAMPHOTO Take photo from a robot with a camera.
 %   PIX = ROBCAMPHOTO(ROB,CAM,P) takes a photo of a point P with
 %   a camera CAM mounted in a robot ROB. CAM is a
 %   structure with camera frame CAM.X and calibration 

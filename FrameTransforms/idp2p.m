@@ -5,9 +5,9 @@ function [p,Pidp] = idp2p(idp)
 %   in Inverse depth.
 %
 %   IDP is a 6-vector : IDP = [xi yi zi el az rho]' where
-%       xi, zi, yi: are the coordinates of the 3D where depth is referred to
-%       el, az: azimuth and elevation of the ray.
-%       rho: inverse of the point's depth in the ray.
+%       xi, zi, yi: is the 3D point Pi where where distance is referred to.
+%       el, az: azimuth and elevation of the ray that starts at Pi.
+%       rho: inverse of the point's distance to Pi.
 %
 %   [P,Pidp] = IDP2P(...) returns the Jacobian of the conversion wrt IDP.
 

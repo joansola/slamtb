@@ -31,7 +31,7 @@ for sen = 1:numel(Sensor)
     So.par.pixErr = Si.pixErrorStd;
     So.par.k = Si.intrinsic;
     So.par.d = Si.distortion;
-    So.par.c = distorsion(So.par.d,numel(So.par.d),So.par.k);
+    So.par.c = invDistortion(So.par.d,numel(So.par.d),So.par.k);
 
     % state
     if Si.frameInMap

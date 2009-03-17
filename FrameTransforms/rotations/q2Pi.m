@@ -1,13 +1,13 @@
 function Pi = q2Pi(q)
 
-% Q2PI  Pi matrix construction from quaternion
+% Q2PI  Pi matrix construction from quaternion.
 %   PI = Q2PI(Q) Jacobian submatrix PI from quaternion
 %
-%   where:  Q = [a b c d]' is the attitude quaternion QUAT
-%           W = [p q r]' is the angular rates vector
-%           OMEGA = W2OMEGA(W) is a skew symetric matrix 
+%   Given:  Q     = [a b c d]'  the attitude quaternion QUAT
+%           W     = [p q r]'    the angular rates vector
+%           OMEGA = W2OMEGA(W)  a skew symetric matrix 
 %
-%   the the output matrix:
+%   The output matrix:
 %
 %                |-b -c -d |
 %           PI = | a -d  c |  

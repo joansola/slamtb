@@ -22,7 +22,7 @@ function  Obs = SimObservation(Rob, Sen, Obs, SimLmk)
             for pos3dLmk = SimLmk.points(2:4,:)
                 
                 % TODO : faire la fonction
-                % projectEuclPntIntoPinHoleCameraOnRob(Rob.frame, Sen.frame, Sen.par.k, Sen.par.d, pos3dLmk)
+                projectEuclPntIntoPinHoleOnRob(Rob.frame, Sen.frame, Sen.par.k, Sen.par.d, pos3dLmk)
                 % et l'appeller sans demander les jacobiennes.
                 
             end

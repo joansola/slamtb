@@ -5,8 +5,7 @@ function v = wing(size)
 %   WING creates a multi-patch object representing a plane, sort of a
 %   hang-glider wing.
 %   
-%   WING(SIZE) allows for choosing the wing's size. 
-%   Default is 1
+%   WING(SIZE) allows for choosing the wing's size. Default is 1.
 
 if nargin == 0
     size = 1;

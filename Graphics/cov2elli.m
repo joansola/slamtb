@@ -4,18 +4,20 @@ function [X,Y] = cov2elli(x,P,ns,NP)
 %   COV2ELLI(M,P,NS,NP) returns X and Y coordinates of the NP
 %   points of the the NS-sigma bound ellipse of the Gaussian defined by
 %   mean XM and covariances matrix P.
+%
+%   See also COV3ELLI.
 
 
 
 persistent cercle
 
 if isempty(cercle)
-        alpha = 2*pi/NP*(0:NP);
-        cercle = [cos(alpha);sin(alpha)];
+    alpha = 2*pi/NP*(0:NP);
+    cercle = [cos(alpha);sin(alpha)];
 end
 
 
-[U,D,V]=svd(P);
+[U,D]=svd(P);
 d = sqrt(D);
 
 % circle -> aligned ellipse -> rotated ellipse -> ns-ellipse

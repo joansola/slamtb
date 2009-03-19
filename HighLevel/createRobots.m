@@ -1,6 +1,10 @@
 function Rob = createRobots(Robot)
 
-% CREATEROBOTS Create robots structure
+% CREATEROBOTS Create robots structure array.
+%   Rob = CREATEROBOTS(Robot) creates the Rob() structure array to be used
+%   as SLAM data. The input Robot{}  is a cell array of structures as
+%   specified by the user in userData.m. There must be one Robot{} per each
+%   robot considered in the simulation. See userData.m for details.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 

@@ -48,7 +48,7 @@ Sensor{1} = struct(...
     'id',                   1,...           % sensor identifier
     'name',                 'Micropix',...      % sensor name
     'type',                 'pinHole',...   % type of sensor
-    'robot',                2,...           % robot where it is mounted
+    'robot',                1,...           % robot where it is mounted
     'position',             [0;0.15;.6],...    % position in robot
     'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
@@ -69,7 +69,7 @@ Sensor{2} = struct(...
     'orientationStd',       [0;0;0],...     % orient. error std
     'imageSize',            [640;480],...   % image size
     'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [320;320;200;200],...   % intrinsic params
+    'intrinsic',            [320;240;200;200],...   % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           true );         % add sensor frame in slam map?
 

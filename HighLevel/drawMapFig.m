@@ -28,10 +28,12 @@ end
 
 % for each robot:
 for rob = 1:numel(Rob)
+
+    % robots
     MapFig.estRob(rob) = drawObject(MapFig.estRob(rob),Rob(rob));
 
     for sen = Rob(rob).sensors
-        % Estimated - blue
+        % sensors 
         F = composeFrames(Rob(rob).frame,Sen(sen).frame);
         MapFig.estSen(sen) = drawObject(MapFig.estSen(sen),Sen(sen),F);
     end

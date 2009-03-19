@@ -1,6 +1,6 @@
 % SLAM wireframe - a universal SLAM algorithm.
 %
-%   
+%
 
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
@@ -63,42 +63,43 @@ MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,MapFigure);
 % Init sensor's measurement space figures
 SenFig = createSenFig(Sen,Obs,SensorFigure);
 
-% Init data logging plots
+% Init data logging 
+% TODO: do something here to collect data for post-processing or
+% plotting. Think about collecting data in files using fopen, fwrite,
+% etc., instead of creating large Matlab variables for data logging.
 
 %% V. Temporal loop
 for currentFrame = Tim.firstFrame : Tim.lastFrame
-    
-    % 1. SIMULATION 
+
+    % 1. SIMULATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    % FIXME: this is hard/coded. Should be done better.
+
+    % FIXME: this is hard-coded. Should be done better as part of the simulator.
     Con(1).u = [0;0;0;0;0;0];
     Con(2).u = [.1;0;0;0;0;0.05];
-    
+
     % Simulate robots
     for rob = 1:numel(SimRob)
-        
+
         % Simulate sensor observations
         for sen = SimRob(rob).sensors
-            
+
             % Observe simulated landmarks
             SimObs(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
- 
-            % SimRobObserve(rob, sens, Obs(rob));
-                
+
         end % end process sensors
-        
+
         % Robot motion
         % FIXME: see how to include noise in a clever way.
         SimCon(rob).u = Con(rob).u + Con(rob).uStd.*randn(6,1);
         SimRob(rob) = motion(SimRob(rob),SimCon(rob),Tim.dt);
-        
+
     end % end process robots
-    
-    
-    % 2. ESTIMATION 
+
+
+    % 2. ESTIMATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+
     % Process robots
     for rob = 1:numel(Rob)
 
@@ -106,38 +107,50 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         for sens = Rob(rob).sensors
 
             % Observe knowm landmark
-            %obsKnownLmks;
-                
+            % obsKnownLmks;
+
             % Initialize new landmarks
-            %initNewLmks;
-            
+            % initNewLmks;
+
         end % end process sensors
-        
+
         % Robot motion
-            Rob(rob) = motion(Rob(rob),Con(rob),Tim.dt);
-        
+        Rob(rob) = motion(Rob(rob),Con(rob),Tim.dt);
+
     end % end process robots
 
-    % 3. VISUALIZATION 
+    % 3. VISUALIZATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Create test Obs
-    % FIXME: these two lines to be removed, they are here just to have
+    % FIXME: these lines to be removed, they are here just to have
     % something to plot in the sensors figures.
-    Obs(1,1)  = testObs(Obs(1,1)); 
-    Obs(1,25) = testObs(Obs(1,25), [350;50], [5^2,0;0,10^2]); 
-    
+    id   = 90;
+    Lmk(3).id = id; % Simulate landmark exists in map in pisition index 3.
+    oidx = find(SimObs(2).ids == id);
+    lmk  = find([Lmk.id] == id);
+    if ~isempty(oidx)
+        Obs(2,lmk)  = testObs(Obs(2,lmk), SimObs(2).points(:,oidx), [5^2,0;0,5^2]);
+        Obs(2,lmk).lid = id;
+    else
+        Obs(2,lmk).vis = false;
+    end
+
     % Figure of the Map:
-    MapFig = drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen) ;
-    
-    % Figures for each sensors
-    SenFig = drawSenFig(SenFig, Obs, Sen, Lmk, SimObs) ;
-    
+    MapFig = drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
+
+    % Figures for all sensors
+    SenFig = drawSenFig(SenFig, Obs, Sen, Lmk, SimObs);
+
+    % Do draw all objects
     drawnow;
-    
-    
+
+
     % 4. DATA LOGGING
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % TODO: do something here to collect data for post-processing or
+    % plotting. Think about collecting data in files using fopen, fwrite,
+    % etc., instead of creating large Matlab variables for data logging.
 
 end
 

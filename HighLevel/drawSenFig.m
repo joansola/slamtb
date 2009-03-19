@@ -16,14 +16,13 @@ for sen = 1:size(Obs,1)     %numel(Sen)
         % --------------
         case {'pinHole'}
 
-            %Simulated landmark visualisation
+            % 1. Simulated landmark visualisation
             set(SenFig(sen).raw,...
                 'xdata',SimObs(sen).points(1,:),...
                 'ydata',SimObs(sen).points(2,:))
 
-            % process only visible landmarks
-
-            % first erase lmks that were drawn but are no longer visible
+            % 2. Process only visible landmarks:
+            % a - first erase lmks that were drawn but are no longer visible
             vis   = [Obs(sen,:).vis];
             drawn = (strcmp((get(SenFig(sen).ellipse,'vis')),'on'))';
             erase = drawn & ~vis;
@@ -32,8 +31,7 @@ for sen = 1:size(Obs,1)     %numel(Sen)
             set(SenFig(sen).ellipse(erase),'vis','off');
             set(SenFig(sen).label(erase),  'vis','off');
 
-
-            % now draw only visible landmarks
+            % b - now draw only visible landmarks
             for lmk = find(vis)
 
                 % Landmark type:
@@ -64,7 +62,7 @@ for sen = 1:size(Obs,1)     %numel(Sen)
                         % -------
                     otherwise
                         % Print an error and exit
-                        error(['Unknown sensor type. Cannot display landmark type ''',Lmk(lmk).type,''' with ''',Sen(sen).type,''' sensor ''',Sen(sen).name,'''.']);
+                        error(['Cannot display landmark type ''',Lmk(lmk).type,''' with ''',Sen(sen).type,''' sensor ''',Sen(sen).name,'''.']);
                 end % and of the "switch" on sensor type
 
 
@@ -82,7 +80,7 @@ for sen = 1:size(Obs,1)     %numel(Sen)
             % unknown
             % -------
         otherwise
-            error(['The sensor type is unknows, cannot display the sensor ',Sen(sen).name,' with type=',Sen(sen).type,'!']);
+            error(['Unknown sensor type. Cannot display''',Sen(sen).type,''' sensor ''',Sen(sen).name,'''.']);
     end
 
 

@@ -1,19 +1,25 @@
 function Lmk = createLandmarks(Landmark)
 
-id = 0;
+% CREATELANDMARKS  Create Lmk() structure array.
+%   Lmk = CREATELANDMARKS(Landmark) creates the structure array Lmk() to be
+%   used as SLAM data. The input Landmark{}  is a cell array of structures
+%   as specified by the user in userData.m. There must be one Landmark{}
+%   per each landmark type considered. See userData.m for details.
+
+lmk = 0; % lmk index in Lmk()
 
 for lmkClass = 1:numel(Landmark)
 
-    numLmk = 0;
+    numLmk = 0; % lmk # in a given class
 
     while numLmk < Landmark{lmkClass}.maxNbr
 
-        numLmk = numLmk + 1;
-        id = id + 1;
+        numLmk = numLmk + 1; 
+        lmk    = lmk + 1;
         
         Li = Landmark{lmkClass};
         
-        Lo.id   = id;
+        Lo.id   = 0;
         Lo.type = Li.type;
 
         % state
@@ -45,7 +51,7 @@ for lmkClass = 1:numel(Landmark)
             Lo.nob.N = [];
         end
         
-        Lmk(id) = Lo;
+        Lmk(lmk) = Lo;
         
     end
     

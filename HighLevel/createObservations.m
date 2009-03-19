@@ -7,7 +7,8 @@ for sen = 1:numel(Sen)
         S = Sen(sen);
         L = Lmk(lmk);
         
-        O.rid     = S.robot;    % robot id
+        O.sen     = sen;        % sensor index
+        O.lmk     = lmk;        % landmark index.
         O.sid     = S.id;       % sensor id
         O.lid     = L.id;       % lmk id
         O.exp.e   = [];         % expectation mean

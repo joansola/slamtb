@@ -12,56 +12,12 @@ global Map
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 userData;
 
-%% II. Initialize data structures from user data
-% Create robots and controls
-Rob = createRobots(Robot);
-Con = createControls(Robot);
-
-% Create sensors
-Sen = createSensors(Sensor);
-
-% Install sensors in robots
-[Rob,Sen] = installSensors(Rob,Sen);
-
-% Create Landmarks and non-observables
-Lmk = createLandmarks(Landmark);
-% Nob = createNonObservables(Landmark);
-
-% Create Map - empty
-Map = createMap(Rob,Sen,Lmk);
-
-% Initialize robots and sensors in Map
-Rob = initRobots(Rob);
-Sen = initSensors(Sen);
-
-% Create Observations (matrix: [ line=sensor , colums=landmark ])
-Obs = createObservations(Sen,Lmk);
-
-% Create time variables
-Tim = createTime(Time);
-
-
-%% III. Initialize simulation structures
-% Create robots and controls
-SimRob = createRobots(Robot);
-
-% Create sensors
-SimSen = createSensors(Sensor);
-
-% Install sensors in robots
-[SimRob,SimSen] = installSensors(SimRob,SimSen);
-
-% Create world
-SimLmk = createSimLmk(World);
+%% II. Initialize all data structures from user data
+createSLAMstructures;     % SLAM data
+createSimStructures;      % Simulation data
+createGraphicsStructures; % Graphics handles
 
 % Create source and/or destination files and paths
-
-%% IV. Initialize graphics objects
-% Init map figure
-MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,MapFigure);
-
-% Init sensor's measurement space figures
-SenFig = createSenFig(Sen,Obs,SensorFigure);
 
 % Init data logging 
 % TODO: do something here to collect data for post-processing or

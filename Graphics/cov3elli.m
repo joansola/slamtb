@@ -1,13 +1,16 @@
 function [X,Y,Z] = cov3elli(x,P,ns,NP)
 
 % COV3ELLI  3D ellipsoid from Gaussian mean and covariance.
-%   [X,Y,Z] = COV3ELLI(x0,P,ns,NP) calculates the points corresponding to
-%   the 2 biggest semi-diametres of the ellipsoid defined by the
-%   covariances matrix P and centered at x0:
+%   [X,Y,Z] = COV3ELLI(x0,P,ns,NP) gives X, Y and Z coordinates of the
+%   points corresponding to the 2 biggest semi-diametres of the ellipsoid
+%   defined by the covariances matrix P and centered at x0:
 %
 %        (x-x0)'*(P^-1)*(x-x0) = ns^2.
 %
-%   See also COV2ELLI.
+%   The ellipsoid can be plotted in a 3D graphic by just creating a line
+%   with line(X,Y,Z).
+%
+%   See also COV2ELLI, IDP3ELLI, LINE.
 
 persistent cercle
 

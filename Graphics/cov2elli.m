@@ -1,11 +1,14 @@
 function [X,Y] = cov2elli(x,P,ns,NP)
 
 % COV2ELLI  Ellipse points from mean and covariances matrix.
-%   COV2ELLI(M,P,NS,NP) returns X and Y coordinates of the NP
+%   [X,Y] = COV2ELLI(X0,P,NS,NP) returns X and Y coordinates of the NP
 %   points of the the NS-sigma bound ellipse of the Gaussian defined by
-%   mean XM and covariances matrix P.
+%   mean X0 and covariances matrix P.
 %
-%   See also COV3ELLI.
+%   The ellipse can be plotted in a 2D graphic by just creating a line
+%   with line(X,Y).
+%
+%   See also COV3ELLI, LINE.
 
 
 

@@ -21,9 +21,11 @@ for lmkClass = 1:numel(Landmark)
         
         Lo.id   = 0;
         Lo.type = Li.type;
+        Lo.used = 0;
 
         % state
-        Lo.state.x = [];
+        Lo.state.x = [];        
+        Lo.state.P = [];
         switch Li.type
             case {'eucPnt'}
                 Lo.state.size = 3;
@@ -32,6 +34,7 @@ for lmkClass = 1:numel(Landmark)
             case {'idpPnt','plkLin'}
                 Lo.state.size = 6;
         end
+        Lo.state.r = [];
 
         % other parameters
         Lo.par = [];

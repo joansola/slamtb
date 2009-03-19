@@ -6,7 +6,7 @@
 %   * Specify site, run and estimation details
 %   * Specify sampling time and start and end frames.
 %   * Use as many robots and sensors as you wish.
-%   * Assign sensors to robots via Rob{i}.sensorList.
+%   * Assign sensors to robots via Sen{i}.robot.
 %   * Use field Sens{i}.d for radial distortion parameters if desired.
 %   * Define one instance of each landmark type you wish to use. Use the
 %   field Lmk{i}.naxNbr to specify the maximum number of such landmarks
@@ -17,8 +17,8 @@
 % Experiment names 
 %   - site name, series gathered, estimation run number 
 Experiment = struct(...
-    'site',                 'expname',...   % Name of the site
-    'dataRun',              1,...           % Run nbr on site
+    'site',                 'sitename',...  % Name of the site
+    'dataRun',              1,...           % Run # on this site
     'estimateRun',          1,...           % slam run for data and site
     'lmkTypes',             'idp',...       % types of landmarks used
     'sensingType',          'mono',...      % sensing mode
@@ -29,7 +29,7 @@ Experiment = struct(...
 Time = struct(...
     'dt',                   .1,...           % sampling time
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            100);           % last frame #
+    'lastFrame',            50);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions

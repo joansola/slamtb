@@ -1,5 +1,36 @@
 function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,MapFigure)
 
+% CREATEMAPFIG  Create 3D map figure.
+%   MAPFIG = CREATEMAPFIG(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,MapFigure)
+%   creates the map figure in figure 1, containing the following graphics
+%   objects:
+%       - a grid representing the ground
+%       - simulated robots and sensors - in green
+%       - estimated robots and sensors - in blue
+%       - simulated landmarks (virtual world) - in red
+%       - estimated landmarks, containing mean and uncertainty ellipsoid - in
+%       colors depending on the landmark type.
+%
+%   The output MAPFIG is a structure of handles to all these graphics
+%   objects. See the Matlab documentation for information about graphics
+%   handles and the way to efficiently manipulate graphics. MAPFIG has the
+%   following fields:
+%       .fig    handle to the figure
+%       .axes   handle to the axes
+%       .simRob array of handles to the simulated robots 'patch' objects
+%       .simSen array of handles to the simulated sensors 'patch' objects
+%       .simLmk handle to the simulated landmarks 'line' object
+%       .estRob array of handles to the estimated robots 'patch' objects
+%       .estSen array of handles to the estimated sensors 'patch' objects
+%       .estLmk array of structures with handles to the estimated landmarks, with
+%           .mean       handle to the ellipsoid's center 'line' object
+%           .ellipse    handle to the ellipsoid's contour 'line' object
+%
+%   The figure is updated using drawMapFig.
+%
+%   See also DRAWMAPFIG, LINE, PATCH, SURFACE, SET, GET.
+
+
 % Figure
 MapFig.fig = figure(1);
 clf

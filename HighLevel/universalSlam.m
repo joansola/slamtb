@@ -1,30 +1,30 @@
 % SLAM wireframe - a universal SLAM algorithm.
 %
-%
 
-
-%   (c) 2009 Joan Sola @ LAAS-CNRS
+%   Created and maintained by
+%   (c) 2009 Joan Sola @ LAAS-CNRS. jsola@laas.fr.
+%   Programmers:
+%   (c) David Marquez and Jean-Marie Codol @ LAAS-CNRS
 
 % clear workspace and declare globals
 clear
-global Map
+global Map 
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
-userData;
+userData;   % user-defined data. SCRIPT.
 
 %% II. Initialize all data structures from user data
-createSLAMstructures;     % SLAM data
-createSimStructures;      % Simulation data
-createGraphicsStructures; % Graphics handles
+createSLAMstructures;     % SLAM data. SCRIPT.
+createSimStructures;      % Simulation data. SCRIPT.
+createGraphicsStructures; % Graphics handles. SCRIPT.
 
-% Create source and/or destination files and paths
-
-% Init data logging 
+%% III. Init data logging 
+% TODO: Create source and/or destination files and paths.
 % TODO: do something here to collect data for post-processing or
 % plotting. Think about collecting data in files using fopen, fwrite,
 % etc., instead of creating large Matlab variables for data logging.
 
-%% V. Temporal loop
+%% IV. Temporal loop
 for currentFrame = Tim.firstFrame : Tim.lastFrame
 
     % 1. SIMULATION
@@ -81,8 +81,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % Create test Obs
     % FIXME: these lines to be removed, they are here just to have
     % something to plot in the sensors figures.
-    id   = 90;
-    Lmk(3).id = id; % Simulate landmark exists in map in pisition index 3.
+    id   = 190;
+    Lmk(23).id = id; % Simulate landmark exists in map in pisition index 3.
     oidx = find(SimObs(2).ids == id);
     lmk  = find([Lmk.id] == id);
     if ~isempty(oidx)
@@ -110,4 +110,4 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
 end
 
-%% VI. Post-processing
+%% V. Post-processing

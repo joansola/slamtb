@@ -18,7 +18,7 @@ function [q1,Uq,Uw] = qpredict(q,w,dt,met)
 %   The Jacobians are always computed according to the 'tustin' method.
 %   'tustin' is the default method.
 %
-%   See also QPROD, W2OMEGA, Q2PI, V2Q, EPREDICT, SPREDICT
+%   See also QPROD, W2OMEGA, Q2PI, V2Q, QUATERNION.
 
 
 switch nargin
@@ -45,7 +45,7 @@ switch lower(met)
         error('Unknown quaternion predict method. Use ''tustin'' or ''exact''')
 end
 
-if nargout > 1
+if nargout > 1  % Jacobians always use Tustin method
     W  = w2omega(w);
     Uq = eye(4) + 0.5*dt*W;
     Uw = 0.5*dt*q2Pi(q);

@@ -3,6 +3,9 @@ function [q,Qv] = v2q(v)
 % V2Q Rotaiton vector to quaternion conversion.
 %   [Q,Qv] = V2Q(V) returns the quaternion Q correscponding to the rotation
 %   encoded in rotation vector V, and the associated Jacobian Qv = dQ/dV.
+%
+%   See also QUATERNION, R2Q, Q2E, Q2V.
+
 
 if nargout == 1
     

@@ -4,6 +4,9 @@ function [e,Eq] = q2e(q)
 %   Q2E(Q) returns an Euler angles vector corresponding to orientation Q
 %
 %   [E,Jq] = Q2E(Q) returns also the Jacobian matrix.
+%
+%   See also QUATERNION, R2Q, E2Q, Q2V.
+
 
 a  = q(1);
 b  = q(2);

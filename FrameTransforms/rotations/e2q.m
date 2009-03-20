@@ -4,7 +4,10 @@ function [q,Qe] = e2q(e)
 %   Q = vE2Q(E) gives the quaternion Q corresponding to the Euler angles
 %   vector E = [roll;pitch;yaw]
 %
-%   [Q,J] = E2Q(E) returns also the Jacobian matrix J = dQ/dE
+%   [Q,J] = E2Q(E) returns also the Jacobian matrix J = dQ/dE.
+%
+%   See also QUATERNION, R2Q, Q2E, Q2V.
+
 
 qx = au2q(e(1),[1;0;0]); %  roll rot. on X axis
 qy = au2q(e(2),[0;1;0]); % pitch rot. on Y axis

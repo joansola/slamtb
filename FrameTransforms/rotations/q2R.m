@@ -10,6 +10,8 @@ function [R,Rq] = q2R(q)
 %      into the earth referenced vector  re
 %
 %   [R,Rq] = (...) returns the Jacobian wrt q.
+%
+%   See also QUATERNION, R2Q, Q2E, Q2V.
 
 [a,b,c,d] = split(q);
 

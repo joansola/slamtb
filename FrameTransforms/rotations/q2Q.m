@@ -12,6 +12,9 @@ function Q = q2Q(q)
 %             b  a -d  c
 %             c  d  a -b
 %             d -c  b  a ];
+%
+%   See also QUATERNION, R2Q, Q2E, Q2V.
+
 
 
 Q = [ q(1) -q(2) -q(3) -q(4)

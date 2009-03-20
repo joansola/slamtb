@@ -19,7 +19,7 @@ function [Xo, Xo_x, Xo_u] = constVel(X, u, dt)
 %
 %   [X, X_x, X_u] = CONSTVEL(...) returns the Jacobians wrt X and U.
 %
-%   See also RPREDICT, QPREDICT, V2Q.
+%   See also RPREDICT, QPREDICT, V2Q, QUATERNION.
 
 % (c) 2009 Joan Sola @ LAAS-CNRS.
 

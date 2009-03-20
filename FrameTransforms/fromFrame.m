@@ -20,7 +20,7 @@ function [p_W,Ff,Fp] = fromFrame(F,p_F)
 %     Fp: wrt the point P_F
 %   Note that this is only available for single points.
 %
-%   See also TOFRAME, Q2PI.
+%   See also TOFRAME, Q2PI, QUATERNION.
 
 %   [1] Joan Sola, "Towards visual localization, mapping and moving objects
 %   tracking by a moible robot," PhD dissertation, pages 181-183, Institut

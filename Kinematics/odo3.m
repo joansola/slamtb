@@ -17,7 +17,7 @@ function [Rob,Xr,Q2q,Xdx,Q2dv] = odo3(Rob,dx,dv)
 %   [R,Fr,Fu] = ODO3(R,dx,dv) gives the full Jacobians wrt state and
 %   odometry inputs.
 %
-%   See also V2Q, QPROD.
+%   See also V2Q, QPROD, QUATERNION.
 
 if nargin == 2
     dv = dx(4:6);

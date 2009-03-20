@@ -6,6 +6,9 @@ function [qc,QCq] = q2qc(q)
 %   rotation of that represented by Q.
 %
 %   [qc,QCq] = Q2QC(...) gives the Jacobian wrt Q.
+%
+%   See also QUATERNION, R2Q, Q2E, Q2V.
+
 
 qc        = q;
 qc(2:end) = -qc(2:end);

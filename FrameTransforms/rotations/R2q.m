@@ -1,6 +1,9 @@
 function q = R2q(R)
 
 % R2Q  rotation matrix to quaternion conversion
+%
+%   See also QUATERNION, Q2R, Q2E, Q2V.
+
 
 T = trace(R) + 1;
 

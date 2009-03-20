@@ -1,6 +1,6 @@
 function Pi = pi2pc(Pi)
 
-% PI2PC  Pi matrix to conjugated Pi matrix conversion
+% PI2PC  Pi matrix to conjugated Pi matrix conversion.
 %   PC = PI2PC(PI) converts the matrix
 %       PI = QUAT2PI(Q)
 %   into 

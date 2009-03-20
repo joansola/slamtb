@@ -1,14 +1,14 @@
 function v = thickVehicle(size)
 
-% CREATEVEHICLE  creates a vehicle graphics 3D object
+% THICKVEHICLE  creates a vehicle graphics 3D object.
 %
-%   CREATEVEHICLE creates a thick triangle representing a vehicle
+%   THICKVEHICLE creates a thick triangle representing a vehicle
 %   This triangle is heading towards vehicle principal axis
 %   and is located at vehicle position. Initial configuration
 %   is: position at origin and principal axis aligned with
 %   world x axis.
 %   
-%   CREATEVEHICLE(SIZE) allows for choosing a vehicle size. 
+%   THICKVEHICLE(SIZE) allows for choosing a vehicle size. 
 %   Default is 0.5
 
 if nargin == 0

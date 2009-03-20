@@ -1,4 +1,4 @@
-% QUATERNION  Help on quaternions for the rotations toolbox.
+% QUATERNION  Help on quaternions for the rotations/ toolbox.
 %   
 %   We specify a quaternion with a column, unit 4-vector
 %
@@ -24,11 +24,14 @@
 %       * It may be written as q_WF.
 %       * Consider now a vector v = [0 vx vy vz]' in quaternion space. We
 %       write v_F and v_W to name their coordinates in frames W and F.
-%       * Then we have  v_W = q_WF.v_F.q_FW, with q_FW = (q_WF)', the
-%       conjugate of q_WF.
-%       * This is equivalent to the rotation matrix forms V_W = R_WF*V_F
-%       and V_F = R_FW*V_W, with R_WF = q2R(q_WF), R_FW = R_WF' and V_{W,F}
-%       in Euclidean 3d-space.
+%       * Then we have  
+%           v_W = q_WF.v_F.q_FW, 
+%       with q_FW = (q_WF)', the conjugate of q_WF.
+%       * This is equivalent to the rotation matrix forms 
+%           V_W = R_WF*V_F
+%           V_F = R_FW*V_W, 
+%       with R_WF = q2R(q_WF), R_FW = R_WF' and V_{W,F} in Euclidean
+%       3d-space.
 %
 %   Some interesting functions involving quaternions are:
 %

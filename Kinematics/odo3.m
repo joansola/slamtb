@@ -1,6 +1,6 @@
 function [Rob,Xr,Q2q,Xdx,Q2dv] = odo3(Rob,dx,dv)
 
-% ODO3 3D Odometry evolution
+% ODO3 3D Odometry evolution.
 %   R = ODO3(R,DX,DV) performs one step on the pose R of a vehicle, given
 %   odometry increments DX and DV in robot frame.
 %   - Orientation in R is given in quaternion.
@@ -18,6 +18,9 @@ function [Rob,Xr,Q2q,Xdx,Q2dv] = odo3(Rob,dx,dv)
 %   odometry inputs.
 %
 %   See also V2Q, QPROD, QUATERNION.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
+
 
 if nargin == 2
     dv = dx(4:6);

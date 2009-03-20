@@ -1,11 +1,14 @@
 function [q,Qq1,Qq2] = qProd(q1,q2)
 
-% QPROD Quaternion product
+% QPROD Quaternion product.
 %   QPROD(Q1,Q2) is the quaternion product Q1 * Q2
 %
 %   [Q,Qq1,Qq2] = QPROD(...) gives the Jacobians wrt Q1 and Q2.
 %
 %   See also QUATERNION, R2Q, Q2E, Q2V.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
+
 
 [a,b,c,d] = split(q1);
 [w,x,y,z] = split(q2);

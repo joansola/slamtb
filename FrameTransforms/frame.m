@@ -1,4 +1,4 @@
-% FRAME  Help on frames for the FrameTransforms toolbox.
+% FRAME  Help on frames for the FrameTransforms/ toolbox.
 %
 %   Frames are Matlab structures used to store data belonging to 3D frames.
 %   We do this to avoid having to compute multiple times rotation matrices
@@ -6,10 +6,9 @@
 %
 %   A frame is specified with a translation vector and an orientation
 %   quaternion (see QUATERNION), giving a state vector of 7 components.
-%   This is the essential frame information, stored in field frame.x, and
-%   the only one that is included as part of the SLAM state vector if the
-%   frame is to be estimated. From this 7-vector, all other fields are
-%   created or updated using the UPDATEFRAME function.
+%   This is the essential frame information, stored in field frame.x. From
+%   this 7-vector, all other fields are created or updated using the
+%   UPDATEFRAME function.
 %
 %   The fields of a frame structure are:
 %

@@ -1,12 +1,12 @@
 function [a,u,Av,Uv] = v2au(v)
 
-% R2AU  Rotation vector to rotation axis and angle conversion
+% V2AU  Rotation vector to rotation axis and angle conversion.
 %   [ALPHA,U] = R2AU(V) converts the rotation vector V into its
-%   equivalent axis unity vector U and the rotated angle ALPHA
+%   equivalent axis unity vector U and the rotated angle ALPHA.
 %
 %   [ALPHA,U,Av,Uv] = V2AU(...) returns the Jacobians of ALPHA and U wrt V.
-%
-% Note: it used to be r2av but confusion with possible R2av led to name change
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
 
 v = v(:);
 a = sqrt(dot(v,v));

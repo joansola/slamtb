@@ -1,9 +1,11 @@
 function [q,Qa,Qu] = au2q(a,u)
-% AU2Q rotated angle and rotation axis vector to quaternion
+% AU2Q rotated angle and rotation axis vector to quaternion.
 %   Q = AU2Q(A,U) gives the quaternion representing a rotation
 %   of A rad around the axis defined by the unit vector U.
 %
 %   [Q,Qa,Qu] = AU2Q(...) returns the Jacobians wrt A and U.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
 
 q = [  cos(a/2)
     u*sin(a/2)];

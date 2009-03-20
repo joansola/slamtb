@@ -1,6 +1,6 @@
 function [r,Rr,Rv,Ra] = rpredict(r,v,a,dt)
 
-% RPREDICT Position prediction
+% RPREDICT Position prediction.
 %   RPREDICT(R,V,DT) performs the time update R = R + V*DT.
 %
 %   RPREDICT(R,V,A,DT) considers R = R + V*DT + 1/2*A*DT instead.
@@ -8,7 +8,9 @@ function [r,Rr,Rv,Ra] = rpredict(r,v,a,dt)
 %   [R,Rr,Rv,Ra] = ... returns Jacobian matrices wrt position R, velocity V
 %   and acceleration A.
 %
-%   See also SPREDICT, VPREDICT, QPREDICT, BPREDICT
+%   See also VPREDICT, QPREDICT.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
 
 if nargin == 3
     dt = a;

@@ -1,8 +1,11 @@
 function e = R2e(R)
 
-% R2E  Rotation matrix to Euler angles conversion
+% R2E  Rotation matrix to Euler angles conversion.
 %
-%   See EULER2MAT for information about the reference frames
+%   See also FRAME.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
+
 
 
 s = whos('R');

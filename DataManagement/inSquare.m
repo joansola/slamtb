@@ -1,6 +1,6 @@
 function inSq = inSquare(data,sq,m)
 
-% INSQUARE  Points inside square
+% INSQUARE  Points inside square.
 %   INSQUARE(DATA,SQ) returns TRUE for those points in point
 %   matrix DATA that are inside a rectangle SQ.
 %
@@ -10,7 +10,7 @@ function inSq = inSquare(data,sq,m)
 %
 %   SQ is defined by its limits as SQ = [xmin xmax ymin ymax].
 %
-%   DATA is a points matrix : DATA = [P1 ... PN] ,
+%   DATA is a 2D-points matrix : DATA = [P1 ... PN] ,
 %   with Pi = [xi;yi].
 
 if nargin < 3

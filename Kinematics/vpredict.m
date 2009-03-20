@@ -1,6 +1,6 @@
 function [v,Vv,Va] = vpredict(v,a,dt)
 
-% VPREDICT Velocity prediction
+% VPREDICT Velocity prediction.
 %   VPREDICT(V) performs the time update V = V
 %
 %   VPREDICT(V,A,DT) performs the time update V = V + A*DT
@@ -8,7 +8,9 @@ function [v,Vv,Va] = vpredict(v,a,dt)
 %   [V,Vv,Va] = ... returns the Jacobian matrices wrt velocity V and 
 %   acceleration A.
 %
-%   See also SPREDICT, RPREDICT, QPREDICT, BPREDICT, INVACC
+%   See also RPREDICT, QPREDICT.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
 
 Vv = eye(length(v));
 

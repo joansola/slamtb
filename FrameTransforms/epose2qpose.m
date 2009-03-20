@@ -1,6 +1,6 @@
 function [qp,QPe] = epose2qpose(ep)
 
-% EPOSE2QPOSE  Euler-specified to quaternion-specified full pose conversion
+% EPOSE2QPOSE  Euler-specified to quaternion-specified pose conversion.
 %
 %   QP = EPOSE2QPOSE(EP) returns a full pose QP=[X;Q] from a full pose QE=[X;E]
 %   where X is 3D opsition and Q and E are 3D orientations

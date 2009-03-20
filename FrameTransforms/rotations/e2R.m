@@ -1,11 +1,13 @@
 function [R,Re] = e2R(e)
 
-% E2R Euler angles to rotation matrix
+% E2R Euler angles to rotation matrix.
 %   E2R(EU) gives the rotation matrix body to world
 %   corresponding to the body orientation given
-%   by the euler angles vector EU (roll, pitch, yaw)
+%   by the euler angles vector EU (roll, pitch, yaw).
 %
-%   See also R2E
+%   See also R2E.
+
+
 
 r  = e(1); %roll
 p  = e(2); %pitch

@@ -1,6 +1,6 @@
 function mapObs = mapObserver(world,mapView)
 
-% MAPOBSERVER  Initialize observer camera for map plots
+% MAPOBSERVER  Initialize observer camera for map plots.
 
 
 

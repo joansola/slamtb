@@ -1,6 +1,6 @@
 function [v,Vpy] = py2vec(py)
 
-% PY2VEC  Pitch and yaw to 3D direction vector
+% PY2VEC  Pitch and yaw to 3D direction vector.
 %   V = PY2VEC(PY) returns a unit direction vector V with the pitch and yaw
 %   given in input vector PY.
 %

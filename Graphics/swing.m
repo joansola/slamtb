@@ -1,6 +1,11 @@
 function wstruct = swing(wsize,color,ax)
 
-% WSTRUCT = SWING(WSIZE,COLR,AX)
+% SWING  Create a graphics structure with a wing shape.
+%   WSTRUCT = SWING(WSIZE,COLR,AX) creates a structure for a 'patch'
+%   graphic object correspoinding to a wing of size WSIZE, color COLR, in
+%   axes AX.
+%
+%   See also WING, PATCH.
 
 if nargin < 3
     ax = gca;

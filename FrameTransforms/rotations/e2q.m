@@ -1,12 +1,14 @@
 function [q,Qe] = e2q(e)
 
-% E2Q Euler angles to quaternion conversion
+% E2Q Euler angles to quaternion conversion.
 %   Q = vE2Q(E) gives the quaternion Q corresponding to the Euler angles
-%   vector E = [roll;pitch;yaw]
+%   vector E = [roll;pitch;yaw].
 %
 %   [Q,J] = E2Q(E) returns also the Jacobian matrix J = dQ/dE.
 %
 %   See also QUATERNION, R2Q, Q2E, Q2V.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
 
 
 qx = au2q(e(1),[1;0;0]); %  roll rot. on X axis

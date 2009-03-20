@@ -1,8 +1,10 @@
 function f = cloister(xmin,xmax,ymin,ymax,n)
 
-% CLOISTER  generates features in a cloister shape
+% CLOISTER  Generates features in a 2D cloister shape.
 %   CLOISTER(XMIN,XMAX,YMIN,YMAX) generates a 2D cloister
-%   in the limits indicated as parameters
+%   in the limits indicated as parameters.
+%
+%   See also THICKCLOISTER.
 
 if nargin < 5
     n = 9;

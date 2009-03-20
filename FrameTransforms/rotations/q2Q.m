@@ -2,16 +2,16 @@ function Q = q2Q(q)
 
 % q2Q  Quaternion to quaternion matrix conversion.
 %   Q = q2Q(q) gives the matrix Q so that the quaternion product
-%   q1 * q2 is equivalent to the matrix product:
+%   q1 x q2 is equivalent to the matrix product:
 %
-%   q1 * q2 = q2Q(q1) * q2
+%       q1 x q2 == q2Q(q1) * q2
 %
 %   If q = [a b c d]' this matrix is
 %
-%   Q = [ a -b -c -d
-%         b  a -d  c
-%         c  d  a -b
-%         d -c  b  a ];
+%       Q = [ a -b -c -d
+%             b  a -d  c
+%             c  d  a -b
+%             d -c  b  a ];
 
 
 Q = [ q(1) -q(2) -q(3) -q(4)

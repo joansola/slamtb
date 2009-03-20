@@ -8,7 +8,7 @@
 
 % clear workspace and declare globals
 clear
-global Map 
+global Map
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 userData;   % user-defined data. SCRIPT.

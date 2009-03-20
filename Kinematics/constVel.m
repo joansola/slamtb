@@ -17,7 +17,7 @@ function [Xo, Xo_x, Xo_u] = constVel(X, u, dt)
 %
 %   X = CONSTVEL(X, DT) assumes U = zeros(6,1).
 %
-%   [X, X_x, X_u] = CONSTVEL(...) returns teh Jacobians wrt X and U.
+%   [X, X_x, X_u] = CONSTVEL(...) returns the Jacobians wrt X and U.
 %
 %   See also RPREDICT, QPREDICT, V2Q.
 

@@ -1,30 +1,21 @@
 function [Rob,Sen] = installSensors(Rob,Sen)
 
-% INSTALLSENSORS  Associate sensors to robots.
+% INSTALLSENSORS  Install sensors on robots.
+%   [Rob, Sen] = INSTALLSENSORS(Rob, Sen) installs each sensor in Sen on
+%   the robot Rob(rob), with rob = Sen(sen).robot. Installation is done
+%   by augmenting the vector in field Rob(rob).sensors with the new sensor.
 
 % (c) 2009 Joan Sola @ LAAS-CNRS
 
-% for rob = 1:numel(Rob)
-%     
-%     R = Rob(rob);
-%     
-%     for sen = R.sensors
-%         
-%         if isempty(Sen(sen).robot)
-%             Sen(sen).robot = R.id;
-%         else
-%             error(...
-%                 'Attempt to assign sensor %d to different robots %d and %d.',...
-%                 sen,Sen(sen).robot,rob)
-%         end
-%         
-%     end
-% end
 
 for sen = 1:numel(Sen)
-    
+
     rob = Sen(sen).robot;
-    
-    Rob(rob).sensors = [Rob(rob).sensors sen];
-    
+
+    if rob > numel(Rob)
+        error('Attempt to install sensor on inexistent robot.');
+    else
+
+        Rob(rob).sensors = [Rob(rob).sensors sen];
+    end
 end

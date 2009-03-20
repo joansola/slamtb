@@ -4,15 +4,17 @@ function [q,Qq1,Qq2] = qProd(q1,q2)
 %   QPROD(Q1,Q2) is the quaternion product Q1 * Q2
 %
 %   [Q,Qq1,Qq2] = QPROD(...) gives the Jacobians wrt Q1 and Q2.
+%
+%   See also Q2Q.
 
 [a,b,c,d] = split(q1);
 [w,x,y,z] = split(q2);
 
 q = [...
-    a*w-b*x-c*y-d*z
-    a*x+b*w+c*z-d*y
-    a*y-b*z+c*w+d*x
-    a*z+b*y-c*x+d*w];
+    a*w - b*x - c*y - d*z
+    a*x + b*w + c*z - d*y
+    a*y - b*z + c*w + d*x
+    a*z + b*y - c*x + d*w];
 
 if nargout > 1
     Qq1 = [...

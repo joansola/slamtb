@@ -1,5 +1,10 @@
 function Rob = motion(Rob, Con, dt)
-
+% MOTION  Robt motion.
+%   Rob = MOTION(Rob, Con, DT) performs one motion step to robot Rob with
+%   control signals Con, following the motion model in Rob.motion. The time
+%   increment DT is used only if the motion model requires it.
+%
+%   See also CONSTVEL, ODO3, UPDATEFRAME.
 
 
 % motion model of the  robot:

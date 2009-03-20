@@ -10,6 +10,8 @@ function [t,q,R,Rt,Pi,Pc] = splitFrame(F)
 %   its conjugate Pc. See fromFrame and toFrame for explanations on
 %   matrices Pi and Pc. If F is a frame structure, it needs to contain the
 %   fields F.Pi and F.Pc.
+%
+%   See also FRAME, UPDATEFRAME.
 
 if isa(F,'struct')
     t  = F.t;

@@ -8,6 +8,8 @@ function H = composeFrames(F,G)
 %       .q  orientation quaternion
 %
 %   The resulting frame H, however, contains the full frame structure.
+%
+%   See also FRAME, SPLITFRAME, QUATERNION.
 
 H.t = fromFrame(F,G.t);
 H.q = qProd(F.q,G.q);

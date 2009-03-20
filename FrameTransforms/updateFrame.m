@@ -21,7 +21,7 @@ function F = updateFrame(F)
 %       F.it = -F.R'*F.t;
 %       F.iq = [1;-1;-1;-1].*F.q;
 %
-%   See also Q2R, Q2PI, PI2PC
+%   See also FRAME, Q2R, Q2PI, PI2PC, SPLITFRAME.
 
 % F.X(4:7) = F.X(4:7)/norm(F.X(4:7)); % normalize quaternion
 F.t  = F.x(1:3);

@@ -4,14 +4,14 @@
 %
 %       q = [a b c d]' , norm(q) = 1.
 %
-%   with  a  the real part and [b c d]' the imaginary parts. This is
+%   with [a] the real part and [b c d]' the imaginary parts. This is
 %   equivalent to writing the true quaternion in quaternion space
 %
-%       q = a + bi + cj + dk, 
+%       q = a + b.i + c.j + d.k, 
 %
 %   with
 %
-%       i^2 = j^2 = k^2 = -1, ij = k, ji = -k.
+%       i^2 = j^2 = k^2 = -1, i.j = k, j.i = -k.
 %
 %   NOTE: The products performed in quaternion space are indicated with
 %   a dot as in (q1.q2). Matrix products are with a star (A*v). 
@@ -20,18 +20,20 @@
 %   following convention:
 %
 %       * Consider a world frame W and a frame F.
-%       * q is used to encode the orientation of frame F wrt frame W.
-%       * It may be written as q_WF.
-%       * Consider now a vector v = [0 vx vy vz]' in quaternion space. We
-%       write v_F and v_W to name their coordinates in frames W and F.
-%       * Then we have  
-%           v_W = q_WF.v_F.q_FW, 
-%       with q_FW = (q_WF)', the conjugate of q_WF.
+%       * q is used to encode the orientation of frame F wrt frame W. It
+%         may be written as q_WF.
+%       * Consider now a vector v = vx.i + vy.j + vz.k in quaternion space.
+%       * We name v_F and v_W the coordinates of v in frames W and F.
+%       * Then, if q_FW = (q_WF)' = a - b.i - c.j - d.k is the conjugate of
+%         q_WF, we have
+%           v_W = q_WF.v_F.q_FW.
 %       * This is equivalent to the rotation matrix forms 
 %           V_W = R_WF*V_F
 %           V_F = R_FW*V_W, 
-%       with R_WF = q2R(q_WF), R_FW = R_WF' and V_{W,F} in Euclidean
-%       3d-space.
+%         with 
+%           V_{W,F} in Euclidean 3d-space
+%           R_WF = q2R(q_WF) 
+%           R_FW = R_WF'
 %
 %   Some interesting functions involving quaternions are:
 %

@@ -1,6 +1,6 @@
-function MapFig = drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen)
+function drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen)
 
-% DRAWMAPFIG  Draw 3D map figure.
+% DRAWMAPFIG  Redraw the 3D map figure.
 %   DRAWMAPFIG(MAPFIG, ROB, SEN, LMK, SIMROB, SIMSEN) updates all
 %   graphic hadles in MAPFIG to reflect the changes in  ROB, SEN, LMK,
 %   SIMROB, and SIMSEN. MAPFIG is the map structure created with

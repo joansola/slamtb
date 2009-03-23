@@ -31,8 +31,10 @@ function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,MapFigure)
 %   See also DRAWMAPFIG, LINE, PATCH, SURFACE, SET, GET.
 
 
+
 % Figure
 MapFig.fig = figure(99);
+moreindatatip
 clf
 set(MapFig.fig,...
     'numbertitle','off',...

@@ -36,8 +36,8 @@ userData;   % user-defined data. SCRIPT.
 % etc., instead of creating large Matlab variables for data logging.
 
 %% IV. Temporal loop
+tic
 for currentFrame = Tim.firstFrame : Tim.lastFrame
-
     % 1. SIMULATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -67,6 +67,9 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 2. ESTIMATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+    % Sample period
+    Tim.dt = samplePeriod;
+
     % Process robots
     for rob = 1:numel(Rob)
 
@@ -93,22 +96,24 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % Create test Obs
     % FIXME: these lines to be removed, they are here just to have
     % something to plot in the sensors figures.
-    id   = 190;
-    Lmk(23).id = id; % Simulate landmark exists in map in pisition index 3.
-    oidx = find(SimObs(2).ids == id);
+    id         = 195;
+    Lmk(23).id = id; % Simulate landmark exists in map in position index 23.
     lmk  = find([Lmk.id] == id);
-    if ~isempty(oidx)
-        Obs(2,lmk)  = testObs(Obs(2,lmk), SimObs(2).points(:,oidx), [5^2,0;0,5^2]);
-        Obs(2,lmk).lid = id;
-    else
-        Obs(2,lmk).vis = false;
+    for sen = 1:numel(Sen)
+        oidx = find(SimObs(sen).ids == id);
+        if ~isempty(oidx)
+            Obs(sen,lmk)  = testObs(Obs(sen,lmk), SimObs(sen).points(:,oidx), [5^2,0;0,5^2]);
+            Obs(sen,lmk).lid = id;
+        else
+            Obs(sen,lmk).vis = false;
+        end
     end
 
     % Figure of the Map:
-    MapFig = drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
+    drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
 
     % Figures for all sensors
-    SenFig = drawSenFig(SenFig, Obs, Sen, Lmk, SimObs);
+    drawSenFig(SenFig, Sen, Lmk, Obs, SimObs);
 
     % Do draw all objects
     drawnow;

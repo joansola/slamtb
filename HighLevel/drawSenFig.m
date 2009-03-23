@@ -1,7 +1,13 @@
-function SenFig = drawSenFig(SenFig, Obs, Sen, Lmk, SimObs)
+function drawSenFig(SenFig, Sen, Lmk, Obs, SimObs)
 
-% DRAWSENFIG (SENFIG, OBS, SEN, LMK)  (re)draw the sensors figures.
-% return the SENFIG
+% DRAWSENFIG  Redraw the sensors figures.
+% 	DRAWSENFIG(SENFIG, SEN, LMK, OBS, SIMOBS) updates all the handles in
+% 	the handles structure array SENFIG to reflect the observations OBS
+% 	taken by sensor SEN on landmarks LMK, together with the simulated
+% 	observations SIMOBS. SENFIG is the sensor structure created with
+% 	CREATESENFIG.
+%
+%   See also CREATESENFIG, DRAWMAPFIG.
 
 
 for sen = 1:size(Obs,1)     %numel(Sen)

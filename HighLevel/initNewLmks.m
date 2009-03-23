@@ -23,19 +23,28 @@ function Lmk = initNewLmks(Rob, Sen, SimObs, Lmk)
         % camera pinHole
         case {'pinHole'}
             
-            for idobs = SimObs.ids
-                lmkKnown = 0 ; % 0:false  1:true
-                for numLmkDatabase = 1:numel(Lmk)
-                    if(Lmk(numLmkDatabase).id==idobs)
-                        lmkKnown=1 ;
+            % Lmk(i) is of type 'idpPnt':
+            is_idp = strcmp({Lmk.type},'idpPnt') ;
+            %           FREE          IDP
+            is_usable = ~[Lmk.used] & is_idp ;
+            if(any(is_usable==1))
+                indexNew = find(is_usable==1, 1, 'first') ;
+                % foreach id of observed lmk
+                for idobs = SimObs.ids
+                    % observation not in known lmk:
+                    if(~any(~[Lmk.used] & [Lmk.id]==idobs))
+                        point = SimObs.points(:,find([SimObs.ids]==idobs)) ;
+                        idpObj = retroProjectIdpPntIntoPinHoleOnRob(Rob.frame, Sen.frame, Sen.par.k, Sen.par.d, point) ;
+                        %Lmk(indexNew) = [] ;
+                        % only 1 idp-add for each time-step
+                        break ;
                     end ;
                 end ;
-                if(lmkKnown==0)
-                    % new landmark
-                    OneNewLmk = retroProjectEuclPntIntoPinHoleOnRob() ;
-                end ;
+            else
+                'Not enought free space to initialise new Lmk'
             end ;
-%             [SimObs.points, s] = projectEuclPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
+            
+ %             [SimObs.points, s] = projectEuclPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
 %             SimObs.ids=SimLmk.ids;
 % 
 %             front=(s>0);

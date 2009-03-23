@@ -1,7 +1,7 @@
 function Sen = createSensors(Sensor)
 
 % CREATESENSORS Create sensors structure array.
-%   Rob = CREATESENSORS(Sensor) creates the Sen() structure array to be
+%   Sen = CREATESENSORS(Sensor) creates the Sen() structure array to be
 %   used as SLAM data. The input Sensor{}  is a cell array of structures as
 %   specified by the user in userData.m. There must be one Sensor{} per
 %   each sensor considered in the simulation. See userData.m for details.

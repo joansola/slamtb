@@ -1,6 +1,12 @@
 function Sen = initSensors(Sen)
 
 % INITSENSORS Initialize sensors in Map.
+%   Sen = INITSENSORS(Sen) initializes all sensors in Sen() in the global map
+%   Map. It does so by:
+%       getting a range of free states for the sensor
+%       assigning it to the appropriate fields of Sen
+%       setting Sen's mean and cov. matrices in Map
+%       setting all Map.used positions in the range to true
 
 % (c) 2009 Joan Sola @ LAAS-CNRS
 

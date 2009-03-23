@@ -1,5 +1,11 @@
 function Obs = createObservations(Sen,Lmk)
 
+% CREATEOBSERVATIONS Create Obs structure array.
+%   Rob = CREATEOBSERVATIONS(Sen,Lmk) creates the Obs() structure array to
+%   be used as SLAM data, from the information contained in Sen() and
+%   Rob(). See the toolbox documentation for details on this structure.
+
+
 for sen = 1:numel(Sen)
     
     for lmk = 1:numel(Lmk)

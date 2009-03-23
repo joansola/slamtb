@@ -1,6 +1,12 @@
 function Rob = initRobots(Rob)
 
 % INITROBOTS Initialize robots in Map.
+%   Rob = INITROBOTS(Rob) initializes all robots in Rob() in the global map
+%   Map. It does so by:
+%       getting a range of free states for the robot
+%       assigning it to the appropriate fields of Rob
+%       setting Rob's mean and cov. matrices in Map
+%       setting all Map.used positions in the range to true
 
 % (c) 2009 Joan Sola @ LAAS-CNRS
 

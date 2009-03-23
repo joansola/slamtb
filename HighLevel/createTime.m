@@ -1,10 +1,10 @@
 function Tim = createTime(Time)
 
 % CREATETIME  Create Tim structure.
-%   CREATETIME returns a structure with the fields
+%   CREATETIME(Time) returns a structure with the fields
 %       .dt             sampling time
 %       .firstFrame     first frame to be processed
-%       .lastFrame      last frame ...
+%       .lastFrame      last frame to be processed
 %   from the fields in input structure Time.
 %
 

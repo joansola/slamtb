@@ -61,13 +61,14 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     for rob = 1:numel(Rob)
 
         % Process sensor observations
-        for sens = Rob(rob).sensors
+        for sen = Rob(rob).sensors
 
             % Observe knowm landmark
             % obsKnownLmks;
 
             % Initialize new landmarks
             % initNewLmks;
+            Lmk = initNewLmks(Rob(rob), Sen(sen), SimObs(sen), Lmk) ;
 
         end % end process sensors
 

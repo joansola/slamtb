@@ -17,7 +17,7 @@ for sen = 1:numel(Sensor)
     So.name  = Si.name;
     So.id    = sen;
     So.type  = Si.type;
-    
+
     So.robot = Si.robot;
 
     % frame
@@ -28,15 +28,23 @@ for sen = 1:numel(Sensor)
 
     So.frame.x  = qp;
     So.frame.P  = QP;
-    So.frame    = updateFrame(So.frame);    
+    So.frame    = updateFrame(So.frame);
     So.frame.r  = [];
 
     % transducer parameters
-    So.par.imSize = Si.imageSize;
-    So.par.pixErr = Si.pixErrorStd;
-    So.par.k = Si.intrinsic;
-    So.par.d = Si.distortion;
-    So.par.c = invDistortion(So.par.d,numel(So.par.d),So.par.k);
+    switch So.type
+        case {'pinHole'}
+            So.par.imSize = Si.imageSize;
+            So.par.pixErr = Si.pixErrorStd;
+            So.par.pixCov = Si.pixErrorStd^2*eye(2);
+            So.par.k = Si.intrinsic;
+            So.par.d = Si.distortion;
+            So.par.c = invDistortion(So.par.d,numel(So.par.d),So.par.k);
+
+        otherwise
+            error('??? Unknown sensor type ''%s''.',Sen.type)
+
+    end
 
     % state
     if Si.frameInMap
@@ -49,14 +57,14 @@ for sen = 1:numel(Sensor)
         So.state.size = 0;
     end
     So.state.r     = [];  % robot is not yet in the Map.
-    
+
     switch So.type
         case {'pinHole'}
             So.graphics = camGraphics(0.1);
         otherwise
             So.graphics = camGraphics(0.1);
     end
-    
+
     Sen(sen) = So; % output sensor structure
 
 end

@@ -1,5 +1,9 @@
-% CREATEGRAPHICSTRUCTURES Create graphics handles structures.
-%   This is a script.
+function [MapFig,SenFig] = createGraphicsStructures(...
+    Rob, Sen, Lmk, Obs,...
+    SimRob, SimSen, SimLmk,...
+    MapFigure, SensorFigure)
+
+% CREATEGRAPHICSSTRUCTURES Create graphics handles structures.
 
 
 % Init map figure

@@ -50,6 +50,7 @@
 %   Most of these functions are equipped with Jacobian computation for
 %   their use in algorithms requiring linearization such as EKF.
 %
-%   See also Q2QC, QPROD, Q2Q, Q2R, Q2E, Q2V, R2Q, E2Q, V2Q, QPREDICT.
+%   See also Q2QC, QPROD, Q2Q, Q2R, Q2E, Q2V, R2Q, E2Q, V2Q, QPREDICT,
+%   EULERANGLES, EPOSE2QPOSE, QPOSE2EPOSE.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS.

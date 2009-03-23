@@ -1,3 +1,4 @@
+
 % USERDATA  User data for universal SLAM.
 %   Edit this file to enter the information you need for SLAM. Variable
 %   names and comments should make this file easy to understand. Follow
@@ -43,13 +44,15 @@ World = struct(...
     'points',               thickCloister(-5,5,-5,5,1,9));    % point lmks
 
 % Sensor things 
-%   - each sensor's type and parameters, noise, non-measurable prior
+%   - each sensor's type and parameters, noise, non-measurable prior.
+%   - Sensor types (add new type strings if you need more):
+%       'pinHole'   Pin-hole camera
 Sensor{1} = struct(...
     'id',                   1,...           % sensor identifier
     'name',                 'Micropix',...      % sensor name
     'type',                 'pinHole',...   % type of sensor
     'robot',                1,...           % robot where it is mounted
-    'position',             [0;0.15;.6],...    % position in robot
+    'position',             [0;0;.6],...    % position in robot
     'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
@@ -72,9 +75,26 @@ Sensor{2} = struct(...
     'intrinsic',            [320;240;200;200],...   % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           true );         % add sensor frame in slam map?
+% Sensor{3} = struct(...
+%     'id',                   3,...           % sensor identifier
+%     'name',                 'Micropix',...      % sensor name
+%     'type',                 'pinHole',...   % type of sensor
+%     'robot',                2,...           % robot where it is mounted
+%     'position',             [0;0.15;.6],...     % position in robot
+%     'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
+%     'positionStd',          [0;0;0],...     % position error std
+%     'orientationStd',       [0;0;0],...     % orient. error std
+%     'imageSize',            [640;480],...   % image size
+%     'pixErrorStd',          1.0,...         % pixel error std
+%     'intrinsic',            [320;240;200;200],...   % intrinsic params
+%     'distortion',           [],...          % distortion params
+%     'frameInMap',           false );         % add sensor frame in slam map?
 
 % Robot things with their controls
-%   - each robot's type and initial config, controls
+%   - each robot's type and initial config, controls.
+%   - motion models (add new model strings if you need more):
+%       'constVel'    6D Constant velocity model
+%       'odometry'    6D Odometry model
 Robot{1} = struct(...
     'id',                   1,...           % robot identifier
     'name',                 'Dala',...      % robot name
@@ -113,6 +133,11 @@ Robot{2} = struct(...
 
 % Landmark things 
 %   - landmark types, max nbr of lmks, lmk management options
+%   - types of lmks (add 6-letter string types if you need more):
+%       'eucPnt'  Euclidean 3D point
+%       'idpPnt'  Inverse-depth 3D point
+%       'homPnt'  Homogeneous 3D point
+%       'plkLin'  Plucker 3D line
 Landmark{1} = struct(...
     'type',                 'idpPnt',...    % type of landmark
     'nonObsMean',           1e-5,...        % mean of non obs. for initialization
@@ -123,11 +148,22 @@ Landmark{2} = struct(...
     'maxNbr',               80);           % max. nbr. of lmks of this type in map
     
 % Visualization options 
-%   - view, projection, video, ellipses
+%   - view, projection, video, ellipses.
+%   - figure projections:
+%       'persp'     Perspective
+%       'ortho'     Orthographic
+%   - Figure views
+%       [a,e,f]     Custom azimuth/elevation/FOV vector. Distance automatic
+%       [a,e,f,d]   custom az/el/fov/distance vector.
+%   - Figure predefined views (edit mapObserver.m to create/edit views):
+%       'top'       Top view
+%       'side'      Side view
+%       'view'      Generic view
+%       'normal'    Normal view
 MapFigure = struct(...
     'renderer',             'opengl',...    % renderer
     'projection',           'persp',...     % projection of the 3d figure
-    'view',                 'view');        % viewpoint
+    'view',                 [30 30 40 15]); % viewpoint
 SensorFigure{1} = struct(...
     'ellipses',             true);          % show 3d ellipsoids?
 Video = struct(...

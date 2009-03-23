@@ -1,5 +1,6 @@
+function [SimRob,SimSen,SimLmk] = createSimStructures(Robot,Sensor,World)
+
 % CREATESIMSTRUCTURES Create simulation data structures
-%   This is a script.
 
 % Create robots and controls
 SimRob = createRobots(Robot);

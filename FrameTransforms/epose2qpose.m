@@ -6,6 +6,8 @@ function [qp,QPe] = epose2qpose(ep)
 %   where X is 3D opsition and Q and E are 3D orientations
 %
 %   [QP,Jep] = EPOSE2QPOSE(...) returns also the Jacobian matrix
+%
+%   See also QPOSE2EPOSE, EULERANGLES, QUATERNION.
 
 if any(size(ep) ~= [6,1])
     warning('Input Euler-pose should be a column 6-vector')

@@ -4,6 +4,7 @@ function Rob = initRobots(Rob)
 
 % (c) 2009 Joan Sola @ LAAS-CNRS
 
+
 for rob = 1:numel(Rob)
 
     fr = addToMap(Rob(rob).frame.x,Rob(rob).frame.P); % frame range in Map

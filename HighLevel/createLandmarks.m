@@ -36,15 +36,6 @@ for lmkClass = 1:numel(Landmark)
         end
         Lo.state.r = [];
 
-        % other parameters
-        Lo.par = [];
-        
-        Lo.sig = [];
-        
-        Lo.nsearch = 0;
-        Lo.nmatch  = 0;
-        Lo.ninlier = 0;
-
         % Non observable priors
         if isfield(Li,'nonObsMean')
             Lo.nob.n = Li.nonObsMean;
@@ -53,7 +44,16 @@ for lmkClass = 1:numel(Landmark)
             Lo.nob.n = [];
             Lo.nob.N = [];
         end
-        
+
+        % other parameters
+        Lo.par = [];
+
+        Lo.sig = [];
+
+        Lo.nsearch = 0;
+        Lo.nmatch  = 0;
+        Lo.ninlier = 0;
+
         Lmk(lmk) = Lo;
         
     end

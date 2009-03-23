@@ -49,9 +49,29 @@ for rob = 1:numel(Robot)
     Ro.state.size = numel(Ro.state.x);   % state size
 
     Ro.state.r  = [];
-    
+
+    % control
+    switch Ri.motion
+
+        case {'constVel'}
+
+            Ro.con.u    = [Ri.dv;deg2rad(Ri.dwDegrees)];
+            Ro.con.uStd = [Ri.dvStd;deg2rad(Ri.dwStd)];
+            Ro.con.U    = diag(Ro.con.uStd.^2);
+
+        case {'odometry'}
+
+            Ro.con.u    = [Ri.dx;deg2rad(Ri.daDegrees)];
+            Ro.con.uStd = [Ri.dxStd;deg2rad(Ri.daStd)];
+            Ro.con.U    = diag(Ro.con.uStd.^2);
+
+        otherwise
+            error('Unknown motion model %s from robot %d.',Robot.motion,Robot.id);
+    end
+
+    % graphics
     Ro.graphics = thickVehicle(0.8);
-    
+
     Rob(rob) = Ro; % output robot structure
 
 end

@@ -1,5 +1,6 @@
-% SLAM wireframe - a universal SLAM algorithm.
+% SLAM wireframe - an EKF-SLAM algorithm with simulator and graphics.
 %
+%   See also USERDATA.
 
 %   Created and maintained by
 %   (c) 2009 Joan Sola @ LAAS-CNRS. jsola@laas.fr.
@@ -14,9 +15,19 @@ global Map
 userData;   % user-defined data. SCRIPT.
 
 %% II. Initialize all data structures from user data
-createSLAMstructures;     % SLAM data. SCRIPT.
-createSimStructures;      % Simulation data. SCRIPT.
-createGraphicsStructures; % Graphics handles. SCRIPT.
+[Rob,Sen,Lmk,Obs,Tim] = createSLAMstructures(...
+    Robot,...
+    Sensor,...
+    Landmark,...
+    Time);     % SLAM data.
+[SimRob,SimSen,SimLmk] = createSimStructures(...
+    Robot,...
+    Sensor,...
+    World);      % Simulation data.
+[MapFig,SenFig] = createGraphicsStructures(...
+    Rob, Sen, Lmk, Obs,...
+    SimRob, SimSen, SimLmk,...
+    MapFigure, SensorFigure); % Graphics handles.
 
 %% III. Init data logging 
 % TODO: Create source and/or destination files and paths.
@@ -31,16 +42,16 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % FIXME: this is hard-coded. Should be done better as part of the simulator.
-    Con(1).u = [0;0;0;0;0;0];
-    Con(2).u = [.1;0;0;0;0;0.05];
+    Rob(1).con.u = [0;0;0;0;0;0];
+    Rob(2).con.u = [.1;0;0;0;0;0.05];
 
     % Simulate robots
     for rob = 1:numel(SimRob)
         
         % Robot motion
         % FIXME: see how to include noise in a clever way.
-        SimCon(rob).u = Con(rob).u + Con(rob).uStd.*randn(6,1);
-        SimRob(rob) = motion(SimRob(rob),SimCon(rob),Tim.dt);
+        SimRob(rob).con.u = Rob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
+        SimRob(rob) = motion(SimRob(rob),SimRob(rob).con,Tim.dt);
 
         % Simulate sensor observations
         for sen = SimRob(rob).sensors
@@ -50,7 +61,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
         end % end process sensors
 
- 
     end % end process robots
 
 
@@ -73,7 +83,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         end % end process sensors
 
         % Robot motion
-        Rob(rob) = motion(Rob(rob),Con(rob),Tim.dt);
+        Rob(rob) = motion(Rob(rob),Rob(rob).con,Tim.dt);
 
     end % end process robots
 

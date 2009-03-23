@@ -2,7 +2,7 @@ function r = newRange(size)
 
 global Map
 
-u = find(Map.used == 0);
+u = find(~Map.used);
 
 r = u(1:size);
 

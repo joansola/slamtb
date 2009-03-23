@@ -1,9 +1,10 @@
+function [Rob,Sen,Lmk,Obs,Tim] = createSLAMstructures(Robot,Sensor,Landmark,Time)
+
 % CREATESLAMSTRUCTURES  Initialize SLAM data structures from user data.
-%   This is a script.
+global Map
 
 % Create robots and controls
 Rob = createRobots(Robot);
-Con = createControls(Robot);
 
 % Create sensors
 Sen = createSensors(Sensor);
@@ -13,7 +14,6 @@ Sen = createSensors(Sensor);
 
 % Create Landmarks and non-observables
 Lmk = createLandmarks(Landmark);
-% Nob = createNonObservables(Landmark);
 
 % Create Map - empty
 Map = createMap(Rob,Sen,Lmk);

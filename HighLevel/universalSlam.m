@@ -93,16 +93,16 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 3. VISUALIZATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % Create test Obs
+    % Create test Lmks and Obs
     % FIXME: these lines to be removed, they are here just to have
-    % something to plot in the sensors figures.
+    % something to plot in the map and sensors figures.
     id         = 195;
-    Lmk(23).id = id; % Simulate landmark exists in map in position index 23.
+    Lmk(10).id = id; % Simulate landmark exists in map in position index 23.
     lmk  = find([Lmk.id] == id);
     for sen = 1:numel(Sen)
         oidx = find(SimObs(sen).ids == id);
         if ~isempty(oidx)
-            Obs(sen,lmk)  = testObs(Obs(sen,lmk), SimObs(sen).points(:,oidx), [5^2,0;0,5^2]);
+            Obs(sen,lmk)  = testObs(Obs(sen,lmk), SimObs(sen).points(:,oidx), 5^2*eye(2));
             Obs(sen,lmk).lid = id;
         else
             Obs(sen,lmk).vis = false;

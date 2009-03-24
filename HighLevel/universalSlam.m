@@ -83,6 +83,9 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             % Initialize new landmarks
             % initNewLmks;
             Lmk = initNewLmks(Rob(rob), Sen(sen), SimObs(sen), Lmk) ;
+            
+            % update Observation to update visually components
+            
 
         end % end process sensors
 

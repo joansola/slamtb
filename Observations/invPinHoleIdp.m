@@ -2,12 +2,9 @@ function [i,I_u,I_s,I_k,I_c] = invPinHoleIdp(u,s,k,c)
 
 % INVPINHOLEIDP Inverse pin-hole camera model for IDP, with radial distortion correction.
 %   I = INVPINHOLEIDP(U,S) gives the retroprojected IDP I of a pixel U at
-%   depth S, from a canonical pin-hole camera, that is, with calibration
-%   parameters
-%     u0 = 0
-%     v0 = 0
-%     au = 1
-%     av = 1
+%   depth S (S is actually the inverse depth), from a canonical pin-hole
+%   camera, that is, with calibration parameters
+%     u0 = 0 v0 = 0 au = 1 av = 1
 %   It uses reference frames {RDF,RD} (right-down-front for the 3D world
 %   points and right-down for the pixel), according to this scheme:
 %

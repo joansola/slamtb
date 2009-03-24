@@ -35,12 +35,12 @@ function Lmk = initNewLmks(Rob, Sen, SimObs, Lmk)
                     if(~any(~is_usable & [Lmk.id]==idobs))
                         inv_depth_nob = Lmk(indexNew).nom.n ;
                         point = SimObs.points(:,find([SimObs.ids]==idobs)) ;
-                        idp = retroProjectIdpPntFromPinHoleOnRob(Rob.frame, Sen.frame, Sen.par.k, Sen.par.d, point, inv_depth_nob) ;
+                        [idp, IDPrf, IDPsf, IDPsk, IDPsd, IDPpoint, IDPrho] = retroProjectIdpPntFromPinHoleOnRob(Rob.frame, Sen.frame, Sen.par.k, Sen.par.d, point, inv_depth_nob) ;
                         Lmk(indexNew).used     = 1 ;
                         Lmk(indexNew).id       = idobs ;
                         Lmk(indexNew).state.x  = idp ;
-                        % TODO put correct variance-covariance matrix
-                        Lmk(indexNew).state.P  = eye(6) ;
+                        % TODO put better variance-covariance matrix
+                        Lmk(indexNew).state.P  = IDPpoint*Sen.par.pixCov*IDPpoint' + IDPrho*Lmk(indexNew).nom.N*IDPrho' ; % + ... ???
                         % frame range in Map
                         Lmk(indexNew).state.r = addToMap(Lmk(indexNew).state.x,Lmk(indexNew).state.P);
                         % only 1 idp-add for each time-step
@@ -48,7 +48,7 @@ function Lmk = initNewLmks(Rob, Sen, SimObs, Lmk)
                     end ;
                 end ;
             else
-                disp('Not enough free space to initialise new Lmk')
+                %disp('Not enough free space to initialise new Lmk')
             end ;
             
  %             [SimObs.points, s] = projectEuclPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);

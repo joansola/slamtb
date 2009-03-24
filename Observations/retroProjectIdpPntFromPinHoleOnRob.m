@@ -1,6 +1,6 @@
 
 
-function idp_W = retroProjectIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, point, inv_depth)
+function [idp_W, IDPWrf, IDPWsf, IDPWsk, IDPWsd, IDPWpoint, IDPWinvdepth] = retroProjectIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, point, inv_depth)
 
 
 % RETROPROJECTIDPPNTFROMPINHOLEONROB De-Project idp point into Pin-hole
@@ -14,6 +14,10 @@ function idp_W = retroProjectIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, point, inv_d
 %   IDP_W is a 6 variables vector :
 %     IDP_W = [X Y Z Pitch Yaw IDepth]'
 %   
+%   [IDP_W, IDPWRF, IDPWSF, IDPWSK, IDPWSD, IDPWPOINT, IDPWINVDEPTH] = ...
+%   return the idp retro-projected wrt parameters.
+%   
+%   
 %   See also INVPINHOLEIDP, FROMFRAMEIDP, COMPOSEFRAMES.
 
 
@@ -23,26 +27,22 @@ function idp_W = retroProjectIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, point, inv_d
 
 if(isempty(Sd))
     % IDP in Sensor Frame
-    idp_S = invPinHoleIdp(point,inv_depth,Sk) ;
+    [idp_S, IDPSpoint, IDPSinvdepth, IDPSsk] = invPinHoleIdp(point,inv_depth,Sk) ;
 else
     % IDP in Sensor Frame
-    idp_S = invPinHoleIdp(point,inv_depth,Sk,Sd) ;
+    [idp_S, IDPSpoint, IDPSinvdepth, IDPSsk, IDPSsd] = invPinHoleIdp(point,inv_depth,Sk,Sd) ;
 end ;
 
-% idp_S = [0; 0; 0; pitch_sen; yaw_sen; rho_sen]
-% idp_W = [x0, pitch, yaw, rho]'
-% with :
-%   x0 = camera position:
-%         x0 = fromFrame(Rob(rob).frame,Sen(sen).frame.t)
-%   py_sen = [pitch_sen; yaw_sen], angles in sensor Frame. So:
-%   py = vec2py(R_rob*R_sen*py2vec(py_sen))
-%         R_rob = Rob(rob).frame.R
-%         R_sen = Sen(sen).frame.R
-%   rho = rho_sen
 
-x0 = fromFrame(Rf,Sf.t) ;
-py = vec2py(Rf.R*Sf.R*py2vec(idp_S(4:5))) ;
-idp_W = [x0 ; py ; idp_S(6)] ;
+
+[idp_W, IDPWidps, IDPWrf, IDPWsf] = idpS2idpW(idp_S, Rf, Sf) ;
+IDPWsk = IDPWidps*IDPSsk ;
+IDPWsd = [] ;
+if(~isempty(Sd))
+    IDPWsd = IDPWidps*IDPSsd ;
+end ;
+IDPWpoint = IDPWidps*IDPSpoint ;
+IDPWinvdepth = IDPWidps*IDPSinvdepth ;
 
 end
 

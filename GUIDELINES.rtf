@@ -26,7 +26,7 @@
 %	have to explain something else.\
 %\
 %	Before saving, select entire paragraphs and do RIGHT CLICK, "Wrap selected \
-%	comments". This equals all line lengths to the approximately the page width.\
+%	comments". This equals all line lengths to approximately the page width.\
 %\
 %	See also FUN2, FUN3. Use it exactly like this "See also " + func. names in \
 %	CAPITAL LETTERS.\
@@ -56,7 +56,7 @@ delIdps = drawn & idps & ~used;			% these need to be deleted\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 \cf0 \
 \
-2c. Separate all groups of lines with an empty line so that the code does not look packed. As a rule, no more than lines should go together.\
+2c. Separate all groups of lines with an empty line so that the code does not look packed. As a rule, no more than 4 lines should go together.\
 \
 2d. Before saving the function, do CNTRL-A, CNTRL_I to make all the indents look nice.\
 \
@@ -66,7 +66,7 @@ delIdps = drawn & idps & ~used;			% these need to be deleted\
 \
 For convention, we are going to do the following:\
 \
-3a. Variables inside functions have short names in small leters normally.\
+3a. Variables inside functions have short names in small letters normally.\
 3b. Jacobians are BIG_small, where X_y = dx/dy\
 3c. Jacobians are not Xy, better X_y.\
 3d. Robot, landmark, sensor etc indices are always rob, sen, lmk, obs.\
@@ -135,13 +135,23 @@ NOT SO GOOD, BUT OK:\
 \
 5d. Still, you can try to align different groups of lines. Example\
 \
-	x        = f(y);				% these comments are aligned\
-	variable = g(z);				% with the fourth line.\
-	output   = JAC_x*P*JAC_x';	% this margin defines the alignment above\
+	x        = f(y);				% these comments\
+	variable = g(z);				% are aligned\
+	output   = JAC_x*P*JAC_x';	% and alignment continues in next group\
 \
 	y        = 4;				% this follows the same alignment\
 	extra    = 5*eye(3);			% over all it is easy to read.\
 \
 \
 \
-6. }
+6. Make exceptional use of line breaking "..." when functions have long names or many long parameters. Example:\
+\
+[out, OUT_x, OUT_y, OUT_z, OUT_par, OUT_calibration] = ...\
+	functionName(...\
+				Lmk.state.x,...\
+				Sen(4).par.y,...\
+				Obs(sen,lmk).nom.N,...\
+				Sen(4).par.k,...\
+				Sen(4).par.cal);\
+\
+See USERDATA.M, CREATEMAPFIG.M to see examples of this.}

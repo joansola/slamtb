@@ -85,7 +85,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             Lmk = initNewLmks(Rob(rob), Sen(sen), SimObs(sen), Lmk) ;
             
             % update Observation to update visually components
-            
+            Obs(sen) = updateObsInSlamProcess(Obs(sen), Lmk) ;
 
         end % end process sensors
 

@@ -118,6 +118,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % FIXME: these lines to be removed, they are here just to have
     % something to plot in the map and sensors figures.
     %
+    
     id         = 195;
     Lmk(23).id = id; % Simulate landmark exists in map in position index 23.
     lmk  = find([Lmk.id] == id);
@@ -136,6 +137,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             Obs(sen,lmk).vis = false;
         end
     end
+
     %
     % FIXME: remove up to this line ----------------------
 

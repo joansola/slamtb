@@ -60,7 +60,7 @@ for lmk=find(used)
         % --------------
         case {'idpPnt'}
             color = 'r';
-%             drawIdpLmk(MapFig, Lmk(lmk), color);
+            drawIdpLmk(MapFig, Lmk(lmk), color);
             % TODO : print the landmark
             %            fprintf('[updateMapFig.m] Error, landmark type idpPnt not implemented \n') ;
         case {'eucPnt'}

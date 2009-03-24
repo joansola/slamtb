@@ -86,7 +86,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Sample period
-    Tim.dt = samplePeriod;
+%     Tim.dt = samplePeriod;
 
     % Process robots
     for rob = 1:numel(Rob)
@@ -119,8 +119,14 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % something to plot in the map and sensors figures.
     %
     id         = 195;
-    Lmk(10).id = id; % Simulate landmark exists in map in position index 23.
+    Lmk(23).id = id; % Simulate landmark exists in map in position index 23.
     lmk  = find([Lmk.id] == id);
+    lidx = find([SimLmk.ids] == id);
+    xyz = SimLmk.points(:,lidx);
+    XYZ = diag([.1 .2 .3]);
+    r = addToMap(xyz,XYZ);
+    Lmk(23).state.r = r;
+    Lmk(23).used = true;
     for sen = 1:numel(Sen)
         oidx = find(SimObs(sen).ids == id);
         if ~isempty(oidx)

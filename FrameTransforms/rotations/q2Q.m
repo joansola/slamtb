@@ -1,7 +1,7 @@
 function Q = q2Q(q)
 
-% q2Q  Quaternion to quaternion matrix conversion.
-%   Q = q2Q(q) gives the matrix Q so that the quaternion product
+% Q2Q  Quaternion to quaternion matrix conversion.
+%   Q = Q2Q(q) gives the matrix Q so that the quaternion product
 %   q1 x q2 is equivalent to the matrix product:
 %
 %       q1 x q2 == q2Q(q1) * q2

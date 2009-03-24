@@ -22,10 +22,10 @@ function [u,s,U_r,U_s,U_k,U_d,U_l]=projectEuclPntIntoPinHoleOnRob(Rf, Sf, Spk, S
 
 if nargout <= 2 % only pixel
 
-    lr  = toFrame(Rf,l);
-    ls = toFrame(Sf,lr);
+    lr    = toFrame(Rf,l);
+    ls    = toFrame(Sf,lr);
 
-    [u,s]=pinHole(ls,Spk,Spd);
+    [u,s] = pinHole(ls,Spk,Spd);
 
 
 
@@ -34,10 +34,10 @@ else % Jacobians
 
 
 
-    [lr, LR_r, LR_l]  = toFrame(Rf,l);
-    [ls, LS_s, LS_lr] = toFrame(Sf,lr);
+    [lr, LR_r, LR_l]   = toFrame(Rf,l);
+    [ls, LS_s, LS_lr]  = toFrame(Sf,lr);
 
-    [u,s,U_ls,U_k,U_d]=pinHole(ls,Spk,Spd);
+    [u,s,U_ls,U_k,U_d] = pinHole(ls,Spk,Spd);
 
     U_r  = U_ls*LS_lr*LR_r;
     U_s  = U_ls*LS_s;

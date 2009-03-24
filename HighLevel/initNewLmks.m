@@ -48,7 +48,7 @@ function Lmk = initNewLmks(Rob, Sen, SimObs, Lmk)
                     end ;
                 end ;
             else
-                disp('Not enought free space to initialise new Lmk')
+                disp('Not enough free space to initialise new Lmk')
             end ;
             
  %             [SimObs.points, s] = projectEuclPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);

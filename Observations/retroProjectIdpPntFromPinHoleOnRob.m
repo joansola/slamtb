@@ -14,7 +14,8 @@ function idp_W = retroProjectIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, point, inv_d
 %   IDP_W is a 6 variables vector :
 %     IDP_W = [X Y Z Pitch Yaw IDepth]'
 %   
-%   SEE ALSO invPinHoleIdp fromFrameIdp composeFrames
+%   See also INVPINHOLEIDP, FROMFRAMEIDP, COMPOSEFRAMES.
+
 
 
 % Frame World -> Robot  :  Rf

@@ -19,7 +19,7 @@ L = [Lmk.state];
 
 n = sum([R.size S.size L.size]);
 
-Map.used = zeros(n,1);
+Map.used = false(n,1);
 
 Map.x = zeros(n,1);
 Map.P = zeros(n,n);

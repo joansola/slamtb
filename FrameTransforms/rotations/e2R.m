@@ -5,6 +5,8 @@ function [R,Re] = e2R(e)
 %   corresponding to the body orientation given
 %   by the euler angles vector EU (roll, pitch, yaw).
 %
+%   [R,R_e] = E2R(EU) returns the Jacobian wrt EU.
+%
 %   See also R2E.
 
 

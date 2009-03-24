@@ -2,12 +2,12 @@ function [qp,QPe] = epose2qpose(ep)
 
 % EPOSE2QPOSE  Euler-specified to quaternion-specified pose conversion.
 %
-%   QP = EPOSE2QPOSE(EP) returns a full pose QP=[X;Q] from a full pose QE=[X;E]
-%   where X is 3D opsition and Q and E are 3D orientations
+%   QP = EPOSE2QPOSE(EP) returns a full 7-pose QP=[X;Q] from a full 6-pose
+%   QE=[X;E], where X is 3D opsition and Q and E are 3D orientations.
 %
 %   [QP,Jep] = EPOSE2QPOSE(...) returns also the Jacobian matrix
 %
-%   See also QPOSE2EPOSE, EULERANGLES, QUATERNION.
+%   See also QPOSE2EPOSE, EULERANGLES, QUATERNION, FRAME.
 
 if any(size(ep) ~= [6,1])
     warning('Input Euler-pose should be a column 6-vector')

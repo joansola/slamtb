@@ -1,6 +1,23 @@
 % SLAM wireframe - an EKF-SLAM algorithm with simulator and graphics.
 %
-%   See also USERDATA.
+%   This script performs multi-robot, multi-landmark, multi-sensor 6DOF
+%   EKF-SLAM with simulation and graphics capabilities. 
+%
+%   Please read slamToolbox.pdf in the root directory thoroughly before
+%   using this toolbox. 
+%
+%   Beginners should not modify this file, just edit USERDATA.M and enter
+%   the data you wish to simulate.
+%
+%   More advanced users should be able to create new landmark models, new
+%   initialization methods, and possibly extensions to multi-map SLAM. Good
+%   luck!
+%
+%   Expert users may want to add code for real-data experiments. Please try
+%   active-search techniques for vision, they are amazingly faster and
+%   robust.
+%
+%   See also USERDATA. Also consult slamToolbox.pdf in the root directory.
 
 %   Created and maintained by
 %   (c) 2009 Joan Sola @ LAAS-CNRS. jsola@laas.fr.
@@ -97,9 +114,10 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 3. VISUALIZATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % Create test Lmks and Obs
+    % Create test Lmks and Obs --------------------------
     % FIXME: these lines to be removed, they are here just to have
     % something to plot in the map and sensors figures.
+    %
     id         = 195;
     Lmk(10).id = id; % Simulate landmark exists in map in position index 23.
     lmk  = find([Lmk.id] == id);
@@ -112,6 +130,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             Obs(sen,lmk).vis = false;
         end
     end
+    %
+    % FIXME: remove up to this line ----------------------
 
     % Figure of the Map:
     drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);

@@ -1,6 +1,6 @@
 
 % USERDATA  User data for universal SLAM.
-%   Edit this file to enter the information you need for SLAM. Variable
+%   Edit this script to enter the information you need for SLAM. Variable
 %   names and comments should make this file easy to understand. Follow
 %   these guidelines:
 %
@@ -12,6 +12,14 @@
 %   * Define one instance of each landmark type you wish to use. Use the
 %   field Lmk{i}.naxNbr to specify the maximum number of such landmarks
 %   that the SLAM map must support.
+%
+%   See further comments within the file for more detailed information.
+%
+%   NOTE: You can have multiple copies of this file with different names to
+%   store different simulation conditions. Just modify the call in
+%   UNIVERSALSLAM to point to the 'USERDATA' file you want.
+%
+%   See also UNIVERSALSLAM.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 
@@ -28,9 +36,9 @@ Experiment = struct(...
 % Time variables 
 %   - sampling time, first and last frames
 Time = struct(...
-    'dt',                   .1,...           % sampling time
+    'dt',                   .1,...          % sampling time
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            50);           % last frame #
+    'lastFrame',            50);            % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -41,7 +49,7 @@ World = struct(...
     'yMax',                 10,...
     'zMin',                 -10,...
     'zMax',                 10,...
-    'points',               thickCloister(-5,5,-5,5,1,9));    % point lmks
+    'points',               thickCloister(-5,5,-5,5,1,9));  % point lmks
 
 % Sensor things 
 %   - each sensor's type and parameters, noise, non-measurable prior.

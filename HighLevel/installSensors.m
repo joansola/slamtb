@@ -13,9 +13,12 @@ for sen = 1:numel(Sen)
     rob = Sen(sen).robot;
 
     if rob > numel(Rob)
+
         error('Attempt to install sensor on inexistent robot.');
+
     else
 
         Rob(rob).sensors = [Rob(rob).sensors sen];
+
     end
 end

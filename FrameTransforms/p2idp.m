@@ -1,0 +1,59 @@
+function [idp,IDP_p,IDP_p0] = p2idp(p,p0)
+
+% P2IDP Point to inverse-depth point conversion.
+%   P2IDP(P,P0) is the inverse depth point anchored at P0 corresponding to
+%   the Euclidean point P.
+%
+%   An inverse-depth point (idp) is a 6-vector: 
+%
+%           idp = [x0 y0 z0 el az rho]',
+%
+%   where:
+%       x0, z0, y0: anchor: the 3D point P0 where where distance is referred to.
+%       el, az: azimuth and elevation of the ray through P that starts at P0.
+%       rho: inverse of the distance from point P to P0.
+%
+%   [idp,IDP_p,IDP_p0] returns the Jacobians wrt P and P0.
+%
+%   See also IDP2P.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
+
+if nargout == 1
+    m   = p-p0;
+    rho = 1/sqrt(dot(m,m));
+    py  = vec2py(m);
+
+    idp = [p0;py;rho];
+else
+
+    m           = p-p0;
+    M_p         = 1;
+    M_p0        = -1;
+    [mn2,MN2_m] = dotJ(m,m);
+    rho         = 1/mn2;
+    RHO_mn2     = -1/mn2^2;
+    [py,PY_m]   = vec2py(m);
+
+    idp = [p0;py;rho];
+
+    RHO_m = RHO_mn2*MN2_m;
+    
+    IDP_p = [zeros(3);PY_m*M_p;RHO_m*M_p];
+    IDP_p0 = [eye(3);PY_m*M_p0;RHO_m*M_p0];
+
+end
+
+
+return
+
+%% Jac
+
+syms x y z x0 y0 z0 real
+p = [x;y;z];
+p0 = [x0;y0;z0];
+
+idp = p2idp(p,p0);
+
+simplify(IDP_p  - jacobian(idp,p))
+simplify(IDP_p0 - jacobian(idp,p0))

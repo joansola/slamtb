@@ -1,17 +1,17 @@
 % QUATERNION  Help on quaternions for the rotations/ toolbox.
 %   
-%   We specify a quaternion with a column, unit 4-vector
+%   We specify a quaternion with a unit, column 4-vector
 %
 %       q = [a b c d]' , norm(q) = 1.
 %
 %   with [a] the real part and [b c d]' the imaginary parts. This is
 %   equivalent to writing the true quaternion in quaternion space
 %
-%       q = a + b.i + c.j + d.k, 
+%       q = a + bi + cj + dk, 
 %
 %   with
 %
-%       i^2 = j^2 = k^2 = -1, i.j = k, j.i = -k.
+%       i^2 = j^2 = k^2 = -1, ij = k, ji = -k.
 %
 %   NOTE: The products performed in quaternion space are indicated with
 %   a dot as in (q1.q2). Matrix products are with a star (A*v). 
@@ -19,27 +19,28 @@
 %   Quaternions are used for encoding rotations and orientations with the
 %   following convention:
 %
-%       * Consider a world frame W and a frame F.
+%       * Consider a world or global frame W and a local frame F.
 %       * q is used to encode the orientation of frame F wrt frame W. It
 %         may be written as q_WF.
 %       * Consider now a vector v = vx.i + vy.j + vz.k in quaternion space.
 %       * We name v_F and v_W the coordinates of v in frames W and F.
-%       * Then, if q_FW = (q_WF)' = a - b.i - c.j - d.k is the conjugate of
+%       * Then, if q_FW = (q_WF)' = a - bi - cj - dk is the conjugate of
 %         q_WF, we have
 %           v_W = q_WF.v_F.q_FW.
-%       * This is equivalent to the rotation matrix forms 
+%           v_F = q_FW.v_W.q_WF.
+%       * This is equivalent to the linear, rotation matrix forms 
 %           V_W = R_WF*V_F
 %           V_F = R_FW*V_W, 
 %         with 
-%           V_{W,F} in Euclidean 3d-space
+%           V_W, V_F : the vectors in Euclidean 3d-space
 %           R_WF = q2R(q_WF) 
 %           R_FW = R_WF'
 %
 %   Some interesting functions involving quaternions are:
 %
-%       q2qc    conjugate quaternion, q' = q2qc(q).
-%       qProd   product of quaternions,  q1.q2 = qProd(q1,q2)
-%       q2Q     quaternion to quaternion matrix, q1.q2 = q2Q(q1)*q2
+%       q2qc    conjugate quaternion,      q' = q2qc(q).
+%       qProd   product of quaternions, q1.q2 = qProd(q1,q2)
+%       q2Q     quaternion matrix,      q1.q2 = q2Q(q1)*q2
 %       q2R     rotation matrix. We name R(q) = q2R(q), with the properties:
 %           R(q1.q2) = R(q1)*R(q2)
 %           R(q') = R(q)'
@@ -53,6 +54,6 @@
 %   their use in algorithms requiring linearization such as EKF.
 %
 %   See also Q2QC, QPROD, Q2Q, Q2R, Q2E, Q2V, R2Q, E2Q, V2Q, QPREDICT,
-%   EULERANGLES, EPOSE2QPOSE, QPOSE2EPOSE.
+%   EULERANGLES, EPOSE2QPOSE, QPOSE2EPOSE, FRAME.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS.

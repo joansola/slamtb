@@ -14,8 +14,9 @@ for sen = 1:numel(Sensor)
     Si = Sensor{sen}; % input sensor structure
 
     % identification
+    So.sen   = sen;
+    So.id    = Si.id;
     So.name  = Si.name;
-    So.id    = sen;
     So.type  = Si.type;
 
     So.robot = Si.robot;

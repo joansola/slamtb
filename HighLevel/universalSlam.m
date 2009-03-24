@@ -30,7 +30,8 @@ userData;   % user-defined data. SCRIPT.
     MapFigure, SensorFigure); % Graphics handles.
 
 %% III. Init data logging 
-% TODO: Create source and/or destination files and paths.
+% TODO: Create source and/or destination files and paths for data input and
+% logs.
 % TODO: do something here to collect data for post-processing or
 % plotting. Think about collecting data in files using fopen, fwrite,
 % etc., instead of creating large Matlab variables for data logging.

@@ -4,9 +4,9 @@ function [idp_W, IDPWidps, IDPWrf, IDPWsf] = idpS2idpW(idp_S, Rf, Sf)
 % IDPS2IDPW  transpose idp vector from "Sensor frame" to "World frame".
 %   IDP_W = IDPS2IDPW(IDP_S, RF, SF) returns ths idp vector in world frame
 %   from the idp vector in sensor frame (IDP_S), the Robot frame (RF) witch
-%   support the sensor, and the Sensor frame (SFT).
+%   support the sensor, and the Sensor frame (SF).
 %
-%   [IDP_W, IDPWIDPS, IDPWRF, IDPWSF] = IDPS2IDPW(IDP_S, RF, SFT) the same
+%   [IDP_W, IDPWIDPS, IDPWRF, IDPWSF] = IDPS2IDPW(IDP_S, RF, SF) the same
 %   operation but return the jacobians wrt parameters.
 %
 %   See also FROMFRAME, PY2VEC, VEC2PY.

@@ -148,13 +148,14 @@ Robot{2} = struct(...
 %       'plkLin'  Plucker 3D line
 Landmark{1} = struct(...
     'type',                 'idpPnt',...    % type of landmark
-    'nonObsMean',           2,...        % mean of non obs. for initialization
+    'nonObsMean',           2,...           % mean of non obs. for initialization
     'nonObsStd',            0.5,...         % std of non obs for initialization
     'maxNbr',               15);            % max. nbr. of lmks of this type in map
 Landmark{2} = struct(...
     'type',                 'eucPnt',...    % type of landmark
-    'maxNbr',               80);           % max. nbr. of lmks of this type in map
-    
+    'maxNbr',               80);            % max. nbr. of lmks of this type in map
+
+
 % Visualization options 
 %   - view, projection, video, ellipses.
 %   - figure projections:
@@ -176,6 +177,7 @@ SensorFigure{1} = struct(...
     'ellipses',             true);          % show 3d ellipsoids?
 Video = struct(...
     'createVideo',          false);         % create video sequence?
+
 
 % Estimation options 
 %   - random, reprojection, active search, etc

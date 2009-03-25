@@ -1,6 +1,6 @@
 % SLAM wireframe - an EKF-SLAM algorithm with simulator and graphics.
 %
-%   This script performs multi-robot, multi-landmark, multi-sensor 6DOF
+%   This script performs multi-robot, multi-sensor, multi-landmark 6DOF
 %   EKF-SLAM with simulation and graphics capabilities. 
 %
 %   Please read slamToolbox.pdf in the root directory thoroughly before

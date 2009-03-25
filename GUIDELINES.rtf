@@ -6,11 +6,13 @@
 
 \f0\fs24 \cf0 PROGRAMMING GUIDELINES:\
 \
+=== 24 March 2009 ===\
+\
 1. Matlab Help\
 \
 % FUN One line description with one space between % and FUN.\
 %	FUN(X,Y) Longer description, with explanation of function inputs X and Y \
-%	and outputs. There is one TAB space between % and FUN(). The function name \
+%	and the output. There is one TAB space between % and FUN(). The function name \
 %	is in CAPITAL LETTERS. Preferably, the input variables X and Y are also in\
 %	capital letters.\
 %\
@@ -31,7 +33,8 @@
 %	See also FUN2, FUN3. Use it exactly like this "See also " + func. names in \
 %	CAPITAL LETTERS.\
 \
-% (c) 2009 You @ LAAS-CNRS. Make yourself famous.\
+% 	(c) 2009 You @ LAAS-CNRS. Make yourself famous. See that this comment line is \
+%	disconnected from the Help body.\
 \
 \
 \
@@ -47,14 +50,12 @@ delIdps = drawn & idps & ~used;\
 \
 2b. Comment individual lines on the right if more info is needed. Example:\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
-\cf0 % get idps to delete\
+% get idps to delete\
 used    = [Lmk.used];                	% used lmks\
 idps    = strcmp(\{Lmk.type\},'idpPnt');	% lmks that are inverse-depth\
 drawn   = (strcmp((get([MapFig.estLmk.ellipse],\cf2 'visible'\cf0 )),\cf2 'on'\cf0 ))'; % previously drawn\
 delIdps = drawn & idps & ~used;			% these need to be deleted\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
-\cf0 \
+\
 \
 2c. Separate all groups of lines with an empty line so that the code does not look packed. As a rule, no more than 4 lines should go together.\
 \
@@ -78,13 +79,18 @@ For convention, we are going to do the following:\
 \
 Use the logical forms. Examples:\
 \
- 	used = [Lmk.used];\
-	vis    = [Obs.vis];\
+ 	used  = [Lmk.used];\
+	vis   = [Obs.vis];\
 	drawn = (strcmp((get([MapFig.estLmk.ellipse],\cf2 'visible'\cf0 )),\cf2 'on'\cf0 ))';\
 \
 Compose the logicals to get new logicals. Example:\
 \
 	erase = ~vis & drawn;\
+\
+When setting logicals, always use true/false, not 1/0:\
+\
+	Lmk(1).vis = true;    	% Do not use 1 instead of true, otherwise\
+	Obs(2).vis = false;		% you would turn the whole logical vector into numeric.\
 \
 \
 \
@@ -98,16 +104,13 @@ GOOD: code reads easy\
 	JAC_x    = JAC_y*Y_x;\
 \
 BAD: code is a pack\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
-\cf0 	x = f(y);\
+	x = f(y);\
 	variable = fun(z);\
 	JAC_x = JAC_y*Y_x;\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
-\cf0 \
+\
 5b. Similarly, when commenting multiple lines on the right margin, align comments. Examples:\
 \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
-\cf0 GOOD:\
+GOOD:\
 	x        = f(y);			% these lines\
 	variable = fun(z);		% are all easy \
 	JAC_x    = JAC_y*Y_x;	% to read\
@@ -147,11 +150,13 @@ NOT SO GOOD, BUT OK:\
 6. Make exceptional use of line breaking "..." when functions have long names or many long parameters. Example:\
 \
 [out, OUT_x, OUT_y, OUT_z, OUT_par, OUT_calibration] = ...\
-	functionName(...\
-				Lmk.state.x,...\
-				Sen(4).par.y,...\
-				Obs(sen,lmk).nom.N,...\
-				Sen(4).par.k,...\
-				Sen(4).par.cal);\
+	functionNameThatMightBeVeryLong(...\
+				Lmk.state.x,...				% you can put\
+				Sen(4).par.y,...				% comments here\
+				Obs(sen,lmk).nom.N,...		% if necessary\
+				Sen(4).par.k,...				% to explain the\
+				Sen(4).par.cal);				% input data\
 \
-See USERDATA.M, CREATEMAPFIG.M to see examples of this.}
+See USERDATA.M, CREATEMAPFIG.M to see examples of this.\
+\
+}

@@ -1,17 +1,17 @@
 {\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf480
 {\fonttbl\f0\fmodern\fcharset77 Courier;}
 {\colortbl;\red255\green255\blue255;\red160\green32\blue240;\red255\green0\blue0;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww12000\viewh19160\viewkind0
+\paperw11900\paperh16840\margl1440\margr1440\vieww11580\viewh19160\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
 \f0\fs24 \cf0 PROGRAMMING GUIDELINES:\
 \
 INDEX:\
 === 24 March 2009 ===\
-1. Matlab help\
-2. Functions code GUIDELINES\
+1. Matlab Help.\
+2. Functions code GUIDELINES.\
 3. Names of variables and Jacobians.\
-4. Using logical vectors to select desired parts.\
+4. Logical vectors in structure arrays.\
 5. Function readability: ALIGNED CODE READS WELL !\
 6. Line breaking "..."\
 === 25 March 2009 ===\
@@ -31,11 +31,12 @@ INDEX:\
 %	If the list of input arguments is too complex, make a list here. Explain ALL \
 %	input arguments.\
 %\
-%	FUN(X,Y,Z) explain extra inputs here and what do they do. Explain if they \
+%	FUN(X,Y,Z) explain extra inputs here and what they do. Explain if they \
 %	have a default value.\
 %\
 %	[out, OUT_x, OUT_y] = FUN(...) returns the Jacobians wrt X and Y. Maybe you \
-%	have to explain something else.\
+%	have to explain something else. You do not need to repeat the input parameters\
+%	so you can use the form [out, OUT_x] = FUN(...), with the (...).\
 %\
 %	Before saving, select entire paragraphs and do RIGHT CLICK, "Wrap selected \
 %	comments". This equals all line lengths to approximately the page width.\
@@ -44,7 +45,7 @@ INDEX:\
 %	CAPITAL LETTERS.\
 \
 % 	(c) 2009 You @ LAAS-CNRS. Make yourself famous. See that this comment line is \
-%	disconnected from the Help body.\
+%	disconnected from the Help body (the previous line has no % sign).\
 \
 \
 \
@@ -80,17 +81,17 @@ For convention, we are going to do the following:\
 3a. Variables inside functions have short names in small letters normally.\
 3b. Jacobians are BIG_small, where X_y = dx/dy\
 3c. Jacobians are not Xy, better X_y.\
-3d. Robot, landmark, sensor etc indices are always rob, sen, lmk, obs.\
-3e. Robot , landmark, sensor etc identifiers are rid, sid, lid, etc.\
+3d. Robot, landmark, sensor etc INDICES are always rob, sen, lmk, obs.\
+3e. Robot, landmark, sensor etc IDENTIFIERS are rid, sid, lid, etc.\
 \
 \
 \
-4. Using logical vectors to select desired parts.\
+4. Using logical vectors to select desired elements in structure arrays.\
 \
 Use the logical forms. Examples:\
 \
- 	used  = [Lmk.used];\
-	vis   = [Obs.vis];\
+ 	used  = [Lmk.used];      % a vector of logicals\
+	vis   = [Obs.vis];  \
 	drawn = (strcmp((get([MapFig.estLmk.ellipse],\cf2 'visible'\cf0 )),\cf2 'on'\cf0 ))';\
 \
 Compose the logicals to get new logicals. Example:\
@@ -101,6 +102,27 @@ When setting logicals, always use true/false, not 1/0:\
 \
 	Lmk(1).vis = true;    	% Do not use 1 instead of true, otherwise\
 	Obs(2).vis = false;		% you would turn the whole logical vector into numeric.\
+\
+You can access an array with the logical vector\
+\
+	Lmk(used)   % all the Lmk's that are used\
+\
+You can get the indices with FIND()\
+\
+	usedIdx = find(used);\
+\
+You can also access an array with indices, of course:\
+\
+	Lmk(usedIdx)    % this is equivalent to Lmk(used)\
+\
+If you want the first N unused Lmk's, do for example\
+\
+	Lmk(find(~used,N,'first'))\
+\
+or, easier to read:\
+\
+	notUsed = find(~[Lmk.used]);\
+	Lmk(notUsed(1:N));\
 \
 \
 \

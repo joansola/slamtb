@@ -51,53 +51,6 @@ World = struct(...
     'zMax',                 10,...
     'points',               thickCloister(-5,5,-5,5,1,9));  % point lmks
 
-% Sensor things 
-%   - each sensor's type and parameters, noise, non-measurable prior.
-%   - Sensor types (add new type strings if you need more):
-%       'pinHole'   Pin-hole camera
-Sensor{1} = struct(...
-    'id',                   1,...           % sensor identifier
-    'name',                 'Micropix',...      % sensor name
-    'type',                 'pinHole',...   % type of sensor
-    'robot',                1,...           % robot where it is mounted
-    'position',             [0;0;.6],...    % position in robot
-    'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
-    'positionStd',          [0;0;0],...     % position error std
-    'orientationStd',       [0;0;0],...     % orient. error std
-    'imageSize',            [640;480],...   % image size
-    'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [320;240;200;200],...   % intrinsic params
-    'distortion',           [],...          % distortion params
-    'frameInMap',           false);         % add sensor frame in slam map?
-Sensor{2} = struct(...
-    'id',                   2,...           % sensor identifier
-    'name',                 'Micropix',...      % sensor name
-    'type',                 'pinHole',...   % type of sensor
-    'robot',                2,...           % robot where it is mounted
-    'position',             [0;-0.15;.6],...     % position in robot
-    'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
-    'positionStd',          [0;0;0],...     % position error std
-    'orientationStd',       [0;0;0],...     % orient. error std
-    'imageSize',            [640;480],...   % image size
-    'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [320;240;200;200],...   % intrinsic params
-    'distortion',           [],...          % distortion params
-    'frameInMap',           true );         % add sensor frame in slam map?
-% Sensor{3} = struct(...
-%     'id',                   3,...           % sensor identifier
-%     'name',                 'Micropix',...      % sensor name
-%     'type',                 'pinHole',...   % type of sensor
-%     'robot',                2,...           % robot where it is mounted
-%     'position',             [0;0.15;.6],...     % position in robot
-%     'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
-%     'positionStd',          [0;0;0],...     % position error std
-%     'orientationStd',       [0;0;0],...     % orient. error std
-%     'imageSize',            [640;480],...   % image size
-%     'pixErrorStd',          1.0,...         % pixel error std
-%     'intrinsic',            [320;240;200;200],...   % intrinsic params
-%     'distortion',           [],...          % distortion params
-%     'frameInMap',           false );         % add sensor frame in slam map?
-
 % Robot things with their controls
 %   - each robot's type and initial config, controls.
 %   - motion models (add new model strings if you need more):
@@ -138,6 +91,53 @@ Robot{2} = struct(...
     'dxStd',                [0;0;0],...     % vel perturbation std
     'daStd',                [0;0;1]);       % ang vel pert. std, degrees
 
+
+% Sensor things 
+%   - each sensor's type and parameters, noise, non-measurable prior.
+%   - Sensor types (add new type strings if you need more):
+%       'pinHole'   Pin-hole camera
+Sensor{1} = struct(...
+    'id',                   1,...           % sensor identifier
+    'name',                 'Micropix',...      % sensor name
+    'type',                 'pinPole',...   % type of sensor
+    'robot',                1,...           % robot where it is mounted
+    'position',             [0;0;.6],...    % position in robot
+    'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
+    'positionStd',          [0;0;0],...     % position error std
+    'orientationStd',       [0;0;0],...     % orient. error std
+    'imageSize',            [640;480],...   % image size
+    'pixErrorStd',          1.0,...         % pixel error std
+    'intrinsic',            [320;240;200;200],...   % intrinsic params
+    'distortion',           [],...          % distortion params
+    'frameInMap',           false);         % add sensor frame in slam map?
+Sensor{2} = struct(...
+    'id',                   2,...           % sensor identifier
+    'name',                 'Micropix',...      % sensor name
+    'type',                 'pinHole',...   % type of sensor
+    'robot',                2,...           % robot where it is mounted
+    'position',             [0;-0.15;.6],...     % position in robot
+    'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
+    'positionStd',          [0;0;0],...     % position error std
+    'orientationStd',       [0;0;0],...     % orient. error std
+    'imageSize',            [640;480],...   % image size
+    'pixErrorStd',          1.0,...         % pixel error std
+    'intrinsic',            [320;240;200;200],...   % intrinsic params
+    'distortion',           [],...          % distortion params
+    'frameInMap',           true );         % add sensor frame in slam map?
+% Sensor{3} = struct(...
+%     'id',                   3,...           % sensor identifier
+%     'name',                 'Micropix',...      % sensor name
+%     'type',                 'pinHole',...   % type of sensor
+%     'robot',                2,...           % robot where it is mounted
+%     'position',             [0;0.15;.6],...     % position in robot
+%     'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
+%     'positionStd',          [0;0;0],...     % position error std
+%     'orientationStd',       [0;0;0],...     % orient. error std
+%     'imageSize',            [640;480],...   % image size
+%     'pixErrorStd',          1.0,...         % pixel error std
+%     'intrinsic',            [320;240;200;200],...   % intrinsic params
+%     'distortion',           [],...          % distortion params
+%     'frameInMap',           false );         % add sensor frame in slam map?
 
 % Landmark things 
 %   - landmark types, max nbr of lmks, lmk management options

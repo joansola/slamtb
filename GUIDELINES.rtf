@@ -1,12 +1,22 @@
 {\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf480
 {\fonttbl\f0\fmodern\fcharset77 Courier;}
-{\colortbl;\red255\green255\blue255;\red160\green32\blue240;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww12880\viewh12740\viewkind0
+{\colortbl;\red255\green255\blue255;\red160\green32\blue240;\red255\green0\blue0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww12000\viewh19160\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
 \f0\fs24 \cf0 PROGRAMMING GUIDELINES:\
 \
+INDEX:\
 === 24 March 2009 ===\
+1. Matlab help\
+2. Functions code GUIDELINES\
+3. Names of variables and Jacobians.\
+4. Using logical vectors to select desired parts.\
+5. Function readability: ALIGNED CODE READS WELL !\
+6. Line breaking "..."\
+=== 25 March 2009 ===\
+7. Error messages.\
+\
 \
 1. Matlab Help\
 \
@@ -159,4 +169,22 @@ NOT SO GOOD, BUT OK:\
 \
 See USERDATA.M, CREATEMAPFIG.M to see examples of this.\
 \
+\
+\
+7. Error messages. Stick to Matlab standards:\
+\
+	error('??? Unknown sensor type ''%s''.',Sen(sen).type);\
+\
+gives a 'nice' Matlab error message (the one in red):\
+\
+	??? Error using ==> createSensors at 46\
+\cf3 	??? Unknown sensor type 'pinPole'.\cf0 \
+\
+	Error in ==> createSLAMstructures at 10\
+	Sen = createSensors(Sensor);\
+\
+	Error in ==> universalSlam at 36\
+	[Rob,Sen,Lmk,Obs,Tim] = createSLAMstructures(...\
+\
+This information is enough. Matlab has debugging mechanisms to go find further info for the error.\
 }

@@ -43,7 +43,7 @@ for sen = 1:numel(Sensor)
             So.par.c = invDistortion(So.par.d,numel(So.par.d),So.par.k);
 
         otherwise
-            error('??? Unknown sensor type ''%s''.',Sen.type)
+            error('??? Unknown sensor type ''%s''.',Si.type)
 
     end
 

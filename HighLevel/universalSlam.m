@@ -1,10 +1,10 @@
 % SLAM wireframe - an EKF-SLAM algorithm with simulator and graphics.
 %
 %   This script performs multi-robot, multi-sensor, multi-landmark 6DOF
-%   EKF-SLAM with simulation and graphics capabilities. 
+%   EKF-SLAM with simulation and graphics capabilities.
 %
 %   Please read slamToolbox.pdf in the root directory thoroughly before
-%   using this toolbox. 
+%   using this toolbox.
 %
 %   Beginners should not modify this file, just edit USERDATA.M and enter
 %   the data you wish to simulate.
@@ -32,21 +32,24 @@ global Map
 userData;   % user-defined data. SCRIPT.
 
 %% II. Initialize all data structures from user data
+% SLAM data
 [Rob,Sen,Lmk,Obs,Tim] = createSLAMstructures(...
     Robot,...
-    Sensor,...
+    Sensor,...      % all user data
     Landmark,...
-    Time);     % SLAM data.
+    Time);                    
+% Simulation data
 [SimRob,SimSen,SimLmk] = createSimStructures(...
     Robot,...
-    Sensor,...
-    World);      % Simulation data.
+    Sensor,...      % all user data
+    World);                   
+% Graphics handles
 [MapFig,SenFig] = createGraphicsStructures(...
-    Rob, Sen, Lmk, Obs,...
-    SimRob, SimSen, SimLmk,...
-    MapFigure, SensorFigure); % Graphics handles.
+    Rob, Sen, Lmk, Obs,...      % SLAM data
+    SimRob, SimSen, SimLmk,...  % Simulator data
+    MapFigure, SensorFigure);   % user graphic data
 
-%% III. Init data logging 
+%% III. Init data logging
 % TODO: Create source and/or destination files and paths for data input and
 % logs.
 % TODO: do something here to collect data for post-processing or
@@ -54,7 +57,6 @@ userData;   % user-defined data. SCRIPT.
 % etc., instead of creating large Matlab variables for data logging.
 
 %% IV. Temporal loop
-tic
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 1. SIMULATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -65,7 +67,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
     % Simulate robots
     for rob = 1:numel(SimRob)
-        
+
         % Robot motion
         % FIXME: see how to include noise in a clever way.
         SimRob(rob).con.u = Rob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
@@ -85,9 +87,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 2. ESTIMATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % Sample period
-%     Tim.dt = samplePeriod;
-
     % Process robots
     for rob = 1:numel(Rob)
 
@@ -100,7 +99,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             % Initialize new landmarks
             % initNewLmks;
             Lmk = initNewLmks(Rob(rob), Sen(sen), SimObs(sen), Lmk) ;
-            
+
             % update Observation to update visually components
             Obs(sen) = updateObsInSlamProcess(Obs(sen), Lmk) ;
 
@@ -118,14 +117,13 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % FIXME: these lines to be removed, they are here just to have
     % something to plot in the map and sensors figures.
     %
-    
     id         = 195;
     Lmk(23).id = id; % Simulate landmark exists in map in position index 23.
     lmk  = find([Lmk.id] == id);
     lidx = find([SimLmk.ids] == id);
     xyz = SimLmk.points(:,lidx);
     XYZ = diag([.1 .2 .3]);
-    r = addToMap(xyz,XYZ);
+    r   = addToMap(xyz,XYZ);
     Lmk(23).state.r = r;
     Lmk(23).used = true;
     for sen = 1:numel(Sen)
@@ -137,7 +135,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             Obs(sen,lmk).vis = false;
         end
     end
-
     %
     % FIXME: remove up to this line ----------------------
 

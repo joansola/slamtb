@@ -99,7 +99,7 @@ Robot{2} = struct(...
 Sensor{1} = struct(...
     'id',                   1,...           % sensor identifier
     'name',                 'Micropix',...      % sensor name
-    'type',                 'pinPole',...   % type of sensor
+    'type',                 'pinHole',...   % type of sensor
     'robot',                1,...           % robot where it is mounted
     'position',             [0;0;.6],...    % position in robot
     'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw

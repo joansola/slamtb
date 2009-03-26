@@ -1,7 +1,7 @@
 
 function Lmk = initNewLmks(Rob, Sen, SimObs, Lmk)
 
-%  INITNEWLMKS  initialise some new landmarks from recent observations.
+% INITNEWLMKS  Initialise some new landmarks from recent observations.
 %   LMK = INITNEWLMKS(ROB, SEN, SIMOBS, LMK) returns the new set of
 %   landmarks.
 %

@@ -1,4 +1,4 @@
-% SLAM wireframe - an EKF-SLAM algorithm with simulator and graphics.
+% UNIVERSALSLAM  An EKF-SLAM algorithm with simulator and graphics.
 %
 %   This script performs multi-robot, multi-sensor, multi-landmark 6DOF
 %   EKF-SLAM with simulation and graphics capabilities.
@@ -17,7 +17,9 @@
 %   active-search techniques for vision, they are amazingly faster and
 %   robust.
 %
-%   See also USERDATA. Also consult slamToolbox.pdf in the root directory.
+%   See also USERDATA. 
+%
+%   Also consult slamToolbox.pdf in the root directory.
 
 %   Created and maintained by
 %   (c) 2009 Joan Sola @ LAAS-CNRS. jsola@laas.fr.
@@ -47,7 +49,7 @@ userData;   % user-defined data. SCRIPT.
 [MapFig,SenFig] = createGraphicsStructures(...
     Rob, Sen, Lmk, Obs,...      % SLAM data
     SimRob, SimSen, SimLmk,...  % Simulator data
-    MapFigure, SensorFigure);   % user graphic data
+    Figures);                   % User-defined graphic options
 
 %% III. Init data logging
 % TODO: Create source and/or destination files and paths for data input and
@@ -62,8 +64,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % FIXME: this is hard-coded. Should be done better as part of the simulator.
-    Rob(1).con.u = [0;0;0;0;0;0];
-    Rob(2).con.u = [.1;0;0;0;0;0.05];
+    Rob(1).con.u = [.1;0;0;0;0;0.05];
+%     Rob(2).con.u = [0;0;0;0;0;0];
 
     % Simulate robots
     for rob = 1:numel(SimRob)

@@ -16,8 +16,8 @@ Obs.meas.R = COV;
 Obs.exp.e = Obs.meas.y;
 Obs.exp.E = Obs.meas.R;
 
-Obs.measured = true;
-Obs.matched  = true;
-Obs.updated  = false;
+Obs.flg.meas  = true;
+Obs.flg.match = true;
+Obs.flg.upd   = false;
 
-Obs.vis = true;
+Obs.flg.vis   = true;

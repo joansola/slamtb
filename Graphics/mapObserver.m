@@ -2,15 +2,22 @@ function mapObs = mapObserver(world,mapView)
 
 % MAPOBSERVER  Define observer camera for map plots.
 %   MAPOBSERVER(WRLD,VIEW) defines the camera parameters for the MapFig
-%   figure wo that the scanario defined in WRLD is viewed from a
+%   figure so that the scanario defined in WRLD is viewed from a
 %   perspective specified by VIEW.
 %
 %   WRLD is a structure containing at least
-%       .l, .w, .h  length, width and height of the scenario.
-%       .xMean, yMean, zMean  values of the center of the scenario
+%       .l, .w, .h :          length, width and height of the scenario.
+%       .xMean, yMean, zMean: values of the center of the scenario
 %   VIEW is either a vector or a string. For vectors, one can enter
-%       [az, el, fov] Azimuth, elevation, field of view, all in degrees
-%       [az, el, fov, dst] The above plus distance
+%       [az, el, fov] :      Azimuth, elevation, field of view, in degrees
+%       [az, el, fov, dst] : The above plus distance.
+%   for strings, they specify pre-defined views. Edit this file to see the
+%   predefined views 'normal', 'top', 'side', 'view'.
+%
+%
+%   See also CREATEMAPFIG.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
 
 
 % Observer camera:

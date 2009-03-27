@@ -1,4 +1,5 @@
 function drawEucLmk(MapFig, Lmk, color)
+
 global Map
 
 posOffset = [0;0;.05];

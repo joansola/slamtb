@@ -59,23 +59,6 @@ World = struct(...
 Robot{1} = struct(...
     'id',                   1,...           % robot identifier
     'name',                 'Dala',...      % robot name
-    'type',                 'atrv',...      % type of robot
-    'motion',               'constVel',...  % motion model
-    'position',             [1;0;0],...     % robot position in map
-    'orientationDegrees',   [0;0;45],...     % orientation, in degrees, roll pitch yaw.
-    'positionStd',          [0;0;0],...     % position error, std
-    'orientationStd',       [0;0;0],...     % orient. error, std
-    'velocity',             [1;0;0],...     % lin. velocity
-    'angularVelDegrees',    [0;0;10],...     % ang. velocity
-    'velStd',               [0;0;0],...     % lin. vel. error, std
-    'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
-    'dv',                   [1;0;0],...     % veolcity increment
-    'dwDegrees',            [0;0;0],...     % ang. vel. increment, degrees
-    'dvStd',                [0;0;0],...     % vel perturbation std
-    'dwStd',                [0;0;1]);       % ang vel pert. std, degrees
-Robot{2} = struct(...
-    'id',                   2,...           % robot identifier
-    'name',                 'Dala',...      % robot name
     'type',                 'atrv',...      % motion model, type of robot
     'motion',               'odometry',...  % motion model
     'position',             [0;0;0],...     % robot position in map
@@ -90,6 +73,23 @@ Robot{2} = struct(...
     'daDegrees',            [0;0;5],...     % angle increment, degrees
     'dxStd',                [0;0;0],...     % vel perturbation std
     'daStd',                [0;0;1]);       % ang vel pert. std, degrees
+% Robot{2} = struct(...
+%     'id',                   2,...           % robot identifier
+%     'name',                 'Dala',...      % robot name
+%     'type',                 'atrv',...      % type of robot
+%     'motion',               'constVel',...  % motion model
+%     'position',             [1;0;0],...     % robot position in map
+%     'orientationDegrees',   [0;0;45],...     % orientation, in degrees, roll pitch yaw.
+%     'positionStd',          [0;0;0],...     % position error, std
+%     'orientationStd',       [0;0;0],...     % orient. error, std
+%     'velocity',             [1;0;0],...     % lin. velocity
+%     'angularVelDegrees',    [0;0;10],...     % ang. velocity
+%     'velStd',               [0;0;0],...     % lin. vel. error, std
+%     'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
+%     'dv',                   [1;0;0],...     % veolcity increment
+%     'dwDegrees',            [0;0;0],...     % ang. vel. increment, degrees
+%     'dvStd',                [0;0;0],...     % vel perturbation std
+%     'dwStd',                [0;0;1]);       % ang vel pert. std, degrees
 
 
 % Sensor things 
@@ -98,7 +98,7 @@ Robot{2} = struct(...
 %       'pinHole'   Pin-hole camera
 Sensor{1} = struct(...
     'id',                   1,...           % sensor identifier
-    'name',                 'Micropix',...      % sensor name
+    'name',                 'Micropix',...  % sensor name
     'type',                 'pinHole',...   % type of sensor
     'robot',                1,...           % robot where it is mounted
     'position',             [0;0;.6],...    % position in robot
@@ -110,26 +110,12 @@ Sensor{1} = struct(...
     'intrinsic',            [320;240;200;200],...   % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
-Sensor{2} = struct(...
-    'id',                   2,...           % sensor identifier
-    'name',                 'Micropix',...      % sensor name
-    'type',                 'pinHole',...   % type of sensor
-    'robot',                2,...           % robot where it is mounted
-    'position',             [0;-0.15;.6],...     % position in robot
-    'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
-    'positionStd',          [0;0;0],...     % position error std
-    'orientationStd',       [0;0;0],...     % orient. error std
-    'imageSize',            [640;480],...   % image size
-    'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [320;240;200;200],...   % intrinsic params
-    'distortion',           [],...          % distortion params
-    'frameInMap',           true );         % add sensor frame in slam map?
-% Sensor{3} = struct(...
-%     'id',                   3,...           % sensor identifier
+% Sensor{2} = struct(...
+%     'id',                   2,...           % sensor identifier
 %     'name',                 'Micropix',...      % sensor name
 %     'type',                 'pinHole',...   % type of sensor
 %     'robot',                2,...           % robot where it is mounted
-%     'position',             [0;0.15;.6],...     % position in robot
+%     'position',             [0;-0.15;.6],...     % position in robot
 %     'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
 %     'positionStd',          [0;0;0],...     % position error std
 %     'orientationStd',       [0;0;0],...     % orient. error std
@@ -137,7 +123,7 @@ Sensor{2} = struct(...
 %     'pixErrorStd',          1.0,...         % pixel error std
 %     'intrinsic',            [320;240;200;200],...   % intrinsic params
 %     'distortion',           [],...          % distortion params
-%     'frameInMap',           false );         % add sensor frame in slam map?
+%     'frameInMap',           true );         % add sensor frame in slam map?
 
 % Landmark things 
 %   - landmark types, max nbr of lmks, lmk management options
@@ -158,25 +144,35 @@ Landmark{2} = struct(...
 
 % Visualization options 
 %   - view, projection, video, ellipses.
-%   - figure projections:
+%   - figure projections - mapProj:
 %       'persp'     Perspective
 %       'ortho'     Orthographic
-%   - Figure views
+%   - 3D figure views - mapView - see MAPOBSERVER.
 %       [a,e,f]     Custom azimuth/elevation/FOV vector. Distance automatic
 %       [a,e,f,d]   custom az/el/fov/distance vector.
-%   - Figure predefined views (edit mapObserver.m to create/edit views):
+%   - 3D figure predefined views (edit mapObserver.m to create/edit views):
 %       'top'       Top view
 %       'side'      Side view
 %       'view'      Generic view
 %       'normal'    Normal view
-MapFigure = struct(...
-    'renderer',             'opengl',...    % renderer
-    'projection',           'persp',...     % projection of the 3d figure
-    'view',                 [30 30 40 15]); % viewpoint
-SensorFigure{1} = struct(...
-    'ellipses',             true);          % show 3d ellipsoids?
+%   - objects colors - two options for color specification:
+%       'rgbcmykw'  1-char predifined Matlab colors
+%       [r g b]     color vector. [0 0 0] is black, [1 1 1] is white.
+Figures = struct(...
+    'renderer',         'opengl',...     % renderer
+    'ellipses',          true,...        % show 3d ellipsoids?
+    'mapProj',          'persp',...      % projection of the 3d figure
+    'mapView',           [30 30 40 15],...% viewpoint of the 3d figure
+    'colors',            struct(...      % Colors:
+        'border',        [.8 .8 .8],...  %   [r g b]      
+        'axes',          [0 0 0],...     %   with:
+        'backgnd',       [.5 .5 .5],...  %   [0 0 0] black
+        'raw',           [0 0 0],...     %   [1 1 1] white
+        'simu',          [0 1 0],...     %   or 'r', 'b', etc.
+        'est',           [0 0 1],...
+        'label',         [0 0 0]));
 Video = struct(...
-    'createVideo',          false);         % create video sequence?
+    'createVideo',       false);         % create video sequence?
 
 
 % Estimation options 

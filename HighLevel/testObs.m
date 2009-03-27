@@ -10,14 +10,14 @@ function Obs = testObs(Obs, pos, COV)
 %   suit the debugging needs. In particular, the three flags may be changed
 %   to modify displaying behavior.
 
-Obs.meas.y = pos;
-Obs.meas.R = COV;
+Obs.meas.y    = pos;
+Obs.meas.R    = COV;
 
-Obs.exp.e = Obs.meas.y;
-Obs.exp.E = Obs.meas.R;
+Obs.exp.e     = Obs.meas.y;
+Obs.exp.E     = Obs.meas.R;
 
-Obs.flg.meas  = true;
-Obs.flg.match = true;
-Obs.flg.upd   = false;
+Obs.measured  = true;
+Obs.matched   = true;
+Obs.updated   = false;
 
-Obs.flg.vis   = true;
+Obs.vis       = true;

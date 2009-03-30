@@ -4,22 +4,22 @@
 %   names and comments should make this file easy to understand. Follow
 %   these guidelines:
 %
-%   * Specify site, run and estimation details
+%   * Specify site and estimation details for the current run.
 %   * Specify sampling time and start and end frames.
 %   * Use as many robots and sensors as you wish.
-%   * Assign sensors to robots via Sen{i}.robot.
-%   * Use field Sens{i}.d for radial distortion parameters if desired.
+%   * Assign sensors to robots via Sensor{i}.robot.
+%   * Use field Sensor{i}.d for radial distortion parameters if desired.
 %   * Define one instance of each landmark type you wish to use. Use the
-%   field Lmk{i}.naxNbr to specify the maximum number of such landmarks
-%   that the SLAM map must support.
+%   field Landmark{i}.naxNbr to specify the maximum number of such
+%   landmarks that the SLAM map must support.
 %
 %   See further comments within the file for more detailed information.
 %
 %   NOTE: You can have multiple copies of this file with different names to
 %   store different simulation conditions. Just modify the call in
-%   UNIVERSALSLAM to point to the 'USERDATA' file you want.
+%   UNIVERSALSLAM to point to the particular 'USERDATA' file you want.
 %
-%   See also UNIVERSALSLAM.
+%   See also UNIVERSALSLAM, EULERANGLES.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 
@@ -36,7 +36,7 @@ Experiment = struct(...
 % Time variables 
 %   - sampling time, first and last frames
 Time = struct(...
-    'dt',                   .1,...          % sampling time
+    'dt',                   .1,...          % sampling time, seconds
     'firstFrame',           1,...           % first frame #
     'lastFrame',            50);            % last frame #
 
@@ -49,26 +49,27 @@ World = struct(...
     'yMax',                 10,...
     'zMin',                 -10,...
     'zMax',                 10,...
-    'points',               thickCloister(-5,5,-5,5,1,9));  % point lmks
+    'points',               thickCloister(-5,5,-5,5,1,9));  % 3d point landmarks
 
 % Robot things with their controls
-%   - each robot's type and initial config, controls.
+%   - each robot's type and initial configuration, and controls.
 %   - motion models (add new model strings if you need more):
 %       'constVel'    6D Constant velocity model
 %       'odometry'    6D Odometry model
+%   - See EULERANGLES for orientations specifications.
 Robot{1} = struct(...
     'id',                   1,...           % robot identifier
     'name',                 'Dala',...      % robot name
-    'type',                 'atrv',...      % motion model, type of robot
+    'type',                 'atrv',...      % type of robot
     'motion',               'odometry',...  % motion model
     'position',             [0;0;0],...     % robot position in map
     'orientationDegrees',   [0;0;0],...     % orientation, in degrees, roll pitch yaw.
     'positionStd',          [0;0;0],...     % position error, std
-    'orientationStd',       [0;0;0],...     % orient. error, std
+    'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
     'velocity',             [0;0;0],...     % lin. velocity
     'angularVelDegrees',    [0;0;0],...     % ang. velocity
     'velStd',               [0;0;0],...     % lin. vel. error, std
-    'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
+    'angVelStd',            [0;0;0],...     % ang. vel. error, std, in degrees
     'dx',                   [1;0;0],...     % position increment
     'daDegrees',            [0;0;5],...     % angle increment, degrees
     'dxStd',                [0;0;0],...     % vel perturbation std
@@ -79,13 +80,13 @@ Robot{1} = struct(...
 %     'type',                 'atrv',...      % type of robot
 %     'motion',               'constVel',...  % motion model
 %     'position',             [1;0;0],...     % robot position in map
-%     'orientationDegrees',   [0;0;45],...     % orientation, in degrees, roll pitch yaw.
+%     'orientationDegrees',   [0;0;45],...    % orientation, in degrees, roll pitch yaw.
 %     'positionStd',          [0;0;0],...     % position error, std
-%     'orientationStd',       [0;0;0],...     % orient. error, std
+%     'orientationStd',       [0;0;0],...     % orient. error, std, degrees
 %     'velocity',             [1;0;0],...     % lin. velocity
-%     'angularVelDegrees',    [0;0;10],...     % ang. velocity
+%     'angularVelDegrees',    [0;0;10],...    % ang. velocity, in degrees
 %     'velStd',               [0;0;0],...     % lin. vel. error, std
-%     'angVelStd',            [0;0;0],...     % ang. vel. srroe, std
+%     'angVelStd',            [0;0;0],...     % ang. vel. error, std, degrees
 %     'dv',                   [1;0;0],...     % veolcity increment
 %     'dwDegrees',            [0;0;0],...     % ang. vel. increment, degrees
 %     'dvStd',                [0;0;0],...     % vel perturbation std
@@ -96,6 +97,7 @@ Robot{1} = struct(...
 %   - each sensor's type and parameters, noise, non-measurable prior.
 %   - Sensor types (add new type strings if you need more):
 %       'pinHole'   Pin-hole camera
+%   - See EULERANGLES for orientations specifications.
 Sensor{1} = struct(...
     'id',                   1,...           % sensor identifier
     'name',                 'Micropix',...  % sensor name
@@ -157,7 +159,7 @@ Landmark{2} = struct(...
 %       'normal'    Normal view
 %   - objects colors - two options for color specification:
 %       'rgbcmykw'  1-char predifined Matlab colors
-%       [r g b]     color vector. [0 0 0] is black, [1 1 1] is white.
+%       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 Figures = struct(...
     'renderer',         'opengl',...     % renderer
     'ellipses',          true,...        % show 3d ellipsoids?
@@ -165,7 +167,7 @@ Figures = struct(...
     'mapView',           [30 30 40 15],...% viewpoint of the 3d figure
     'colors',            struct(...      % Colors:
         'border',        [.8 .8 .8],...  %   [r g b]      
-        'axes',          [0 0 0],...     %   with:
+        'axes',          [0 0 0],...     % with:
         'backgnd',       [.5 .5 .5],...  %   [0 0 0] black
         'raw',           [0 0 0],...     %   [1 1 1] white
         'simu',          [0 1 0],...     %   or 'r', 'b', etc.

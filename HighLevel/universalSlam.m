@@ -58,6 +58,27 @@ userData;   % user-defined data. SCRIPT.
 % plotting. Think about collecting data in files using fopen, fwrite,
 % etc., instead of creating large Matlab variables for data logging.
 
+% Create test Lmks and Obs --------------------------
+% FIXME: these lines to be removed, they are here just to have
+% something to plot in the map figure.
+%
+id         = 195;
+lmk        = 23;
+
+Lmk(lmk).id = id; % Simulate landmark exists in map in position index 23.
+
+
+lidx = find([SimLmk.ids] == id);
+xyz = SimLmk.points(:,lidx);
+XYZ = diag([.03 .02 .01]);
+r   = addToMap(xyz,XYZ);
+Lmk(lmk).state.r = r;
+Lmk(lmk).used = true;
+%
+% FIXME: remove up to this line ----------------------
+
+
+
 %% IV. Temporal loop
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 1. SIMULATION
@@ -117,17 +138,9 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
     % Create test Lmks and Obs --------------------------
     % FIXME: these lines to be removed, they are here just to have
-    % something to plot in the map and sensors figures.
+    % something to plot in the sensors figures.
     %
-    id         = 195;
-    Lmk(23).id = id; % Simulate landmark exists in map in position index 23.
     lmk  = find([Lmk.id] == id);
-    lidx = find([SimLmk.ids] == id);
-    xyz = SimLmk.points(:,lidx);
-    XYZ = diag([.1 .2 .3]);
-    r   = addToMap(xyz,XYZ);
-    Lmk(23).state.r = r;
-    Lmk(23).used = true;
     for sen = 1:numel(Sen)
         oidx = find(SimObs(sen).ids == id);
         if ~isempty(oidx)
@@ -139,7 +152,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     end
     %
     % FIXME: remove up to this line ----------------------
-
+    
     % Figure of the Map:
     drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
 

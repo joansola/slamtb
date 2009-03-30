@@ -19,3 +19,4 @@
 %   updateFrame   - Update frame structure.
 %   p2idp         - Point to inverse-depth point conversion.
 %   vec2py        - 3D vector to pitch and yaw direction
+%   idpS2idpW     - transpose idp vector from "Sensor frame" to "World frame".

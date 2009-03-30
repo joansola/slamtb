@@ -1,10 +1,10 @@
 function [ud,UDup,UDdist] = distort(up,dist,rmax)
 
-% DISTORT  Distorts projected point with radial distortion.
-%   DISTORT(UP,DIST) computes the position in the image plane of
-%   the distorted pixel corresponding to the projected pixel UP.
-%   DIST is the vector of distortion parameters. Distortion is
-%   calculated with the radial distortion model:
+% DISTORT  Distort projected point with radial distortion.
+%   DISTORT(UP,DIST) computes the position in the image plane of the
+%   distorted pixel corresponding to the projected pixel UP. DIST is the
+%   vector of distortion parameters. Distortion is calculated with the
+%   radial distortion model:
 %
 %     UD = UP * (1 + k2*r^2 + k4*r^4 + k6*r^6 + ...)
 %
@@ -13,8 +13,8 @@ function [ud,UDup,UDdist] = distort(up,dist,rmax)
 %
 %   [ud,UDup,UDdist] = DISTORT(...) returns Jacobians wrt UP and DIST. Only
 %   DIST vectors of up to order 3 are supported. If a higher order is
-%   desired use a Jacobian builder at the bottom of DISTORT.M file (and read the
-%   notes that come with it).
+%   desired use a Jacobian builder at the bottom of DISTORT.M file (and
+%   read the notes that come with it).
 %
 
 %   FIXME: RMAX works not so nice

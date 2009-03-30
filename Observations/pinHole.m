@@ -44,7 +44,7 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %   to 3 parameters D=[d2;d4;d6]. See DISTORT for information on longer
 %   distortion vectors.
 %
-%   See also PROJECT, DISTORT, PIXELLISE
+%   See also PROJECT, DISTORT, PIXELLISE, INVPINHOLE, PINHOLEIDP.
 
 % (c) 2009 Joan Sola @ LAAS-CNRS
 

@@ -136,8 +136,8 @@ Sensor{1} = struct(...
 %       'plkLin'  Plucker 3D line
 Landmark{1} = struct(...
     'type',                 'idpPnt',...    % type of landmark
-    'nonObsMean',           2e-1,...           % mean of non obs. for initialization
-    'nonObsStd',            0.5,...         % std of non obs for initialization
+    'nonObsMean',           0.1,...           % mean of non obs. for initialization
+    'nonObsStd',            0.03,...         % std of non obs for initialization
     'maxNbr',               15);            % max. nbr. of lmks of this type in map
 Landmark{2} = struct(...
     'type',                 'eucPnt',...    % type of landmark
@@ -169,10 +169,10 @@ Figures = struct(...
         'border',        [.8 .8 .8],...  %   [r g b]      
         'axes',          [0 0 0],...     % with:
         'backgnd',       [.5 .5 .5],...  %   [0 0 0] black
-        'raw',           [0 0 0],...     %   [1 1 1] white
-        'simu',          [0 1 0],...     %   or 'r', 'b', etc.
-        'est',           [0 0 1],...
-        'label',         [0 0 0]));
+        'raw',           [.2 .2 .2],...  %   [1 1 1] white
+        'simu',          'g',...         %   or 'r', 'b', etc.
+        'est',           'b',...
+        'label',         'm'));
 Video = struct(...
     'createVideo',       false);         % create video sequence?
 

@@ -1,9 +1,11 @@
 function drawIdpLmk(MapFig, Lmk, color)
 global Map
 
-posOffset = [0;0;.05];
 
-ran=Lmk.state.r;
+
+posOffset = [0;0;.2];
+
+ran = Lmk.state.r;
 
 % the ellipse
 [X,Y,Z] = idp3elli(Map.x(ran), Map.P(ran,ran), 3, 10) ;
@@ -20,7 +22,7 @@ set(MapFig.estLmk(Lmk.lmk).mean,...
     'xdata',   y(1),...
     'ydata',   y(2),...
     'zdata',   y(3),...
-    'color',   color,...
+    'color',   satColor(color),...
     'visible', 'on');
 
 % the label

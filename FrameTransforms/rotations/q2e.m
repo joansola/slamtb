@@ -1,11 +1,12 @@
 function [e,Eq] = q2e(q)
 
 % Q2E  Quaternion to Euler angles conversion.
-%   Q2E(Q) returns an Euler angles vector corresponding to orientation Q.
+%   Q2E(Q) returns an Euler angles vector [roll;pitch;yaw] corresponding to
+%   the orientation quaternion Q.
 %
 %   [E,Jq] = Q2E(Q) returns also the Jacobian matrix.
 %
-%   See also QUATERNION, R2Q, E2Q, Q2V.
+%   See also QUATERNION, EULERANGLES, R2Q, E2Q, Q2V.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS.
 

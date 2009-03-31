@@ -6,7 +6,7 @@ function [q,Qe] = e2q(e)
 %
 %   [Q,J] = E2Q(E) returns also the Jacobian matrix J = dQ/dE.
 %
-%   See also QUATERNION, R2Q, Q2E, Q2V.
+%   See also QUATERNION, EULERANGLES, R2Q, Q2E, Q2V.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS.
 

@@ -58,22 +58,23 @@ userData;   % user-defined data. SCRIPT.
 % plotting. Think about collecting data in files using fopen, fwrite,
 % etc., instead of creating large Matlab variables for data logging.
 
-% Create test Lmks and Obs --------------------------
+
+% Create test Lmks        --------------------------
 % FIXME: these lines to be removed, they are here just to have
 % something to plot in the map figure.
 %
-id         = 195;
-lmk        = 23;
+id          = 195;     % We'll simulate Lmk ID is in the map...
+lmk         = 60;      % and in the Lmk array at this index.
 
-Lmk(lmk).id = id; % Simulate landmark exists in map in position index 23.
+Lmk(lmk).id = id; % Simulate landmark exists in map in position index lmk.
 
-
-lidx = find([SimLmk.ids] == id);
-xyz = SimLmk.points(:,lidx);
-XYZ = diag([.03 .02 .01]);
-r   = addToMap(xyz,XYZ);
-Lmk(lmk).state.r = r;
-Lmk(lmk).used = true;
+lidx  =  find([SimLmk.ids] == id); % get lmk index in simulated lmks array
+xyz   =  SimLmk.points(:,lidx);    % get lmk 3D position
+XYZ   =  diag([.03 .02 .01]);      % get covariances
+r     =  addToMap(xyz,XYZ);        % put it in the map
+ 
+Lmk(lmk).state.r = r;              % Lmk range in Map
+Lmk(lmk).used    = true;           % Lmk is used
 %
 % FIXME: remove up to this line ----------------------
 

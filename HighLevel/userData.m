@@ -73,7 +73,7 @@ Robot{1} = struct(...
     'dx',                   [1;0;0],...     % position increment
     'daDegrees',            [0;0;5],...     % angle increment, degrees
     'dxStd',                [0;0;0],...     % vel perturbation std
-    'daStd',                [0;0;1]);       % ang vel pert. std, degrees
+    'daStd',                [0;0;0]);       % ang vel pert. std, degrees
 % Robot{2} = struct(...
 %     'id',                   2,...           % robot identifier
 %     'name',                 'Dala',...      % robot name
@@ -138,7 +138,7 @@ Landmark{1} = struct(...
     'type',                 'idpPnt',...    % type of landmark
     'nonObsMean',           0.1,...           % mean of non obs. for initialization
     'nonObsStd',            0.03,...         % std of non obs for initialization
-    'maxNbr',               15);            % max. nbr. of lmks of this type in map
+    'maxNbr',               20);            % max. nbr. of lmks of this type in map
 Landmark{2} = struct(...
     'type',                 'eucPnt',...    % type of landmark
     'maxNbr',               80);            % max. nbr. of lmks of this type in map
@@ -166,13 +166,13 @@ Figures = struct(...
     'mapProj',          'persp',...      % projection of the 3d figure
     'mapView',           [30 30 40 15],...% viewpoint of the 3d figure
     'colors',            struct(...      % Colors:
-        'border',        [.8 .8 .8],...  %   [r g b]      
+        'border',        .8*[1 1 1],...  %   [r g b]      
         'axes',          [0 0 0],...     % with:
-        'backgnd',       [.5 .5 .5],...  %   [0 0 0] black
-        'raw',           [.2 .2 .2],...  %   [1 1 1] white
+        'backgnd',       .6*[1 1 1],...  %   [0 0 0] black
+        'raw',           .2*[1 1 1],...  %   [1 1 1] white
         'simu',          'g',...         %   or 'r', 'b', etc.
         'est',           'b',...
-        'label',         'm'));
+        'label',         'y'));
 Video = struct(...
     'createVideo',       false);         % create video sequence?
 

@@ -22,7 +22,7 @@
 %       1. Consider a world or global frame W and a local frame F.
 %
 %       2. q is used to encode the orientation of frame F wrt frame W. It
-%           may be written as q_WF.
+%       may be written as q_WF.
 %
 %       3. Consider now a vector v = vx.i + vy.j + vz.k in quaternion
 %       space.
@@ -30,17 +30,17 @@
 %       4. We name v_F and v_W the coordinates of v in frames W and F.
 %
 %       5. Then, if q_FW = (q_WF)' = a - bi - cj - dk is the conjugate of
-%           q_WF, we have
-%              v_W = q_WF.v_F.q_FW
-%              v_F = q_FW.v_W.q_WF
+%       q_WF, we have
+%           v_W = q_WF.v_F.q_FW
+%           v_F = q_FW.v_W.q_WF
 %
 %       6. This is equivalent to the linear, rotation matrix forms 
-%              V_W = R_WF*V_F
-%              V_F = R_FW*V_W , 
-%           with 
-%              V_W, V_F : the vectors in Euclidean 3d-space
-%              R_WF = q2R(q_WF) 
-%              R_FW = R_WF'.
+%           V_W = R_WF*V_F
+%           V_F = R_FW*V_W , 
+%       with 
+%           V_W, V_F         : the same vectors in Euclidean 3d-space
+%           R_WF = q2R(q_WF) : the rotation matrix
+%           R_FW = R_WF'.    : the transposed rotation matrix.
 %
 %   Some interesting functions involving quaternions are:
 %

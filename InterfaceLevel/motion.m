@@ -1,9 +1,9 @@
-function Rob = motion(Rob, Con, dt)
+function Rob = motion(Rob, Tim)
 % MOTION  Robt motion.
-%   Rob = MOTION(Rob, Con, DT) performs one motion step to robot Rob with
-%   control signals Con, following the motion model in Rob.motion. The time
-%   increment DT is used only if the motion model requires it, but it has 
-%   to be provided because MOTION is a generic method.
+%   Rob = MOTION(Rob, Tim) performs one motion step to robot Rob, following
+%   the motion model in Rob.motion. The time information Tim is used only
+%   if the motion model requires it, but it has to be provided because
+%   MOTION is a generic method.
 %
 %   See also CONSTVEL, ODO3, UPDATEFRAME.
 
@@ -14,7 +14,7 @@ switch Rob.motion
     % const velocity
     case  {'constVel'}
         
-        Rob.state.x = constVel(Rob.state.x,Con.u,dt);
+        Rob.state.x = constVel(Rob.state.x,Rob.con.u,Tim.dt);
         Rob.frame.x = Rob.state.x(1:7);
         Rob.vel.x   = Rob.state.x(8:13);
         Rob.frame   = updateFrame(Rob.frame);
@@ -22,7 +22,7 @@ switch Rob.motion
         % other motion type:
     case  {'odometry'}
         
-        Rob.frame   = odo3(Rob.frame,Con.u);
+        Rob.frame   = odo3(Rob.frame,Rob.con.u);
 
     otherwise
         % TODO : print an error and go out

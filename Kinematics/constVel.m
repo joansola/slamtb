@@ -4,7 +4,7 @@ function [Xo, Xo_x, Xo_u] = constVel(X, u, dt)
 %   X = CONSTVEL(X, U, DT) performs one time step to the constant velocity
 %   model:
 %       x = x + v*dt
-%       q = q . v2q(w)
+%       q = q . v2q(w*dt)
 %       v = v + uv
 %       w = w + uw
 %

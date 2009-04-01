@@ -31,13 +31,14 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %   with R^2 = sum(U.^2), being U the projected point in the image plane
 %   for a camera with unit focal length.
 %
-%   If P is a points matrix, PINHOLE(P,...) returns a pixel matrix U.
-%   P and U matrices defined as
-%     P = [p1 ... pn];   pi = [xi;yi;zi]
-%     U = [U1 ... Un];   Ui = [ui;vi]
-%
 %   [U,S] = PINHOLE(...) returns the vector S of depths from the camera
 %   center.
+%
+%   If P is a points matrix, PINHOLE(P,...) returns a pixel matrix U and a
+%   depths row-vector S. P, U and S are defined as
+%     P = [P1 ... Pn];   Pi = [xi;yi;zi]
+%     U = [U1 ... Un];   Ui = [ui;vi]
+%     S = [S1 ... Sn]
 %
 %   [U,S,U_p,U_k,U_d] returns the Jacobians of U wrt P, K and D. It only
 %   works for single points P=[x;y;z], and for distortion vectors D of up
@@ -48,7 +49,7 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 
 % (c) 2009 Joan Sola @ LAAS-CNRS
 
-% Piont's depth
+% Point's depth
 s = p(3,:);
 
 if nargout <= 2 % only pixel

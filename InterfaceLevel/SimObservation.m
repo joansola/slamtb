@@ -17,7 +17,7 @@ switch SimSen.type
     % camera pinHole
     case {'pinHole'}
 
-        [SimObs.points, s] = projectEuclPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
+        [SimObs.points, s] = projEucPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
         SimObs.ids=SimLmk.ids;
 
         front=(s>0);

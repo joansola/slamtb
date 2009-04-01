@@ -1,5 +1,7 @@
 function drawEucLmk(MapFig, Lmk, color)
 
+% DRAWEUCLMK  Draw Euclidean point landmark in MapFig.
+
 global Map
 
 posOffset = [0;0;.2];

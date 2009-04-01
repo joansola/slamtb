@@ -1,7 +1,7 @@
 % GRAPHICS
 %
 % Files
-%   camGraphics   - creates a camera graphics 3D object
+%   camGraphics   - creates a camera graphics 3D object.
 %   cloister      - Generates features in a 2D cloister shape.
 %   cov2elli      - Ellipse points from mean and covariances matrix.
 %   cov3elli      - 3D ellipsoid from Gaussian mean and covariance.
@@ -14,3 +14,4 @@
 %   thickVehicle  - creates a vehicle graphics 3D object.
 %   wing          - creates a wing graphics 3D object.
 %   moreindatatip - Display index information in the data tip.
+%   satColor      - Saturate color.

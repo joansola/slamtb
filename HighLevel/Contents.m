@@ -23,5 +23,5 @@
 %   testObs                  - Update OBS information to simulate a SLAM observation.
 %   universalSlam            - An EKF-SLAM algorithm with simulator and graphics.
 %   userData                 - User data for universal SLAM.
-%   drawEucLmk               - 
-%   drawIdpLmk               - 
+%   drawEucLmk               - Draw Euclidean point landmark in MapFig.
+%   drawIdpLmk               - Draw inverse-depth point landmark in MapFig.

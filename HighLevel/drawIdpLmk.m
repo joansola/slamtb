@@ -1,4 +1,7 @@
 function drawIdpLmk(MapFig, Lmk, color)
+
+% DRAWIDPLMK  Draw inverse-depth point landmark in MapFig.
+
 global Map
 
 

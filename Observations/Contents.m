@@ -4,7 +4,7 @@
 %   camPhoto                       - Take photo from a camera
 %   composeRobSen                  - Compose robot and sensor frames and information.
 %   depixellise                    - Pixellic to metric conversion
-%   distort                        - Distorts projected point with radial distortion.
+%   distort                        - Distort projected point with radial distortion.
 %   intrinsic                      - Build intrinsic matrix
 %   invCamPhoto                    - Retroproject a photo from a camera
 %   invDistortion                  - Radial distortion correction calibration.
@@ -20,4 +20,4 @@
 %   retro                          - Retroproject pixel into 3D space.
 %   robCamPhoto                    - Take photo from a robot with a camera.
 %   undistort                      - Undistorts projected point with radial distortion.
-%   retroProjectIdpPntFromPinHoleOnRob - De-Project idp point into Pin-hole
+%   retroProjectIdpPntFromPinHoleOnRob - De-Project idp point from Pin-hole

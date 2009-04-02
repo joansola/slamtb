@@ -8,14 +8,12 @@ function [i,I_u,I_s,I_k,I_c] = invPinHoleIdp(u,s,k,c)
 %   It uses reference frames {RDF,RD} (right-down-front for the 3D world
 %   points and right-down for the pixel), according to this scheme:
 %
-%          / z
-%         /
+%         / z (forward)
 %        /
-%       +------- x      +------- u
-%       |               |
-%       |    3D         |   image
-%       |               |
-%       | y             | v
+%       +------- x                 +------- u
+%       |                          |
+%       |      3D : P=[x;y;z]      |     image : U=[u;v]
+%       | y                        | v
 %
 %   I = INVPINHOLEIDP(U,S,K) allows the introduction of the camera's
 %   calibration parameters:
@@ -57,7 +55,7 @@ if nargout == 1 % only point
             v = retro(undistort(depixellise(u,k),c),1);
     end
     py = vec2py(v);
-    i = [0;0;0;py;s];
+    i  = [0;0;0;py;s];
 
 else % Jacobians
 

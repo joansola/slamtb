@@ -10,14 +10,12 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %   It uses reference frames {RDF,RD} (right-down-front for the 3D world
 %   points and right-down for the pixel), according to this scheme:
 %
-%          / z (forward)
-%         /
+%         / z (forward)
 %        /
-%       +------- x      +------- u
-%       |               |
-%       |    3D         |   image
-%       |               |
-%       | y             | v
+%       +------- x                 +------- u
+%       |                          |
+%       |      3D : P=[x;y;z]      |     image : U=[u;v]
+%       | y                        | v
 %
 %   U = PINHOLE(P,K) allows the introduction of the camera's calibration
 %   parameters:

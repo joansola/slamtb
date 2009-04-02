@@ -36,14 +36,15 @@ else % Jacobians
 
     if size(l,2) == 1  % single point
 
+        % Same functions with Jacobians
         [lr, LR_r, LR_l]   = toFrame(Rf,l);
         [ls, LS_s, LS_lr]  = toFrame(Sf,lr);
-
         [u,s,U_ls,U_k,U_d] = pinHole(ls,Spk,Spd);
 
-        U_r  = U_ls*LS_lr*LR_r;
-        U_s  = U_ls*LS_s;
+        % The chain rule for Jacobians
         U_lr = U_ls*LS_lr;
+        U_r  = U_lr*LR_r;
+        U_s  = U_ls*LS_s;
         U_l  = U_lr*LR_l;
 
     else

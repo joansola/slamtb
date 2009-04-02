@@ -1,4 +1,4 @@
-function [ud,UDup,UDdist] = distort(up,dist,rmax)
+function [ud,UDup,UDdist] = distort(up,dist)
 
 % DISTORT  Distort projected point with radial distortion.
 %   DISTORT(UP,DIST) computes the position in the image plane of the
@@ -24,38 +24,21 @@ function [ud,UDup,UDdist] = distort(up,dist,rmax)
 %   Jacobians are trivially computed just for argument consistency: UDup =
 %   eye(2) and UDdist = zeros(2,length(dist)).
 
-% (c) 2006 Joan Sola @ LAAS-CNRS
+%   (c) 2006-2008 Joan Sola @ LAAS-CNRS
 
 r2 = sum(up.^2);
 
 n = length(dist);
     
-if 0%nargin == 3 && any(r2 > rmax^2) 
-    %   FIXME: RMAX works not so nice
+if n == 0
+    ud = up;
     
-    rdmax = rmax;
-    
-    mr    = ones(size(r2));
-    
-    for i=1:n
-        
-        rdmax = rdmax + dist(i)*rmax^(2*i+1);
-        
-        mr    = mr + (2*i+1)*dist(i)*rmax^(2*i);
-        
+    if size(up,2) == 1
+        UDup   = eye(2);
+        UDdist = zeros(2,0);
+    else
+        error('??? Jacobians not available for multiple points.')
     end
-    
-    r  = sqrt(r2);
-    
-    rd = rdmax + mr.*(r-rmax);
-
-    ratio = rd/r;
-    
-    ud     = ratio*up;
-    
-    UDup   = mr*eye(2);
-    UDdist = zeros(2,length(dist));
-    
 else
 
     ratio = ones(size(r2));

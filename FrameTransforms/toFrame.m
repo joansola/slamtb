@@ -47,7 +47,11 @@ if s==1 % one point
     end
 
 else % multiple points
-    p_F = Rt*p_W - Rt*repmat(t,1,s);
+    p      = p_W;
+    p(1,:) = p(1,:) - t(1);
+    p(2,:) = p(2,:) - t(2);
+    p(3,:) = p(3,:) - t(3);  % p = p_W - repmat(t,1,s);
+    p_F = Rt*p;
     if nargout > 1
         error('Can''t give Jacobians for multiple points');
     end

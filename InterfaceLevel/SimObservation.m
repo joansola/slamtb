@@ -1,4 +1,3 @@
-
 function  SimObs = SimObservation(SimRob, SimSen, SimLmk)
 
 % SIMOBSERVATION  Simulated observation.

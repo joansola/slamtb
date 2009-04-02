@@ -30,10 +30,10 @@ function [idp_W, IDPWidps, IDPWrf, IDPWsf] = idpS2idpW(idp_S, Rf, Sf)
 
     if (nargout > 1)
         [x0, X0rf, X0sft] = fromFrame(Rf,Sf.t) ;
-        [v, Vidps45] = py2vec(idp_S(4:5)) ;
-        v = Rf.R*Sf.R*v ;
-        Vidps45 = Rf.R*Sf.R*Vidps45 ;
-        [py,PYv] = vec2py(v) ;
+        [v, Vidps45]      = py2vec(idp_S(4:5)) ;
+        v                 = Rf.R*Sf.R*v ;
+        Vidps45           = Rf.R*Sf.R*Vidps45 ;
+        [py,PYv]          = vec2py(v) ;
 
         idp_W = [x0 ; py ; idp_S(6)] ;
         
@@ -62,10 +62,10 @@ function [idp_W, IDPWidps, IDPWrf, IDPWsf] = idpS2idpW(idp_S, Rf, Sf)
         IDPWsft     = IDPWx0*X0sft ;
         IDPWsf      = [IDPWsft, zeros(6,4)] ;
     else
-        x0 = fromFrame(Rf,Sft) ;
-        v = py2vec(idp_S(4:5)) ;
-        v = Rf.R*Sf.R*v ;
-        py = vec2py(v) ;
+        x0    = fromFrame(Rf,Sft) ;
+        v     = py2vec(idp_S(4:5)) ;
+        v     = Rf.R*Sf.R*v ;
+        py    = vec2py(v) ;
         idp_W = [x0 ; py ; idp_S(6)] ;
     end
 end

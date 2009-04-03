@@ -74,3 +74,10 @@ for lmk=find(used)
     end
 end
 
+
+% MAP VIEW -- uncomment to simulate a view from camera 1
+% set(MapFig.axes,...
+%     'cameraposition', fromFrame(Rob(1).frame, Sen(1).frame.t),...
+%     'cameratarget',   fromFrame(Rob(1).frame, fromFrame(Sen(1).frame,[0;0;1])),...
+%     'cameraupvector', [0;0;1]);
+    

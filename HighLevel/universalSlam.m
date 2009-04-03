@@ -33,9 +33,9 @@ global Map          %#ok<NUSED>
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 userData;   % user-defined data. SCRIPT.
 
-%% II. Initialize all data structures from user data
+%% II. Initialize all data structures from user-defined data in userData.m
 % SLAM data
-[Rob,Sen,Lmk,Obs,Tim] = createSLAMstructures(...
+[Rob,Sen,Lmk,Obs,Tim]  = createSLAMstructures(...
     Robot,...
     Sensor,...      % all user data
     Landmark,...
@@ -46,7 +46,7 @@ userData;   % user-defined data. SCRIPT.
     Sensor,...      % all user data
     World);                   
 % Graphics handles
-[MapFig,SenFig] = createGraphicsStructures(...
+[MapFig,SenFig]        = createGraphicsStructures(...
     Rob, Sen, Lmk, Obs,...      % SLAM data
     SimRob, SimSen, SimLmk,...  % Simulator data
     Figures);                   % User-defined graphic options
@@ -122,6 +122,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
             % Initialize new landmarks
             % initNewLmks;
+%             Rob(rob) = map2rob(Rob(rob));
             Lmk = initNewLmks(Rob(rob), Sen(sen), SimObs(sen), Lmk) ;
 
             % update Observation to update visually components

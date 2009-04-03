@@ -15,8 +15,10 @@ else
     F = frame;
 end
 
-[te,Re,Ret]       = getTR(F);
-Te                = repmat(te,1,size(Obj.graphics.vert,1));
-Obj.graphics.vert = Obj.graphics.vert0*Ret+Te'; 
+objGraph = get(handle,'userdata');
 
-set(handle,'vertices',Obj.graphics.vert);
+[te,Re,Ret]       = getTR(F);
+Te                = repmat(te,1,size(objGraph.vert,1));
+objGraph.vert     = objGraph.vert0*Ret+Te'; 
+
+set(handle,'vertices',objGraph.vert);

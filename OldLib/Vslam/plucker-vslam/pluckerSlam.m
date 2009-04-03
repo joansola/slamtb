@@ -13,7 +13,7 @@ fmin        = 1;
 fmax        = 140;
 reproject   = 1;
 noiseFactor = .5;
-innSpace    = 'rt';
+innSpace    = 'hh';
 
 % camera frame
 t = [0;0;1.5];

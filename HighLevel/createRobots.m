@@ -70,9 +70,6 @@ for rob = 1:numel(Robot)
 
     Ro.state.r  = [];
 
-    % graphics
-    Ro.graphics = thickVehicle(0.8);
-
     Rob(rob) = Ro; % output robot structure
 
 end

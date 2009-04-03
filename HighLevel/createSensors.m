@@ -59,13 +59,6 @@ for sen = 1:numel(Sensor)
     end
     So.state.r     = [];  % robot is not yet in the Map.
 
-    switch So.type
-        case {'pinHole'}
-            So.graphics = camGraphics(0.1);
-        otherwise
-            So.graphics = camGraphics(0.1);
-    end
-
     Sen(sen) = So; % output sensor structure
 
 end

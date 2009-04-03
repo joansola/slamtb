@@ -26,7 +26,7 @@ if nargout > 1 % jac
     [u,v,w] = split(p);
     [a,b,c] = split(l);
     
-    D_l = [ u/w/nn-ltp/w/nn3*a, v/w/nn-ltp/w/nn3*b,                                     1/nn];
+    D_l = [ u/w/nn-ltp/w/nn3*a, v/w/nn-ltp/w/nn3*b,  1/nn];
     D_p = [ a/w/nn, b/w/nn, c/w/nn-ltp/w^2/nn]*P_p;
 
 end

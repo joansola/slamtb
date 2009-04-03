@@ -83,13 +83,13 @@ MapFig.ground = createGround(SimLmk,MapFig.axes);
 for rob = 1:numel(SimRob)
 
     % create and draw robot
-    MapFig.simRob(rob) = createRobPatch(SimRob(rob),Figures.colors.simu);
+    MapFig.simRob(rob) = createObjPatch(SimRob(rob),Figures.colors.simu,MapFig.axes);
 
     % Sensors
     for sen = SimRob(rob).sensors
 
         % create and draw sensor
-        MapFig.simSen(sen) = createSenPatch(SimSen(sen),Figures.colors.simu);
+        MapFig.simSen(sen) = createObjPatch(SimSen(sen),Figures.colors.simu,MapFig.axes);
         % redraw sensor in robot frame
         F = composeFrames(SimRob(rob).frame,SimSen(sen).frame);
         drawObject(MapFig.simSen(sen),SimSen(sen),F);
@@ -106,13 +106,13 @@ MapFig.simLmk = createSimLmkGraphics(SimLmk,Figures.colors.raw,MapFig.axes);
 for rob = 1:numel(Rob)
 
     % create and draw robot
-    MapFig.estRob(rob) = createRobPatch(Rob(rob),Figures.colors.est);
+    MapFig.estRob(rob) = createObjPatch(Rob(rob),Figures.colors.est,MapFig.axes);
 
     % sensors
     for sen = Rob(rob).sensors
 
         % create and draw sensor
-        MapFig.estSen(sen) = createSenPatch(Sen(sen),Figures.colors.est);
+        MapFig.estSen(sen) = createObjPatch(Sen(sen),Figures.colors.est,MapFig.axes);
         % redraw sensor in robot frame
         F = composeFrames(Rob(rob).frame,Sen(sen).frame);
         drawObject(MapFig.estSen(sen),Sen(sen),F);

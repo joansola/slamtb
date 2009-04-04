@@ -35,7 +35,7 @@ userData;   % user-defined data. SCRIPT.
 
 %% II. Initialize all data structures from user-defined data in userData.m
 % SLAM data
-[Rob,Sen,Lmk,Obs,Tim]  = createSLAMstructures(...
+[Rob,Sen,Lmk,Obs,Tim]  = createSlamStructures(...
     Robot,...
     Sensor,...      % all user data
     Landmark,...
@@ -49,7 +49,7 @@ userData;   % user-defined data. SCRIPT.
 [MapFig,SenFig]        = createGraphicsStructures(...
     Rob, Sen, Lmk, Obs,...      % SLAM data
     SimRob, SimSen, SimLmk,...  % Simulator data
-    Figures);                   % User-defined graphic options
+    FigureOptions);             % User-defined graphic options
 
 %% III. Init data logging
 % TODO: Create source and/or destination files and paths for data input and
@@ -92,11 +92,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % Simulate robots
     for rob = 1:numel(SimRob)
 
-        % Robot motion
-        % FIXME: see how to include noise in a clever way.
-        SimRob(rob).con.u = Rob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
-        SimRob(rob) = motion(SimRob(rob),Tim);
-
         % Simulate sensor observations
         for sen = SimRob(rob).sensors
 
@@ -104,6 +99,11 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             SimObs(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
 
         end % end process sensors
+
+        % Robot motion
+        % FIXME: see how to include noise in a clever way.
+        SimRob(rob).con.u = Rob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
+        SimRob(rob) = motion(SimRob(rob),Tim);
 
     end % end process robots
 

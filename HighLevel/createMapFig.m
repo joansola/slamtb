@@ -35,8 +35,9 @@ function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,Figures)
 
 % Figure
 MapFig.fig = figure(99);
-moreindatatip
 clf
+moreindatatip
+
 set(MapFig.fig,...
     'numbertitle', 'off',...
     'name',        '3D Map',...

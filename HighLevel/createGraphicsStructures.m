@@ -1,7 +1,7 @@
 function [MapFig,SenFig] = createGraphicsStructures(...
     Rob, Sen, Lmk, Obs,...
     SimRob, SimSen, SimLmk,...
-    Figures)
+    FigureOptions)
 
 % CREATEGRAPHICSSTRUCTURES Create figures and graphics handles structures.
 %   [MAPFIG,SENFIG] = CREATEGRAPHICSSTRUCTURES ...
@@ -18,15 +18,15 @@ function [MapFig,SenFig] = createGraphicsStructures(...
 %       SIMROB:        Structure array of simulated robots.
 %       SIMSEN:        Structure array of simulated sensors.
 %       SIMLMK:        Structure array of simulated landmarks.
-%       FIGURES:       User-defined structure with options for figures
+%       FIGUREOPTIONS: User-defined structure with options for figures
 %
 %   See also CREATEMAPFIG, CREATESENFIG, USERDATA, UNIVERSALSLAM, and
 %   consult slamToolbox.pdf in the root directory.
 
 
 % Init map figure
-MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,Figures);
+MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigureOptions);
 
 % Init sensor's measurement space figures
-SenFig = createSenFig(Sen,Obs,Figures);
+SenFig = createSenFig(Sen,Obs,FigureOptions);
 

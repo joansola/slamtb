@@ -1,4 +1,4 @@
-function [Rob,Sen,Lmk,Obs,Tim] = createSLAMstructures(Robot,Sensor,Landmark,Time)
+function [Rob,Sen,Lmk,Obs,Tim] = createSlamStructures(Robot,Sensor,Landmark,Time)
 
 % CREATESLAMSTRUCTURES  Initialize SLAM data structures from user data.
 global Map

@@ -4,6 +4,8 @@ function [p,Pup,Ps] = retro(up,s)
 %   P = RETRO(UP,S) retro-projects the point UP of the image
 %   plane into the point P at depth S in 3D space using a
 %   normalized camera.
+%
+%   See also INVPINHOLE.
 
 
 p = [s.*up(1,:) ; s.*up(2,:) ; s.*ones(1,size(up,2))];

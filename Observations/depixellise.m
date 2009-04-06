@@ -5,6 +5,8 @@ function [uu,Up,Uc] = depixellise(pix,cal)
 %   PIX given camera intrinsic parameters CAL = [u0 v0 au av]'
 %
 %   [u,Up,Uc] = DEPIXELLISE(...) gives the jacobians wrt PIX and CAL.
+%
+%   See also INVPINHOLE.
 
 u0 = cal(1);
 v0 = cal(2);

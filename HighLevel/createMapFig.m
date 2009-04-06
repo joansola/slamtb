@@ -1,4 +1,4 @@
-function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,Figures)
+function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigureOptions)
 
 % CREATEMAPFIG  Create 3D map figure and handles.
 %   MAPFIG = CREATEMAPFIG(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,MapFigure)
@@ -42,14 +42,14 @@ set(MapFig.fig,...
     'numbertitle', 'off',...
     'name',        '3D Map',...
     'doublebuffer','on',...
-    'renderer',    Figures.renderer,...
+    'renderer',    FigureOptions.renderer,...
     'toolbar',     'none',...
     'color',       'w');
 cameratoolbar('show');
 cameratoolbar('setmode','orbit');
 
 % Map viewpoint
-viewPnt       = mapObserver(SimLmk,Figures.mapView);
+viewPnt       = mapObserver(SimLmk,FigureOptions.mapView);
 
 % Axes
 axis equal
@@ -59,7 +59,7 @@ set(MapFig.axes,...
     'position',           [ 0 0 1 1],...
     'drawmode',           'fast',...
     'nextplot',           'replacechildren',...
-    'projection',         Figures.mapProj,...
+    'projection',         FigureOptions.mapProj,...
     'CameraPosition',     viewPnt.X,...
     'CameraPositionMode', 'manual',...
     'CameraUpVector',     viewPnt.upvec,...
@@ -71,10 +71,10 @@ set(MapFig.axes,...
     'xlim',               [SimLmk.xMin SimLmk.xMax],...
     'ylim',               [SimLmk.yMin SimLmk.yMax],...
     'zlim',               [SimLmk.zMin SimLmk.zMax],...
-    'xcolor',             Figures.colors.backgnd,...
-    'ycolor',             Figures.colors.backgnd,...
-    'zcolor',             Figures.colors.backgnd,...
-    'color' ,             Figures.colors.backgnd);
+    'xcolor',             FigureOptions.colors.backgnd,...
+    'ycolor',             FigureOptions.colors.backgnd,...
+    'zcolor',             FigureOptions.colors.backgnd,...
+    'color' ,             FigureOptions.colors.backgnd);
 
 % SIMULATED OBJECTS
 % Ground
@@ -84,13 +84,14 @@ MapFig.ground = createGround(SimLmk,MapFig.axes);
 for rob = 1:numel(SimRob)
 
     % create and draw robot
-    MapFig.simRob(rob) = createObjPatch(SimRob(rob),Figures.colors.simu,MapFig.axes);
+    MapFig.simRob(rob) = createObjPatch(SimRob(rob),FigureOptions.colors.simu,MapFig.axes);
 
     % Sensors
     for sen = SimRob(rob).sensors
 
         % create and draw sensor
-        MapFig.simSen(sen) = createObjPatch(SimSen(sen),Figures.colors.simu,MapFig.axes);
+        MapFig.simSen(sen) = createObjPatch(SimSen(sen),FigureOptions.colors.simu,MapFig.axes);
+        
         % redraw sensor in robot frame
         F = composeFrames(SimRob(rob).frame,SimSen(sen).frame);
         drawObject(MapFig.simSen(sen),SimSen(sen),F);
@@ -99,7 +100,7 @@ end
 
 
 % landmarks - do not loop, draw all at once
-MapFig.simLmk = createSimLmkGraphics(SimLmk,Figures.colors.raw,MapFig.axes);
+MapFig.simLmk = createSimLmkGraphics(SimLmk,FigureOptions.colors.raw,MapFig.axes);
 
 
 % ESTIMATED OBJECTS
@@ -107,13 +108,14 @@ MapFig.simLmk = createSimLmkGraphics(SimLmk,Figures.colors.raw,MapFig.axes);
 for rob = 1:numel(Rob)
 
     % create and draw robot
-    MapFig.estRob(rob) = createObjPatch(Rob(rob),Figures.colors.est,MapFig.axes);
+    MapFig.estRob(rob) = createObjPatch(Rob(rob),FigureOptions.colors.est,MapFig.axes);
 
     % sensors
     for sen = Rob(rob).sensors
 
         % create and draw sensor
-        MapFig.estSen(sen) = createObjPatch(Sen(sen),Figures.colors.est,MapFig.axes);
+        MapFig.estSen(sen) = createObjPatch(Sen(sen),FigureOptions.colors.est,MapFig.axes);
+        
         % redraw sensor in robot frame
         F = composeFrames(Rob(rob).frame,Sen(sen).frame);
         drawObject(MapFig.estSen(sen),Sen(sen),F);
@@ -125,6 +127,6 @@ end
 % landmarks
 for lmk = 1:numel(Lmk)
 
-    MapFig.estLmk(lmk) = createLmkGraphics(Lmk(lmk),Figures.colors.label,MapFig.axes);
+    MapFig.estLmk(lmk) = createLmkGraphics(Lmk(lmk),FigureOptions.colors.label,MapFig.axes);
 
 end

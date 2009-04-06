@@ -1,6 +1,6 @@
 function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 
-% PINHOLE Pin-hole camera model, with radial distortion.
+% PINHOLE Pin-hole camera model, with optional radial distortion.
 %   U = PINHOLE(P) gives the projected pixel U of a point P in a canonical
 %   pin-hole camera, that is, with calibration parameters
 %     u0 = 0
@@ -19,7 +19,7 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %
 %   U = PINHOLE(P,K) allows the introduction of the camera's calibration
 %   parameters:
-%     K = [u0 v0 au av]'
+%     K = [u0 v0 au av]'.
 %
 %   U = PINHOLE(P,K,D) allows the introduction of the camera's radial
 %   distortion parameters:
@@ -29,8 +29,7 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %   with R^2 = sum(U.^2), being U the projected point in the image plane
 %   for a camera with unit focal length.
 %
-%   [U,S] = PINHOLE(...) returns the vector S of depths from the camera
-%   center.
+%   [U,S] = PINHOLE(...) returns the depth S from the camera center.
 %
 %   If P is a points matrix, PINHOLE(P,...) returns a pixel matrix U and a
 %   depths row-vector S. P, U and S are defined as
@@ -39,9 +38,7 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %     S = [S1 ... Sn]
 %
 %   [U,S,U_p,U_k,U_d] returns the Jacobians of U wrt P, K and D. It only
-%   works for single points P=[x;y;z], and for distortion vectors D of up
-%   to 3 parameters D=[d2;d4;d6]. See DISTORT for information on longer
-%   distortion vectors.
+%   works for single points P=[x;y;z].
 %
 %   See also PROJECT, DISTORT, PIXELLISE, INVPINHOLE, PINHOLEIDP.
 

@@ -1,4 +1,4 @@
-function [ud,UDup,UDdist] = distort(up,dist)
+function [ud,UD_up,UD_dist] = distort(up,dist)
 
 % DISTORT  Distort projected point with radial distortion.
 %   DISTORT(UP,DIST) computes the position in the image plane of the
@@ -11,10 +11,9 @@ function [ud,UDup,UDdist] = distort(up,dist)
 %   where r^2  = UP(1)^2 + UP(2)^2
 %     and DIST = [k4 k4 k6 ...]
 %
-%   [ud,UDup,UDdist] = DISTORT(...) returns Jacobians wrt UP and DIST. Only
-%   DIST vectors of up to order 3 are supported. If a higher order is
-%   desired use a Jacobian builder at the bottom of DISTORT.M file (and
-%   read the notes that come with it).
+%   [ud,UD_up,UD_dist] = DISTORT(...) returns Jacobians wrt UP and DIST.
+%
+%   See also PINHOLE.
 %
 
 %   FIXME: RMAX works not so nice
@@ -29,48 +28,57 @@ function [ud,UDup,UDdist] = distort(up,dist)
 r2 = sum(up.^2);
 
 n = length(dist);
-    
-if n == 0
+
+if n == 0  % No distortion
     ud = up;
-    
+
     if size(up,2) == 1
-        UDup   = eye(2);
-        UDdist = zeros(2,0);
+        UD_up   = eye(2);
+        UD_dist = zeros(2,0);
     else
         error('??? Jacobians not available for multiple points.')
     end
-else
+    
+    
+else       % Distortion
 
-    ratio = ones(size(r2));
-    for i=1:n
-        ratio = ratio + dist(i)*r2.^i;
-    end
+    if size(up,2) == 1   % One only pixel
 
-    ud = up.*[ratio;ratio];
-
-    if nargout > 1 % jacobians (up to 3rd order)
-        u1 = up(1);
-        u2 = up(2);
-        dist(end+1:3) = 0; % in case dist is shorter than 3
-        k2 = dist(1);
-        k4 = dist(2);
-        k6 = dist(3);
+        nn    = 1:n;           % orders vector
+        r2n   = r2.^nn;        % powers vector
+        ratio = 1 + r2n*dist;  % distortion ratio
         
-        r4 = r2^2;
-        r6 = r2*r4;
+        ud    = ratio*up;
 
-        UDup = [...
-            [ 1+k2*r2+k4*r4+k6*r6+u1*(2*k2*u1+4*k4*r2*u1+6*k6*r4*u1),                     u1*(2*k2*u2+4*k4*r2*u2+6*k6*r4*u2)]
-            [                     u2*(2*k2*u1+4*k4*r2*u1+6*k6*r4*u1), 1+k2*r2+k4*r4+k6*r6+u2*(2*k2*u2+4*k4*r2*u2+6*k6*r4*u2)]];
-        UDdist = [...
-            [   u1*r2, u1*r4, u1*r6]
-            [   u2*r2, u2*r4, u2*r6]];
+        if nargout > 1 % jacobians
 
-        UDdist(:,n+1:end) = []; % remove unused positions for DIST shorter than 3.
+            dnn    = 2:2:2*n;
+            dr2n   = r2.^(0:n-1);
+            dratio = (dnn.*dr2n)*dist;
 
+            UD_up = ratio*eye(2) + dratio*up*up';
+
+            UD_dist = kron(up,r2n);
+        end
+        
+    else  % vectorized operation for multiple pixels.
+
+        ratio = ones(size(r2));
+        for i=1:n
+            ratio = ratio + dist(i)*r2.^i;
+        end
+
+        ud = up.*[ratio;ratio];
+
+        if nargout > 1 % jacobians
+
+            error('??? Jacobians not available for multiple points.')
+
+        end
     end
-
 end
+
+
 
 return
 
@@ -82,10 +90,17 @@ return
 %   4/ Copy the results in UDup and UDdist above, caring for the matrices'
 %   opening and closing brackets (do not forget them).
 
-syms u1 u2 k2 k4 k6 real
+syms u1 u2 k2 k4 k6 k8 real
 up   = [u1;u2];
-dist = [k2;k4;k6];
+dist = [k2;k4;k6;k8];
 ud   = distort(up,dist);
 
 UDup   = simple(jacobian(ud,up))
 UDdist = simple(jacobian(ud,dist))
+
+%% test
+
+[ud, UD_up, UD_dist] = distort(up,dist);
+
+simplify(UD_up - jacobian(ud,up))
+simplify(UD_dist - jacobian(ud,dist))

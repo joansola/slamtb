@@ -58,8 +58,11 @@ userData;   % user-defined data. SCRIPT.
 % plotting. Think about collecting data in files using fopen, fwrite,
 % etc., instead of creating large Matlab variables for data logging.
 
+% Clear user data - not needed anymore
+% clear Robot Sensor Landmark FigureOptions World Time Experiment Video Estimation
 
-% Create test Lmks        --------------------------
+% ----------------------------------------------------
+% Create test Lmks       
 % FIXME: these lines to be removed, they are here just to have
 % something to plot in the map figure.
 %
@@ -80,7 +83,7 @@ Lmk(lmk).used    = true;           % Lmk is used
 
 
 
-%% IV. Temporal loop
+%% IV. Main loop
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 1. SIMULATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -138,7 +141,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 3. VISUALIZATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % Create test Lmks and Obs --------------------------
+    % ---------------------------------------------------
+    % Create test Obs 
     % FIXME: these lines to be removed, they are here just to have
     % something to plot in the sensors figures.
     %

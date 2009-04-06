@@ -36,9 +36,7 @@ function [p,P_u,P_s,P_k,P_c] = invPinHole(u,s,k,c)
 %     P = [p1 ... pn];   pi = [xi;yi;zi]
 %
 %   [P,P_u,P_s,P_k,P_c] returns the Jacobians of P wrt U, S, K and C. It
-%   only works for single pixels U=[u;v], and for distortion correction
-%   vectors C of up to 3 parameters C=[c2;c4;c6]. See UNDISTORT for
-%   information on longer distortion vectors.
+%   only works for single pixels U=[u;v].
 %
 %   See also RETRO, UNDISTORT, DEPIXELLISE, PINHOLE.
 

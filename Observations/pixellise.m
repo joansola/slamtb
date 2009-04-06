@@ -8,6 +8,8 @@ function [pix,PIXu,PIXk] = pixellise(u,k)
 %
 %   [p,Pu,Pk] = PIXELLISE(...) returns the jacobians wrt U and K. This
 %   only works for single pixels U=[u;v], not for sets of pixels.
+%
+%   See also PINHOLE.
 
 u0 = k(1);
 v0 = k(2);

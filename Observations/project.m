@@ -7,6 +7,8 @@ function [u,Up] = project(p)
 %
 %   [U,Up] = PROJECT(P) returns the Jacobian wrt P. This only works for
 %   single points, not for sets of points.
+%
+%   See also PINHOLE.
 
 
 u = [p(1,:)./p(3,:) ; p(2,:)./p(3,:)];

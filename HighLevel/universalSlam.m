@@ -132,9 +132,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             % Initialize new landmarks
             [Lmk,Obs(sen,:)] = initLmk(Rob(rob), Sen(sen), Raw(sen), Lmk, Obs(sen,:)) ;
 
-            % update Observation to update visually components
-            Obs(sen) = updateObsInSlamProcess(Obs(sen), Lmk) ;
-
         end % end process sensors
 
     end % end process robots

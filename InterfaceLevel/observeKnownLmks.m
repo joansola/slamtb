@@ -1,5 +1,5 @@
 
-function RobNew = observeKnownLmks(Rob, Sen, SimObs, Lmk)
+function RobNew = observeKnownLmks(Rob, Sen, Raw, Lmk)
 
 %  OBSERVEKNOWNLMKS update what can be done with non-first observations.
 %   ROB = observeKnownLmks(ROB, SEN, SIMOBS, LMK) returns the new robot
@@ -21,12 +21,12 @@ switch Sen.type
             indexNew = find(is_usable==1, 1, 'first') ;
 
             % foreach id of observed lmk
-            for idobs = SimObs.ids
+            for idobs = Raw.data.ids
 
                 % observation not in known lmk:
                 if(~any(~is_usable & [Lmk.id]==idobs))
                     inv_depth_nob = Lmk(indexNew).nom.n ;
-                    point = SimObs.points(:,find([SimObs.ids]==idobs)) ;
+                    point = Raw.data.points(:,find([Raw.data.ids]==idobs)) ;
                     [idp, IDPrf, IDPsf, IDPsk, IDPsd, IDPpix, IDPrho] = retroProjectIdpPntFromPinHoleOnRob(Rob.frame, Sen.frame, Sen.par.k, Sen.par.d, point, inv_depth_nob) ;
 
                     Lmk(indexNew).used     = true ;

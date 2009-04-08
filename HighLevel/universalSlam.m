@@ -99,7 +99,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         for sen = SimRob(rob).sensors
 
             % Observe simulated landmarks
-            SimObs(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
+            Raw(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
+%             SimObs(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
 
         end % end process sensors
 
@@ -127,14 +128,15 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             % Initialize new landmarks
             % initNewLmks;
 %             Rob(rob) = map2rob(Rob(rob));
-            Lmk = initNewLmks(Rob(rob), Sen(sen), SimObs(sen), Lmk) ;
+%             Lmk = initNewLmks(Rob(rob), Sen(sen), Raw(sen), Lmk) ;
+            [Lmk,Obs(sen,:)] = initLmk(Rob(rob), Sen(sen), Raw(sen), Lmk,Obs(sen,:)) ;
 
             % update Observation to update visually components
             Obs(sen) = updateObsInSlamProcess(Obs(sen), Lmk) ;
 
         end % end process sensors
 
-        % Robot motion
+        % Robot motionhelp 
         Rob(rob) = motion(Rob(rob),Tim);
 
     end % end process robots
@@ -149,14 +151,14 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %
     lmk  = find([Lmk.id] == id);
     for sen = 1:numel(Sen)
-        oidx = find(SimObs(sen).ids == id);
+        oidx = find(Raw(sen).data.ids == id);
         if ~isempty(oidx)
-            Obs(sen,lmk)  = testObs(Obs(sen,lmk), SimObs(sen).points(:,oidx), 5^2*eye(2));
+            Obs(sen,lmk)  = testObs(Obs(sen,lmk), Raw(sen).data.points(:,oidx), 5^2*eye(2));
             Obs(sen,lmk).lid = id;
         else
             Obs(sen,lmk).vis = false;
         end
-    end
+    end    
     %
     % FIXME: remove up to this line ----------------------
     
@@ -164,7 +166,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
 
     % Figures for all sensors
-    drawSenFig(SenFig, Sen, Lmk, Obs, SimObs);
+    drawSenFig(SenFig, Sen, Lmk, Obs, Raw);
 
     % Do draw all objects
     drawnow;

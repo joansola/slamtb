@@ -22,7 +22,7 @@ for lmkClass = 1:numel(Landmark)
         Lo.lmk  = lmk;
         Lo.id   = 0;
         Lo.type = Li.type;
-        Lo.used = 0;
+        Lo.used = false;
 
         % state
         Lo.state.x = [];        

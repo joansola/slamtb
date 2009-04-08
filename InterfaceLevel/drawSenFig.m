@@ -1,4 +1,4 @@
-function drawSenFig(SenFig, Sen, Lmk, Obs, SimObs)
+function drawSenFig(SenFig, Sen, Lmk, Obs, Raw)
 
 % DRAWSENFIG  Redraw the sensors figures.
 % 	DRAWSENFIG(SENFIG, SEN, LMK, OBS, SIMOBS) updates all the handles in
@@ -24,8 +24,8 @@ for sen = 1:size(Obs,1)     %numel(Sen)
 
             % 1. Simulated landmark visualisation
             set(SenFig(sen).raw,...
-                'xdata',SimObs(sen).points(1,:),...
-                'ydata',SimObs(sen).points(2,:))
+                'xdata',Raw(sen).data.points(1,:),...
+                'ydata',Raw(sen).data.points(2,:))
 
             % 2. Process only visible landmarks:
             % a - first erase lmks that were drawn but are no longer visible

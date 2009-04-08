@@ -66,7 +66,7 @@ else % custom view vector
 end
 
 % Observed target (optical axis points to)
-mapObs.tgt   = [world.xMean;world.yMean;0];
+mapObs.tgt   = [world.center.xMean;world.center.yMean;0];
 % camera orientation
 R  = e2R(deg2rad([0,el,az])); % given *pitch* and *yaw*.
 mapObs.upvec = R*[0;0;1]; % this fixes *roll* in Matlab convention.

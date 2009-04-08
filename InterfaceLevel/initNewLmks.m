@@ -1,5 +1,5 @@
 
-function Lmk = initNewLmks(Rob, Sen, SimObs, Lmk)
+function Lmk = initNewLmks(Rob, Sen, Raw, Lmk)
 
 % INITNEWLMKS  Initialise some new landmarks from recent observations.
 %   LMK = INITNEWLMKS(ROB, SEN, SIMOBS, LMK) returns the new set of
@@ -35,12 +35,12 @@ switch Sen.type
             indexNew = find(is_usable==1, 1, 'first') ;
 
             % foreach id of observed lmk
-            for idobs = SimObs.ids
+            for idobs = Raw.data.ids
 
                 % observation not in known lmk:
                 if(~any(~is_usable & [Lmk.id]==idobs))
                     inv_depth_nob = Lmk(indexNew).nom.n ;
-                    point = SimObs.points(:,find([SimObs.ids]==idobs)) ;
+                    point = Raw.data.points(:,find([Raw.data.ids]==idobs)) ;
                     [idp, IDPrf, IDPsf, IDPsk, IDPsd, IDPpix, IDPrho] = ...
                         retroProjectIdpPntFromPinHoleOnRob( ...
                             Rob.frame, ...

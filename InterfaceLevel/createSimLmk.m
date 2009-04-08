@@ -7,11 +7,18 @@ function SimLmk = createSimLmk(World)
 
 N            = size(World.points,2); % number of landmarks in the simulated world
 
-SimLmk       = World;
-SimLmk.ids   = 100+(1:N); % id is different than index
-SimLmk.l     = SimLmk.xMax - SimLmk.xMin; % playground dimensions
-SimLmk.w     = SimLmk.yMax - SimLmk.yMin;
-SimLmk.h     = SimLmk.zMax - SimLmk.zMin;
-SimLmk.xMean = (SimLmk.xMax + SimLmk.xMin)/2; % center fo playground
-SimLmk.yMean = (SimLmk.yMax + SimLmk.yMin)/2;
-SimLmk.zMean = (SimLmk.zMax + SimLmk.zMin)/2;
+
+SimLmk.ids          = 100+(1:N); % id is different than index
+SimLmk.points       = World.points;
+SimLmk.lims.xMin    = World.xMin;
+SimLmk.lims.xMax    = World.xMax;
+SimLmk.lims.yMin    = World.yMin;
+SimLmk.lims.yMax    = World.yMax;
+SimLmk.lims.zMin    = World.zMin;
+SimLmk.lims.zMax    = World.zMax;
+SimLmk.dims.l       = SimLmk.lims.xMax - SimLmk.lims.xMin; % playground dimensions
+SimLmk.dims.w       = SimLmk.lims.yMax - SimLmk.lims.yMin;
+SimLmk.dims.h       = SimLmk.lims.zMax - SimLmk.lims.zMin;
+SimLmk.center.xMean = (SimLmk.lims.xMax + SimLmk.lims.xMin)/2; % center fo playground
+SimLmk.center.yMean = (SimLmk.lims.yMax + SimLmk.lims.yMin)/2;
+SimLmk.center.zMean = (SimLmk.lims.zMax + SimLmk.lims.zMin)/2;

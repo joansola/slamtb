@@ -161,7 +161,7 @@ Landmark{2} = struct(...
 %       'rgbcmykw'  1-char predifined Matlab colors
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigureOptions = struct(...
-    'renderer',         'opengl',...     % renderer
+    'renderer',         'zbuffer',...     % renderer
     'ellipses',          true,...        % show 3d ellipsoids?
     'mapProj',          'persp',...      % projection of the 3d figure
     'mapView',           [30 30 40 15],...% viewpoint of the 3d figure

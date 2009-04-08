@@ -1,7 +1,7 @@
-function  SimObs = SimObservation(SimRob, SimSen, SimLmk)
+function  Raw = SimObservation(SimRob, SimSen, SimLmk)
 
 % SIMOBSERVATION  Simulated observation.
-%   OBS = SIMOBSERVATION(ROB, SEN, OBS, SIMLMK) returns the Observation for
+%   RAW = SIMOBSERVATION(ROB, SEN, OBS, SIMLMK) returns the Observation for
 %   the robot ROB with the sensor SEN into the structure OBS for the
 %   landmarks SIMLMK.
 %
@@ -10,21 +10,21 @@ function  SimObs = SimObservation(SimRob, SimSen, SimLmk)
 %
 %
 
+Raw.type = 'simu';
 
 switch SimSen.type
 
     % camera pinHole
     case {'pinHole'}
 
-        [SimObs.points, s] = projEucPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
-        SimObs.ids=SimLmk.ids;
+        [Raw.data.points, s] = projEucPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
+        Raw.data.ids = SimLmk.ids;
+        front = (s>0);
+        intsquare = inSquare(Raw.data.points,[0 SimSen.par.imSize(1) 0 SimSen.par.imSize(2)]);
+        vis = (front&intsquare);
 
-        front=(s>0);
-        intsquare=inSquare(SimObs.points,[0 SimSen.par.imSize(1) 0 SimSen.par.imSize(2)]);
-        vis=(front&intsquare);
-
-        SimObs.points(:, ~vis)=[];
-        SimObs.ids(~vis)=[];
+        Raw.data.points(:, ~vis) = [];
+        Raw.data.ids(~vis) = [];
 
         % unknown
         % -------

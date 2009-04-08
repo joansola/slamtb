@@ -4,7 +4,7 @@ if nargin < 2
     ax = gca;
 end
 
-[x,y] = meshgrid(SimLmk.xMin:2:SimLmk.xMax,SimLmk.yMin:2:SimLmk.yMax);
+[x,y] = meshgrid(SimLmk.lims.xMin:2:SimLmk.lims.xMax,SimLmk.lims.yMin:2:SimLmk.lims.yMax);
 z = zeros(size(x));
 handle = surface(...
     'parent',     ax,...

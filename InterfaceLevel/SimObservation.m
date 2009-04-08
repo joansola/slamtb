@@ -12,6 +12,8 @@ function  Raw = SimObservation(SimRob, SimSen, SimLmk)
 
 Raw.type = 'simu';
 
+Raw.type = 'simu';
+
 switch SimSen.type
 
     % camera pinHole
@@ -22,10 +24,8 @@ switch SimSen.type
         front = (s>0);
         intsquare = inSquare(Raw.data.points,[0 SimSen.par.imSize(1) 0 SimSen.par.imSize(2)]);
         vis = (front&intsquare);
-
         Raw.data.points(:, ~vis) = [];
         Raw.data.ids(~vis) = [];
-
         % unknown
         % -------
     otherwise

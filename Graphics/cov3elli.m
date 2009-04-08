@@ -12,20 +12,25 @@ function [X,Y,Z] = cov3elli(x,P,ns,NP)
 %
 %   See also COV2ELLI, IDP3ELLI, LINE.
 
-persistent cercle
+persistent circle
 
-if isempty(cercle)
+% Basic shape: 2 circles at 90 degrees, with the pole at the major axis X.
+if isempty(circle)
     alpha = 2*pi/NP*(0:NP);
-    cercle = [cos(alpha)    cos(alpha)
+    circle = [...
+        cos(alpha)    cos(alpha)
         sin(alpha)    zeros(1,NP+1)
         zeros(1,NP+1) sin(alpha)];
 end
 
-
-[U,D] = svd(P);
+% Rotation R and semi-diameters d, obtained from P
+[R,D] = svd(P);
 d     = sqrt(D);
 
-ellip = ns*U*d*cercle;
+% circle -> aligned ellipse -> rotated ellipse -> ns-ellipse
+ellip = ns*R*d*circle;
+
+% output ready for plotting (X, Y and Z line vectors), offset by x
 X = x(1)+ellip(1,:);
 Y = x(2)+ellip(2,:);
 Z = x(3)+ellip(3,:);

@@ -12,19 +12,19 @@ function [X,Y] = cov2elli(x,P,ns,NP)
 
 
 
-persistent cercle
+persistent circle
 
-if isempty(cercle)
+if isempty(circle)
     alpha = 2*pi/NP*(0:NP);
-    cercle = [cos(alpha);sin(alpha)];
+    circle = [cos(alpha);sin(alpha)];
 end
 
 
-[U,D]=svd(P);
+[R,D]=svd(P);
 d = sqrt(D);
 
 % circle -> aligned ellipse -> rotated ellipse -> ns-ellipse
-ellip = ns*U*d*cercle;
+ellip = ns*R*d*circle;
 
 % output ready for plotting (X and Y line vectors)
 X = x(1)+ellip(1,:);

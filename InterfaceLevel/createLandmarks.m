@@ -51,9 +51,9 @@ for lmkClass = 1:numel(Landmark)
 
         Lo.sig = [];
 
-        Lo.nsearch = 0;
-        Lo.nmatch  = 0;
-        Lo.ninlier = 0;
+        Lo.nSearch = 0;
+        Lo.nMatch  = 0;
+        Lo.nInlier = 0;
 
         Lmk(lmk) = Lo;
         

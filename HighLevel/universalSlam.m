@@ -95,6 +95,11 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % Simulate robots
     for rob = 1:numel(SimRob)
 
+        % Robot motion
+        % FIXME: see how to include noise in a clever way.
+        SimRob(rob).con.u = Rob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
+        SimRob(rob) = motion(SimRob(rob),Tim);
+
         % Simulate sensor observations
         for sen = SimRob(rob).sensors
 
@@ -103,11 +108,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 %             SimObs(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
 
         end % end process sensors
-
-        % Robot motion
-        % FIXME: see how to include noise in a clever way.
-        SimRob(rob).con.u = Rob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
-        SimRob(rob) = motion(SimRob(rob),Tim);
 
     end % end process robots
 
@@ -118,26 +118,24 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % Process robots
     for rob = 1:numel(Rob)
 
+        % Robot motion
+        Rob(rob) = motion(Rob(rob),Tim);
+
         % Process sensor observations
         for sen = Rob(rob).sensors
 
-            % Observe knowm landmark
-            % obsKnownLmks;
-            Rob(rob) = observeKnownLmks(Rob(rob), Sen(sen), Raw(sen), Lmk) ;
+            % Observe knowm landmarks
+%             [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = ...
+%                 obsKnownLmks(Rob(rob),Sen(sen),Lmk,Obs(sen,:));
+%             [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = observeKnownLmks(Rob(rob), Sen(sen), Raw(sen), Lmk) ;
 
             % Initialize new landmarks
-            % initNewLmks;
-%             Rob(rob) = map2rob(Rob(rob));
-%             Lmk = initNewLmks(Rob(rob), Sen(sen), Raw(sen), Lmk) ;
-            [Lmk,Obs(sen,:)] = initLmk(Rob(rob), Sen(sen), Raw(sen), Lmk,Obs(sen,:)) ;
+            [Lmk,Obs(sen,:)] = initLmk(Rob(rob), Sen(sen), Raw(sen), Lmk, Obs(sen,:)) ;
 
             % update Observation to update visually components
             Obs(sen) = updateObsInSlamProcess(Obs(sen), Lmk) ;
 
         end % end process sensors
-
-        % Robot motionhelp 
-        Rob(rob) = motion(Rob(rob),Tim);
 
     end % end process robots
 

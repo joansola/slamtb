@@ -1,5 +1,10 @@
 
+<<<<<<< .mine
+function [Lmk,Obs] = initNewLmks(Rob, Sen, Lmk, Obs, SimObs)
+% function Lmk = initNewLmks(Rob, Sen, SimObs, Lmk)
+=======
 function Lmk = initNewLmks(Rob, Sen, Raw, Lmk)
+>>>>>>> .r157
 
 % INITNEWLMKS  Initialise some new landmarks from recent observations.
 %   LMK = INITNEWLMKS(ROB, SEN, SIMOBS, LMK) returns the new set of
@@ -39,6 +44,7 @@ switch Sen.type
 
                 % observation not in known lmk:
                 if(~any(~is_usable & [Lmk.id]==idobs))
+                    
                     inv_depth_nob = Lmk(indexNew).nom.n ;
                     point = Raw.data.points(:,find([Raw.data.ids]==idobs)) ;
                     [idp, IDPrf, IDPsf, IDPsk, IDPsd, IDPpix, IDPrho] = ...

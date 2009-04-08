@@ -6,13 +6,14 @@ function r = addToMap(x, P_LL, P_LX, r)
 %   Map.x and covariances P in the block-diagonal of Map.P.
 %
 %   Map is a global structure, containing:
-%       .used   a vector of logicals indicating used positions .x      the
-%       state vector .P      the covariances matrix .size   the Map's
-%       maximum size, numel(Map.x)
+%       .used   a vector of logicals indicating used positions 
+%       .x      the state vector 
+%       .P      the covariances matrix 
+%       .size   the Map's maximum size, numel(Map.x)
 %
-%   ADDTOMAP(x,P_LL,P_LX) permits indicating the downward covariance
-%   sub-matrix (E[(x-x_hat)(used-used_hat)]) using all the elements of the
-%   used variables in Y absys, only variables used by x on X absys.
+%   ADDTOMAP(x,P_LL,P_LX) accepts the cross variance matrix between x and the
+%   currently used states in Map.x. It returns the range where the x has been
+%   added.
 %
 %   P = | P       P_LX' |
 %       |               |
@@ -21,23 +22,28 @@ function r = addToMap(x, P_LL, P_LX, r)
 %   ADDTOMAP(x,P_LL,P_LX,R) or ADDTOMAP(x,P_LL,[],R) permits indicating the
 %   range R as input.
 %
-%   See also NEWRANGE.
+%   See also NEWRANGE, USEDRANGE.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS.
 
 global Map
 
+% parse inputs
 if nargin == 2
     P_LX = [] ;
 end
 if nargin <= 3
     r = newRange(numel(x));
 end
+
+% add to map
 Map.x(r)    = x;
 Map.P(r,r)  = P_LL;
 if(size(P_LX)~=0)
-    Map.P(r,find(Map.used)) =  P_LX ;
-    Map.P(find(Map.used),r) =  P_LX' ;
+    mr = usedRange();
+    Map.P(r,mr) =  P_LX ;
+    Map.P(mr,r) =  P_LX' ;
 end ;
+
 Map.used(r) = true;
 

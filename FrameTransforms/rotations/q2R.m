@@ -15,37 +15,37 @@ function [R,Rq] = q2R(q)
 
 [a,b,c,d] = split(q);
 
-a2 = a^2;
+aa = a^2;
 ab = 2*a*b;
 ac = 2*a*c;
 ad = 2*a*d;
-b2 = b^2;
+bb = b^2;
 bc = 2*b*c;
 bd = 2*b*d;
-c2 = c^2;
+cc = c^2;
 cd = 2*c*d;
-d2 = d^2;
+dd = d^2;
 
 R  = [...
-    a2+b2-c2-d2    bc-ad          bd+ac
-    bc+ad          a2-b2+c2-d2    cd-ab
-    bd-ac          cd+ab          a2-b2-c2+d2];
+    aa+bb-cc-dd    bc-ad          bd+ac
+    bc+ad          aa-bb+cc-dd    cd-ab
+    bd-ac          cd+ab          aa-bb-cc+dd];
 
   
 if nargout > 1
     
-    [aa,bb,cc,dd] = deal(2*a,2*b,2*c,2*d);
+    [a2,b2,c2,d2] = deal(2*a,2*b,2*c,2*d);
     
     Rq = [...
-        [  aa,  bb, -cc, -dd]
-        [  dd,  cc,  bb,  aa]
-        [ -cc,  dd, -aa,  bb]
-        [ -dd,  cc,  bb, -aa]
-        [  aa, -bb,  cc, -dd]
-        [  bb,  aa,  dd,  cc]
-        [  cc,  dd,  aa,  bb]
-        [ -bb, -aa,  dd,  cc]
-        [  aa, -bb, -cc,  dd]];
+        [  a2,  b2, -c2, -d2]
+        [  d2,  c2,  b2,  a2]
+        [ -c2,  d2, -a2,  b2]
+        [ -d2,  c2,  b2, -a2]
+        [  a2, -b2,  c2, -d2]
+        [  b2,  a2,  d2,  c2]
+        [  c2,  d2,  a2,  b2]
+        [ -b2, -a2,  d2,  c2]
+        [  a2, -b2, -c2,  d2]];
     
 end
 

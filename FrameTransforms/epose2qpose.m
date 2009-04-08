@@ -1,4 +1,4 @@
-function [qp,QPe] = epose2qpose(ep)
+function [qp,QP_ep] = epose2qpose(ep)
 
 % EPOSE2QPOSE  Euler-specified to quaternion-specified pose conversion.
 %
@@ -13,8 +13,9 @@ if any(size(ep) ~= [6,1])
     warning('Input Euler-pose should be a column 6-vector')
 end
 
-qp           = zeros(7,1);  % empty quaternion pose
-qp(1:3)      = ep(1:3);     % position copy
-P            = eye(3);      % Jacobian of copy function
-[qp(4:7),Qe] = e2q(ep(4:6));% orientation and Jacobian
-QPe          = [P zeros(3);zeros(4,3) Qe]; % Full Jacobian
+qp            = zeros(7,1);  % empty quaternion pose
+qp(1:3)       = ep(1:3);     % position copy
+P             = eye(3);      % Jacobian of copy function
+[qp(4:7),Q_e] = e2q(ep(4:6));% orientation and Jacobian
+
+QP_ep         = [P zeros(3);zeros(4,3) Q_e]; % Full Jacobian

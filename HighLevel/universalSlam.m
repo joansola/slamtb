@@ -131,6 +131,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
             % Initialize new landmarks
             [Lmk,Obs(sen,:)] = initLmk(Rob(rob), Sen(sen), Raw(sen), Lmk, Obs(sen,:)) ;
+%             [Lmk,Obs(sen,:)] = initNewLmks(Rob(rob), Sen(sen), Raw(sen), Lmk, Obs(sen,:)) ;
 
         end % end process sensors
 

@@ -72,8 +72,8 @@ Robot{1} = struct(...
     'angVelStd',            [0;0;0],...     % ang. vel. error, std, in degrees
     'dx',                   [1;0;0],...     % position increment
     'daDegrees',            [0;0;5],...     % angle increment, degrees
-    'dxStd',                [0;0;0],...     % odo linear error std
-    'daStd',                [0;0;0]);       % odo ang error std, degrees
+    'dxStd',                [0.01;0;0],...     % odo linear error std
+    'daStd',                [0;0;.5]);       % odo ang error std, degrees
 % Robot{2} = struct(...
 %     'id',                   2,...           % robot identifier
 %     'name',                 'Dala',...      % robot name

@@ -9,14 +9,17 @@ function Lmk = initNewLmks(Rob, Sen, SimObs, Lmk)
 %   elements are extracted from the recent observations (SIMOBS), from the
 %   current state estimated (ROB for robot and SEN for the sensor).
 %
+%   Finally, we can have a mean and a variance-covariance estimation for
+%   the new landmark state.
+%
+
+%
 %   To do this operation, we must "inverse" the observation function. but
 %   if the function is not inversible (2D information -> 3D point for
 %   example), we must introduce a 3rd ad-hoc information (the distance for
 %   example).
-%
-%   Finally, we can have a mean and a variance-covariance estimation for
-%   the new landmark state.
-%
+
+global Map
 
 switch Sen.type
 
@@ -38,17 +41,42 @@ switch Sen.type
                 if(~any(~is_usable & [Lmk.id]==idobs))
                     inv_depth_nob = Lmk(indexNew).nom.n ;
                     point = SimObs.points(:,find([SimObs.ids]==idobs)) ;
-                    [idp, IDPrf, IDPsf, IDPsk, IDPsd, IDPpix, IDPrho] = retroProjectIdpPntFromPinHoleOnRob(Rob.frame, Sen.frame, Sen.par.k, Sen.par.d, point, inv_depth_nob) ;
+                    [idp, IDPrf, IDPsf, IDPsk, IDPsd, IDPpix, IDPrho] = ...
+                        retroProjectIdpPntFromPinHoleOnRob( ...
+                            Rob.frame, ...
+                            Sen.frame, ...
+                            Sen.par.k, ...
+                            Sen.par.d, ...
+                            point, ...
+                            inv_depth_nob) ;
 
                     Lmk(indexNew).used     = true ;
                     Lmk(indexNew).id       = idobs ;
+                    Lmk(indexNew).sig      = idobs ;
                     Lmk(indexNew).state.x  = idp ;
 
                     % TODO put better variance-covariance matrix
-                    Lmk(indexNew).state.P  = IDPpix*Sen.par.pixCov*IDPpix' + IDPrho*Lmk(indexNew).nom.N*IDPrho' ; % + ... ???
-
+                    Rpix = Sen.par.pixCov ;
+                    Rnob = Lmk(indexNew).nom.N ;
+                    % if the sensor frame is in the state
+                    % IDPmap = [IDPrf IDPsf] ;
+                    IDPmap = IDPrf ;
+                    % if the sensor frame is in the state
+                    % Rmap = Map.P([Rob.frame.r;Sen.frame.r],[Rob.frame.r;Sen.frame.r]) ;
+                    Rmap = Map.P(Rob.frame.r,Rob.frame.r) ;
+                    
+                    % var_covar LL
+                    Lmk(indexNew).state.P  = ...
+                        IDPpix*Rpix*IDPpix' + ...  % by pixel cov
+                        IDPrho*Rnob*IDPrho' + ...  % by nob   cov
+                        IDPmap*Rmap*IDPmap'     ;  % by map   cov
+                    
+                    % covar_LX
+                    P_RX = Map.P(Rob.frame.r,find(Map.used)) ;
+                    P_LX = IDPrf*P_RX ;
+                    
                     % frame range in Map
-                    Lmk(indexNew).state.r = addToMap(Lmk(indexNew).state.x,Lmk(indexNew).state.P);
+                    Lmk(indexNew).state.r = addToMap(Lmk(indexNew).state.x,Lmk(indexNew).state.P,P_LX);
 
                     % only 1 idp-add for each time-step
                     break ;

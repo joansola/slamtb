@@ -122,6 +122,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
             % Observe knowm landmark
             % obsKnownLmks;
+            Rob(rob) = observeKnownLmks(Rob(rob), Sen(sen), SimObs(sen), Lmk) ;
 
             % Initialize new landmarks
             % initNewLmks;

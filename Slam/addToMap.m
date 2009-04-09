@@ -23,7 +23,7 @@ function r = addToMap(x, P_LL, P_LX, r)
 %   range R as input.
 %
 %   See also NEWRANGE, USEDRANGE.
-
+%
 %   (c) 2009 Joan Sola @ LAAS-CNRS.
 
 global Map

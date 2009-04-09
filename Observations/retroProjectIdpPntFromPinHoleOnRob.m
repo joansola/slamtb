@@ -1,16 +1,17 @@
 function [idp, IDP_rf, IDP_sf, IDP_sk, IDP_sd, IDP_u, IDP_invdepth] = ...
     retroProjectIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, u, n)
-% RETROPROJIDPPNTFROMPINHOLEONROB Retro-pr idp from pinhole on rob.
-%   IDP = RETROPROJIDPPNTFROMPINHOLEONROB(RF, SF, SK, SC, U, N)
-%   gives the retroprojected IDP in World Frame from an observed
-%   pixel U. RF and SF are Robot and Sensor Frames, SK and SD are
-%   camera calibration and distortion correction parameters. U is
-%   the pixel coordinate and N is the non-observable inverse depth.
-%   IDP is a 6-vector :
+
+% RETROPROJECTIDPPNTFROMPINHOLEONROB Retro-pr idp from pinhole on rob.
+%
+%   IDP = RETROPROJECTIDPPNTFROMPINHOLEONROB(RF, SF, SK, SC, U, N) gives
+%   the retroprojected IDP in World Frame from an observed pixel U. RF and
+%   SF are Robot and Sensor Frames, SK and SD are camera calibration and
+%   distortion correction parameters. U is the pixel coordinate and N is
+%   the non-observable inverse depth. IDP is a 6-vector :
 %     IDP = [X Y Z Pitch Yaw IDepth]'
 %
-%   [IDP, IDP_rf, IDP_sf, IDP_k, IDP_c, IDP_u, IDP_n] = ...
-%   returns the Jacobians wrt RF.x, SF.x, SK, SC, U and N.
+%   [IDP, IDP_rf, IDP_sf, IDP_k, IDP_c, IDP_u, IDP_n] = ... returns the
+%   Jacobians wrt RF.x, SF.x, SK, SC, U and N.
 %
 %   See also INVPINHOLEIDP, FROMFRAMEIDP.
 

@@ -29,35 +29,33 @@ switch Sen.type
             
             % get a new point ID
             lmk      = find(freeIdps,1);
-            lmkIds   = [Lmk(usedLmks).id];
-            rawIds   = Raw.data.ids;
-            [newIds,newIdsIdx] = setdiff(rawIds,lmkIds);
             
-            % test if we saw any new points in Raw
-            if ~isempty(newIds)
-                
-                % DETECT FEATURE
-                newId    = newIds(1);
-                newIdx   = newIdsIdx(1);
-                
-                % bet new point coordinates and covariance
-                y        = Raw.data.points(:,newIdx);
-                R        = Sen.par.pixCov;
+            switch Raw.type
+                case {'simu'}
+                    [y, R, newId, newIdx] = SimdetectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
+                    
+                case {'real'}
+                    %to do
+                    %[y,R,newId] = detectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
+            end
+            
+            if ~isempty(y)
                 
                 % fill Obs struct
-                Obs(:,lmk).sen      = Sen.sen;
-                Obs(:,lmk).sid      = Sen.id;
-                Obs(:,lmk).lid      = newId;
-                Obs(:,lmk).meas.y   = y;
-                Obs(:,lmk).meas.R   = R;
-                Obs(:,lmk).exp.e    = y;
-                Obs(:,lmk).exp.E    = R;
-                Obs(:,lmk).app.curr = newId;
-                Obs(:,lmk).app.pred = newId;
-                Obs(:,lmk).vis      = true;
-                Obs(:,lmk).measured = true;
-                Obs(:,lmk).matched  = true;
-                Obs(:,lmk).updated  = true;
+                Obs(lmk).sen      = Sen.sen;
+                Obs(lmk).lmk      = lmk;
+                Obs(lmk).sid      = Sen.id;
+                Obs(lmk).lid      = newId;
+                Obs(lmk).meas.y   = y;
+                Obs(lmk).meas.R   = R;
+                Obs(lmk).exp.e    = y;
+                Obs(lmk).exp.E    = R;
+                Obs(lmk).app.curr = newId;
+                Obs(lmk).app.pred = newId;
+                Obs(lmk).vis      = true;
+                Obs(lmk).measured = true;
+                Obs(lmk).matched  = true;
+                Obs(lmk).updated  = true;
                 
                 % INIT LMK
                 inv_depth_nob = Lmk(lmk).nom.n ;
@@ -70,8 +68,7 @@ switch Sen.type
                     y, ...
                     inv_depth_nob) ;
                 
-                
-                
+                Lmk(lmk).lmk     = lmk;
                 Lmk(lmk).id      = newId;
                 Lmk(lmk).used    = true;
                 Lmk(lmk).state.x = idp ;
@@ -100,9 +97,11 @@ switch Sen.type
                 
                 % frame range in Map
                 Lmk(lmk).state.r = addToMap(Lmk(lmk).state.x,Lmk(lmk).state.P,P_LX);
+                %             end
             end
+        else
+            return
         end
-        
     otherwise
         % Print an error and exit
         error(['Unknown sensor type. Cannot operate an initialisation of landmark with ''',Sen.type,''' sensor ''',Sen.name,'''.']);

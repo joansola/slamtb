@@ -8,17 +8,14 @@ function  Raw = SimObservation(SimRob, SimSen, SimLmk)
 %   ROB is a structure containing the robot. SEN is a structure containing
 %   the sensor. OBS is a structure containing the observation.
 %
-%
-
-Raw.type = 'simu';
 
 Raw.type = 'simu';
 
 switch SimSen.type
-
+    
     % camera pinHole
     case {'pinHole'}
-
+        
         [Raw.data.points, s] = projEucPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
         Raw.data.ids = SimLmk.ids;
         front = (s>0);
@@ -31,7 +28,7 @@ switch SimSen.type
     otherwise
         % Print an error and exit
         error(['Unknown sensor type. Cannot operate an simulated observation with ''',Sen.type,''' sensor ''',Sen.name,'''.']);
-
+        
 end % end of the "switch" on sensor type
 
 

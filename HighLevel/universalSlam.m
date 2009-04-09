@@ -17,7 +17,7 @@
 %   active-search techniques for vision, they are amazingly faster and
 %   robust.
 %
-%   See also USERDATA. 
+%   See also USERDATA.
 %
 %   Also consult slamToolbox.pdf in the root directory.
 
@@ -39,12 +39,12 @@ userData;   % user-defined data. SCRIPT.
     Robot,...
     Sensor,...      % all user data
     Landmark,...
-    Time);                    
+    Time);
 % Simulation data
 [SimRob,SimSen,SimLmk] = createSimStructures(...
     Robot,...
     Sensor,...      % all user data
-    World);                   
+    World);
 % Graphics handles
 [MapFig,SenFig]        = createGraphicsStructures(...
     Rob, Sen, Lmk, Obs,...      % SLAM data
@@ -62,7 +62,7 @@ userData;   % user-defined data. SCRIPT.
 % clear Robot Sensor Landmark FigureOptions World Time Experiment Video Estimation
 
 % ----------------------------------------------------
-% Create test Lmks       
+% Create test Lmks
 % FIXME: these lines to be removed, they are here just to have
 % something to plot in the map figure.
 %
@@ -75,7 +75,7 @@ lidx  =  find([SimLmk.ids] == id); % get lmk index in simulated lmks array
 xyz   =  SimLmk.points(:,lidx);    % get lmk 3D position
 XYZ   =  diag([.03 .02 .01]);      % get covariances
 r     =  addToMap(xyz,XYZ);        % put it in the map
- 
+
 Lmk(lmk).state.r = r;              % Lmk range in Map
 Lmk(lmk).used    = true;           % Lmk is used
 %
@@ -87,60 +87,60 @@ Lmk(lmk).used    = true;           % Lmk is used
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 1. SIMULATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+    
     % FIXME: this is hard-coded. Should be done better as part of the simulator.
     Rob(1).con.u = [.1;0;0;0;0;0.05];
-%     Rob(2).con.u = [0;0;0;0;0;0];
-
+    %     Rob(2).con.u = [0;0;0;0;0;0];
+    
     % Simulate robots
     for rob = 1:numel(SimRob)
-
+        
         % Robot motion
         % FIXME: see how to include noise in a clever way.
         SimRob(rob).con.u = Rob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
         SimRob(rob) = motion(SimRob(rob),Tim);
-
+        
         % Simulate sensor observations
         for sen = SimRob(rob).sensors
-
+            
             % Observe simulated landmarks
             Raw(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
-%             SimObs(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
-
+            %             SimObs(sen) = SimObservation(SimRob(rob), SimSen(sen), SimLmk) ;
+            
         end % end process sensors
-
+        
     end % end process robots
-
-
+    
+    
     % 2. ESTIMATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+    
     % Process robots
     for rob = 1:numel(Rob)
-
+        
         % Robot motion
         Rob(rob) = motion(Rob(rob),Tim);
-
+        
         % Process sensor observations
         for sen = Rob(rob).sensors
-
+            
             % Observe knowm landmarks
-%             [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = ...
-%                 obsKnownLmks(Rob(rob),Sen(sen),Lmk,Obs(sen,:));
-%             [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = observeKnownLmks(Rob(rob), Sen(sen), Raw(sen), Lmk) ;
-
+            %             [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = ...
+            %                 obsKnownLmks(Rob(rob),Sen(sen),Lmk,Obs(sen,:));
+            %             [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = observeKnownLmks(Rob(rob), Sen(sen), Raw(sen), Lmk) ;
+            
             % Initialize new landmarks
             [Lmk,Obs(sen,:)] = initLmk(Rob(rob), Sen(sen), Raw(sen), Lmk, Obs(sen,:)) ;
-
+            
         end % end process sensors
-
+        
     end % end process robots
-
+    
     % 3. VISUALIZATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+    
     % ---------------------------------------------------
-    % Create test Obs 
+    % Create test Obs
     % FIXME: these lines to be removed, they are here just to have
     % something to plot in the sensors figures.
     %
@@ -153,26 +153,26 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         else
             Obs(sen,lmk).vis = false;
         end
-    end    
+    end
     %
     % FIXME: remove up to this line ----------------------
     
     % Figure of the Map:
     drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
-
+    
     % Figures for all sensors
     drawSenFig(SenFig, Sen, Lmk, Obs, Raw);
-
+    
     % Do draw all objects
     drawnow;
-
-
+    
+    
     % 4. DATA LOGGING
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % TODO: do something here to collect data for post-processing or
     % plotting. Think about collecting data in files using fopen, fwrite,
     % etc., instead of creating large Matlab variables for data logging.
-
+    
 end
 
 %% V. Post-processing

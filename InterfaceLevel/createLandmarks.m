@@ -25,8 +25,6 @@ for lmkClass = 1:numel(Landmark)
         Lo.used = false;
 
         % state
-        Lo.state.x = [];        
-        Lo.state.P = [];
         switch Li.type
             case {'eucPnt'}
                 Lo.state.size = 3;

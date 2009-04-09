@@ -30,12 +30,19 @@ function SenFig = createSenFig(Sen,Obs,FigureOptions)
 for sen = 1:numel(Sen)
 
     % Figure
-    SenFig(sen).fig = figure(sen); % if sen==1, [figure_id=10]
+    if ishandle(sen)
+        SenFig(sen).fig = figure(sen);
+    else
+        SenFig(sen).fig = figure(sen);
+        figPos          = get(SenFig(sen).fig,'position');
+        figSize         = FigureOptions.figSize.sen;
+        newFigPos       = [figPos(1:2)  figSize];
+        set(SenFig(sen).fig,'position',newFigPos);
+    end
     moreindatatip
-    rob = Sen(sen).robot;
     set(SenFig(sen).fig,...
         'numbertitle',  'off',...
-        'name',         ['Robot ' num2str(rob) '  --  Sensor ' num2str(sen) '  (' Sen(sen).type ')'],...
+        'name',         ['Robot ' num2str(Sen(sen).robot) '  --  Sensor ' num2str(sen) '  (' Sen(sen).type ')'],...
         'doublebuffer', 'on',...
         'color',        FigureOptions.colors.border,...
         'renderer',     FigureOptions.renderer);

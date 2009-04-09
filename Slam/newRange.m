@@ -6,7 +6,7 @@ function r = newRange(vecSize)
 %
 %   For example, the code
 %       global Map
-%       Map.used = [0 0 0 4 5 0 7 8 0 0 0 12 0 0]';
+%       Map.used = [0 0 0 1 1 0 1 1 0 0 0 1 0 0]';
 %       r = newRange(6)
 %
 %   returns r = [1 2 3 6 9 10]'
@@ -26,6 +26,7 @@ return
 %% test
 global Map
 
-Map.used = [0 0 0 4 5 0 7 8 0 0 0 12 0 0]';
+Map.used = [0 0 0 1 1 0 1 1 0 0 0 1 0 0]';
 
-r = newRange(6)
+nr = newRange(6)
+ur = usedRange()

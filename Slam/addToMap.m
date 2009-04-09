@@ -1,9 +1,19 @@
 function r = addToMap(x, P_LL, P_LX, r)
 
 % ADDTOMAP  Add Gaussian to Map.
-%   ADDTOMAP(x,P) adds the Gaussian N(x,P) to the global EKF-map Map and
-%   returns the range where it has been added. ADDTOMAP adds mean x in
-%   Map.x and covariances P in the block-diagonal of Map.P.
+%   ADDTOMAP(L,P_LL) adds the Gaussian N(L,P_LL) to the global EKF-map Map,
+%   at positions that are empty, and returns the range of positions where
+%   it has been added. ADDTOMAP adds mean L in Map.x and covariances P_LL
+%   in the block-diagonal of Map.P. 
+%
+%   For example, in the case of a map which has all used states contiguous,
+%   the new state and covariance are appended at the end of the existing
+%   one:
+%
+%           | x |        | P     0   |
+%       x = |   |    P = |           |
+%           | L |        | 0    P_LL |
+%
 %
 %   Map is a global structure, containing:
 %       .used   a vector of logicals indicating used positions 
@@ -11,15 +21,15 @@ function r = addToMap(x, P_LL, P_LX, r)
 %       .P      the covariances matrix 
 %       .size   the Map's maximum size, numel(Map.x)
 %
-%   ADDTOMAP(x,P_LL,P_LX) accepts the cross variance matrix between x and the
-%   currently used states in Map.x. It returns the range where the x has been
-%   added.
+%   ADDTOMAP(L,P_LL,P_LX) accepts the cross variance matrix between L and the
+%   currently used states in Map.x, so that the covariance is augmented
+%   with
 %
-%   P = | P       P_LX' |
-%       |               |
-%       | P_LX    P_LL  |
+%           |   P     P_LX' |
+%       P = |               |
+%           | P_LX    P_LL  |
 %   
-%   ADDTOMAP(x,P_LL,P_LX,R) or ADDTOMAP(x,P_LL,[],R) permits indicating the
+%   ADDTOMAP(L,P_LL,P_LX,R) or ADDTOMAP(x,P_LL,[],R) permits indicating the
 %   range R as input.
 %
 %   See also NEWRANGE, USEDRANGE.

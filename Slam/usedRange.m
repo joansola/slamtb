@@ -10,3 +10,12 @@ global Map
 
 mr = find(Map.used);
 
+return
+
+%% test
+global Map
+
+Map.used = [0 0 0 1 1 0 1 1 0 0 0 1 0 0]';
+
+nr = newRange(6)
+ur = usedRange()

@@ -32,7 +32,7 @@ switch Sen.type
             
             switch Raw.type
                 case {'simu'}
-                    [y, R, newId] = SimDetectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
+                    [y, R, newId] = simDetectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
                     
                 case {'real'}
                     %to do

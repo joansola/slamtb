@@ -34,7 +34,15 @@ function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigureOptions)
 
 
 % Figure
-MapFig.fig = figure(99);
+if ishandle(99)
+    MapFig.fig = figure(99);
+else
+    MapFig.fig = figure(99);
+    figPos     = get(MapFig.fig,'position');
+    figSize    = FigureOptions.figSize.map;
+    newFigPos  = [figPos(1:2)  figSize];
+    set(MapFig.fig,'position',newFigPos);
+end
 clf
 moreindatatip
 
@@ -49,7 +57,7 @@ cameratoolbar('show');
 cameratoolbar('setmode','orbit');
 
 % Map viewpoint
-viewPnt       = mapObserver(SimLmk,FigureOptions.mapView);
+viewPnt = mapObserver(SimLmk,FigureOptions.mapView);
 
 % Axes
 axis equal

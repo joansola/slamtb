@@ -29,11 +29,14 @@ switch Sen.type
         if any(usedIdps)
             for lmk = 1:numel(lmks)
                 
+                % IDP --> Point3D
                 COV_idp = Map.P(Lmk(lmks(lmk)).state.r(1:6),Lmk(lmks(lmk)).state.r(1:6)) ;
                 idp = Map.x(Lmk(lmks(lmk)).state.r(1:6)) ;
                 [p,P_idp] = idp2p(idp) ;
+                COV_P = P_idp*COV_idp*P_idp' ;
                 
-                [U,S,U_R,U_S,U_K,U_D,U_L] = ...
+                % Point3D --> pixel
+                [pix, depth, PIX_rf, PIX_sf, PIX_k, PIX_d, PIX_p] = ...
                     projEucPntIntoPinHoleOnRob( ...
                     Rob.frame, ...
                     Sen.frame, ...
@@ -41,11 +44,22 @@ switch Sen.type
                     Sen.par.d, ...
                     p) ;
                 
-                R        = Sen.par.pixCov;
+                % VARIANCE-COVARIANCE in pixel view
+                R        = Sen.par.pixCov;    % sensor instantaneous noise
+                COV_rf   = Map.P(Rob.frame.r,Rob.frame.r) ; % robot frame cov
+                % TODO : if the sensor frame is in the state
+                %COV_sf   = Map.P(Sen.frame.r,Sen.frame.r) ;
+                %COV_pix = R + ...
+                %          PIX_rf*COV_rf*PIX_rf' + ...
+                %          PIX_sf*COV_sf*PIX_sf' ;
+                % else
+                COV_pix = R + ...
+                          PIX_rf*COV_rf*PIX_rf' + ...
+                          PIX_p*COV_P*PIX_p' ;
                 
-                Obs(:,lmk).exp.e    = U;
-                %Obs(:,lmk).
-                %Obs(:,lmk).exp.E    = R;
+                
+                Obs(:,lmk).exp.e    = pix       ;
+                Obs(:,lmk).exp.E    = COV_pix ;
                 %Obs(:,lmk).app.curr = 0;
 
                 

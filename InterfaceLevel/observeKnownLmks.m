@@ -31,7 +31,7 @@ switch Sen.type
                 
                 COV_idp = Map.P(Lmk(lmks(lmk)).state.r(1:6),Lmk(lmks(lmk)).state.r(1:6)) ;
                 idp = Map.x(Lmk(lmks(lmk)).state.r(1:6)) ;
-                [p,P_idp] = IDP2P(idp) ;
+                [p,P_idp] = idp2p(idp) ;
                 
                 [U,S,U_R,U_S,U_K,U_D,U_L] = ...
                     projEucPntIntoPinHoleOnRob( ...

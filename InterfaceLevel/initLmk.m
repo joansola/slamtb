@@ -92,7 +92,7 @@ switch Sen.type
                     IDPmap*Rmap*IDPmap'     ;  % by map   cov
                 
                 % covar_LX
-                P_RX = Map.P(Rob.frame.r,find(Map.used)) ;
+                P_RX = Map.P(Rob.frame.r,(Map.used)) ;
                 P_LX = IDPrf*P_RX ;
                 
                 % frame range in Map

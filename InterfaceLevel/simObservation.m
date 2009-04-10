@@ -18,9 +18,9 @@ switch SimSen.type
         
         [Raw.data.points, s] = projEucPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
         Raw.data.ids = SimLmk.ids;
-        front = (s>0);
-        intsquare = inSquare(Raw.data.points,[0 SimSen.par.imSize(1) 0 SimSen.par.imSize(2)]);
-        vis = (front&intsquare);
+        
+        vis = isVisible(Raw.data.points,s,SimSen.par.imSize);
+        
         Raw.data.points(:, ~vis) = [];
         Raw.data.ids(~vis) = [];
         % unknown

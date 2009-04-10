@@ -16,7 +16,7 @@ if ~isempty(Sen.state.r)
     Sen.frame   = updateFrame(Sen.frame);
 
     % covariances
-    Sen.state.P = Map.P(Sen.state.r,Sen.state.r);
-    Sen.frame.P = Map.P(Sen.frame.r,Sen.frame.r);
+    %     Sen.state.P = Map.P(Sen.state.r,Sen.state.r);
+    %     Sen.frame.P = Map.P(Sen.frame.r,Sen.frame.r);
 
 end

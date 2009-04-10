@@ -1,4 +1,6 @@
-function [y,R, newId] = SimDetectFeature(lmkIds, raw, cov)
+function [y,R, newId] = simDetectFeature(lmkIds, raw, cov)
+
+
 
 [newIds,newIdsIdx] = setdiff(raw.ids,lmkIds);
 

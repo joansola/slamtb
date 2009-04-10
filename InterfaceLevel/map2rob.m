@@ -15,7 +15,7 @@ Rob.vel.x   = Map.x(Rob.vel.r);
 Rob.frame   = updateFrame(Rob.frame);
 
 % covariances
-Rob.state.P = Map.P(Rob.state.r,Rob.state.r);
-Rob.frame.P = Map.P(Rob.frame.r,Rob.frame.r);
-Rob.vel.P   = Map.P(Rob.vel.r,Rob.vel.r);
+% Rob.state.P = Map.P(Rob.state.r,Rob.state.r);
+% Rob.frame.P = Map.P(Rob.frame.r,Rob.frame.r);
+% Rob.vel.P   = Map.P(Rob.vel.r,Rob.vel.r);
 

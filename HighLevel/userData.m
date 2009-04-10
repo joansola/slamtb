@@ -73,7 +73,7 @@ Robot{1} = struct(...
     'dx',                   [1;0;0],...     % position increment
     'daDegrees',            [0;0;5],...     % angle increment, degrees
     'dxStd',                [0.01;0;0],...     % odo linear error std
-    'daStd',                [0;0;.5]);       % odo ang error std, degrees
+    'daStd',                [0;0;.1]);       % odo ang error std, degrees
 % Robot{2} = struct(...
 %     'id',                   2,...           % robot identifier
 %     'name',                 'Dala',...      % robot name
@@ -136,9 +136,9 @@ Sensor{1} = struct(...
 %       'plkLin'  Plucker 3D line
 Landmark{1} = struct(...
     'type',                 'idpPnt',...    % type of landmark
-    'nonObsMean',           0.5,...           % mean of non obs. for initialization
-    'nonObsStd',            0.3,...         % std of non obs for initialization
-    'maxNbr',               2);            % max. nbr. of lmks of this type in map
+    'nonObsMean',           0.3,...           % mean of non obs. for initialization
+    'nonObsStd',            0.2,...         % std of non obs for initialization
+    'maxNbr',               10);            % max. nbr. of lmks of this type in map
 Landmark{2} = struct(...
     'type',                 'eucPnt',...    % type of landmark
     'maxNbr',               80);            % max. nbr. of lmks of this type in map

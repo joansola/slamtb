@@ -19,7 +19,7 @@ switch Sen.type
         usedLmks = [Lmk.used];
         idps     = strcmp({Lmk.type},'idpPnt');
         usedIdps = idps & usedLmks;
-        lmks     = find(usedIdps);
+
 
         % foreach known idp point :
         % 1- prediction step
@@ -27,11 +27,11 @@ switch Sen.type
         % 3- choose one lmk to observe in ekf process
         % 4- do the ekf update step only for this one
         if any(usedIdps)
-            for lmk = 1:numel(lmks)
+            for lmk = find(usedIdps)
                 
                 % IDP --> Point3D
-                COV_idp = Map.P(Lmk(lmks(lmk)).state.r(1:6),Lmk(lmks(lmk)).state.r(1:6)) ;
-                idp = Map.x(Lmk(lmks(lmk)).state.r(1:6)) ;
+                COV_idp = Map.P(Lmk(lmk).state.r(1:6),Lmk(lmk).state.r(1:6)) ;
+                idp = Map.x(Lmk(lmk).state.r(1:6)) ;
                 [p,P_idp] = idp2p(idp) ;
                 COV_P = P_idp*COV_idp*P_idp' ;
                 
@@ -43,6 +43,8 @@ switch Sen.type
                     Sen.par.k, ...
                     Sen.par.d, ...
                     p) ;
+                
+                vis = isVisible(pix,depth,Sen.par.imSize);
                 
                 % VARIANCE-COVARIANCE in pixel view
                 R        = Sen.par.pixCov;    % sensor instantaneous noise
@@ -60,6 +62,7 @@ switch Sen.type
                 
                 Obs(:,lmk).exp.e    = pix       ;
                 Obs(:,lmk).exp.E    = COV_pix ;
+                Obs(:,lmk).vis      = vis;
                 %Obs(:,lmk).app.curr = 0;
 
                 
@@ -91,7 +94,7 @@ switch Sen.type
                 %Obs(:,lmk).measured = true;
                 %Obs(:,lmk).matched  = true;
                 %Obs(:,lmk).updated  = true;
-            end ;
+            end 
             
             
             

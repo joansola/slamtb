@@ -20,3 +20,6 @@
 %   p2idp         - Point to inverse-depth point conversion.
 %   vec2py        - 3D vector to pitch and yaw direction
 %   idpS2idpW     - transpose idp vector from "Sensor frame" to "World frame".
+%   frame2iMatrix - Frame to motion matrix.
+%   frame2matrix  - Frame to motion matrix.
+%   splitInvFrame - Split frame information into useful matrices and vectors.

@@ -11,7 +11,7 @@ function [RobNew,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs)
 %       LMK:  the set of landmarks
 %       OBS:  the observation structure for the sensor SEN
 %
-%
+%    See also PROJEUCPNTINTOPINHOLEONROB, IDP2P.
 
 global Map
 
@@ -35,13 +35,16 @@ switch Sen.type
         if any(usedIdps)
             for lmk = find(usedIdps)
                 
-                % IDP --> Point3D (value ans variance-covariances)
-                COV_idp   = Map.P(Lmk(lmk).state.r(1:6),Lmk(lmk).state.r(1:6)) ;
-                idp       = Map.x(Lmk(lmk).state.r(1:6)) ;
-                [p,P_idp] = idp2p(idp) ;
-                COV_P     = P_idp*COV_idp*P_idp' ;
+                % IDP --> Point3D
+                %    -(value and variance-covariance)-
+                lr        = Lmk(lmk).state.r(1:6) ;   % lmk range in Map
+                idp       = Map.x(lr) ;               % lmk (idp)
+                COV_idp   = Map.P(lr,lr) ;            % cov lmk (idp)
+                [p,P_idp] = idp2p(idp) ;              % idp -> p
+                COV_P     = P_idp*COV_idp*P_idp' ;    % cov lmk (p)
                 
-                % Point3D --> pixel (value and Jacobians) 
+                % Point3D --> pixel
+                %   -(value and Jacobians)-
                 [pix, depth, PIX_rf, PIX_sf, PIX_k, PIX_d, PIX_p] = ...
                     projEucPntIntoPinHoleOnRob( ...
                     Rob.frame, ...
@@ -52,20 +55,21 @@ switch Sen.type
                 
                 vis = isVisible(pix,depth,Sen.par.imSize);
                 
-                % VARIANCE-COVARIANCE in pixel view wrt jacobians
-                % (sensor and robot frame)
-                R        = Sen.par.pixCov;
-                COV_rf   = Map.P(Rob.frame.r,Rob.frame.r) ;
+                % VARIANCE-COVARIANCE in pixel view
+                rfr      = Rob.frame.r ;     % robot frame range
+                R        = Sen.par.pixCov ;  % sensor cov
+                COV_rf   = Map.P(rfr,rfr) ;  % robot frame cov
                 
                 % TODO : treat the case where sensor frame is in the state
-                COV_pix = R + ...
-                          PIX_rf*COV_rf*PIX_rf' + ...
-                          PIX_p*COV_P*PIX_p' ;
+                %
+                COV_pix = R + ...                      % pixel cov obtained                  
+                          PIX_rf*COV_rf*PIX_rf' + ...  % by incertaincies
+                          PIX_p*COV_P*PIX_p' ;         % and jacobians.
                 
                 % modify the Obs object for view graphic
-                Obs(:,lmk).exp.e     = pix ;
-                Obs(:,lmk).exp.E     = COV_pix ;
-                Obs(:,lmk).vis       = vis ;
+                Obs(:,lmk).exp.e  = pix ;
+                Obs(:,lmk).exp.E  = COV_pix ;
+                Obs(:,lmk).vis    = vis ;
                 %Obs(:,lmk).app.curr = 0; %% TODO: app.curr in better way
 
             end ;

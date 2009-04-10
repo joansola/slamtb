@@ -1,4 +1,4 @@
-function  Raw = SimObservation(SimRob, SimSen, SimLmk)
+function  Raw = simObservation(SimRob, SimSen, SimLmk)
 
 % SIMOBSERVATION  Simulated observation.
 %   RAW = SIMOBSERVATION(ROB, SEN, OBS, SIMLMK) returns the Observation for

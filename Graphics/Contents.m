@@ -15,3 +15,9 @@
 %   wing          - creates a wing graphics 3D object.
 %   moreindatatip - Display index information in the data tip.
 %   satColor      - Saturate color.
+%   cov3matrix           - Deformation matrix from covariance.
+%   createObjPatch       - Create object patch.
+%   createLmkGraphics    - Crate landmark graphics.
+%   createLmkEllipsoid   - 
+%   createGround         - 
+%   createSimLmkGraphics - CREATELMKGRAPHICS  Crate simulated landmark graphics.

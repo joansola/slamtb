@@ -1,4 +1,4 @@
-function drawSenFig(SenFig, Sen, Lmk, Obs, Raw)
+function drawSenFig(SenFig, Sen, Raw, Lmk, Obs)
 
 % DRAWSENFIG  Redraw the sensors figures.
 % 	DRAWSENFIG(SENFIG, SEN, LMK, OBS, SIMOBS) updates all the handles in

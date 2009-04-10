@@ -17,17 +17,17 @@ switch SimSen.type
     case {'pinHole'}
         
         [Raw.data.points, s] = projEucPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
-        Raw.data.ids = SimLmk.ids;
+        Raw.data.appearance  = SimLmk.ids;
         
         vis = isVisible(Raw.data.points,s,SimSen.par.imSize);
         
-        Raw.data.points(:, ~vis) = [];
-        Raw.data.ids(~vis) = [];
+        Raw.data.points(:, ~vis)  = [];
+        Raw.data.appearance(~vis) = [];
         % unknown
         % -------
     otherwise
         % Print an error and exit
-        error(['Unknown sensor type. Cannot operate an simulated observation with ''',Sen.type,''' sensor ''',Sen.name,'''.']);
+        error('??? Unknown sensor type ''%s''.',Sen.type);
         
 end % end of the "switch" on sensor type
 

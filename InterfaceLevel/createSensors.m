@@ -48,6 +48,7 @@ for sen = 1:numel(Sensor)
     end
 
     % state
+    So.frameInMap     = Si.frameInMap;
     if Si.frameInMap
         So.state.x    = So.frame.x;
         So.state.P    = So.frame.P;

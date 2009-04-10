@@ -154,7 +154,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %
     lmk  = find([Lmk.id] == id);
     for sen = 1:numel(Sen)
-        oidx = find(Raw(sen).data.ids == id);
+        oidx = find(Raw(sen).data.appearance == id);
         if ~isempty(oidx)
             Obs(sen,lmk)  = testObs(Obs(sen,lmk), Raw(sen).data.points(:,oidx), 5^2*eye(2));
             Obs(sen,lmk).lid = id;

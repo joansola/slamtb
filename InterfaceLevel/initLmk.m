@@ -1,6 +1,6 @@
-function [Lmk,Obs] = initLmk(Rob, Sen, Raw, Lmk, Obs)
+function [Lmk,Obs] = initLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 
-%INITLMK  Initialise some new landmarks from recent observations.
+%INITLMK  Initialise one landmark.
 %   [LMK, OBS] = INITNLMK(ROB, SEN, RAW, LMK, OBS) returns the new set of
 %   landmarks.
 %
@@ -57,7 +57,7 @@ switch Sen.type
                 Obs(lmk).updated  = true;
                 
                 % INIT LMK
-                [idp, IDP_rf, IDP_sf, IDP_sk, IDP_sd, IDP_pix, IDP_n] = ...
+                [l, L_rf, L_sf, L_sk, L_sd, L_pix, L_n] = ...
                     retroProjectIdpPntFromPinHoleOnRob( ...
                     Rob.frame, ...
                     Sen.frame, ...
@@ -68,12 +68,12 @@ switch Sen.type
                 
                 
                 % Group all map Jacobians and ranges
-                if ~isempty(Sen.frame.r) % if the sensor frame is in the state
-                    IDP_map = [IDP_rf IDP_sf] ;
-                    mr      = [Rob.frame.r;Sen.frame.r];
+                if Sen.frameInMap % if the sensor frame is in the state
+                    L_map = [L_rf L_sf] ;
+                    mr    = [Rob.frame.r;Sen.frame.r];
                 else
-                    IDP_map = IDP_rf ;
-                    mr      = Rob.frame.r;
+                    L_map = L_rf ;
+                    mr    = Rob.frame.r;
                 end
                 
                 % covariance of map variables (robot and eventually sensor)
@@ -87,16 +87,16 @@ switch Sen.type
                 
                 % landmark covariance
                 P_LL  = ...
-                    IDP_map * Pmap * IDP_map' + ...  % by map   cov
-                    IDP_pix * R    * IDP_pix' + ...  % by pixel cov
-                    IDP_n   * N    * IDP_n' ;        % by nom   cov
+                    L_map * Pmap * L_map' + ...  % by map   cov
+                    L_pix * R    * L_pix' + ...  % by pixel cov
+                    L_n   * N    * L_n' ;        % by nom   cov
                 
                 % landmark cross-variance
                 P_MX = Map.P(mr,(Map.used)) ;
-                P_LX = IDP_map*P_MX ;
+                P_LX = L_map*P_MX ;
                 
                 % frame range in Map
-                Lmk(lmk).state.r = addToMap(idp,P_LL,P_LX);
+                Lmk(lmk).state.r = addToMap(l,P_LL,P_LX);
 
                 % Fill Lmk structure before exit
                 Lmk(lmk).lmk     = lmk;

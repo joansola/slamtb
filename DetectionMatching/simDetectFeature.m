@@ -2,7 +2,7 @@ function [y,R, newId] = simDetectFeature(lmkIds, raw, cov)
 
 
 
-[newIds,newIdsIdx] = setdiff(raw.ids,lmkIds);
+[newIds,newIdsIdx] = setdiff(raw.appearance,lmkIds);
 
 if ~isempty(newIds)
     newId    = newIds(1);

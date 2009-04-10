@@ -32,6 +32,8 @@ switch Sen.type
         % 2- compare with existing observation (innovation exist?)
         % 3- choose one lmk to observe in ekf process
         % 4- do the ekf update step only for this one
+        
+        % PROJECT ALL LMKS
         if any(usedIdps)
             for lmk = find(usedIdps)
                 
@@ -70,10 +72,18 @@ switch Sen.type
                 Obs(:,lmk).exp.e  = pix ;
                 Obs(:,lmk).exp.E  = COV_pix ;
                 Obs(:,lmk).vis    = vis ;
-                %Obs(:,lmk).app.curr = 0; %% TODO: app.curr in better way
+%                 Obs(:,lmk).app.pred = Lmk(lmk).sig; %% TODO: app.curr in better way
 
             end ;
         end ;
+        
+        % MATCH FEATURES
+        
+        % COMPUTE INNOVATIONS
+        
+        % TEST CONSISTENCE
+        
+        % CORRECK EKF
         
     % unknown Sen.type
     % ----------------

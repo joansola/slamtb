@@ -2,8 +2,14 @@
 function [RobNew,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs)
 
 %  OBSERVEKNOWNLMKS update what can be done with non-first observations.
-%   ROB = observeKnownLmks(ROB, SEN, SIMOBS, LMK) returns the new robot
-%   after some updates wrt some landmark observations.
+%    [ROBNEW,OBS] = observeKnownLmks(ROB, SEN, RAW, LMK, OBS) returns the
+%    new robot, and the modified observation after some updates wrt
+%    landmark observations OBS.
+%       ROB:  the robot 
+%       Sen:  the sensor
+%       Raw:  the raw datas issues from SEN
+%       LMK:  the set of landmarks
+%       OBS:  the observation structure for the sensor SEN
 %
 %
 
@@ -29,13 +35,13 @@ switch Sen.type
         if any(usedIdps)
             for lmk = find(usedIdps)
                 
-                % IDP --> Point3D
-                COV_idp = Map.P(Lmk(lmk).state.r(1:6),Lmk(lmk).state.r(1:6)) ;
-                idp = Map.x(Lmk(lmk).state.r(1:6)) ;
+                % IDP --> Point3D (value ans variance-covariances)
+                COV_idp   = Map.P(Lmk(lmk).state.r(1:6),Lmk(lmk).state.r(1:6)) ;
+                idp       = Map.x(Lmk(lmk).state.r(1:6)) ;
                 [p,P_idp] = idp2p(idp) ;
-                COV_P = P_idp*COV_idp*P_idp' ;
+                COV_P     = P_idp*COV_idp*P_idp' ;
                 
-                % Point3D --> pixel
+                % Point3D --> pixel (value and Jacobians) 
                 [pix, depth, PIX_rf, PIX_sf, PIX_k, PIX_d, PIX_p] = ...
                     projEucPntIntoPinHoleOnRob( ...
                     Rob.frame, ...
@@ -46,59 +52,49 @@ switch Sen.type
                 
                 vis = isVisible(pix,depth,Sen.par.imSize);
                 
-                % VARIANCE-COVARIANCE in pixel view
-                R        = Sen.par.pixCov;    % sensor instantaneous noise
-                COV_rf   = Map.P(Rob.frame.r,Rob.frame.r) ; % robot frame cov
-                % TODO : if the sensor frame is in the state
-                %COV_sf   = Map.P(Sen.frame.r,Sen.frame.r) ;
-                %COV_pix = R + ...
-                %          PIX_rf*COV_rf*PIX_rf' + ...
-                %          PIX_sf*COV_sf*PIX_sf' ;
-                % else
+                % VARIANCE-COVARIANCE in pixel view wrt jacobians
+                % (sensor and robot frame)
+                R        = Sen.par.pixCov;
+                COV_rf   = Map.P(Rob.frame.r,Rob.frame.r) ;
+                
+                % TODO : treat the case where sensor frame is in the state
                 COV_pix = R + ...
                           PIX_rf*COV_rf*PIX_rf' + ...
                           PIX_p*COV_P*PIX_p' ;
                 
-                
-                Obs(:,lmk).exp.e    = pix       ;
-                Obs(:,lmk).exp.E    = COV_pix ;
-                Obs(:,lmk).vis      = vis;
-                %Obs(:,lmk).app.curr = 0;
+                % modify the Obs object for view graphic
+                Obs(:,lmk).exp.e     = pix ;
+                Obs(:,lmk).exp.E     = COV_pix ;
+                Obs(:,lmk).vis       = vis ;
+                %Obs(:,lmk).app.curr = 0; %% TODO: app.curr in better way
 
-                
-%                 
-%                 [U,S,U_R,U_S,U_K,U_D,U_L] = 
-%                 
-%                  = Lmk(lmk).nom.n ;
-%                 [pix_pred, IDPrf, IDPsf, IDPsk, IDPsd, IDPpix, IDPrho] = ...
-%                     retroProjectIdpPntFromPinHoleOnRob( ...
-%                     Rob.frame, ...
-%                     Sen.frame, ...
-%                     Sen.par.k, ...
-%                     Sen.par.d, ...
-%                     y, ...
-%                     inv_depth_nob) ;
-%                 prediction = 
-                
-                % fill Obs struct
-                %Obs(:,lmk).sen      = Sen.sen;
-                %Obs(:,lmk).sid      = Sen.id;
-                %Obs(:,lmk).lid      = newId;
-                %Obs(:,lmk).meas.y   = y;
-                %Obs(:,lmk).meas.R   = R;
-                %Obs(:,lmk).exp.e    = y;
-                %Obs(:,lmk).exp.E    = R;
-                %Obs(:,lmk).app.curr = newId;
-                %Obs(:,lmk).app.pred = newId;
-                %Obs(:,lmk).vis      = true;
-                %Obs(:,lmk).measured = true;
-                %Obs(:,lmk).matched  = true;
-                %Obs(:,lmk).updated  = true;
-            end 
-            
-            
-            
-            
+            end ;
+        end ;
+        
+    % unknown Sen.type
+    % ----------------
+    otherwise
+        
+        % Print an error and exit
+        error(['Unknown sensor type. Cannot operate an initialisation of landmark with ''',Sen.type,''' sensor ''',Sen.name,'''.']);
+
+end % sensor type
+
+    RobNew = Rob ;
+    
+end % function
+
+
+
+
+
+
+
+
+
+% TODO supress above:: here just for some programming helpers.
+%
+%
 %             % get all known point ID
 %             usedIdpsIndexesInLmk   = find(usedIdps);
 %             usedIdpIds   = [Lmk(usedIdpsIndexesInLmk).id];
@@ -185,26 +181,3 @@ switch Sen.type
 %                 % frame range in Map
 %                 Lmk(lmk).state.r = addToMap(Lmk(lmk).state.x,Lmk(lmk).state.P,P_LX);
 %              end
-        end ;
-
-        %             [SimObs.points, s] = projectEuclPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
-        %             SimObs.ids=SimLmk.ids;
-        %
-        %             front=(s>0);
-        %             intsquare=inSquare(SimObs.points,[0 SimSen.par.imSize(1) 0 SimSen.par.imSize(2)]);
-        %             vis=(front&intsquare);
-        %
-        %             SimObs.points(:, ~vis)=[];
-        %             SimObs.ids(~vis)=[];
-
-        % unknown
-        % -------
-    otherwise
-        % Print an error and exit
-        error(['Unknown sensor type. Cannot operate an initialisation of landmark with ''',Sen.type,''' sensor ''',Sen.name,'''.']);
-
-end % end of the "switch" on sensor type
-
-    RobNew = Rob ;
-
-end

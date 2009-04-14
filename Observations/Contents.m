@@ -1,4 +1,4 @@
-% OBSERVATIONS
+% OBSERVATIONS  Observation models and vision library.
 %
 % Files
 %   camPhoto                       - Take photo from a camera

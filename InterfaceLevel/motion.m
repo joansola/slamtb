@@ -1,11 +1,11 @@
-function Rob = motion(Rob, Tim)
-% MOTION  Robt motion.
-%   Rob = MOTION(Rob, Tim) performs one motion step to robot Rob, following
-%   the motion model in Rob.motion. The time information Tim is used only
-%   if the motion model requires it, but it has to be provided because
-%   MOTION is a generic method.
+function Rob = simMotion(Rob, Tim)
+% SIMMOTION  Simulated robot motion.
+%   Rob = SIMMOTION(Rob, Tim) performs one motion step to robot Rob,
+%   following the motion model in Rob.motion. The time information Tim is
+%   used only if the motion model requires it, but it has to be provided
+%   because MOTION is a generic method.
 %
-%   See also CONSTVEL, ODO3, UPDATEFRAME.
+%   See also MOTION, CONSTVEL, ODO3, UPDATEFRAME.
 
 
 % motion model of the  robot:

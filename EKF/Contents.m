@@ -1,4 +1,4 @@
-% EKF
+% Extended Kalman Filter.
 %
 % Files
 %   innovation - Innovation of an observation.

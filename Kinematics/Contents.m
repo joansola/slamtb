@@ -1,4 +1,4 @@
-% KINEMATICS
+% Motion models and time-prediction functions.
 %
 % Files
 %   constVel - Constant velocity motion model.

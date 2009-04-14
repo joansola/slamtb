@@ -1,4 +1,4 @@
-% INTERFACELEVEL
+% Interface lavel functions for the SLAM toolbox.
 %
 % Files
 %   createControls     - Create controls structure Con.

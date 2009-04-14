@@ -1,4 +1,4 @@
-% DATAMANAGEMENT
+% Functions for data management.
 %
 % Files
 %   inInterval - Check apartenance to interval.

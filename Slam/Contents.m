@@ -1,7 +1,9 @@
-% SLAM
+% Simultaneous localization and mapping.
 %
-% Files
+% Map management
 %   addToMap     - Add Gaussian to Map.
 %   newRange     - New map range.
-%   samplePeriod - Sample period.
 %   usedRange    - Used map range.
+%
+% Time management
+%   samplePeriod - Sample period.

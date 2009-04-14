@@ -12,7 +12,7 @@
 %   hat                  - Hat operator.
 %   normAngle            - Normalize angle to (-pi .. pi] values
 %   normquat             - Normalize quaternion to unit length
-%   normvec              - Normalize vector
+%   normvec              - Normalize vector.
 %
 % Functions on Gaussian data
 %   mahalanobis          - Mahalanobis distance

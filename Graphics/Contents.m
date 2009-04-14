@@ -17,7 +17,7 @@
 %   createLmkGraphics    - Crate landmark graphics.
 %   createLmkEllipsoid   - 
 %   createGround         - 
-%   createSimLmkGraphics - CREATELMKGRAPHICS  Crate simulated landmark graphics.
+%   createSimLmkGraphics - Crate simulated landmark graphics.
 %   ground        - draws a ground plane grid.
 %   drawObject    - Dispaly object graphics.
 %

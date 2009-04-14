@@ -1,6 +1,6 @@
 function Camo = composeRobSen(Rob,Cam)
 
-% COMPOSEROBSEN  Compose robot and sensor frames and information.
+%COMPOSEROBSEN Compose robot and sensor frames and parameters.
 %   CSEN = COMPOSEROBSEN(ROB,SEN) composes ROB and SEN frames and then
 %   copies all other info in SEN to get CSEN.
 

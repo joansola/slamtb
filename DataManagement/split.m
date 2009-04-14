@@ -1,6 +1,6 @@
 function varargout = split(A)
 
-% SPLIT  Split vectors into scalars or matrices into row vectors.
+% SPLIT  Split vectors into scalars, or matrices into row vectors.
 %   [s1,s2,...,sn] = SPLIT(V), with V a vector, returns all its components
 %   in scalars s1 ... sn. It is an error if numel(V) < nargout.
 %

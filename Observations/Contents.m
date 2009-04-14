@@ -17,8 +17,9 @@
 %   project                        - Project point into plane using pin-hole camera model
 %   retro                          - Retroproject pixel into 3D space.
 %   undistort                      - Undistorts projected point with radial distortion.
-%   isVisible                          - Points visible from pinHole camera.
+%   isVisible                      - Points visible from pinHole camera.
 %
 % Observation models, with 2 frame transforms
-%   retroProjectIdpPntFromPinHoleOnRob - Retro-pr idp from pinhole on rob.
-%   projEucPntIntoPinHoleOnRob         - Project Euc pnt into pinhole on robot.
+%   projEucPntIntoPinHoleOnRob      - Project Euc pnt into pinhole on robot.
+%   projIdpPntIntoPinHoleOnRob      - 
+%   retroProjIdpPntFromPinHoleOnRob - Retro-project idp from pinhole on robot.

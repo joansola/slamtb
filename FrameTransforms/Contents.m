@@ -22,7 +22,6 @@
 %   fromFrameIdp  - Transforms IDP from local frame to global frame.
 %   toFrameIdp    - Transforms IDP from global frame to local frame.
 %   idp2p         - Inverse Depth to cartesian point conversion.
-%   pi2pc         - Pi matrix to conjugated Pi matrix conversion.
 %   py2vec        - Pitch and yaw to 3D direction vector.
 %   p2idp         - Point to inverse-depth point conversion.
 %   vec2py        - 3D vector to pitch and yaw direction

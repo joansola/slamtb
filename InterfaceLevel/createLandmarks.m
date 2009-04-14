@@ -1,6 +1,6 @@
 function Lmk = createLandmarks(Landmark)
 
-% CREATELANDMARKS  Create Lmk() structure array.
+% CREATELANDMARKS  Create Lmk structure array.
 %   Lmk = CREATELANDMARKS(Landmark) creates the structure array Lmk() to be
 %   used as SLAM data. The input Landmark{}  is a cell array of structures
 %   as specified by the user in userData.m. There must be one Landmark{}

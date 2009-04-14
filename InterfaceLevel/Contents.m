@@ -2,7 +2,7 @@
 %
 % Files
 %   createControls     - Create controls structure Con.
-%   createLandmarks    - Create Lmk() structure array.
+%   createLandmarks    - Create Lmk structure array.
 %   createMap          - Create an empty Map structure.
 %   createObservations - Create Obs structure array.
 %   createRobots       - Create robots structure array.
@@ -14,7 +14,7 @@
 %   drawMapFig         - Redraw the 3D map figure.
 %   drawObsPoint       - Redraw a landmark on the pinHole sensor figure.
 %   drawSenFig         - Redraw the sensors figures.
-%   initLmk            - Initialise some new landmarks from recent observations.
+%   initLmk            - Initialise one landmark.
 %   initRobots         - Initialize robots in Map.
 %   initSensors        - Initialize sensors in Map.
 %   installSensors     - Install sensors on robots.

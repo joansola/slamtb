@@ -1,12 +1,12 @@
 function handle = createSimLmkGraphics(SimLmk,colr,ax)
 
-% CREATELMKGRAPHICS  Crate simulated landmark graphics.
-%   CREATELMKGRAPHICS(SIMLMK,LBLCLR) creates the graphics objects for the
+% CREATESIMLMKGRAPHICS  Crate simulated landmark graphics.
+%   CREATESIMLMKGRAPHICS(SIMLMK,LBLCLR) creates the graphics objects for the
 %   simulated landmarks SIMLMK.
 %
-%   CREATELMKGRAPHICS(...,AX) creates the graphics at axes AX.
+%   CREATESIMLMKGRAPHICS(...,AX) creates the graphics at axes AX.
 %
-%   HSTR = CREATELMKGRAPHICS returns a handle to the 'line' graphics object.
+%   HSTR = CREATESIMLMKGRAPHICS returns a handle to the 'line' graphics object.
 
 if nargin < 3
     ax = gca;

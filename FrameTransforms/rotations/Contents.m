@@ -23,6 +23,7 @@
 %   flu2rdf    - Camera body to camera sensor rotation matrix.
 %   q2Pi       - Pi matrix construction from quaternion.
 %   q2qc       - Conjugate quaternion.
+%   pi2pc      - Pi matrix to conjugated Pi matrix conversion.
 %   qProd      - Quaternion product.
 %   w2omega    - Skew symetric matrix OMEGA from angular rates vector W.
 %   qRot       - Vector rotation via quaternion algebra.

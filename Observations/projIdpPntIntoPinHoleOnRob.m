@@ -8,6 +8,7 @@ if nargout <= 2  % No Jacobians requested
 else            % Jacobians requested
 
     if size(l,2) == 1
+        
         % function calls
         [p,P_l]                     = idp2p(l);
         [u,s,U_r,U_s,U_pk,U_pd,U_p] = projEucPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, p);

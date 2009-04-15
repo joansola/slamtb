@@ -85,7 +85,7 @@ for lmk = find([Lmk.used])
         rslr  = [Rob.frame.r ; Sen.state.r ; lr]; % range of robot, sensor, and landmark
         E_rsl = [E_rf E_sf E_l];
     else
-        rslr  = [Rob.frame.r ; lr];  % range of robot and landmark
+        rslr  = [Rob.frame.r ; lr];               % range of robot and landmark
         E_rsl = [E_rf E_l];
     end
 

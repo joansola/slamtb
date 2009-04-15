@@ -27,16 +27,16 @@ for rob = 1:numel(Robot)
             Ro.con.u    = [Ri.dv;deg2rad(Ri.dwDegrees)];
             Ro.con.uStd = [Ri.dvStd;deg2rad(Ri.dwStd)];
             Ro.con.U    = diag(Ro.con.uStd.^2);
-            Ro.vel.x = [Ri.velocity;deg2rad(Ri.angularVelDegrees)];
-            Ro.vel.P = diag([Ri.velStd;deg2rad(Ri.angVelStd)].^2);
+            Ro.vel.x    = [Ri.velocity;deg2rad(Ri.angularVelDegrees)];
+            Ro.vel.P    = diag([Ri.velStd;deg2rad(Ri.angVelStd)].^2);
 
         case {'odometry'}
 
             Ro.con.u    = [Ri.dx;deg2rad(Ri.daDegrees)];
             Ro.con.uStd = [Ri.dxStd;deg2rad(Ri.daStd)];
             Ro.con.U    = diag(Ro.con.uStd.^2);
-            Ro.vel.x = [];
-            Ro.vel.P = [];
+            Ro.vel.x    = [];
+            Ro.vel.P    = [];
 
         otherwise
             error('Unknown motion model %s from robot %d.',Robot.motion,Robot.id);

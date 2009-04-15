@@ -1,5 +1,5 @@
 function Rob = motion(Rob, Tim)
-% MOTION  Simulated robot motion.
+%MOTION Robt motion.
 %   Rob = MOTION(Rob, Tim) performs one motion step to robot Rob, following
 %   the motion model in Rob.motion. The time information Tim is used only
 %   if the motion model requires it, but it has to be provided because

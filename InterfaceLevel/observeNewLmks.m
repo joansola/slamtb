@@ -1,4 +1,4 @@
-function [Lmk,Obs] = initLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
+function [Lmk,Obs] = observeNewLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 
 %INITLMK  Initialise one landmark.
 %   [LMK, OBS] = INITNLMK(ROB, SEN, RAW, LMK, OBS) returns the new set of
@@ -15,31 +15,31 @@ function [Lmk,Obs] = initLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 global Map
 
 switch Sen.type
-    
+
     % camera pinHole
     case {'pinHole'}
-        
+
         % test if there is space in Lmk for a new lmk
         usedLmks = [Lmk.used];
         idps     = strcmp({Lmk.type},'idpPnt');
         freeIdps = idps & ~usedLmks;
-        
+
         if any(freeIdps)
-            
+
             % index to first free Idp lmk
             lmk = find(freeIdps,1);
-            
+
             switch Raw.type
                 case {'simu'}
                     [y, R, newId] = simDetectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
-                    
+
                 case {'real'}
                     %to do
                     %[y,R,newId] = detectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
             end
-            
+
             if ~isempty(y)  % a feature was detected
-                
+
                 % fill Obs struct before continuing
                 Obs(lmk).sen      = Sen.sen;
                 Obs(lmk).lmk      = lmk;
@@ -55,7 +55,7 @@ switch Sen.type
                 Obs(lmk).measured = true;
                 Obs(lmk).matched  = true;
                 Obs(lmk).updated  = true;
-                
+
                 % INIT LMK
                 [l, L_rf, L_sf, L_sk, L_sd, L_pix, L_n] = ...
                     retroProjIdpPntFromPinHoleOnRob( ...
@@ -65,36 +65,36 @@ switch Sen.type
                     Sen.par.d, ...
                     y, ...
                     Lmk(lmk).nom.n) ;
-                
-                
+
+
                 % Group all map Jacobians and ranges
                 if Sen.frameInMap % if the sensor frame is in the state
-                    L_map = [L_rf L_sf] ;
                     mr    = [Rob.frame.r;Sen.frame.r];
+                    L_map = [L_rf L_sf] ;
                 else
-                    L_map = L_rf ;
                     mr    = Rob.frame.r;
+                    L_map = L_rf ;
                 end
-                
+
                 % covariance of map variables (robot and eventually sensor)
                 Pmap = Map.P(mr,mr) ;
-                
+
                 % measurement covariance
                 R = Obs(lmk).meas.R ;
 
                 % non-measurable covariance
                 N = Lmk(lmk).nom.N ;
-                
+
                 % landmark covariance
                 P_LL  = ...
                     L_map * Pmap * L_map' + ...  % by map   cov
                     L_pix * R    * L_pix' + ...  % by pixel cov
                     L_n   * N    * L_n' ;        % by nom   cov
-                
+
                 % landmark cross-variance
                 P_MX = Map.P(mr,(Map.used)) ;
                 P_LX = L_map*P_MX ;
-                
+
                 % frame range in Map
                 Lmk(lmk).state.r = addToMap(l,P_LL,P_LX);
 
@@ -104,8 +104,6 @@ switch Sen.type
                 Lmk(lmk).used    = true;
                 Lmk(lmk).sig     = newId;
             end
-        else
-            return
         end
     otherwise
         % Print an error and exit

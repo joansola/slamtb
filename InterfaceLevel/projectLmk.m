@@ -1,5 +1,25 @@
 function Obs = projectLmk(Rob,Sen,Lmk,Obs)
 
+% PROJECTLMK  Project landmark estimate into sensor's measurement space.
+%   Obs = PROJECTLMK(Rob,Sen,Lmk,Obs) projects the landmark Lmk into sensor
+%   Sen mounted on robot Rob, and updates the information of the
+%   observation structure Obs. The observation model is determined from
+%   Sen.type and Lmk.type. It is an error if no model exists for the chosen
+%   Sen/Lmk pair.
+%
+%   The updated fields in Obs are:
+%       .sid        % sensor ID
+%       .lid        % landmark ID
+%       .vis        % flag: true if landmark is visible
+%       .meas.R     % measurement noise cov. matrix
+%       .exp.e      % expectation's mean
+%       .exp.E      % expectation's covariances matrix
+%       .Jac.E_r    % Jacobian wrt robot frame
+%       .Jac.E_s    % Jacobian wrt sensor frame
+%       .Jac.E_l    % Jacobian wrt landmark state
+%
+%   See also OBSERVEKNOWNLMKS.
+
 global Map
 
 % get landmark range and mean
@@ -57,27 +77,30 @@ switch Sen.type
 end % sensor type
 
 
-% Rob-Sen-Lmk range and Jacobian
-if Sen.frameInMap
-    rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
-    E_rsl = [E_rf E_sf E_l];
-else
-    rslr  = [Rob.frame.r ; lr];               % range of robot and landmark
-    E_rsl = [E_rf E_l];
-end
-
-% Expectation covariances matrix
-E = E_rsl*Map.P(rslr,rslr)*E_rsl' ;
-
 % update the Obs structure
 Obs.lid     = Lmk.id ;
 Obs.sid     = Sen.id ;
 Obs.vis     = vis ;
-Obs.meas.R  = R ;
-Obs.exp.e   = e ;
-Obs.exp.E   = E ;
-Obs.Jac.E_r = E_rf;
-Obs.Jac.E_s = E_sf;
-Obs.Jac.E_l = E_l;
-%                 Obs.app.pred = Lmk.sig; %% TODO: app.curr in better way
 
+if vis
+    % Rob-Sen-Lmk range and Jacobian
+    if Sen.frameInMap
+        rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
+        E_rsl = [E_rf E_sf E_l];
+    else
+        rslr  = [Rob.frame.r ; lr];               % range of robot and landmark
+        E_rsl = [E_rf E_l];
+    end
+
+    % Expectation covariances matrix
+    E = E_rsl*Map.P(rslr,rslr)*E_rsl' ;
+
+    % update the Obs structure
+    Obs.meas.R  = R ;
+    Obs.exp.e   = e ;
+    Obs.exp.E   = E ;
+    Obs.Jac.E_r = E_rf;
+    Obs.Jac.E_s = E_sf;
+    Obs.Jac.E_l = E_l;
+    %                 Obs.app.pred = Lmk.sig; %% TODO: app.curr in better way
+end

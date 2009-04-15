@@ -24,3 +24,5 @@
 %   observeKnownLmks   - update what can be done with non-first observations.
 %   simObservation     - Simulated observation.
 %   testObs            - Update OBS information to simulate a SLAM observation.
+%   projectLmk         - Project landmark estimate into sensor's measurement space.
+%   simMotion          - Simulated robot motion.

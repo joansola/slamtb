@@ -1,25 +1,26 @@
-
-function [Rob,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs)
+function [Rob,Sen,Lmk,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs)
 
 %  OBSERVEKNOWNLMKS update what can be done with non-first observations.
-%    [ROBNEW,OBS] = observeKnownLmks(ROB, SEN, RAW, LMK, OBS) returns the
-%    new robot, and the modified observation after some updates wrt
-%    landmark observations OBS.
+%    [ROB,OBS] = observeKnownLmks(ROB, SEN, RAW, LMK, OBS) returns the new
+%    robot, and the modified observation after some updates wrt landmark
+%    observations OBS.
 %       ROB:  the robot
 %       Sen:  the sensor
 %       Raw:  the raw datas issues from SEN
 %       LMK:  the set of landmarks
 %       OBS:  the observation structure for the sensor SEN
 %
-%    See also PROJEUCPNTINTOPINHOLEONROB, IDP2P.
+%    See also PROJECTLMK, PROJEUCPNTINTOPINHOLEONROB, IDP2P.
 
 global Map
 
-% foreach known idp point :
-% 1- prediction step
-% 2- compare with existing observation (innovation exist?)
-% 3- choose one lmk to observe in ekf process
-% 4- do the ekf update step only for this one
+% steps in this function
+% 1- project all landmarks
+% 2- select landmarks to observe. For each one:
+% 3- do feature matching. If feature found:
+% 4- compute innovation. 
+% 5- perform consistency test. If it is OK:
+% 6- do EKF correction
 
 
 % 1. PROJECT ALL LMKS - get all expectations

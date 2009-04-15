@@ -37,7 +37,7 @@ Experiment = struct(...
 Time = struct(...
     'dt',                   .1,...          % sampling time, seconds
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            250);            % last frame #
+    'lastFrame',            50);            % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -111,7 +111,7 @@ Sensor{1} = struct(...
 %     'id',                   2,...           % sensor identifier
 %     'name',                 'Micropix',...      % sensor name
 %     'type',                 'pinHole',...   % type of sensor
-%     'robot',                2,...           % robot where it is mounted
+%     'robot',                1,...           % robot where it is mounted
 %     'position',             [0;-0.15;.6],...     % position in robot
 %     'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
 %     'positionStd',          [0;0;0],...     % position error std

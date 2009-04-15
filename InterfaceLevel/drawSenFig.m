@@ -1,95 +1,90 @@
-function drawSenFig(SenFig, Sen, Raw, Lmk, Obs)
+function drawSenFig(SenFig, Sen, Raw, Obs)
 
-% DRAWSENFIG  Redraw the sensors figures.
-% 	DRAWSENFIG(SENFIG, SEN, LMK, OBS, SIMOBS) updates all the handles in
-% 	the handles structure array SENFIG to reflect the observations OBS
-% 	taken by sensor SEN on landmarks LMK, together with the simulated
-% 	observations SIMOBS. SENFIG is the sensor structure created with
-% 	CREATESENFIG.
+% DRAWSENFIG  Redraw one sensor figure.
+% 	DRAWSENFIG(SENFIG, SEN, RAW, OBS) updates all the handles in the
+% 	handles structure SENFIG to reflect the observations OBS taken by
+% 	sensor SEN, together with the raw data RAW. SENFIG is one sensor figure
+% 	structure created with CREATESENFIG.
 %
 %   See also CREATESENFIG, DRAWMAPFIG.
 
 
-for sen = 1:size(Obs,1)     %numel(Sen)
+% Sensor type:
+% ------------
+switch Sen.type
 
-    %     for lmk = 1:size(Obs,2) %numel(Lmk)
+    % camera pinhole
+    % --------------
+    case {'pinHole'}
 
-    % Sensor type:
-    % ------------
-    switch Sen(sen).type
+        % 1. Simulated landmark visualisation
+        set(SenFig.raw,...
+            'xdata',Raw.data.points(1,:),...
+            'ydata',Raw.data.points(2,:))
 
-        % camera pinhole
-        % --------------
-        case {'pinHole'}
+        % 2. Process only visible landmarks:
+        % a - first erase lmks that were drawn but are no longer visible
+        vis   = [Obs(:).vis];
+        drawn = (strcmp((get(SenFig.ellipse,'vis')),'on'))';
+        erase = drawn & ~vis;
 
-            % 1. Simulated landmark visualisation
-            set(SenFig(sen).raw,...
-                'xdata',Raw(sen).data.points(1,:),...
-                'ydata',Raw(sen).data.points(2,:))
+        set(SenFig.measure(erase),'vis','off');
+        set(SenFig.ellipse(erase),'vis','off');
+        set(SenFig.label(erase),  'vis','off');
 
-            % 2. Process only visible landmarks:
-            % a - first erase lmks that were drawn but are no longer visible
-            vis   = [Obs(sen,:).vis];
-            drawn = (strcmp((get(SenFig(sen).ellipse,'vis')),'on'))';
-            erase = drawn & ~vis;
+        % b - now draw only visible landmarks
+        for lmk = find(vis)
 
-            set(SenFig(sen).measure(erase),'vis','off');
-            set(SenFig(sen).ellipse(erase),'vis','off');
-            set(SenFig(sen).label(erase),  'vis','off');
+            % Landmark type:
+            % --------------
+            switch Obs(lmk).ltype
 
-            % b - now draw only visible landmarks
-            for lmk = find(vis)
+                % idp
+                % ---
+                case {'idpPnt'}
 
-                % Landmark type:
-                % --------------
-                switch Lmk(lmk).type
+                    colors = ['m' 'r']'; % magenta/red
+                    drawObsPoint(SenFig, Obs(lmk), colors);
 
-                    % idp
-                    % ---
-                    case {'idpPnt'}
+                    % euclidian
+                    % ---------
+                case {'eucPnt'}
 
-                        colors = ['m' 'r']'; % magenta/red
-                        drawObsPoint(SenFig(sen), Obs(sen,lmk), colors);
-
-                        % euclidian
-                        % ---------
-                    case {'eucPnt'}
-
-                        colors = ['b' 'c']'; % magenta/red
-                        drawObsPoint(SenFig(sen), Obs(sen,lmk), colors);
+                    colors = ['b' 'c']'; % magenta/red
+                    drawObsPoint(SenFig, Obs(lmk), colors);
 
 
-                        % ADD HERE FOR NEW LANDMARK
-                        % case {'newLandmark'}
-                        % do something
+                    % ADD HERE FOR NEW LANDMARK
+                    % case {'newLandmark'}
+                    % do something
 
 
-                        % unknown
-                        % -------
-                    otherwise
-                        % Print an error and exit
-                        error(['Cannot display landmark type ''',Lmk(lmk).type,''' with ''',Sen(sen).type,''' sensor ''',Sen(sen).name,'''.']);
-                end % and of the "switch" on sensor type
+                    % unknown
+                    % -------
+                otherwise
+                    % Print an error and exit
+                    error(['Cannot display landmark type ''',Obs(lmk).ltype,''' with ''',Sen.type,''' sensor ''',Sen.name,'''.']);
+            end % and of the "switch" on sensor type
 
 
 
-                %                 else % Lmk is not visible : draw blank
-            end
+            %                 else % Lmk is not visible : draw blank
+        end
 
 
 
-            % ADD HERE FOR INITIALIZATION OF NEW SENSORS's FIGURES
-            % case {'newSensor'}
-            % do something
+        % ADD HERE FOR INITIALIZATION OF NEW SENSORS's FIGURES
+        % case {'newSensor'}
+        % do something
 
 
-            % unknown
-            % -------
-        otherwise
-            error(['Unknown sensor type. Cannot display''',Sen(sen).type,''' sensor ''',Sen(sen).name,'''.']);
-    end
-
-
-    %     end
-
+        % unknown
+        % -------
+    otherwise
+        error(['Unknown sensor type. Cannot display''',Sen.type,''' sensor ''',Sen.name,'''.']);
 end
+
+
+%     end
+
+% end

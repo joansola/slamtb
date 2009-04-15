@@ -78,8 +78,9 @@ end % sensor type
 
 
 % update the Obs structure
-Obs.lid     = Lmk.id ;
 Obs.sid     = Sen.id ;
+Obs.lid     = Lmk.id ;
+Obs.ltype   = Lmk.type ;
 Obs.vis     = vis ;
 
 if vis

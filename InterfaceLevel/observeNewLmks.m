@@ -45,6 +45,8 @@ switch Sen.type
                 Obs(lmk).lmk      = lmk;
                 Obs(lmk).sid      = Sen.id;
                 Obs(lmk).lid      = newId;
+                Obs(lmk).stype    = Sen.type;
+                Obs(lmk).ltype    = Lmk.type;
                 Obs(lmk).meas.y   = y;
                 Obs(lmk).meas.R   = R;
                 Obs(lmk).exp.e    = y;

@@ -73,7 +73,7 @@ Lmk(lmk).id = id; % Simulate landmark exists in map in position index lmk.
 
 lidx  =  find([SimLmk.ids] == id); % get lmk index in simulated lmks array
 xyz   =  SimLmk.points(:,lidx);    % get lmk 3D position
-XYZ   =  diag([.03 .02 .01]);      % get covariances
+XYZ   =  diag([.01 .02 .01]);      % get covariances
 r     =  addToMap(xyz,XYZ);        % put it in the map
 
 Lmk(lmk).state.r = r;              % Lmk range in Map
@@ -155,8 +155,12 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
 
     % Figures for all sensors
-    drawSenFig(SenFig, Sen, Raw, Lmk, Obs);
-
+    for sen = 1:numel(Sen)
+        
+        drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:));
+    
+    end
+    
     % Do draw all objects
     drawnow;
 

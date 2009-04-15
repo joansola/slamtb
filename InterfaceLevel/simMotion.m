@@ -21,12 +21,11 @@ switch Rob.motion
 
         % other motion type:
     case  {'odometry'}
-        
         Rob.frame   = odo3(Rob.frame,Rob.con.u);
 
     otherwise
-        % TODO : print an error and go out
         error('??? Unknown motion model ''%s''.',Rob.motion);
+        
 end
 
 

@@ -19,6 +19,6 @@ for rob = 1:numel(Rob)
     vr = addToMap(Rob(rob).vel.x,Rob(rob).vel.P);     % velocity range
     Rob(rob).vel.r   = vr;
     
-    Rob(rob).r       = [fr;vr];   % robot's state range
+    Rob(rob).state.r = [fr;vr];   % robot's state range
 
 end

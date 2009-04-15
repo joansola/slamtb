@@ -87,51 +87,53 @@ Lmk(lmk).used    = true;           % Lmk is used
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 1. SIMULATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+
     % FIXME: this is hard-coded. Should be done better as part of the simulator.
     Rob(1).con.u = [.1;0;0;0;0;0.05];
     %     Rob(2).con.u = [0;0;0;0;0;0];
-    
+
     % Simulate robots
     for rob = 1:numel(SimRob)
-        
+
         % Robot motion
         % FIXME: see how to include noise in a clever way.
         SimRob(rob).con.u = Rob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
-        SimRob(rob) = motion(SimRob(rob),Tim);
-        
+        SimRob(rob) = simMotion(SimRob(rob),Tim);
+
         % Simulate sensor observations
         for sen = SimRob(rob).sensors
-            
+
             % Observe simulated landmarks
             Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk) ;
-            
+
         end % end process sensors
-        
+
     end % end process robots
-    
-    
+
+
     % 2. ESTIMATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+
     % Process robots
     for rob = 1:numel(Rob)
-        
+
         % Robot motion
-        Rob(rob) = motion(Rob(rob),Tim);
-        
+        % TODO: use motion()
+        %         Rob(rob) = motion(Rob(rob),Tim);
+        Rob(rob) = simMotion(Rob(rob),Tim);
+
         % Process sensor observations
         for sen = Rob(rob).sensors
-            
+
             % Observe knowm landmarks
             [Rob(rob),Obs(sen,:)] = observeKnownLmks( ...
-                 Rob(rob), ...
-                 Sen(sen), ...
-                 Raw(sen), ...
-                 Lmk, ...
-                 Obs(sen,:)) ;
-             
-             
+                Rob(rob), ...
+                Sen(sen), ...
+                Raw(sen), ...
+                Lmk, ...
+                Obs(sen,:)) ;
+
+
             % Initialize new landmarks
             [Lmk,Obs(sen,:)] = initLmk(...
                 Rob(rob), ...
@@ -139,48 +141,31 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                 Raw(sen), ...
                 Lmk, ...
                 Obs(sen,:)) ;
-            
+
         end % end process sensors
-        
+
     end % end process robots
-    
+
+
     % 3. VISUALIZATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    % ---------------------------------------------------
-    % Create test Obs
-    % FIXME: these lines to be removed, they are here just to have
-    % something to plot in the sensors figures.
-    %
-    lmk  = find([Lmk.id] == id);
-    for sen = 1:numel(Sen)
-        oidx = find(Raw(sen).data.appearance == id);
-        if ~isempty(oidx)
-            Obs(sen,lmk)  = testObs(Obs(sen,lmk), Raw(sen).data.points(:,oidx), 5^2*eye(2));
-            Obs(sen,lmk).lid = id;
-        else
-            Obs(sen,lmk).vis = false;
-        end
-    end
-    %
-    % FIXME: remove up to this line ----------------------
-    
+
     % Figure of the Map:
     drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
-    
+
     % Figures for all sensors
     drawSenFig(SenFig, Sen, Raw, Lmk, Obs);
-    
+
     % Do draw all objects
     drawnow;
-    
-    
+
+
     % 4. DATA LOGGING
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % TODO: do something here to collect data for post-processing or
     % plotting. Think about collecting data in files using fopen, fwrite,
     % etc., instead of creating large Matlab variables for data logging.
-    
+
 end
 
 %% V. Post-processing

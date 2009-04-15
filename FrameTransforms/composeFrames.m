@@ -14,4 +14,4 @@ function H = composeFrames(F,G)
 H.t = fromFrame(F,G.t);
 H.q = qProd(F.q,G.q);
 H.x = [H.t;H.q];
-H = updateFrame(H);
+H   = updateFrame(H);

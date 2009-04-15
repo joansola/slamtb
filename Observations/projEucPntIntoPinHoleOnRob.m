@@ -13,7 +13,7 @@ function [u, s, U_r, U_s, U_k, U_d, U_l] = ...
 %       L  : 3D point [x y z]'
 %    The output parameters are:
 %       U  : 2D pixel [u v]'
-%       S  : nom-measurable depth
+%       S  : non-measurable depth
 %
 %    The function accepts a points matrix L = [L1 ... Ln] as input.
 %    In this case, it returns a pixels matrix U = [U1 ... Un] and a depths
@@ -23,7 +23,7 @@ function [u, s, U_r, U_s, U_k, U_d, U_l] = ...
 %    observation U wrt all input parameters. Note that this only works for
 %    single points.
 %
-%    See also PINHOLE, TOFRAME.
+%    See also PINHOLE, TOFRAME, PROJIDPPNTINTOPINHOLEONROB.
 
 if nargout <= 2 % only pixel
 

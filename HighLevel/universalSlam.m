@@ -98,8 +98,9 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % Robot motion
         % FIXME: see how to include noise in a clever way.
         SimRob(rob).con.u = Rob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
-        SimRob(rob) = simMotion(SimRob(rob),Tim);
 
+        SimRob(rob) = simMotion(SimRob(rob),Tim);
+        
         % Simulate sensor observations
         for sen = SimRob(rob).sensors
 
@@ -120,7 +121,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % Robot motion
         % TODO: use motion()
         %         Rob(rob) = motion(Rob(rob),Tim);
-        Rob(rob) = simMotion(Rob(rob),Tim);
+        Rob(rob) = motion(Rob(rob),Tim);
 
         % Process sensor observations
         for sen = Rob(rob).sensors

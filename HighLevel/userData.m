@@ -65,10 +65,6 @@ Robot{1} = struct(...
     'orientationDegrees',   [0;0;0],...     % orientation, in degrees, roll pitch yaw.
     'positionStd',          [0;0;0],...     % position error, std
     'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
-    'velocity',             [0;0;0],...     % lin. velocity
-    'angularVelDegrees',    [0;0;0],...     % ang. velocity
-    'velStd',               [0;0;0],...     % lin. vel. error, std
-    'angVelStd',            [0;0;0],...     % ang. vel. error, std, in degrees
     'dx',                   [1;0;0],...     % position increment
     'daDegrees',            [0;0;5],...     % angle increment, degrees
     'dxStd',                [0.01;0;0],...     % odo linear error std
@@ -111,20 +107,20 @@ Sensor{1} = struct(...
     'intrinsic',            [320;240;300;300],...   % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
-Sensor{2} = struct(...
-    'id',                   2,...           % sensor identifier
-    'name',                 'Micropix',...      % sensor name
-    'type',                 'pinHole',...   % type of sensor
-    'robot',                1,...           % robot where it is mounted
-    'position',             [0;-0.15;.6],...     % position in robot
-    'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
-    'positionStd',          [0;0;0],...     % position error std
-    'orientationStd',       [0;0;0],...     % orient. error std
-    'imageSize',            [640;480],...   % image size
-    'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [320;240;300;300],...   % intrinsic params
-    'distortion',           [],...          % distortion params
-    'frameInMap',           true );         % add sensor frame in slam map?
+% Sensor{2} = struct(...
+%     'id',                   2,...           % sensor identifier
+%     'name',                 'Micropix',...      % sensor name
+%     'type',                 'pinHole',...   % type of sensor
+%     'robot',                2,...           % robot where it is mounted
+%     'position',             [0;-0.15;.6],...     % position in robot
+%     'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
+%     'positionStd',          [0;0;0],...     % position error std
+%     'orientationStd',       [0;0;0],...     % orient. error std
+%     'imageSize',            [640;480],...   % image size
+%     'pixErrorStd',          1.0,...         % pixel error std
+%     'intrinsic',            [320;240;300;300],...   % intrinsic params
+%     'distortion',           [],...          % distortion params
+%     'frameInMap',           true );         % add sensor frame in slam map?
 
 % Landmark things 
 %   - landmark types, max nbr of lmks, lmk management options
@@ -160,7 +156,7 @@ Landmark{2} = struct(...
 %       'rgbcmykw'  1-char predifined Matlab colors
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigureOptions = struct(...
-    'renderer',         'opengl',...    % renderer
+    'renderer',         'zbuffer',...    % renderer
     'ellipses',          true,...        % show 3d ellipsoids?
     'mapProj',          'persp',...      % projection of the 3d figure
     'mapView',           [30 30 40 15],...% viewpoint of the 3d figure

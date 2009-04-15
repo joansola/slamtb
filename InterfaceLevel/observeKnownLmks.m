@@ -1,5 +1,5 @@
 
-function [RobNew,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs)
+function [Rob,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs)
 
 %  OBSERVEKNOWNLMKS update what can be done with non-first observations.
 %    [ROBNEW,OBS] = observeKnownLmks(ROB, SEN, RAW, LMK, OBS) returns the
@@ -25,83 +25,7 @@ global Map
 % 1. PROJECT ALL LMKS - get all expectations
 for lmk = find([Lmk.used])
 
-    % get landmark range and mean
-    lr = Lmk(lmk).state.r ;        % lmk range in Map
-    l  = Map.x(lr) ;               % lmk mean
-
-    % explore all sensor and landmark types
-    switch Sen.type
-
-        case {'pinHole'} % camera pinHole
-
-            switch Lmk(lmk).type
-
-                case {'idpPnt'} % inverse depth point
-
-                    % IDP --> pixel
-                    %   -(value and Jacobians)-
-                    [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
-                        projIdpPntIntoPinHoleOnRob( ...
-                        Rob.frame, ...
-                        Sen.frame, ...
-                        Sen.par.k, ...
-                        Sen.par.d, ...
-                        l) ;
-
-                    vis = isVisible(e,depth,Sen.par.imSize);
-                    R   = Sen.par.pixCov ;  % sensor cov
-
-
-                case {'eucPnt'} % euclidean point
-
-                    % Point3D --> pixel
-                    %   -(value and Jacobians)-
-                    [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
-                        projEucPntIntoPinHoleOnRob( ...
-                        Rob.frame, ...
-                        Sen.frame, ...
-                        Sen.par.k, ...
-                        Sen.par.d, ...
-                        l) ;
-
-                    vis = isVisible(e,depth,Sen.par.imSize);
-                    R   = Sen.par.pixCov ;  % sensor cov
-
-
-                otherwise % unknown landmark type for pin hole sensor
-                    error('??? Landmark type ''%s'' non implemented for sensor ''%s''.',Lmk(lmk).type,Sen.type);
-
-            end
-
-
-        otherwise % unknown Sensor type
-            error('??? Unknown sensor type ''%s''.',Sen.type);
-
-    end % sensor type
-
-
-    % Rob-Sen-Lmk range and Jacobian
-    if Sen.frameInMap
-        rslr  = [Rob.frame.r ; Sen.state.r ; lr]; % range of robot, sensor, and landmark
-        E_rsl = [E_rf E_sf E_l];
-    else
-        rslr  = [Rob.frame.r ; lr];               % range of robot and landmark
-        E_rsl = [E_rf E_l];
-    end
-
-    % Expectation covariances matrix
-    E = E_rsl*Map.P(rslr,rslr)*E_rsl' + R ;
-
-    % modify the Obs object for view graphic
-    Obs(lmk).lid     = Lmk(lmk).id ;
-    Obs(lmk).sid     = Sen.id ;
-    Obs(lmk).exp.e   = e ;
-    Obs(lmk).exp.E   = E ;
-    Obs(lmk).vis     = vis ;
-    Obs(lmk).Jac.E_r = E_rf;
-    Obs(lmk).Jac.E_s = E_sf;
-    Obs(lmk).Jac.E_l = E_l;
-    %                 Obs(lmk).app.pred = Lmk(lmk).sig; %% TODO: app.curr in better way
+    Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
 
 end ;
 
@@ -114,10 +38,7 @@ end ;
 
 % 5. TEST CONSISTENCE
 
-% 6. CORRECK EKF
-
-
-RobNew = Rob ;
+% 6. CORRECT EKF
 
 end % function
 

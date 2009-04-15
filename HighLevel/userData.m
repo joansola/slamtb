@@ -37,7 +37,7 @@ Experiment = struct(...
 Time = struct(...
     'dt',                   .1,...          % sampling time, seconds
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            50);            % last frame #
+    'lastFrame',            250);            % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -121,6 +121,7 @@ Sensor{1} = struct(...
 %     'intrinsic',            [320;240;300;300],...   % intrinsic params
 %     'distortion',           [],...          % distortion params
 %     'frameInMap',           true );         % add sensor frame in slam map?
+
 
 % Landmark things 
 %   - landmark types, max nbr of lmks, lmk management options

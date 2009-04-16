@@ -12,8 +12,10 @@ function [Lmk,Obs] = observeNewLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 %   the new landmark state.
 %
 
+
 global Map
 
+% TODO: reorganize the function to better place the SWITCH statements.
 switch Sen.type
 
     % camera pinHole

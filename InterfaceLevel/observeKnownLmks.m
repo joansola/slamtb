@@ -10,6 +10,8 @@ function [Rob,Sen,Lmk,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs)
 %       LMK:  the set of landmarks
 %       OBS:  the observation structure for the sensor SEN
 %
+%   TODO: help.
+%
 %    See also PROJECTLMK, PROJEUCPNTINTOPINHOLEONROB, IDP2P.
 
 global Map

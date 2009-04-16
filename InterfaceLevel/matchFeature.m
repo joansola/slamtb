@@ -1,5 +1,8 @@
 function Obs = matchFeature(Raw,Obs)
 
+% MATCHFEATURE  Match feature.
+% TODO: help
+
 switch Raw.type
 
     case 'simu'
@@ -18,6 +21,7 @@ switch Raw.type
 
 
         % case 'real'
+        % TODO: the real case
 
     otherwise
 

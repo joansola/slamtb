@@ -1,38 +1,55 @@
 function Rob = motion(Rob, Tim)
-%MOTION Robt motion.
-%   Rob = MOTION(Rob, Tim) performs one motion step to robot Rob, following
-%   the motion model in Rob.motion. The time information Tim is used only
-%   if the motion model requires it, but it has to be provided because
-%   MOTION is a generic method.
+%MOTION Robot motion.
+%   Rob = MOTION(Rob, Tim) performs one EKF-prediction motion step to robot
+%   Rob in the global map Map, following the motion model in Rob.motion.
+%   Both Rob and Map are updated. The time information Tim is used only if
+%   the motion model requires it, but it has to be provided because MOTION
+%   is a generic method.
+%
+%   The following motion models are supported:
+%       'odometry'   uses function odo3()
+%       'constVel'   uses function constVel()
+%   Edit this file to add new motion models.
 %
 %   See also SIMMOTION, CONSTVEL, ODO3, UPDATEFRAME.
 
 global Map
-% motion model of the  robot:
+
+% robot state range
+r = Rob.state.r;
+
 switch Rob.motion
-    
+
     % const velocity
     case  {'constVel'}
-        
-        r = Rob.state.r;
-        
+
+        % motion model of the robot: mean and Jacobians
         [Map.x(r), F_x, F_u] = constVel(Map.x(r),Rob.con.u,Tim.dt);
-        Rob.frame.x = Map.x(r(1:7));
-        Rob.vel.x   = Map.x(r(8:13));
+        
+        % update Rob and Map structures - mean only
+        Rob.frame.x = Map.x(Rob.frame.r);
+        Rob.vel.x   = Map.x(Rob.vel.r);
         Rob.frame   = updateFrame(Rob.frame);
-        
-        % other motion type:
+
+        % 3D odometry:
     case  {'odometry'}
-        
-        r = Rob.state.r;
+
+        % motion model of the robot: mean and Jacobians
         [Rob.frame, F_x, F_u]   = odo3(Rob.frame,Rob.con.u);
-        Map.x(r(1:7)) = Rob.frame.x;
-        
+
+        % update Rob and Map structures - mean only
+        Map.x(Rob.frame.r) = Rob.frame.x;
+
+        % new motion model
+    % case {'myModel'} <-- uncomment
+        % YOU: enter your model code here.
+
     otherwise
-       
+
         error('??? Unknown motion model ''%s''.',Rob.motion);
 end
 
+% Covariances matrix update - this is common to all models
 m = Map.used;
 
 Map.P(r,m) = F_x * Map.P(r,m);

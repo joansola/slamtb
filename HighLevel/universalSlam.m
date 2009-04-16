@@ -119,8 +119,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     for rob = 1:numel(Rob)
 
         % Robot motion
-        % TODO: use motion()
-        %         Rob(rob) = motion(Rob(rob),Tim);
         Rob(rob) = motion(Rob(rob),Tim);
 
         % Process sensor observations

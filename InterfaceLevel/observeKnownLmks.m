@@ -29,35 +29,46 @@ for lmk = find([Lmk.used])
     Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
 
 end ;
+% --- all landmarks are now projected.
 
 vis = [Obs.vis]; 
 
 if any(vis) % Consider only visible observations
 
     % 2. SELECT LMKS TO OBSERVE
-    lmksToObs = selectLmksToObserve(Obs(vis),10);
+    lmksToObs = selectLmksToObserve(Obs(vis),10); % observe maximum 10 landmarks.
 
     for lmk = lmksToObs % for each landmark to observe
+        
         % 3. MATCH FEATURE
-        % do feature matching
         Obs(lmk) = matchFeature(Raw,Obs(lmk));
 
         if Obs(lmk).matched
+        
             % 4. COMPUTE INNOVATIONS
-            % do compute innovation
             Obs(lmk) = observationInnovation(Obs(lmk));
 
             % 5. TEST CONSISTENCE
-            if Obs(lmk).inn.MD2 < 9 % put a soft value here via e.g. Opt.inn.MD2th
+            if Obs(lmk).inn.MD2 < 9 % TODO: put a soft value here via e.g. Opt.inn.MD2th
 
                 % 6. CORRECT EKF
-                % TODO: all EKF correct things
+                % re-project landmark for improved Jacobians
+                Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+                
+                % TODO: all EKF correct things (edit correctLmk.m)
+                [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+                
+                % TODO: transfer IDP to EUC if possible
+                % [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Lmk(lmk),Obs(lmk));
                 
             end % if consistent
+            
         end % if matched
+        
     end % for lmk = lmkList
 
 end % if any(vis)
+
 end % function
 
 

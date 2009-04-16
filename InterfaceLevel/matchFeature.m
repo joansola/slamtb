@@ -1,10 +1,26 @@
 function Obs = matchFeature(Raw,Obs)
 
-% TODO: all the function and help.
+switch Raw.type
 
-% this is only a stupid function to produce true or false matches randomly
-if randn < .5
-    Obs.matched = false;
-else
-    Obs.matched = true;
+    case 'simu'
+
+        id = Obs.lid;
+        idx = find(Raw.data.appearance==id);
+
+        if ~isempty(idx)
+            Obs.meas.y   = Raw.data.points(:,idx);
+            Obs.measured = true;
+            Obs.matched  = true;
+        else
+            Obs.measured = false;
+            Obs.matched  = false;
+        end
+
+
+        % case 'real'
+
+    otherwise
+
+        error('??? Unknown Raw data type ''%s''.',Raw.type)
+
 end

@@ -25,6 +25,7 @@ for sen = 1:numel(Sen)
         O.nom.N     = [];         % expected non-observable cov
         O.exp.e     = [];         % expectation mean
         O.exp.E     = [];         % expectation cov
+        O.exp.um    = [];         % expectation uncertainty measure
         O.inn.z     = [];         % innovation
         O.inn.Z     = [];         % innovation cov
         O.inn.iZ    = [];         % inverse inn. cov

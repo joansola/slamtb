@@ -100,6 +100,7 @@ if vis
     Obs.meas.R  = R ;
     Obs.exp.e   = e ;
     Obs.exp.E   = E ;
+    Obs.exp.um  = det(E);  % uncertainty measure proportional to ellipsoid area
     Obs.Jac.E_r = E_rf;
     Obs.Jac.E_s = E_sf;
     Obs.Jac.E_l = E_l;

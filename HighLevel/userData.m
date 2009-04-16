@@ -37,7 +37,7 @@ Experiment = struct(...
 Time = struct(...
     'dt',                   .1,...          % sampling time, seconds
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            50);            % last frame #
+    'lastFrame',            150);            % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions

@@ -51,6 +51,7 @@ switch Sen.type
                 Obs(lmk).meas.R   = R;
                 Obs(lmk).exp.e    = y;
                 Obs(lmk).exp.E    = R;
+                Obs(lmk).exp.um   = det(R);  % uncertainty measure
                 Obs(lmk).app.curr = newId;
                 Obs(lmk).app.pred = newId;
                 Obs(lmk).vis      = true;

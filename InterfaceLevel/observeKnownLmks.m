@@ -18,7 +18,7 @@ global Map
 % 1- project all landmarks
 % 2- select landmarks to observe. For each one:
 % 3- do feature matching. If feature found:
-% 4- compute innovation. 
+% 4- compute innovation.
 % 5- perform consistency test. If it is OK:
 % 6- do EKF correction
 
@@ -30,17 +30,34 @@ for lmk = find([Lmk.used])
 
 end ;
 
+vis = [Obs.vis]; 
 
-% 2. SELECT LMKS TO OBSERVE
+if any(vis) % Consider only visible observations
 
-% 3. MATCH FEATURES
+    % 2. SELECT LMKS TO OBSERVE
+    lmksToObs = selectLmksToObserve(Obs(vis),10);
 
-% 4. COMPUTE INNOVATIONS
+    for lmk = lmksToObs % for each landmark to observe
+        % 3. MATCH FEATURE
+        % do feature matching
+        Obs(lmk) = matchFeature(Raw,Obs(lmk));
 
-% 5. TEST CONSISTENCE
+        if Obs(lmk).matched
+            % 4. COMPUTE INNOVATIONS
+            % do compute innovation
+            Obs(lmk) = observationInnovation(Obs(lmk));
 
-% 6. CORRECT EKF
+            % 5. TEST CONSISTENCE
+            if Obs(lmk).inn.MD2 < 9 % put a soft value here via e.g. Opt.inn.MD2th
 
+                % 6. CORRECT EKF
+                % TODO: all EKF correct things
+                
+            end % if consistent
+        end % if matched
+    end % for lmk = lmkList
+
+end % if any(vis)
 end % function
 
 

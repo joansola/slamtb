@@ -14,7 +14,8 @@ global Map
 % 
 % Rob = map2rob(Rob)
 % Sen = map2sen(Sen)
-
+%
+% Update Obs and Lmk structures.
 
 % TODO: all the function
 

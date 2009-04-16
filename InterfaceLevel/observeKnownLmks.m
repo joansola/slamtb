@@ -63,6 +63,10 @@ if any(vis) % Consider only visible observations
                 % TODO: transfer IDP to EUC if possible
                 [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Lmk(lmk),Obs(lmk));
                 
+            else
+                
+                Obs(lmk).updated = false;
+                
             end % if consistent
             
         end % if matched

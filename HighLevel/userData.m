@@ -133,7 +133,7 @@ Sensor{1} = struct(...
 %     'pixErrorStd',          1.0,...         % pixel error std
 %     'intrinsic',            [320;240;300;300],...   % intrinsic params
 %     'distortion',           [],...          % distortion params
-%     'frameInMap',           true );         % add sensor frame in slam map?
+%     'frameInMap',           false );         % add sensor frame in slam map?
 
 
 % Landmark things 

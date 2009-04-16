@@ -1,6 +1,6 @@
-function [Rob,Sen,Lmk,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs)
+function [Rob,Sen,Lmk,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 
-%  OBSERVEKNOWNLMKS update what can be done with non-first observations.
+%  OBSERVEKNOWNLMKS  Observe known landmarks.
 %    [ROB,OBS] = observeKnownLmks(ROB, SEN, RAW, LMK, OBS) returns the new
 %    robot, and the modified observation after some updates wrt landmark
 %    observations OBS.
@@ -17,6 +17,7 @@ function [Rob,Sen,Lmk,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs)
 global Map
 
 % steps in this function
+% 0- update Rob and Sen info from Map
 % 1- project all landmarks
 % 2- select landmarks to observe. For each one:
 % 3- do feature matching. If feature found:
@@ -24,21 +25,24 @@ global Map
 % 5- perform consistency test. If it is OK:
 % 6- do EKF correction
 
+% 0. UPDATE ROB AND SEN INFO FROM MAP
+Rob = map2rob(Rob);
+Sen = map2sen(Sen);
 
 % 1. PROJECT ALL LMKS - get all expectations
 for lmk = find([Lmk.used])
 
     Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
 
-end ;
-% --- all landmarks are now projected.
+end ; % --- all landmarks are now projected.
+
 
 vis = [Obs.vis]; 
 
 if any(vis) % Consider only visible observations
 
     % 2. SELECT LMKS TO OBSERVE
-    lmksToObs = selectLmksToObserve(Obs(vis),10); % observe maximum 10 landmarks.
+    lmksToObs = selectLmksToObserve(Obs(vis),Opt.correct.nUpdates); 
 
     for lmk = lmksToObs % for each landmark to observe
         
@@ -51,7 +55,7 @@ if any(vis) % Consider only visible observations
             Obs(lmk) = observationInnovation(Obs(lmk));
 
             % 5. TEST CONSISTENCE
-            if Obs(lmk).inn.MD2 < 3^2 % TODO: put a soft value here via e.g. Opt.inn.MD2th
+            if Obs(lmk).inn.MD2 < Opt.correct.MD2th % TODO: put a soft value here via e.g. Opt.inn.MD2th
 
                 % 6. CORRECT EKF
                 % re-project landmark for improved Jacobians
@@ -63,9 +67,11 @@ if any(vis) % Consider only visible observations
                 % TODO: transfer IDP to EUC if possible
                 [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Lmk(lmk),Obs(lmk));
                 
-            else
+            else % obs is inconsistent - do not update
                 
                 Obs(lmk).updated = false;
+                % TODO: add code to delete bad landmarks
+                [Lmk(lmk),Obs(lmk)] = deleteLmk(Lmk(lmk),Obs(lmk));
                 
             end % if consistent
             

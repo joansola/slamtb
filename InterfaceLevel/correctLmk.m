@@ -1,5 +1,8 @@
 function [Rob,Sen,Lmk,Obs] = correctLmk(Rob,Sen,Lmk,Obs)
 
+% CORRECTLMK  Correct landmark.
+% TODO: help
+
 global Map
 
 % get landmark range

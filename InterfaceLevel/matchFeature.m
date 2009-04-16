@@ -1,7 +1,9 @@
 function Obs = matchFeature(Raw,Obs)
 
 % MATCHFEATURE  Match feature.
-% TODO: help
+% 	Obs = MATCHFEATURE(Raw,Obs) matches one feature in Raw to the predicted
+% 	feature in Obs.
+
 
 switch Raw.type
 

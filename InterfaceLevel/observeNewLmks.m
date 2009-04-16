@@ -74,15 +74,16 @@ switch Sen.type
 
                 % Group all map Jacobians and ranges
                 if Sen.frameInMap % if the sensor frame is in the state
-                    mr    = [Rob.frame.r;Sen.frame.r];
-                    L_map = [L_rf L_sf] ;
+                    mr  = [Rob.frame.r;Sen.frame.r];
+                    L_m = [L_rf L_sf] ;
                 else
-                    mr    = Rob.frame.r;
-                    L_map = L_rf ;
+                    mr  = Rob.frame.r;
+                    L_m = L_rf ;
                 end
 
-                % covariance of map variables (robot and eventually sensor)
-                Pmap = Map.P(mr,mr) ;
+                % co- and cross-variance of map variables (robot and eventually sensor)
+                P_MM = Map.P(mr,mr) ;
+                P_MX = Map.P(mr,(Map.used)) ;
 
                 % measurement covariance
                 R = Obs(lmk).meas.R ;
@@ -90,17 +91,14 @@ switch Sen.type
                 % non-measurable covariance
                 N = Lmk(lmk).nom.N ;
 
-                % landmark covariance
+                % landmark co- and cross-variance
                 P_LL  = ...
-                    L_map * Pmap * L_map' + ...  % by map   cov
+                    L_m   * P_MM * L_m'   + ...  % by map   cov
                     L_pix * R    * L_pix' + ...  % by pixel cov
                     L_n   * N    * L_n' ;        % by nom   cov
+                P_LX = L_m*P_MX ;
 
-                % landmark cross-variance
-                P_MX = Map.P(mr,(Map.used)) ;
-                P_LX = L_map*P_MX ;
-
-                % frame range in Map
+                % add to Map and get lmk range in Map
                 Lmk(lmk).state.r = addToMap(l,P_LL,P_LX);
 
                 % Fill Lmk structure before exit

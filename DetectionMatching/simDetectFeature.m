@@ -12,6 +12,12 @@ if ~isempty(newIds)
     y        = raw.points(:,newIdx);
     R        = cov.pixCov;
     
+else
+    
+    newId = [];
+    y     = [];
+    R     = [];
+    
 end
 
 

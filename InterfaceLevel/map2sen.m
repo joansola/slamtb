@@ -7,16 +7,11 @@ function Sen = map2sen(Sen)
 
 global Map
 
-if ~isempty(Sen.state.r)
+if Sen.frameInMap
 
-    % means
     Sen.state.x = Map.x(Sen.state.r);
     Sen.frame.x = Map.x(Sen.frame.r);
 
     Sen.frame   = updateFrame(Sen.frame);
-
-    % covariances
-    %     Sen.state.P = Map.P(Sen.state.r,Sen.state.r);
-    %     Sen.frame.P = Map.P(Sen.frame.r,Sen.frame.r);
 
 end

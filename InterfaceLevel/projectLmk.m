@@ -5,15 +5,17 @@ function Obs = projectLmk(Rob,Sen,Lmk,Obs)
 %   Sen mounted on robot Rob, and updates the information of the
 %   observation structure Obs. The observation model is determined from
 %   Sen.type and Lmk.type. It is an error if no model exists for the chosen
-%   Sen/Lmk pair.
+%   Sen-Lmk pair.
 %
 %   The updated fields in Obs are:
 %       .sid        % sensor ID
 %       .lid        % landmark ID
+%       .ltype      % landmark type
 %       .vis        % flag: true if landmark is visible
 %       .meas.R     % measurement noise cov. matrix
 %       .exp.e      % expectation's mean
 %       .exp.E      % expectation's covariances matrix
+%       .exp.um     % expectation's uncertainty measure
 %       .Jac.E_r    % Jacobian wrt robot frame
 %       .Jac.E_s    % Jacobian wrt sensor frame
 %       .Jac.E_l    % Jacobian wrt landmark state

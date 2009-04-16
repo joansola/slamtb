@@ -15,10 +15,10 @@
 %   See further comments within the file for more detailed information.
 %
 %   NOTE: You can have multiple copies of this file with different names to
-%   store different simulation conditions. Just modify the call in
-%   UNIVERSALSLAM to point to the particular 'USERDATA' file you want.
+%   store different simulation conditions. Just modify the call in SLAMTB
+%   to point to the particular 'USERDATA' file you want.
 %
-%   See also UNIVERSALSLAM, EULERANGLES.
+%   See also SLAMTB, EULERANGLES.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 

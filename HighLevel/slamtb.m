@@ -1,4 +1,4 @@
-% UNIVERSALSLAM  An EKF-SLAM algorithm with simulator and graphics.
+% SLAMTB  An EKF-SLAM algorithm with simulator and graphics.
 %
 %   This script performs multi-robot, multi-sensor, multi-landmark 6DOF
 %   EKF-SLAM with simulation and graphics capabilities.

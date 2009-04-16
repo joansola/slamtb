@@ -27,9 +27,10 @@ switch Rob.motion
         [Map.x(r), F_x, F_u] = constVel(Map.x(r),Rob.con.u,Tim.dt);
         
         % update Rob and Map structures - mean only
-        Rob.frame.x = Map.x(Rob.frame.r);
-        Rob.vel.x   = Map.x(Rob.vel.r);
-        Rob.frame   = updateFrame(Rob.frame);
+        Rob = map2rob(Rob);
+%         Rob.frame.x = Map.x(Rob.frame.r);
+%         Rob.vel.x   = Map.x(Rob.vel.r);
+%         Rob.frame   = updateFrame(Rob.frame);
 
         % 3D odometry:
     case  {'odometry'}

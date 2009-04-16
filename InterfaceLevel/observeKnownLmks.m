@@ -51,7 +51,7 @@ if any(vis) % Consider only visible observations
             Obs(lmk) = observationInnovation(Obs(lmk));
 
             % 5. TEST CONSISTENCE
-            if Obs(lmk).inn.MD2 < 9 % TODO: put a soft value here via e.g. Opt.inn.MD2th
+            if Obs(lmk).inn.MD2 < 3^2 % TODO: put a soft value here via e.g. Opt.inn.MD2th
 
                 % 6. CORRECT EKF
                 % re-project landmark for improved Jacobians

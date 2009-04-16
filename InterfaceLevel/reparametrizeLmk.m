@@ -1,4 +1,4 @@
-[Lmk,Obs] = reparametrizeLmk(Lmk,Obs)
+function [Lmk,Obs] = reparametrizeLmk(Lmk,Obs)
 
 %REPARAMETRIZELMK Reparametrize landmark.
 

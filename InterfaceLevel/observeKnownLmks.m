@@ -59,7 +59,7 @@ if any(vis) % Consider only visible observations
                 [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
                 
                 % TODO: transfer IDP to EUC if possible
-                % [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Lmk(lmk),Obs(lmk));
+                [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Lmk(lmk),Obs(lmk));
                 
             end % if consistent
             

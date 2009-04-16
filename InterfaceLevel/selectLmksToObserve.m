@@ -1,4 +1,4 @@
-function lmkList = selectLmksToObserve(Obs,N)
+function [lmksToObs,lmksToSkip] = selectLmksToObserve(Obs,N)
 
 % SELECTLMKSTOOBSERVE  Select landmarks to observe.
 %   SELECTLMKSTOOBSERVE(Obs,N) returns a sorted rew-vector of landmark
@@ -18,4 +18,6 @@ um   = [Oexp.um];   % uncertainty measures
 lmkList = [Obs(sortedIdx).lmk];
 
 % limit to N elements
-lmkList = lmkList(1:min(end,N));
+n          = min(N,numel(lmkList));
+lmksToObs  = lmkList(1:n);     % these are selected for update
+lmksToSkip = lmkList(n+1:end); % these are to be skipped

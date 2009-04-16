@@ -42,7 +42,12 @@ vis = [Obs.vis];
 if any(vis) % Consider only visible observations
 
     % 2. SELECT LMKS TO OBSERVE
-    lmksToObs = selectLmksToObserve(Obs(vis),Opt.correct.nUpdates); 
+    [lmksToObs,lmksToSkip] = selectLmksToObserve(Obs(vis),Opt.correct.nUpdates); 
+
+    % lmks to skip, update Obs info
+    [Obs(lmksToSkip).measured] = deal(false);
+    [Obs(lmksToSkip).matched]  = deal(false);
+    [Obs(lmksToSkip).updated]  = deal(false);
 
     for lmk = lmksToObs % for each landmark to observe
         
@@ -78,7 +83,7 @@ if any(vis) % Consider only visible observations
         end % if matched
         
     end % for lmk = lmkList
-
+    
 end % if any(vis)
 
 end % function

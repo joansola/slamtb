@@ -37,7 +37,7 @@ Experiment = struct(...
 Time = struct(...
     'dt',                   .1,...          % sampling time, seconds
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            400);            % last frame #
+    'lastFrame',            600);            % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -48,7 +48,7 @@ World = struct(...
     'yMax',                 10,...
     'zMin',                 -10,...
     'zMax',                 10,...
-    'points',               thickCloister(-5,5,-5,5,1,5));  % 3d point landmarks
+    'points',               thickCloister(-6,6,-6,6,1,5));  % 3d point landmarks
 
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
@@ -61,12 +61,12 @@ Robot{1} = struct(...
     'name',                 'Dala',...      % robot name
     'type',                 'atrv',...      % type of robot
     'motion',               'odometry',...  % motion model
-    'position',             [0;-4;0],...     % robot position in map
+    'position',             [0;-5;0],...     % robot position in map
     'orientationDegrees',   [0;0;0],...     % orientation, in degrees, roll pitch yaw.
     'positionStd',          [0;0;0],...     % position error, std
     'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
     'dx',                   [.1;0;0],...     % position increment
-    'daDegrees',            [0;0;1.5],...     % angle increment, degrees
+    'daDegrees',            [0;0;1.14],...     % angle increment, degrees
     'dxStd',                [0.01;0;0],...  % odo linear error std
     'daStd',                [0;0;.1]);      % odo ang error std, degrees
 % Robot{2} = struct(...
@@ -111,13 +111,13 @@ Sensor{1} = struct(...
     'name',                 'Micropix',...  % sensor name
     'type',                 'pinHole',...   % type of sensor
     'robot',                1,...           % robot where it is mounted
-    'position',             [0;0.15;.6],...    % position in robot
+    'position',             [0;0;.6],...    % position in robot
     'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
-    'imageSize',            [640;480],...   % image size
-    'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [320;240;300;300],...   % intrinsic params
+    'imageSize',            [400;300],...   % image size
+    'pixErrorStd',          2.0,...         % pixel error std
+    'intrinsic',            [200;150;240;240],... % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 % Sensor{2} = struct(...
@@ -147,7 +147,7 @@ Landmark{1} = struct(...
     'type',                 'idpPnt',...    % type of landmark
     'nonObsMean',           0.01,...           % mean of non obs. for initialization
     'nonObsStd',            1,...         % std of non obs for initialization
-    'maxNbr',               70);            % max. nbr. of lmks of this type in map
+    'maxNbr',               80);            % max. nbr. of lmks of this type in map
 Landmark{2} = struct(...
     'type',                 'eucPnt',...    % type of landmark
     'maxNbr',               70);            % max. nbr. of lmks of this type in map
@@ -172,8 +172,8 @@ Landmark{2} = struct(...
 FigOpt = struct(...
     'renderer',         'opengl',...    % renderer
     'ellipses',          true,...        % show 3d ellipsoids?
-    'mapProj',          'persp',...      % projection of the 3d figure
-    'mapView',           [30 30 40 15],...% viewpoint of the 3d figure
+    'mapProj',          'ortho',...      % projection of the 3d figure
+    'mapView',           [0 90 40 20],...% viewpoint of the 3d figure
     'colors',            struct(...      % Colors:
         'border',        .8*[1 1 1],...  %   [r g b]      
         'axes',          [0 0 0],...     % with:
@@ -197,7 +197,7 @@ EstOpt = struct(...
     'reprojectLmks',        true,...        % reproject lmks after active search?
     'warpMethod',           'jacobian',...  % patch warping method
     'correct',              struct(...      % options for lmk correction
-        'nUpdates',         2,...          % max simultaneus updates
+        'nUpdates',         4,...          % max simultaneus updates
         'MD2th',            9,...           % Thereshold on Mahalanobis distance
         'linTestTh',        0.1));          % thereshold on IDP linearity test
 

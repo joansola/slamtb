@@ -89,7 +89,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Simulate robots
-    for rob = 1:numel(SimRob)
+    for rob = [SimRob.rob]
 
         % Robot motion
         SimRob(rob) = simMotion(SimRob(rob),Tim);
@@ -109,7 +109,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Process robots
-    for rob = 1:numel(Rob)
+    for rob = [Rob.rob]
 
         % Robot motion
         % FIXME: see how to include noise in a clever way.
@@ -150,7 +150,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
 
     % Figures for all sensors
-    for sen = 1:numel(Sen)
+    for sen = [Sen.sen]
         
         drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:));
     

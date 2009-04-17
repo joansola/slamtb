@@ -198,6 +198,6 @@ EstOpt = struct(...
     'warpMethod',           'jacobian',...  % patch warping method
     'correct',              struct(...      % options for lmk correction
         'nUpdates',         4,...          % max simultaneus updates
-        'MD2th',            9,...           % Thereshold on Mahalanobis distance
-        'linTestTh',        0.1));          % thereshold on IDP linearity test
+        'MD2th',            9,...           % Threshold on Mahalanobis distance
+        'linTestTh',        0.1));          % threshold on IDP linearity test
 

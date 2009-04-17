@@ -74,8 +74,8 @@ Robot{1} = struct(...
 %     'name',                 'Dala',...      % robot name
 %     'type',                 'atrv',...      % type of robot
 %     'motion',               'odometry',...  % motion model
-%     'position',             [2.5;-2.5;0],...     % robot position in map
-%     'orientationDegrees',   [0;0;45],...     % orientation, in degrees, roll pitch yaw.
+%     'position',             [3;-4;0],...     % robot position in map
+%     'orientationDegrees',   [0;0;37],...     % orientation, in degrees, roll pitch yaw.
 %     'positionStd',          [0;0;0],...     % position error, std
 %     'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
 %     'dx',                   [.1;0;0],...     % position increment

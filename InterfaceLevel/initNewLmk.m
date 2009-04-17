@@ -33,7 +33,7 @@ switch Sen.type
 
             switch Raw.type
                 case {'simu'}
-                    [y, R, newId] = simDetectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
+                    [y, R, newId] = simDetectFeature([Lmk(usedLmks).id],Raw.data,Sen.par.pixCov);
 
                 case {'real'}
                     %to do
@@ -61,6 +61,7 @@ switch Sen.type
                 Obs(lmk).matched  = true;
                 Obs(lmk).updated  = true;
 
+                %----------------inside the switch -----------------
                 % INIT LMK
                 [l, L_rf, L_sf, L_sk, L_sd, L_pix, L_n] = ...
                     retroProjIdpPntFromPinHoleOnRob( ...
@@ -70,6 +71,10 @@ switch Sen.type
                     Sen.par.d, ...
                     y, ...
                     Lmk(lmk).nom.n) ;
+                % non-measurable covariance
+                L_n;
+                N = Lmk(lmk).nom.N ;
+                %-----------------------------------
 
 
                 % Group all map Jacobians and ranges
@@ -84,12 +89,6 @@ switch Sen.type
                 % co- and cross-variance of map variables (robot and eventually sensor)
                 P_MM = Map.P(mr,mr) ;
                 P_MX = Map.P(mr,(Map.used)) ;
-
-                % measurement covariance
-                R = Obs(lmk).meas.R ;
-
-                % non-measurable covariance
-                N = Lmk(lmk).nom.N ;
 
                 % landmark co- and cross-variance
                 P_LL  = ...

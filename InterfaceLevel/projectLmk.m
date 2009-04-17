@@ -37,8 +37,7 @@ switch Sen.type
 
             case {'idpPnt'} % inverse depth point
 
-                % IDP --> pixel
-                %   -(value and Jacobians)-
+                % IDP --> pixel -(value and Jacobians)-
                 [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
                     projIdpPntIntoPinHoleOnRob( ...
                     Rob.frame, ...
@@ -53,8 +52,7 @@ switch Sen.type
 
             case {'eucPnt'} % euclidean point
 
-                % Point3D --> pixel
-                %   -(value and Jacobians)-
+                % Point3D --> pixel -(value and Jacobians)-
                 [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
                     projEucPntIntoPinHoleOnRob( ...
                     Rob.frame, ...
@@ -71,7 +69,6 @@ switch Sen.type
                 error('??? Landmark type ''%s'' non implemented for sensor ''%s''.',Lmk.type,Sen.type);
 
         end
-
 
     otherwise % unknown Sensor type
         error('??? Unknown sensor type ''%s''.',Sen.type);

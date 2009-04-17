@@ -1,4 +1,4 @@
-function [y,R, newId] = simDetectFeature(lmkIds, raw, cov)
+function [y,R, newId] = simDetectFeature(lmkIds, raw, pixCov)
 
 
 
@@ -10,7 +10,7 @@ if ~isempty(newIds)
     
     % bet new point coordinates and covariance
     y        = raw.points(:,newIdx);
-    R        = cov.pixCov;
+    R        = pixCov;
     
 else
     

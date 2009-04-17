@@ -37,7 +37,7 @@ Experiment = struct(...
 Time = struct(...
     'dt',                   .1,...          % sampling time, seconds
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            600);            % last frame #
+    'lastFrame',            40);            % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -170,9 +170,9 @@ Landmark{2} = struct(...
 %       'rgbcmykw'  1-char predifined Matlab colors
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
-    'renderer',         'opengl',...    % renderer
+    'renderer',         'zbuffer',...    % renderer
     'ellipses',          true,...        % show 3d ellipsoids?
-    'mapProj',          'ortho',...      % projection of the 3d figure
+    'mapProj',          'persp',...      % projection of the 3d figure
     'mapView',           [0 90 40 20],...% viewpoint of the 3d figure
     'colors',            struct(...      % Colors:
         'border',        .8*[1 1 1],...  %   [r g b]      

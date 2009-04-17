@@ -28,30 +28,30 @@ if isa(mapView,'char')
             az  = 0;  % azimut angle in degrees
             el  = 25; % elevation angle in degrees
             fov = 40; % horizontal field of view, in degrees
-            rd  = max([world.l,world.w,world.h]); % distance in metres
+            rd  = max([world.dims.l,world.dims.w,world.dims.h]); % distance in metres
         case 'top'
             % b. top view
             az  = 90;
             el  = 90;
             fov = 40;
-            rd  = max([world.l,world.w,world.h]);
+            rd  = max([world.dims.l,world.dims.w,world.dims.h]);
         case 'side'
             % c. side view
             az  = 90;
             el = 0;
             fov = 40;
-            rd = max([world.l,world.w,world.h]);
+            rd = max([world.dims.l,world.dims.w,world.dims.h]);
         case 'view'
             % d. view
             az = 41;
             el = 60;
             fov = 40;
-            rd = max([world.l,world.w,world.h]);
+            rd = max([world.dims.l,world.dims.w,world.dims.h]);
         otherwise
             az = 0;
             el = 25;
             fov = 40;
-            rd = max([world.l,world.w,world.h]);
+            rd = max([world.dims.l,world.dims.w,world.dims.h]);
     end
 
 else % custom view vector

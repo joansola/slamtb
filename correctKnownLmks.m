@@ -1,7 +1,7 @@
-function [Rob,Sen,Lmk,Obs] = observeKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
+function [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 
-%  OBSERVEKNOWNLMKS  Observe known landmarks.
-%    [ROB,OBS] = observeKnownLmks(ROB, SEN, RAW, LMK, OBS) returns the new
+%  CORRECTKNOWNLMKS  Correct known landmarks.
+%    [ROB,OBS] = correctKnownLmks(ROB, SEN, RAW, LMK, OBS) returns the new
 %    robot, and the modified observation after some updates wrt landmark
 %    observations OBS.
 %       ROB:  the robot
@@ -19,7 +19,7 @@ global Map
 % steps in this function
 % 0- update Rob and Sen info from Map
 % 1- project all landmarks
-% 2- select landmarks to observe. For each one:
+% 2- select landmarks to correct. For each one:
 % 3- do feature matching. If feature found:
 % 4- compute innovation.
 % 5- perform consistency test. If it is OK:
@@ -41,7 +41,7 @@ vis = [Obs.vis];
 
 if any(vis) % Consider only visible observations
 
-    % 2. SELECT LMKS TO OBSERVE
+    % 2. SELECT LMKS TO CORRECT
     [lmksToObs,lmksToSkip] = selectLmksToObserve(Obs(vis),Opt.correct.nUpdates); 
 
     % lmks to skip, update Obs info
@@ -49,7 +49,7 @@ if any(vis) % Consider only visible observations
     [Obs(lmksToSkip).matched]  = deal(false);
     [Obs(lmksToSkip).updated]  = deal(false);
 
-    for lmk = lmksToObs % for each landmark to observe
+    for lmk = lmksToObs % for each landmark to correct
         
         % 3. MATCH FEATURE
         Obs(lmk) = matchFeature(Raw,Obs(lmk));
@@ -76,6 +76,7 @@ if any(vis) % Consider only visible observations
                 
                 Obs(lmk).updated = false;
                 % TODO: add code to delete bad landmarks
+                fprintf('Deleted landmark ''%d''.\n',Lmk(lmk).id)
                 [Lmk(lmk),Obs(lmk)] = deleteLmk(Lmk(lmk),Obs(lmk));
                 
             end % if consistent

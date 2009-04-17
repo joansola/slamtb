@@ -1,7 +1,7 @@
-function [Lmk,Obs] = observeNewLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
+function [Lmk,Obs] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 
-%OBSERVENEWLMKS  Initialise one landmark.
-%   [LMK, OBS] = OBSERVENEWLMKS(ROB, SEN, RAW, LMK, OBS) returns the new
+%INITNEWLMK  Initialise one landmark.
+%   [LMK, OBS] = INITNEWLMK(ROB, SEN, RAW, LMK, OBS) returns the new
 %   set of landmarks.
 %
 %   This "new set" contains the "old set" plus new elements. These new

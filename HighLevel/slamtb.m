@@ -26,6 +26,8 @@
 %   Programmers:
 %   (c) David Marquez and Jean-Marie Codol @ LAAS-CNRS
 
+%% OK we start here
+
 % clear workspace and declare globals
 clear
 global Map          %#ok<NUSED>

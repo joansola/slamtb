@@ -145,15 +145,15 @@ Sensor{1} = struct(...
 %       'plkLin'  Plucker 3D line
 Landmark{1} = struct(...
     'type',                 'idpPnt',...    % type of landmark
-    'nonObsMean',           0.01,...           % mean of non obs. for initialization
-    'nonObsStd',            1,...         % std of non obs for initialization
+    'nonObsMean',           0.01,...        % mean of non obs. for initialization
+    'nonObsStd',            1,...           % std of non obs for initialization
     'maxNbr',               80);            % max. nbr. of lmks of this type in map
 Landmark{2} = struct(...
     'type',                 'eucPnt',...    % type of landmark
     'maxNbr',               70);            % max. nbr. of lmks of this type in map
 
 
-% Figure options options 
+% Figure options  
 %   - view, projection, video, ellipses.
 %   - figure projections - mapProj:
 %       'persp'     Perspective

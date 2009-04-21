@@ -60,8 +60,10 @@ if any(vis) % Consider only visible observations
             Obs(lmk) = observationInnovation(Obs(lmk));
 
             % 5. TEST CONSISTENCE
-            if Obs(lmk).inn.MD2 < Opt.correct.MD2th % TODO: put a soft value here via e.g. Opt.inn.MD2th
+            if Obs(lmk).inn.MD2 < Opt.correct.MD2th 
 
+                % TODO: see where to put the if Obs.vis ... and the
+                % projectLmk().
                 % 6. CORRECT EKF
                 if Opt.correct.reprojectLmks
                     % re-project landmark for improved Jacobians
@@ -69,17 +71,15 @@ if any(vis) % Consider only visible observations
                     Obs(lmk) = observationInnovation(Obs(lmk));
                 end
                 
-                lr = Lmk(lmk).state.r;
-                P_LL = Map.P(lr,lr);
+                % TODO: see where to put the if Obs.vis ... and the
+                % projectLmk().
+                if Obs(lmk).vis
+                    % All EKF correct things
+                    [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
 
-                % All EKF correct things 
-                [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
-                lr = Lmk(lmk).state.r;
-                P_LL = Map.P(lr,lr);
-                
-                % Transform IDP to EUC if possible
-                [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
-                
+                    % Transform IDP to EUC if possible
+                    [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
+                end
             else % obs is inconsistent - do not update
                 
                 Obs(lmk).updated = false;

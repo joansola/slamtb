@@ -22,25 +22,14 @@ P_xrsl = Map.P(Map.used,rslr);
 
 K      = P_xrsl*H_rsl'*Obs.inn.iZ;
 
-% FIXME: remove this
-lr = Lmk.state.r;
-P_LL = Map.P(lr,lr);
-
-
 Map.x(Map.used)          = Map.x(Map.used) + K*Obs.inn.z;
 Map.P(Map.used,Map.used) = Map.P(Map.used,Map.used) - K*Obs.inn.Z*K';
-
-% FIXME: remove this
-lr = Lmk.state.r;
-P_LL = Map.P(lr,lr);
-
 
 Rob = map2rob(Rob);
 Sen = map2sen(Sen);
 
 Obs.updated = true;
 
-% Update Obs and Lmk structures.
 
 
 

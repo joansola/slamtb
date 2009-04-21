@@ -59,7 +59,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
     'dx',                   [.1;0;0],...     % position increment
     'daDegrees',            [0;0;1.14],...     % angle increment, degrees
     'dxStd',                [0.01;0.01;0.01],...  % odo linear error std
-    'daStd',                [0.1;0.1;0.1]);      % odo ang error std, degrees
+    'daStd',                [0.2;0.2;0.2]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % ODOMETRY EXAMPLE
 %     'id',                   2,...           % robot identifier
@@ -114,21 +114,21 @@ Sensor{1} = struct(...
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 
-% Sensor{2} = struct(...
-%     'id',                   2,...           % sensor identifier
-%     'name',                 'Micropix',...      % sensor name
-%     'type',                 'pinHole',...   % type of sensor
-%     'robot',                1,...           % robot where it is mounted
-%     'position',             [0;-0.15;.6],...     % position in robot
-%     'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
-%     'positionStd',          [0;0;0],...     % position error std
-%     'orientationStd',       [0;0;0],...     % orient. error std
-%     'imageSize',            [640;480],...   % image size
-%     'pixErrorStd',          1.0,...         % pixel error std
-%     'intrinsic',            [320;240;300;300],...   % intrinsic params
-%     'distortion',           [],...          % distortion params
-%     'frameInMap',           false );         % add sensor frame in slam map?
-% 
+Sensor{2} = struct(...
+    'id',                   2,...           % sensor identifier
+    'name',                 'Micropix',...      % sensor name
+    'type',                 'pinHole',...   % type of sensor
+    'robot',                1,...           % robot where it is mounted
+    'position',             [0;-0.15;.6],...     % position in robot
+    'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
+    'positionStd',          [0;0;0],...     % position error std
+    'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
+    'imageSize',            [640;480],...   % image size
+    'pixErrorStd',          1.0,...         % pixel error std
+    'intrinsic',            [320;240;300;300],...   % intrinsic params
+    'distortion',           [],...          % distortion params
+    'frameInMap',           true );         % add sensor frame in slam map?
+
 
 
 % Experiment options 

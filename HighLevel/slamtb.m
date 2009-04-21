@@ -56,7 +56,6 @@ userData;   % user-defined data. SCRIPT.
     SimRob, SimSen, SimLmk,...  % Simulator data
     FigOpt);                    % User-defined graphic options
 
-clear Robot Sensor World Time   % clear all user data
 
 %% III. Init data logging
 % TODO: Create source and/or destination files and paths for data input and
@@ -66,7 +65,7 @@ clear Robot Sensor World Time   % clear all user data
 % etc., instead of creating large Matlab variables for data logging.
 
 % Clear user data - not needed anymore
-% clear Robot Sensor Landmark FigureOptions World Time Experiment Video Estimation
+clear Robot Sensor World Time   % clear all user data
 
 
 %% IV. Main loop
@@ -106,12 +105,13 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % Process sensor observations
         for sen = Rob(rob).sensors
 
+            %TODO: see how to pass only used Lmks and Obs.
             % Observe knowm landmarks
-            [Rob(rob),Sen(sen),Lmk([Lmk.used]),Obs(sen,:)] = correctKnownLmks( ...
+            [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = correctKnownLmks( ...
                 Rob(rob), ...
                 Sen(sen), ...
                 Raw(sen), ...
-                Lmk([Lmk.used]), ...   % enter only used landmarks
+                Lmk, ...   % enter only used landmarks
                 Obs(sen,:),...
                 EstOpt) ;
 

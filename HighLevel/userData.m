@@ -47,7 +47,7 @@ World = struct(...
 %       'constVel'    6D Constant velocity model
 %       'odometry'    6D Odometry model
 %   - See EULERANGLES for orientations specifications.
-Robot{1} = struct(...
+Robot{1} = struct(...                     % ODOMETRY EXAMPLE
     'id',                   1,...           % robot identifier
     'name',                 'Dala',...      % robot name
     'type',                 'atrv',...      % type of robot
@@ -60,7 +60,8 @@ Robot{1} = struct(...
     'daDegrees',            [0;0;1.14],...     % angle increment, degrees
     'dxStd',                [0.01;0;0],...  % odo linear error std
     'daStd',                [0;0;.1]);      % odo ang error std, degrees
-% Robot{2} = struct(...
+
+% Robot{2} = struct(...                     % ODOMETRY EXAMPLE
 %     'id',                   2,...           % robot identifier
 %     'name',                 'Dala',...      % robot name
 %     'type',                 'atrv',...      % type of robot
@@ -73,7 +74,8 @@ Robot{1} = struct(...
 %     'daDegrees',            [0;0;1.5],...     % angle increment, degrees
 %     'dxStd',                [0.01;0;0],...  % odo linear error std
 %     'daStd',                [0;0;.1]);      % odo ang error std, degrees
-% Robot{3} = struct(...
+
+% Robot{3} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %     'id',                   3,...           % robot identifier
 %     'name',                 'Dala',...      % robot name
 %     'type',                 'atrv',...      % type of robot
@@ -111,6 +113,7 @@ Sensor{1} = struct(...
     'intrinsic',            [200;150;240;240],... % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
+
 % Sensor{2} = struct(...
 %     'id',                   2,...           % sensor identifier
 %     'name',                 'Micropix',...      % sensor name
@@ -127,22 +130,6 @@ Sensor{1} = struct(...
 %     'frameInMap',           false );         % add sensor frame in slam map?
 
 
-% Landmark things 
-%   - landmark types, max nbr of lmks, lmk management options
-%   - types of lmks (add 6-letter string types if you need more):
-%       'eucPnt'  Euclidean 3D point
-%       'idpPnt'  Inverse-depth 3D point
-%       'homPnt'  Homogeneous 3D point
-%       'plkLin'  Plucker 3D line
-% Landmark{1} = struct(...
-%     'type',                 'idpPnt',...    % type of landmark
-%     'nonObsMean',           0.01,...        % mean of non obs. for initialization
-%     'nonObsStd',            1,...           % std of non obs for initialization
-%     'maxNbr',               80);            % max. nbr. of lmks of this type in map
-% Landmark{2} = struct(...
-%     'type',                 'eucPnt',...    % type of landmark
-%     'maxNbr',               70);            % max. nbr. of lmks of this type in map
-
 
 % Experiment options 
 %   - site name, series gathered, estimation run number 
@@ -153,6 +140,25 @@ ExpOpt = struct(...
     'lmkTypes',             'idp',...       % types of landmarks used
     'sensingType',          'mono',...      % sensing mode
     'mappingType',          'single');      % mapping mode
+
+
+% Estimation options 
+%   - random, reprojection, active search, etc
+EstOpt = struct(...
+    'random',               true,...        % use true random generator?
+    'fixedRandomSeed',      1,...           % random seed for non-random runs
+    'map',                  struct(...      % options for the map
+        'num3dLmks',        100),...        % number of 3d landmarks
+    'correct',              struct(...      % options for lmk correction
+        'reprojectLmks',    false,...       % reproject lmks after active search?
+        'warpMethod',       'jacobian',...  % patch warping method
+        'nUpdates',         4,...           % max simultaneus updates
+        'MD2th',            9,...           % Threshold on Mahalanobis distance
+        'linTestTh',        0.1),...        % threshold on IDP linearity test
+    'init',                 struct(...      % Options for initialization
+        'idpPnt',           struct(...      % opt. for IDP init
+            'nonObsMean',   0.01,...        % mean of non obs. for initialization
+            'nonObsStd',    1)));           % std of non obs for initialization
 
 
 % Figure options  
@@ -190,22 +196,4 @@ FigOpt = struct(...
     'video',             struct(...      % video options
         'createVideo',       false)));     % create video sequence?
 
-
-% Estimation options 
-%   - random, reprojection, active search, etc
-EstOpt = struct(...
-    'random',               true,...        % use true random generator?
-    'fixedRandomSeed',      1,...           % random seed for non-random runs
-    'map',                  struct(...      % options for the map
-        'num3dLmks',        100),...        % number of 3d landmarks
-    'correct',              struct(...      % options for lmk correction
-        'reprojectLmks',    false,...        % reproject lmks after active search?
-        'warpMethod',       'jacobian',...  % patch warping method
-        'nUpdates',         4,...          % max simultaneus updates
-        'MD2th',            9,...           % Threshold on Mahalanobis distance
-        'linTestTh',        0.1),...        % threshold on IDP linearity test
-    'init',                 struct(...      % Options for initialization
-        'idpPnt',           struct(...        % opt. for IDP init
-            'nonObsMean',   0.01,...            % mean of non obs. for initialization
-            'nonObsStd',    1)));               % std of non obs for initialization
 

@@ -19,7 +19,7 @@ py = idp(4:5,:);   % pitch and roll
 r  = idp(6,:);     % inverse depth
 
 if size(idp,2) == 1 % one only Idp
-    
+
 
     [v,Vpy] = py2vec(py);  % unity vector
 
@@ -38,14 +38,17 @@ if size(idp,2) == 1 % one only Idp
     end
 
 else  % A matrix of Idps
-    
-    v = py2vec(py);  % unity vector
 
+    v = py2vec(py);  % unity vector
     p = x0 + v./repmat(r,3,1);
     
-end    
+    if nargout > 1
+        error('??? Jacobians not available for multiple landmarks.')
+    end
 
-    
+end
+
+
 
 return
 

@@ -16,23 +16,16 @@ for lmk = 1:EstOpt.map.num3dLmks
     %         Lmk(lmk).state.size = [];
     Lmk(lmk).state.r = [];
 
-    %         % Non observable priors
-    %         if isfield(Li,'nonObsMean')
-    %             Lmk(lmk).nom.n = Li.nonObsMean;
-    %             Lmk(lmk).nom.N = diag(Li.nonObsStd.^2);
-    %         else
-    %             Lmk(lmk).nom.n = [];
-    %             Lmk(lmk).nom.N = [];
-    %         end
-
-    % other parameters
-    Lmk(lmk).par = [];
-
+    % Landmark descriptor or signature
     Lmk(lmk).sig = [];
 
-    Lmk(lmk).nSearch = 0;
-    Lmk(lmk).nMatch  = 0;
-    Lmk(lmk).nInlier = 0;
+    % other parameters out of the SLAM map
+    Lmk(lmk).par = [];
+
+    % Lmk management counters
+    Lmk(lmk).nSearch = 0;  % number of times searched
+    Lmk(lmk).nMatch  = 0;  % number of times matched
+    Lmk(lmk).nInlier = 0;  % number of times declared inlier
 
 end
 

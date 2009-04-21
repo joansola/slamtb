@@ -63,7 +63,7 @@ switch Sen.type
                     % -------
                 otherwise
                     % Print an error and exit
-                    error(['Cannot display landmark type ''',Obs(lmk).ltype,''' with ''',Sen.type,''' sensor ''',Sen.name,'''.']);
+                    error('??? Unable to display landmark ''%s'' with sensor ''%s''.',Obs(lmk).ltype,Sen.type);
             end % and of the "switch" on sensor type
 
 
@@ -81,7 +81,7 @@ switch Sen.type
         % unknown
         % -------
     otherwise
-        error(['Unknown sensor type. Cannot display''',Sen.type,''' sensor ''',Sen.name,'''.']);
+        error('??? Unknown sensor type ''%s''.',Sen.type);
 end
 
 

@@ -1,4 +1,4 @@
-function Obs = createObservations(Sen,Lmk)
+function Obs = createObservations(Sen,EstOpt)
 
 % CREATEOBSERVATIONS Create Obs structure array.
 %   Rob = CREATEOBSERVATIONS(Sen,Lmk) creates the Obs() structure array to
@@ -8,17 +8,17 @@ function Obs = createObservations(Sen,Lmk)
 
 for sen = 1:numel(Sen)
     
-    for lmk = 1:numel(Lmk)
+    for lmk = 1:EstOpt.map.num3dLmks
         
         S = Sen(sen);
-        L = Lmk(lmk);
+%         L = Lmk(lmk);
         
         O.sen       = sen;        % sensor index
         O.lmk       = lmk;        % landmark index.
         O.sid       = S.id;       % sensor id
-        O.lid       = L.id;       % lmk id
+        O.lid       = [];         % lmk id
         O.stype     = S.type;     % sensor type
-        O.ltype     = L.type;     % lmk type
+        O.ltype     = '';         % lmk type
         O.meas.y    = [];         % observation
         O.meas.R    = [];         % observation cov
         O.nom.n     = [];         % expected non-observable

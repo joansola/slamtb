@@ -22,15 +22,6 @@
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 
-% Experiment names 
-%   - site name, series gathered, estimation run number 
-Experiment = struct(...
-    'site',                 'sitename',...  % Name of the site
-    'dataRun',              1,...           % Run # on this site
-    'estimateRun',          1,...           % slam run for data and site
-    'lmkTypes',             'idp',...       % types of landmarks used
-    'sensingType',          'mono',...      % sensing mode
-    'mappingType',          'single');      % mapping mode
 
 % Time variables 
 %   - sampling time, first and last frames
@@ -116,7 +107,7 @@ Sensor{1} = struct(...
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
     'imageSize',            [400;300],...   % image size
-    'pixErrorStd',          2.0,...         % pixel error std
+    'pixErrorStd',          0.5,...         % pixel error std
     'intrinsic',            [200;150;240;240],... % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
@@ -143,14 +134,25 @@ Sensor{1} = struct(...
 %       'idpPnt'  Inverse-depth 3D point
 %       'homPnt'  Homogeneous 3D point
 %       'plkLin'  Plucker 3D line
-Landmark{1} = struct(...
-    'type',                 'idpPnt',...    % type of landmark
-    'nonObsMean',           0.01,...        % mean of non obs. for initialization
-    'nonObsStd',            1,...           % std of non obs for initialization
-    'maxNbr',               80);            % max. nbr. of lmks of this type in map
-Landmark{2} = struct(...
-    'type',                 'eucPnt',...    % type of landmark
-    'maxNbr',               70);            % max. nbr. of lmks of this type in map
+% Landmark{1} = struct(...
+%     'type',                 'idpPnt',...    % type of landmark
+%     'nonObsMean',           0.01,...        % mean of non obs. for initialization
+%     'nonObsStd',            1,...           % std of non obs for initialization
+%     'maxNbr',               80);            % max. nbr. of lmks of this type in map
+% Landmark{2} = struct(...
+%     'type',                 'eucPnt',...    % type of landmark
+%     'maxNbr',               70);            % max. nbr. of lmks of this type in map
+
+
+% Experiment options 
+%   - site name, series gathered, estimation run number 
+ExpOpt = struct(...
+    'site',                 'sitename',...  % Name of the site
+    'dataRun',              1,...           % Run # on this site
+    'estimateRun',          1,...           % slam run for data and site
+    'lmkTypes',             'idp',...       % types of landmarks used
+    'sensingType',          'mono',...      % sensing mode
+    'mappingType',          'single');      % mapping mode
 
 
 % Figure options  
@@ -185,8 +187,8 @@ FigOpt = struct(...
     'figSize',           struct(...
         'map',           [320 240],...   % map figure size
         'sen',           [320 240]));    % sensor figure size
-Video = struct(...
-    'createVideo',       false);         % create video sequence?
+    'video',             struct(...      % video options
+        'createVideo',       false);     % create video sequence?
 
 
 % Estimation options 
@@ -194,10 +196,16 @@ Video = struct(...
 EstOpt = struct(...
     'random',               true,...        % use true random generator?
     'fixedRandomSeed',      1,...           % random seed for non-random runs
-    'reprojectLmks',        true,...        % reproject lmks after active search?
-    'warpMethod',           'jacobian',...  % patch warping method
+    'map',                  struct(...      % options for the map
+        'num3dLmks',        100),...        % number of 3d landmarks
     'correct',              struct(...      % options for lmk correction
+        'reprojectLmks',    false,...        % reproject lmks after active search?
+        'warpMethod',       'jacobian',...  % patch warping method
         'nUpdates',         4,...          % max simultaneus updates
         'MD2th',            9,...           % Threshold on Mahalanobis distance
-        'linTestTh',        0.1));          % threshold on IDP linearity test
+        'linTestTh',        0.1),...        % threshold on IDP linearity test
+    'init',                 struct(...      % Options for initialization
+        'idpPnt',           struct(...        % opt. for IDP init
+            'nonObsMean',   0.01,...            % mean of non obs. for initialization
+            'nonObsStd',    1)));               % std of non obs for initialization
 

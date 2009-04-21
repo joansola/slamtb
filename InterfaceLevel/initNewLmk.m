@@ -12,78 +12,82 @@ function [Lmk,Obs] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 %   the new landmark state.
 %
 
+%   Copyright 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
 
 
 % test if there is space in Lmk for a new lmk
-usedLmks = [Lmk.used];
-idps     = strcmp({Lmk.type},'idpPnt'); % We consider only new IdpPnt for
-frees    = idps & ~usedLmks;            %    initialization here
+% usedLmks = [Lmk.used];
+% idps     = strcmp({Lmk.type},'idpPnt'); % We consider only new IdpPnt for
+% frees    = idps & ~usedLmks;            %    initialization here
 
-if any(frees)
-    
+r = newRange(6);
+
+if numel(r) == 6   % there is space in Map
+
     % index to first free Idp lmk
-    lmk = find(frees,1);
-    
+    lmk = newLmk(Lmk);
+
     switch Raw.type
         case {'simu'}
-            [y, R, newId] = simDetectFeature([Lmk(usedLmks).id],Raw.data,Sen.par.pixCov);
-            
+            [y, R, newId] = simDetectFeature([Lmk([Lmk.used]).id],Raw.data,Sen.par.pixCov);
+            app           = newId;
+
         case {'real'}
             % NYI : Not Yet Implemented
             %[y,R,newId] = detectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
             error('??? Unknown Raw type. ''real'': NYI.');
     end
-    
-    if ~isempty(y)  % a feature was detected
-        
+
+    if ~isempty(y)  % a feature was detected --> initialize it in IDP
+
         % fill Obs struct before continuing
         Obs(lmk).sen      = Sen.sen;
         Obs(lmk).lmk      = lmk;
         Obs(lmk).sid      = Sen.id;
         Obs(lmk).lid      = newId;
         Obs(lmk).stype    = Sen.type;
-        Obs(lmk).ltype    = Lmk.type;
+        Obs(lmk).ltype    = 'idpPnt';
         Obs(lmk).meas.y   = y;
         Obs(lmk).meas.R   = R;
         Obs(lmk).exp.e    = y;
         Obs(lmk).exp.E    = R;
         Obs(lmk).exp.um   = det(R);  % uncertainty measure
-        Obs(lmk).app.curr = newId;
-        Obs(lmk).app.pred = newId;
+        Obs(lmk).app.curr = app;
+        Obs(lmk).app.pred = app;
         Obs(lmk).vis      = true;
         Obs(lmk).measured = true;
         Obs(lmk).matched  = true;
         Obs(lmk).updated  = true;
-        
+
         switch Sen.type
-            
+
             % camera pinHole
             case {'pinHole'}
-                
+
                 % INIT LMK OF TYPE: IDP
-                [l, L_rf, L_sf, L_sk, L_sd, L_pix, L_n] = ...
+                [l, L_rf, L_sf, L_sk, L_sd, L_obs, L_n] = ...
                     retroProjIdpPntFromPinHoleOnRob( ...
                     Rob.frame, ...
                     Sen.frame, ...
                     Sen.par.k, ...
                     Sen.par.d, ...
                     y, ...
-                    Lmk(lmk).nom.n) ;
-                N = Lmk(lmk).nom.N ;
-                L_obs = L_pix ; % here the observation is a pixel
+                    Opt.init.idpPnt.nonObsMean) ;
                 
-            % case ...
+                N = Opt.init.idpPnt.nonObsStd^2 ;
+
+                % case ...
                 % non-measurable covariance template:
                 % N = [] ;
                 % L_n = zeros(0,length(find(Map.used))) ;
-               
+
             otherwise % -- Sen.type
-                
+
                 % Print an error and exit
                 error('??? Unknown sensor type. ''% s''.',Sen.type);
-                
+
         end % -- Sen.type
-        
+
         % get new Lmk, covariance and cross-variance.
         [P_LL,P_LX] = getNewLmkCovs( ...
             Sen.frameInMap, ...
@@ -95,15 +99,16 @@ if any(frees)
             L_n, ...
             R, ...
             N) ;
-        
+
         % add to Map and get lmk range in Map
         Lmk(lmk).state.r = addToMap(l,P_LL,P_LX);
-        
+
         % Fill Lmk structure before exit
         Lmk(lmk).lmk     = lmk;
         Lmk(lmk).id      = newId;
+        Lmk(lmk).type    = 'idpPnt';
         Lmk(lmk).used    = true;
-        Lmk(lmk).sig     = newId;
+        Lmk(lmk).sig     = app;
     end
 end
 
@@ -123,7 +128,7 @@ function [P_LL,P_LX] = getNewLmkCovs(SenFrameInMap, RobFrameR, SenFrameR, L_rf, 
 %       L_OBS, ...
 %       L_N, ...
 %       R, ...
-%       N) 
+%       N)
 %
 %   Return the covariance 'Lmk/Lmk' (P_LL) and cross-variance 'Lmk/Map.used'
 %   (P_LX) given :
@@ -142,10 +147,8 @@ function [P_LL,P_LX] = getNewLmkCovs(SenFrameInMap, RobFrameR, SenFrameR, L_rf, 
 %     P = | P     P_LX' |
 %         | P_LX  P_LL  |
 %
-%   Created and maintained by
-%   (c) 2009 Joan Sola @ LAAS-CNRS. jsola@laas.fr.
-%   Programmers:
-%   (c) David Marquez and Jean-Marie Codol @ LAAS-CNRS
+
+%   (c) 2009 Jean Marie Codol @ LAAS-CNRS
 
 
 

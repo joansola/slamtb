@@ -40,8 +40,9 @@ userData;   % user-defined data. SCRIPT.
 [Rob,Sen,Lmk,Obs,Tim]  = createSlamStructures(...
     Robot,...
     Sensor,...      % all user data
-    Landmark,...
-    Time);
+    Time,...
+    EstOpt);
+%     Landmark,...
 % Simulation data
 [SimRob,SimSen,SimLmk] = createSimStructures(...
     Robot,...
@@ -53,6 +54,8 @@ userData;   % user-defined data. SCRIPT.
     SimRob, SimSen, SimLmk,...  % Simulator data
     FigOpt);                    % User-defined graphic options
 
+clear Robot Sensor World Time   % clear all user data
+
 %% III. Init data logging
 % TODO: Create source and/or destination files and paths for data input and
 % logs.
@@ -62,27 +65,6 @@ userData;   % user-defined data. SCRIPT.
 
 % Clear user data - not needed anymore
 % clear Robot Sensor Landmark FigureOptions World Time Experiment Video Estimation
-
-% ----------------------------------------------------
-% Create test Lmks
-% FIXME: these lines to be removed, they are here just to have
-% something to plot in the map figure.
-%
-% id          = 145;     % We'll simulate Lmk ID is in the map...
-% lmk         = 101;      % and in the Lmk array at this index.
-% 
-% Lmk(lmk).id = id; % Simulate landmark exists in map in position index lmk.
-% 
-% lidx  =  find([SimLmk.ids] == id); % get lmk index in simulated lmks array
-% xyz   =  SimLmk.points(:,lidx);    % get lmk 3D position
-% XYZ   =  diag([.01 .02 .01]);      % get covariances
-% r     =  addToMap(xyz,XYZ);        % put it in the map
-% 
-% Lmk(lmk).state.r = r;              % Lmk range in Map
-% Lmk(lmk).used    = true;           % Lmk is used
-%
-% FIXME: remove up to this line ----------------------
-
 
 
 %% IV. Main loop

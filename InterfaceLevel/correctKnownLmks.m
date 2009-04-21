@@ -63,8 +63,10 @@ if any(vis) % Consider only visible observations
             if Obs(lmk).inn.MD2 < Opt.correct.MD2th % TODO: put a soft value here via e.g. Opt.inn.MD2th
 
                 % 6. CORRECT EKF
-                % re-project landmark for improved Jacobians
-                Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+                if Opt.correct.reprojectLmks
+                    % re-project landmark for improved Jacobians
+                    Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+                end
                 
                 % TODO: all EKF correct things (edit correctLmk.m)
                 [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));

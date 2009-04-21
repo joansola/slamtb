@@ -1,4 +1,4 @@
-function Map = createMap(Rob,Sen,Lmk)
+function Map = createMap(Rob,Sen,EstOpt)
 
 % CREATEMAP Create an empty Map structure.
 %   Map = CREATEMAP(Rob,Sen,Lmk) creates the structure Map from the
@@ -15,9 +15,8 @@ function Map = createMap(Rob,Sen,Lmk)
 
 R = [Rob.state];
 S = [Sen.state];
-L = [Lmk.state];
 
-n = sum([R.size S.size L.size]);
+n = sum([R.size S.size 3*EstOpt.map.num3dLmks]);
 
 Map.used = false(n,1);
 

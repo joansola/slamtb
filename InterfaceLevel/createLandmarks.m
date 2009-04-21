@@ -1,4 +1,4 @@
-function Lmk = createLandmarks(Landmark)
+function Lmk = createLandmarks(EstOpt)
 
 % CREATELANDMARKS  Create Lmk structure array.
 %   Lmk = CREATELANDMARKS(Landmark) creates the structure array Lmk() to be
@@ -6,56 +6,33 @@ function Lmk = createLandmarks(Landmark)
 %   as specified by the user in userData.m. There must be one Landmark{}
 %   per each landmark type considered. See userData.m for details.
 
-lmk = 0; % lmk index in Lmk()
+for lmk = 1:EstOpt.map.num3dLmks
 
-for lmkClass = 1:numel(Landmark)
+    Lmk(lmk).lmk  = lmk;
+    Lmk(lmk).id   = [];
+    Lmk(lmk).type = '';
+    Lmk(lmk).used = false;
 
-    numLmk = 0; % lmk # in a given class
+    %         Lmk(lmk).state.size = [];
+    Lmk(lmk).state.r = [];
 
-    while numLmk < Landmark{lmkClass}.maxNbr
+    %         % Non observable priors
+    %         if isfield(Li,'nonObsMean')
+    %             Lmk(lmk).nom.n = Li.nonObsMean;
+    %             Lmk(lmk).nom.N = diag(Li.nonObsStd.^2);
+    %         else
+    %             Lmk(lmk).nom.n = [];
+    %             Lmk(lmk).nom.N = [];
+    %         end
 
-        numLmk = numLmk + 1; 
-        lmk    = lmk + 1;
-        
-        Li = Landmark{lmkClass};
-        
-        Lo.lmk  = lmk;
-        Lo.id   = 0;
-        Lo.type = Li.type;
-        Lo.used = false;
+    % other parameters
+    Lmk(lmk).par = [];
 
-        % state
-        switch Li.type
-            case {'eucPnt'}
-                Lo.state.size = 3;
-            case {'homPnt'}
-                Lo.state.size = 4;
-            case {'idpPnt','plkLin'}
-                Lo.state.size = 6;
-        end
-        Lo.state.r = [];
+    Lmk(lmk).sig = [];
 
-        % Non observable priors
-        if isfield(Li,'nonObsMean')
-            Lo.nom.n = Li.nonObsMean;
-            Lo.nom.N = diag(Li.nonObsStd.^2);
-        else
-            Lo.nom.n = [];
-            Lo.nom.N = [];
-        end
+    Lmk(lmk).nSearch = 0;
+    Lmk(lmk).nMatch  = 0;
+    Lmk(lmk).nInlier = 0;
 
-        % other parameters
-        Lo.par = [];
-
-        Lo.sig = [];
-
-        Lo.nSearch = 0;
-        Lo.nMatch  = 0;
-        Lo.nInlier = 0;
-
-        Lmk(lmk) = Lo;
-        
-    end
-    
 end
 

@@ -8,9 +8,14 @@ global Map
 switch Lmk.type
     case 'idpPnt' % TODO: the IDP --> EUC case
         % 1. test linearity
-        % 2. reparametrize IDP->EUC - mean and Jacobians
-        % [p,P_i] = idp2p(idp);
-        % 3. reparametrize - covariances.
+        doReparam = idp2pLinTest();
+        if (doReparam)
+            % 2. reparametrize IDP->EUC - mean and Jacobians
+            idp = Map.x(Lmk.state.r) ;
+            [p,P_i] = idp2p(idp);
+            % 3. reparametrize - covariances.
+            
+        end;
 
     case 'eucPnt'
         % do nothing

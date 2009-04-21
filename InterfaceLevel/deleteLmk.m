@@ -1,9 +1,9 @@
 function [Lmk,Obs] = deleteLmk(Lmk,Obs)
 
 % DELETELMK  Delete landmark.
-% TODO: help
+% 	[Lmk,Obs] = DELETELMK(Lmk,Obs) deletes the landmark Lmk from the map
+% 	Map and clears the necessary flags in Lmk and Obs.
 
-r           = Lmk.state.r;
-Map.used(r) = false;
+Map.used(Lmk.state.r) = false;
 Lmk.used    = false;
 Obs.vis     = false;

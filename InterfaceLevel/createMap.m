@@ -23,5 +23,5 @@ Map.used = false(n,1);
 Map.x = zeros(n,1);
 Map.P = zeros(n,n);
 
-Map.size = n;
+% Map.size = n;
 

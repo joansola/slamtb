@@ -28,7 +28,7 @@
 Time = struct(...
     'dt',                   .1,...          % sampling time, seconds
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            40);            % last frame #
+    'lastFrame',            600);            % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -58,8 +58,8 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
     'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
     'dx',                   [.1;0;0],...     % position increment
     'daDegrees',            [0;0;1.14],...     % angle increment, degrees
-    'dxStd',                [0.01;0;0],...  % odo linear error std
-    'daStd',                [0;0;.1]);      % odo ang error std, degrees
+    'dxStd',                [0.01;0.01;0.01],...  % odo linear error std
+    'daStd',                [0.1;0.1;.1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % ODOMETRY EXAMPLE
 %     'id',                   2,...           % robot identifier
@@ -108,9 +108,9 @@ Sensor{1} = struct(...
     'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
-    'imageSize',            [400;300],...   % image size
-    'pixErrorStd',          0.5,...         % pixel error std
-    'intrinsic',            [200;150;240;240],... % intrinsic params
+    'imageSize',            [480;360],...   % image size
+    'pixErrorStd',          1.0,...         % pixel error std
+    'intrinsic',            [240;180;240;240],... % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 
@@ -148,11 +148,11 @@ EstOpt = struct(...
     'random',               true,...        % use true random generator?
     'fixedRandomSeed',      1,...           % random seed for non-random runs
     'map',                  struct(...      % options for the map
-        'num3dLmks',        100),...        % number of 3d landmarks
+        'num3dLmks',        200),...        % number of 3d landmarks
     'correct',              struct(...      % options for lmk correction
-        'reprojectLmks',    false,...       % reproject lmks after active search?
+        'reprojectLmks',    true,...       % reproject lmks after active search?
         'warpMethod',       'jacobian',...  % patch warping method
-        'nUpdates',         4,...           % max simultaneus updates
+        'nUpdates',         5,...           % max simultaneus updates
         'MD2th',            9,...           % Threshold on Mahalanobis distance
         'linTestTh',        0.1),...        % threshold on IDP linearity test
     'init',                 struct(...      % Options for initialization

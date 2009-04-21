@@ -186,9 +186,9 @@ FigOpt = struct(...
         'label',         'y'),...
     'figSize',           struct(...
         'map',           [320 240],...   % map figure size
-        'sen',           [320 240]));    % sensor figure size
+        'sen',           [320 240],...   % sensor figure size
     'video',             struct(...      % video options
-        'createVideo',       false);     % create video sequence?
+        'createVideo',       false)));     % create video sequence?
 
 
 % Estimation options 

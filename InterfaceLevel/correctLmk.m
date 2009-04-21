@@ -10,22 +10,30 @@ lr = Lmk.state.r ;        % lmk range in Map
 
 % Rob-Sen-Lmk range and Jacobian
 if Sen.frameInMap
-    rslr = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
-    jac  = [Obs.Jac];
-    Hrsl = [jac.E_r jac.E_s jac.E_l];
-    
+    rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
+    H_rsl = [Obs.Jac.E_r Obs.Jac.E_s Obs.Jac.E_l];
+
 else
-    rslr = [Rob.frame.r ; lr]; % range of robot and landmark
-    jac  = [Obs.Jac];
-    Hrsl = [jac.E_r jac.E_l];
+    rslr  = [Rob.frame.r ; lr]; % range of robot and landmark
+    H_rsl = [Obs.Jac.E_r Obs.Jac.E_l];
 end
 
-Pxrsl = Map.P(Map.used,rslr);
+P_xrsl = Map.P(Map.used,rslr);
 
-K     = Pxrsl*Hrsl'*Obs.inn.iZ;
+K      = P_xrsl*H_rsl'*Obs.inn.iZ;
+
+% FIXME: remove this
+lr = Lmk.state.r;
+P_LL = Map.P(lr,lr);
+
 
 Map.x(Map.used)          = Map.x(Map.used) + K*Obs.inn.z;
 Map.P(Map.used,Map.used) = Map.P(Map.used,Map.used) - K*Obs.inn.Z*K';
+
+% FIXME: remove this
+lr = Lmk.state.r;
+P_LL = Map.P(lr,lr);
+
 
 Rob = map2rob(Rob);
 Sen = map2sen(Sen);

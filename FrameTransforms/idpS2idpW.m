@@ -68,5 +68,22 @@ else
     py    = vec2py(v) ;
     idp_W = [x0 ; py ; idp_S(6)] ;
 end
-end
+
+
+return
+
+%% jac
+
+syms x0 y0 z0 p y r xr yr zr ar br cr dr xs ys zs as bs cc ds real
+Rf.x  = [xr;yr;zr;ar;br;cr;dr];
+Sf.x  = [xs;ys;zs;as;bs;cc;ds];
+Rf    = updateFrame(Rf);
+Sf    = updateFrame(Sf);
+idp_S = [x0;y0;z0;p;y;r];
+
+[idp_W, IDPWidps, IDPWrf, IDPWsf] = idpS2idpW(idp_S, Rf, Sf);
+
+simplify(IDPWidps - jacobian(idp_W,idp_S))
+simplify(IDPWrf   - jacobian(idp_W,Rf.x))
+simplify(IDPWsf   - jacobian(idp_W,Sf.x))
 

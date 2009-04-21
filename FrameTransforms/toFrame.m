@@ -56,3 +56,17 @@ else % multiple points
         error('Can''t give Jacobians for multiple points');
     end
 end
+
+return
+
+%% jacobian test
+
+syms x y z a b c d px py pz real
+F.x = [x;y;z;a;b;c;d];
+p_W = [px;py;pz];
+F   = updateFrame(F);
+
+[p_F,Tf,Tp] = toFrame(F,p_W);
+
+simplify(Tf - jacobian(p_F,F.x))
+simplify(Tp - jacobian(p_F,p_W))

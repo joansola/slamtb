@@ -59,7 +59,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
     'dx',                   [.1;0;0],...     % position increment
     'daDegrees',            [0;0;1.14],...     % angle increment, degrees
     'dxStd',                [0.01;0.01;0.01],...  % odo linear error std
-    'daStd',                [0.1;0.1;.1]);      % odo ang error std, degrees
+    'daStd',                [0.1;0.1;0.1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % ODOMETRY EXAMPLE
 %     'id',                   2,...           % robot identifier
@@ -104,7 +104,7 @@ Sensor{1} = struct(...
     'name',                 'Micropix',...  % sensor name
     'type',                 'pinHole',...   % type of sensor
     'robot',                1,...           % robot where it is mounted
-    'position',             [0;0;.6],...    % position in robot
+    'position',             [0;0.15;.6],...    % position in robot
     'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
@@ -118,7 +118,7 @@ Sensor{1} = struct(...
 %     'id',                   2,...           % sensor identifier
 %     'name',                 'Micropix',...      % sensor name
 %     'type',                 'pinHole',...   % type of sensor
-%     'robot',                2,...           % robot where it is mounted
+%     'robot',                1,...           % robot where it is mounted
 %     'position',             [0;-0.15;.6],...     % position in robot
 %     'orientationDegrees',   [-90;0;-90],...     % orientation in robot, roll pitch yaw
 %     'positionStd',          [0;0;0],...     % position error std
@@ -128,7 +128,7 @@ Sensor{1} = struct(...
 %     'intrinsic',            [320;240;300;300],...   % intrinsic params
 %     'distortion',           [],...          % distortion params
 %     'frameInMap',           false );         % add sensor frame in slam map?
-
+% 
 
 
 % Experiment options 
@@ -143,12 +143,10 @@ ExpOpt = struct(...
 
 
 % Estimation options 
-%   - random, reprojection, active search, etc
+%   - reprojection, active search, etc
 EstOpt = struct(...
-    'random',               true,...        % use true random generator?
-    'fixedRandomSeed',      1,...           % random seed for non-random runs
     'map',                  struct(...      % options for the map
-        'num3dLmks',        200),...        % number of 3d landmarks
+        'num3dLmks',        75),...        % number of 3d landmarks
     'correct',              struct(...      % options for lmk correction
         'reprojectLmks',    true,...       % reproject lmks after active search?
         'warpMethod',       'jacobian',...  % patch warping method
@@ -159,6 +157,14 @@ EstOpt = struct(...
         'idpPnt',           struct(...      % opt. for IDP init
             'nonObsMean',   0.01,...        % mean of non obs. for initialization
             'nonObsStd',    1)));           % std of non obs for initialization
+        
+% Simulation options
+%   - random
+SimOpt = struct(...                    
+    'random',               struct(...      % random generator options
+        'trueRandom',       false,...       % use true random generator?
+        'fixedRandomSeed',  1));            % random seed for non-random runs
+
 
 
 % Figure options  

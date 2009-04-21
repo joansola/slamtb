@@ -66,10 +66,16 @@ if any(vis) % Consider only visible observations
                 if Opt.correct.reprojectLmks
                     % re-project landmark for improved Jacobians
                     Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+                    Obs(lmk) = observationInnovation(Obs(lmk));
                 end
                 
+                lr = Lmk(lmk).state.r;
+                P_LL = Map.P(lr,lr);
+
                 % All EKF correct things 
                 [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+                lr = Lmk(lmk).state.r;
+                P_LL = Map.P(lr,lr);
                 
                 % Transform IDP to EUC if possible
                 [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);

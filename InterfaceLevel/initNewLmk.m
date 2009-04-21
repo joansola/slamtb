@@ -115,8 +115,8 @@ end
 end
 
 
-function [P_LL,P_LX] = getNewLmkCovs(SenFrameInMap, RobFrameR, SenFrameR, L_rf, L_sf, L_obs, L_n, R, N)
-
+function [P_LL,P_LX] = getNewLmkCovs(SenFrameInMap, RobFrameR, SenFrameR,...
+    L_rf, L_sf, L_obs, L_n, R, N)
 
 % GETNEWLMKCOVS return lmk co and cross-variance for initialization.
 %   [P_LL,P_LX] = GETNEWLMKCOVS( ...

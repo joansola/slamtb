@@ -13,25 +13,28 @@ switch Lmk.type
 
         if Ld < Opt.correct.linTestTh
 
-            ir = Lmk.state.r;
-            idp = Map.x(ir);
-            [p,P_i] = idp2p(idp);
+            % ranges
+            ir  = Lmk.state.r;  % idp
+            nir = ir(1:3);      % euclidean
+            m   = Map.used;     % map
 
-            nir=ir(1:3);
+            % point coordinates
+            idp     = Map.x(ir);   % idp
+            [p,P_i] = idp2p(idp);  % euclidean
 
-            Map.x(nir) = p;
+            % map updates
+            Map.x(nir) = p;     % mean
 
-            m = Map.used;
-
-            Map.P(nir,m) = P_i * Map.P(ir,m);
+            Map.P(nir,m) = P_i * Map.P(ir,m); % co- and cross-variances
             Map.P(m,nir) = Map.P(m,ir) * P_i';
             
-            Obs.ltype = 'eucPnt';
-
-            Lmk.type = 'eucPnt';
-            Map.used(Lmk.state.r(4:6)) = false;
-            Lmk.state.r = Lmk.state.r(1:3);
-
+            Map.used(Lmk.state.r(4:6)) = false; % used positions
+            
+            % Lmk and Obs updates
+            Lmk.state.r = nir;    % new range
+            Lmk.type  = 'eucPnt'; % new type
+            Obs.ltype = 'eucPnt'; % new type
+            
         end
 
     case 'eucPnt'

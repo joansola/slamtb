@@ -190,7 +190,6 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
     'renderer',         'zbuffer',...    % renderer
-    'ellipses',          true,...        % show 3d ellipsoids?
     'mapProj',          'persp',...      % projection of the 3d figure
     'mapView',           [30 45 40 20],...% viewpoint of the 3d figure
     'mapCol',            struct(...      % Map figure colors:

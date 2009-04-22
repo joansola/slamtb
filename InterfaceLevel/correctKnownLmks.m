@@ -71,15 +71,12 @@ if any(vis) % Consider only visible observations
                     Obs(lmk) = observationInnovation(Obs(lmk));
                 end
                 
-                % TODO: see where to put the if Obs.vis ... and the
-                % projectLmk().
-                if Obs(lmk).vis
-                    % All EKF correct things
-                    [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+                % All EKF correct things
+                [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
 
-                    % Transform IDP to EUC if possible
-                    [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
-                end
+                % Transform IDP to EUC if possible
+                [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
+
             else % obs is inconsistent - do not update
                 
                 Obs(lmk).updated = false;

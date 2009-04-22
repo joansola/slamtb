@@ -4,12 +4,12 @@ function [SimRob,SimSen,SimLmk,SimOpt] = createSimStructures(Robot,Sensor,World,
 
 
 % Random generator
-if SimOpt.random.trueRandom
-    SimOpt.random.randSeed = sum(100*clock);
-    randn('state',SimOpt.random.randSeed);
+if SimOpt.random.active
+    SimOpt.random.seed = sum(100*clock);
+    randn('state',SimOpt.random.seed);
 else
-    SimOpt.random.randSeed = SimOpt.random.fixedRandomSeed;
-    randn('state',SimOpt.random.randSeed);
+    SimOpt.random.seed = SimOpt.random.fixedSeed;
+    randn('state',SimOpt.random.seed);
 end
 
 % Create robots and controls

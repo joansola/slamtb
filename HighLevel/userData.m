@@ -70,10 +70,10 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
 %     'orientationDegrees',   [0;0;37],...     % orientation, in degrees, roll pitch yaw.
 %     'positionStd',          [0;0;0],...     % position error, std
 %     'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
-%     'dx',                   [.1;0;0],...     % position increment
-%     'daDegrees',            [0;0;1.5],...     % angle increment, degrees
-%     'dxStd',                [0.01;0;0],...  % odo linear error std
-%     'daStd',                [0;0;.1]);      % odo ang error std, degrees
+%     'dx',                   [.15;0;0],...     % position increment
+%     'daDegrees',            [0;0;1.7],...     % angle increment, degrees
+%     'dxStd',                [0.01;0.01;0.01],...  % odo linear error std
+%     'daStd',                [0.1;0.1;0.1]);      % odo ang error std, degrees
 
 % Robot{3} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %     'id',                   3,...           % robot identifier
@@ -114,43 +114,32 @@ Sensor{1} = struct(...
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 
-Sensor{2} = struct(...
-    'id',                   2,...           % sensor identifier
-    'name',                 'Micropix',...      % sensor name
-    'type',                 'pinHole',...   % type of sensor
-    'robot',                1,...           % robot where it is mounted
-    'position',             [0;-0.15;.6],...     % position in robot
-    'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
-    'positionStd',          [0;0;0],...     % position error std
-    'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
-    'imageSize',            [640;480],...   % image size
-    'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [320;240;300;300],...   % intrinsic params
-    'distortion',           [],...          % distortion params
-    'frameInMap',           true );         % add sensor frame in slam map?
+% Sensor{2} = struct(...
+%     'id',                   2,...           % sensor identifier
+%     'name',                 'Micropix',...      % sensor name
+%     'type',                 'pinHole',...   % type of sensor
+%     'robot',                1,...           % robot where it is mounted
+%     'position',             [0;-0.15;.6],...     % position in robot
+%     'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
+%     'positionStd',          [0;0;0],...     % position error std
+%     'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
+%     'imageSize',            [640;480],...   % image size
+%     'pixErrorStd',          1.0,...         % pixel error std
+%     'intrinsic',            [320;240;500;500],...   % intrinsic params
+%     'distortion',           [],...          % distortion params
+%     'frameInMap',           true );         % add sensor frame in slam map?
 
-
-
-% Experiment options 
-%   - site name, series gathered, estimation run number 
-ExpOpt = struct(...
-    'site',                 'sitename',...  % Name of the site
-    'dataRun',              1,...           % Run # on this site
-    'estimateRun',          1,...           % slam run for data and site
-    'lmkTypes',             'idp',...       % types of landmarks used
-    'sensingType',          'mono',...      % sensing mode
-    'mappingType',          'single');      % mapping mode
 
 
 % Estimation options 
 %   - reprojection, active search, etc
-EstOpt = struct(...
+Opt = struct(...
     'map',                  struct(...      % options for the map
         'num3dLmks',        75),...        % number of 3d landmarks
     'correct',              struct(...      % options for lmk correction
         'reprojectLmks',    true,...       % reproject lmks after active search?
         'warpMethod',       'jacobian',...  % patch warping method
-        'nUpdates',         5,...           % max simultaneus updates
+        'nUpdates',         10,...           % max simultaneus updates
         'MD2th',            9,...           % Threshold on Mahalanobis distance
         'linTestTh',        0.1),...        % threshold on IDP linearity test
     'init',                 struct(...      % Options for initialization
@@ -162,8 +151,9 @@ EstOpt = struct(...
 %   - random
 SimOpt = struct(...                    
     'random',               struct(...      % random generator options
-        'trueRandom',       false,...       % use true random generator?
-        'fixedRandomSeed',  1));            % random seed for non-random runs
+        'active',           false,...       % use true random generator?
+        'fixedSeed',        1,...           % random seed for non-random runs
+        'seed',             0));            % actual seed
 
 
 
@@ -201,5 +191,16 @@ FigOpt = struct(...
         'sen',           [320 240],...   % sensor figure size
     'video',             struct(...      % video options
         'createVideo',       false)));     % create video sequence?
+
+
+% Experiment options 
+%   - site name, series gathered, estimation run number 
+ExpOpt = struct(...
+    'site',                 'sitename',...  % Name of the site
+    'dataRun',              1,...           % Run # on this site
+    'estimateRun',          1,...           % slam run for data and site
+    'lmkTypes',             'idp',...       % types of landmarks used
+    'sensingType',          'mono',...      % sensing mode
+    'mappingType',          'single');      % mapping mode
 
 

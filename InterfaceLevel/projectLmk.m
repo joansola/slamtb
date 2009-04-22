@@ -82,26 +82,24 @@ Obs.lid     = Lmk.id ;
 Obs.ltype   = Lmk.type ;
 Obs.vis     = vis ;
 
-if vis
-    % Rob-Sen-Lmk range and Jacobian
-    if Sen.frameInMap
-        rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
-        E_rsl = [E_rf E_sf E_l];
-    else
-        rslr  = [Rob.frame.r ; lr];               % range of robot and landmark
-        E_rsl = [E_rf E_l];
-    end
-
-    % Expectation covariances matrix
-    E = E_rsl*Map.P(rslr,rslr)*E_rsl' ;
-
-    % update the Obs structure
-    Obs.meas.R  = R ;
-    Obs.exp.e   = e ;
-    Obs.exp.E   = E ;
-    Obs.exp.um  = det(E);  % uncertainty measure proportional to ellipsoid area
-    Obs.Jac.E_r = E_rf;
-    Obs.Jac.E_s = E_sf;
-    Obs.Jac.E_l = E_l;
-    %                 Obs.app.pred = Lmk.sig; %% TODO: app.curr in better way
+% Rob-Sen-Lmk range and Jacobian
+if Sen.frameInMap
+    rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
+    E_rsl = [E_rf E_sf E_l];
+else
+    rslr  = [Rob.frame.r ; lr];               % range of robot and landmark
+    E_rsl = [E_rf E_l];
 end
+
+% Expectation covariances matrix
+E = E_rsl*Map.P(rslr,rslr)*E_rsl' ;
+
+% update the Obs structure
+Obs.meas.R  = R ;
+Obs.exp.e   = e ;
+Obs.exp.E   = E ;
+Obs.exp.um  = det(E);  % uncertainty measure proportional to ellipsoid area
+Obs.Jac.E_r = E_rf;
+Obs.Jac.E_s = E_sf;
+Obs.Jac.E_l = E_l;
+%                 Obs.app.pred = Lmk.sig; %% TODO: app.curr in better way

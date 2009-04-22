@@ -2,7 +2,7 @@ function [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 
 %  CORRECTKNOWNLMKS  Correct known landmarks.
 %    [ROB,OBS] = correctKnownLmks(ROB, SEN, RAW, LMK, OBS) returns the new
-%    robot, and the modified observation after some updates wrt landmark
+%    robot, and the modified observation after some updates with landmark
 %    observations OBS.
 %       ROB:  the robot
 %       Sen:  the sensor

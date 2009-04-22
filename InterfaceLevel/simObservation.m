@@ -1,13 +1,15 @@
 function  Raw = simObservation(SimRob, SimSen, SimLmk)
 
-% SIMOBSERVATION  Simulated observation.
-%   RAW = SIMOBSERVATION(ROB, SEN, OBS, SIMLMK) returns the Observation for
-%   the robot ROB with the sensor SEN into the structure OBS for the
-%   landmarks SIMLMK.
+% SIMOBSERVATION Observe simulated landmarks.
+%   RAW = SIMOBSERVATION(SIMROB,SIMSEN,SIMLMK) returns the raw data
+%   captured for the sensor.
+%       SIMROB: simulated robot structure 
+%       SIMSEN: simulated sensor strucure
+%       SIMLMK: simulated landmarks strucure
 %
-%   ROB is a structure containing the robot. SEN is a structure containing
-%   the sensor. OBS is a structure containing the observation.
-%
+%   See also SIMMOTION PROJEUCPNTINTOPINHOLEONROB
+
+%   (c) 2009 David Marquez @ LAAS-CNRS.
 
 Raw.type = 'simu';
 

@@ -1,6 +1,6 @@
 function Rob = motion(Rob, Tim)
 %MOTION Robot motion.
-%   Rob = MOTION(Rob, Tim) performs one EKF-prediction motion step to robot
+%   ROB = MOTION(ROB, TIM) performs one EKF-prediction motion step to robot
 %   Rob in the global map Map, following the motion model in Rob.motion.
 %   Both Rob and Map are updated. The time information Tim is used only if
 %   the motion model requires it, but it has to be provided because MOTION
@@ -13,40 +13,39 @@ function Rob = motion(Rob, Tim)
 %
 %   See also SIMMOTION, CONSTVEL, ODO3, UPDATEFRAME.
 
+%   (c) 2009 David Marquez @ LAAS-CNRS.
+
 global Map
 
 % robot state range
 r = Rob.state.r;
 
 switch Rob.motion
-
+    
     % const velocity
     case  {'constVel'}
-
+        
         % motion model of the robot: mean and Jacobians
         [Map.x(r), F_x, F_u] = constVel(Map.x(r),Rob.con.u,Tim.dt);
         
         % update Rob and Map structures - mean only
         Rob = map2rob(Rob);
-%         Rob.frame.x = Map.x(Rob.frame.r);
-%         Rob.vel.x   = Map.x(Rob.vel.r);
-%         Rob.frame   = updateFrame(Rob.frame);
-
+        
         % 3D odometry:
     case  {'odometry'}
-
+        
         % motion model of the robot: mean and Jacobians
         [Rob.frame, F_x, F_u]   = odo3(Rob.frame,Rob.con.u);
-
+        
         % update Rob and Map structures - mean only
         Map.x(Rob.frame.r) = Rob.frame.x;
-
-        % new motion model
-    % case {'myModel'} <-- uncomment
+        
+        % New motion model
+        % case {'myModel'} <-- uncomment
         % YOU: enter your model code here.
-
+        
     otherwise
-
+        
         error('??? Unknown motion model ''%s''.',Rob.motion);
 end
 

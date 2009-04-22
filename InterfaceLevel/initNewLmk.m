@@ -11,35 +11,33 @@ function [Lmk,Obs] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 %   Finally, we can have a mean and a variance-covariance estimation for
 %   the new landmark state.
 %
+%   See also GETNEWLMKCOVS
 
-%   Copyright 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
-
-
-% test if there is space in Lmk for a new lmk
-% usedLmks = [Lmk.used];
-% idps     = strcmp({Lmk.type},'idpPnt'); % We consider only new IdpPnt for
-% frees    = idps & ~usedLmks;            %    initialization here
+%   (c) 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
 
 r = newRange(6);
 
 if numel(r) == 6   % there is space in Map
-
+    
     % index to first free Idp lmk
     lmk = newLmk(Lmk);
-
+    
     switch Raw.type
         case {'simu'}
-            [y, R, newId] = simDetectFeature([Lmk([Lmk.used]).id],Raw.data,Sen.par.pixCov);
+            [y, R, newId] = simDetectFeature(...
+                [Lmk([Lmk.used]).id],...
+                Raw.data,Sen.par.pixCov);
+            
             app           = newId;
-
+            
         case {'real'}
             % NYI : Not Yet Implemented
             %[y,R,newId] = detectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
             error('??? Unknown Raw type. ''real'': NYI.');
     end
-
+    
     if ~isempty(y)  % a feature was detected --> initialize it in IDP
-
+        
         % fill Obs struct before continuing
         Obs(lmk).sen      = Sen.sen;
         Obs(lmk).lmk      = lmk;
@@ -58,12 +56,12 @@ if numel(r) == 6   % there is space in Map
         Obs(lmk).measured = true;
         Obs(lmk).matched  = true;
         Obs(lmk).updated  = true;
-
+        
         switch Sen.type
-
+            
             % camera pinHole
             case {'pinHole'}
-
+                
                 % INIT LMK OF TYPE: IDP
                 [l, L_rf, L_sf, L_sk, L_sd, L_obs, L_n] = ...
                     retroProjIdpPntFromPinHoleOnRob( ...
@@ -75,19 +73,19 @@ if numel(r) == 6   % there is space in Map
                     Opt.init.idpPnt.nonObsMean) ;
                 
                 N = Opt.init.idpPnt.nonObsStd^2 ;
-
+                
                 % case ...
                 % non-measurable covariance template:
                 % N = [] ;
                 % L_n = zeros(0,length(find(Map.used))) ;
-
+                
             otherwise % -- Sen.type
-
+                
                 % Print an error and exit
                 error('??? Unknown sensor type. ''% s''.',Sen.type);
-
+                
         end % -- Sen.type
-
+        
         % get new Lmk, covariance and cross-variance.
         [P_LL,P_LX] = getNewLmkCovs( ...
             Sen.frameInMap, ...
@@ -99,10 +97,10 @@ if numel(r) == 6   % there is space in Map
             L_n, ...
             R, ...
             N) ;
-
+        
         % add to Map and get lmk range in Map
         Lmk(lmk).state.r = addToMap(l,P_LL,P_LX);
-
+        
         % Fill Lmk structure before exit
         Lmk(lmk).lmk     = lmk;
         Lmk(lmk).id      = newId;
@@ -148,12 +146,9 @@ function [P_LL,P_LX] = getNewLmkCovs(SenFrameInMap, RobFrameR, SenFrameR,...
 %         | P_LX  P_LL  |
 %
 
-%   (c) 2009 Jean Marie Codol @ LAAS-CNRS
-
-
+%   (c) 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
 
 global Map
-
 
 % Group all map Jacobians and ranges
 if SenFrameInMap % if the sensor frame is in the state
@@ -173,6 +168,7 @@ P_LL  = ...
     L_m   * P_MM * L_m'   + ...  % by map   cov
     L_obs * R    * L_obs' + ...  % by observation cov (for pinHole it is a pixel)
     L_n   * N    * L_n' ;        % by nom   cov
+
 P_LX = L_m*P_MX ;
 
 end

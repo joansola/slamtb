@@ -1,4 +1,13 @@
-function [y,R, newId] = simDetectFeature(lmkIds, raw, pixCov)
+function [y,R,newId] = simDetectFeature(lmkIds, raw, pixCov)
+
+%SIMDETECTFEATURE Detected feature.
+%   [Y,R,NEWID] = SIMDETECTFEATURE(LMKIDS,RAW,PIXCOV) return the
+%   coordinates Y, the covariance R and the new id NEWID of the new point,
+%   based on the simulation data.
+%
+%   See also INITNEWLMK.
+
+%   (c) 2009 DavidMarquez @ LAAS-CNRS.
 
 
 

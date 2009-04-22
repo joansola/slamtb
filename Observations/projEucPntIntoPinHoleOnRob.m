@@ -1,4 +1,3 @@
-
 function [u, s, U_r, U_s, U_k, U_d, U_l] = ...
     projEucPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, l)
 
@@ -25,33 +24,35 @@ function [u, s, U_r, U_s, U_k, U_d, U_l] = ...
 %
 %    See also PINHOLE, TOFRAME, PROJIDPPNTINTOPINHOLEONROB.
 
-if nargout <= 2 % only pixel
+%   (c) 2009 David Marquez @ LAAS-CNRS.
 
+if nargout <= 2 % only pixel
+    
     lr    = toFrame(Rf,l);
     ls    = toFrame(Sf,lr);
-
+    
     [u,s] = pinHole(ls,Spk,Spd);
-
+    
 else % Jacobians
-
+    
     if size(l,2) == 1  % single point
-
+        
         % Same functions with Jacobians
         [lr, LR_r, LR_l]   = toFrame(Rf,l);
         [ls, LS_s, LS_lr]  = toFrame(Sf,lr);
         [u,s,U_ls,U_k,U_d] = pinHole(ls,Spk,Spd);
-
+        
         % The chain rule for Jacobians
         U_lr = U_ls*LS_lr;
         U_r  = U_lr*LR_r;
         U_s  = U_ls*LS_s;
         U_l  = U_lr*LR_l;
-
+        
     else
         error('??? Jacobians not available for multiple points.')
-
+        
     end
-
+    
 end
 return
 

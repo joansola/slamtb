@@ -59,15 +59,15 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
     'dx',                   [.1;0;0],...     % position increment
     'daDegrees',            [0;0;1.14],...     % angle increment, degrees
     'dxStd',                [0.01;0.01;0.01],...  % odo linear error std
-    'daStd',                [0.2;0.2;0.2]);      % odo ang error std, degrees
+    'daStd',                [0.1;0.1;0.1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % ODOMETRY EXAMPLE
 %     'id',                   2,...           % robot identifier
 %     'name',                 'Dala',...      % robot name
 %     'type',                 'atrv',...      % type of robot
 %     'motion',               'odometry',...  % motion model
-%     'position',             [3;-4;0],...     % robot position in map
-%     'orientationDegrees',   [0;0;37],...     % orientation, in degrees, roll pitch yaw.
+%     'position',             [-4;-3;0],...   % robot position in map
+%     'orientationDegrees',   [0;0;-53],...   % orientation, in degrees, roll pitch yaw.
 %     'positionStd',          [0;0;0],...     % position error, std
 %     'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
 %     'dx',                   [.15;0;0],...     % position increment
@@ -108,17 +108,32 @@ Sensor{1} = struct(...
     'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
-    'imageSize',            [480;360],...   % image size
+    'imageSize',            [640;480],...   % image size
     'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [240;180;240;240],... % intrinsic params
+    'intrinsic',            [320;240;320;320],... % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 
-% Sensor{2} = struct(...
+Sensor{2} = struct(...
+    'id',                   2,...           % sensor identifier
+    'name',                 'Micropix',...      % sensor name
+    'type',                 'pinHole',...   % type of sensor
+    'robot',                1,...           % robot where it is mounted
+    'position',             [0;-0.15;.6],...     % position in robot
+    'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
+    'positionStd',          [0;0;0],...     % position error std
+    'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
+    'imageSize',            [640;480],...   % image size
+    'pixErrorStd',          1.0,...         % pixel error std
+    'intrinsic',            [320;240;320;320],... % intrinsic params
+    'distortion',           [],...          % distortion params
+    'frameInMap',           false);         % add sensor frame in slam map?
+
+% Sensor{3} = struct(...
 %     'id',                   2,...           % sensor identifier
 %     'name',                 'Micropix',...      % sensor name
 %     'type',                 'pinHole',...   % type of sensor
-%     'robot',                1,...           % robot where it is mounted
+%     'robot',                2,...           % robot where it is mounted
 %     'position',             [0;-0.15;.6],...     % position in robot
 %     'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
 %     'positionStd',          [0;0;0],...     % position error std
@@ -131,6 +146,7 @@ Sensor{1} = struct(...
 
 
 
+
 % Estimation options 
 %   - reprojection, active search, etc
 Opt = struct(...
@@ -138,7 +154,6 @@ Opt = struct(...
         'num3dLmks',        75),...        % number of 3d landmarks
     'correct',              struct(...      % options for lmk correction
         'reprojectLmks',    true,...       % reproject lmks after active search?
-        'warpMethod',       'jacobian',...  % patch warping method
         'nUpdates',         10,...           % max simultaneus updates
         'MD2th',            9,...           % Threshold on Mahalanobis distance
         'linTestTh',        0.1),...        % threshold on IDP linearity test
@@ -151,7 +166,7 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
     'random',               struct(...      % random generator options
-        'active',           false,...       % use true random generator?
+        'active',           true,...       % use true random generator?
         'fixedSeed',        1,...           % random seed for non-random runs
         'seed',             0));            % actual seed
 
@@ -177,20 +192,27 @@ FigOpt = struct(...
     'renderer',         'zbuffer',...    % renderer
     'ellipses',          true,...        % show 3d ellipsoids?
     'mapProj',          'persp',...      % projection of the 3d figure
-    'mapView',           [0 90 40 20],...% viewpoint of the 3d figure
-    'colors',            struct(...      % Colors:
+    'mapView',           [30 45 40 20],...% viewpoint of the 3d figure
+    'mapCol',            struct(...      % Map figure colors:
+        'border',        [1 1 1],...  %   [r g b]      
+        'axes',          [0 0 0],...     % with:
+        'bckgnd',        [1 1 1],...  %   [0 0 0] black
+        'raw',           .1*[1 1 1],...  %   or 'r', 'b', etc.
+        'simu',          'g',...         %   
+        'est',           'b',...
+        'ground',        [.8 .8 .8],...
+        'label',         [.0 .5 0]),...
+    'senCol',            struct(...      % Sensor figure colors:
         'border',        .8*[1 1 1],...  %   [r g b]      
         'axes',          [0 0 0],...     % with:
-        'backgnd',       .6*[1 1 1],...  %   [0 0 0] black
-        'raw',           .2*[1 1 1],...  %   [1 1 1] white
-        'simu',          'g',...         %   or 'r', 'b', etc.
-        'est',           'b',...
-        'label',         'y'),...
+        'bckgnd',        [1 1 1],...  %   [1 1 1] white
+        'raw',           .1*[1 1 1],...  %   or 'r', 'b', etc.
+        'label',         .5*[1 1 1]),...
     'figSize',           struct(...
         'map',           [320 240],...   % map figure size
         'sen',           [320 240],...   % sensor figure size
     'video',             struct(...      % video options
-        'createVideo',       false)));     % create video sequence?
+        'createVideo',   false)));       % create video sequence?
 
 
 % Experiment options 

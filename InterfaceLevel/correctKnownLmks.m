@@ -1,16 +1,17 @@
 function [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 
 %  CORRECTKNOWNLMKS  Correct known landmarks.
-%    [ROB,OBS] = correctKnownLmks(ROB, SEN, RAW, LMK, OBS) returns the new
+%    [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt) returns the new
 %    robot, and the modified observation after some updates with landmark
 %    observations OBS.
-%       ROB:  the robot
+%       Rob:  the robot
 %       Sen:  the sensor
 %       Raw:  the raw datas issues from SEN
-%       LMK:  the set of landmarks
-%       OBS:  the observation structure for the sensor SEN
+%       Lmk:  the set of landmarks
+%       Obs:  the observation structure for the sensor SEN
+%       Opt:  the algorithm options
 %
-%   TODO: help.
+%    TODO: help.
 %
 %    See also PROJECTLMK, PROJEUCPNTINTOPINHOLEONROB, IDP2P.
 
@@ -57,6 +58,13 @@ if any(vis) % Consider only visible observations
         if Obs(lmk).matched
         
             % 4. COMPUTE INNOVATIONS
+            Rob = map2rob(Rob);
+            Sen = map2sen(Sen);
+            if Opt.correct.reprojectLmks
+
+                % re-project landmark for improved Jacobians
+                Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+            end
             Obs(lmk) = observationInnovation(Obs(lmk));
 
             % 5. TEST CONSISTENCE
@@ -65,11 +73,6 @@ if any(vis) % Consider only visible observations
                 % TODO: see where to put the if Obs.vis ... and the
                 % projectLmk().
                 % 6. CORRECT EKF
-                if Opt.correct.reprojectLmks
-                    % re-project landmark for improved Jacobians
-                    Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
-                    Obs(lmk) = observationInnovation(Obs(lmk));
-                end
                 
                 % All EKF correct things
                 [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));

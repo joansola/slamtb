@@ -15,6 +15,11 @@ function [Lmk,Obs] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 
 %   (c) 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
 
+% 0. UPDATE ROB AND SEN INFO FROM MAP
+Rob = map2rob(Rob);
+Sen = map2sen(Sen);
+
+
 r = newRange(6);
 
 if numel(r) == 6   % there is space in Map

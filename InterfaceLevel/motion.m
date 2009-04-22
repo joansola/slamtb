@@ -17,6 +17,9 @@ function Rob = motion(Rob, Tim)
 
 global Map
 
+% Update rob and sen info from map
+Rob = map2rob(Rob);
+
 % robot state range
 r = Rob.state.r;
 

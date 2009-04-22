@@ -25,6 +25,8 @@ switch SimSen.type
         
         Raw.data.points(:, ~vis)  = [];
         Raw.data.appearance(~vis) = [];
+        
+%         Raw.data.points = Raw.data.points + SimSen.par.pixCov*randn(size(Raw.data.points));
         % unknown
         % -------
     otherwise

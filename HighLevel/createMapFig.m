@@ -1,4 +1,4 @@
-function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigureOptions)
+function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigOpt)
 
 % CREATEMAPFIG  Create 3D map figure and handles.
 %   MAPFIG = CREATEMAPFIG(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,MapFigure)
@@ -39,7 +39,7 @@ if ishandle(99)
 else
     MapFig.fig = figure(99);
     figPos     = get(MapFig.fig,'position');
-    figSize    = FigureOptions.figSize.map;
+    figSize    = FigOpt.figSize.map;
     newFigPos  = [figPos(1:2)  figSize];
     set(MapFig.fig,'position',newFigPos);
 end
@@ -50,14 +50,14 @@ set(MapFig.fig,...
     'numbertitle', 'off',...
     'name',        '3D Map',...
     'doublebuffer','on',...
-    'renderer',    FigureOptions.renderer,...
+    'renderer',    FigOpt.renderer,...
     'toolbar',     'none',...
-    'color',       FigureOptions.colors.backgnd);
+    'color',       FigOpt.mapCol.bckgnd);
 cameratoolbar('show');
 cameratoolbar('setmode','orbit');
 
 % Map viewpoint
-viewPnt = mapObserver(SimLmk,FigureOptions.mapView);
+viewPnt = mapObserver(SimLmk,FigOpt.mapView);
 
 % Axes
 axis equal
@@ -67,7 +67,7 @@ set(MapFig.axes,...
     'position',           [ 0 0 1 1],...
     'drawmode',           'fast',...
     'nextplot',           'replacechildren',...
-    'projection',         FigureOptions.mapProj,...
+    'projection',         FigOpt.mapProj,...
     'CameraPosition',     viewPnt.X,...
     'CameraPositionMode', 'manual',...
     'CameraUpVector',     viewPnt.upvec,...
@@ -79,26 +79,26 @@ set(MapFig.axes,...
     'xlim',               [SimLmk.lims.xMin SimLmk.lims.xMax],...
     'ylim',               [SimLmk.lims.yMin SimLmk.lims.yMax],...
     'zlim',               [SimLmk.lims.zMin SimLmk.lims.zMax],...
-    'xcolor',             FigureOptions.colors.backgnd,...
-    'ycolor',             FigureOptions.colors.backgnd,...
-    'zcolor',             FigureOptions.colors.backgnd,...
-    'color' ,             FigureOptions.colors.backgnd);
+    'xcolor',             FigOpt.mapCol.bckgnd,...
+    'ycolor',             FigOpt.mapCol.bckgnd,...
+    'zcolor',             FigOpt.mapCol.bckgnd,...
+    'color' ,             FigOpt.mapCol.bckgnd);
 
 % SIMULATED OBJECTS
 % Ground
-MapFig.ground = createGround(SimLmk,MapFig.axes);
+MapFig.ground = createGround(SimLmk,MapFig.axes,FigOpt.mapCol.ground);
 
 % Robots
 for rob = 1:numel(SimRob)
 
     % create and draw robot
-    MapFig.simRob(rob) = createObjPatch(SimRob(rob),FigureOptions.colors.simu,MapFig.axes);
+    MapFig.simRob(rob) = createObjPatch(SimRob(rob),FigOpt.mapCol.simu,MapFig.axes);
 
     % Sensors
     for sen = SimRob(rob).sensors
 
         % create and draw sensor
-        MapFig.simSen(sen) = createObjPatch(SimSen(sen),FigureOptions.colors.simu,MapFig.axes);
+        MapFig.simSen(sen) = createObjPatch(SimSen(sen),FigOpt.mapCol.simu,MapFig.axes);
         
         % redraw sensor in robot frame
         F = composeFrames(SimRob(rob).frame,SimSen(sen).frame);
@@ -108,7 +108,7 @@ end
 
 
 % landmarks - do not loop, draw all at once
-MapFig.simLmk = createSimLmkGraphics(SimLmk,FigureOptions.colors.raw,MapFig.axes);
+MapFig.simLmk = createSimLmkGraphics(SimLmk,FigOpt.mapCol.raw,MapFig.axes);
 
 
 % ESTIMATED OBJECTS
@@ -116,13 +116,13 @@ MapFig.simLmk = createSimLmkGraphics(SimLmk,FigureOptions.colors.raw,MapFig.axes
 for rob = 1:numel(Rob)
 
     % create and draw robot
-    MapFig.estRob(rob) = createObjPatch(Rob(rob),FigureOptions.colors.est,MapFig.axes);
+    MapFig.estRob(rob) = createObjPatch(Rob(rob),FigOpt.mapCol.est,MapFig.axes);
 
     % sensors
     for sen = Rob(rob).sensors
 
         % create and draw sensor
-        MapFig.estSen(sen) = createObjPatch(Sen(sen),FigureOptions.colors.est,MapFig.axes);
+        MapFig.estSen(sen) = createObjPatch(Sen(sen),FigOpt.mapCol.est,MapFig.axes);
         
         % redraw sensor in robot frame
         F = composeFrames(Rob(rob).frame,Sen(sen).frame);
@@ -135,6 +135,6 @@ end
 % landmarks
 for lmk = 1:numel(Lmk)
 
-    MapFig.estLmk(lmk) = createLmkGraphics(Lmk(lmk),FigureOptions.colors.label,MapFig.axes);
+    MapFig.estLmk(lmk) = createLmkGraphics(Lmk(lmk),FigOpt.mapCol.label,MapFig.axes);
 
 end

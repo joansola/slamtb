@@ -24,6 +24,7 @@ function Obs = projectLmk(Rob,Sen,Lmk,Obs)
 
 global Map
 
+
 % get landmark range and mean
 lr = Lmk.state.r ;        % lmk range in Map
 l  = Map.x(lr) ;               % lmk mean

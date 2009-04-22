@@ -144,6 +144,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     
     % Do draw all objects
     drawnow;
+    
+    imgFrame(MapFig.fig,sprintf('fig%03d.png',currentFrame));
 
 
     % 4. DATA LOGGING

@@ -133,7 +133,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Figure of the Map:
-    drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
+    drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen, FigOpt);
     
     if FigOpt.createVideo
         imgFrame(MapFig.fig,sprintf('map%03d.png',currentFrame));

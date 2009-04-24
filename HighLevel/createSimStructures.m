@@ -9,8 +9,8 @@ if SimOpt.random.active
     randn('state',SimOpt.random.seed);
     fprintf('Random seed: %6.0f.\n',SimOpt.random.seed)
     disp('To repeat this run, edit userData.m,')
-    disp('   set SimOpt.random.active to ''true'',')
-    disp('   and add this seed to SimOpt.random.fixedSeed.')
+    disp('   add this seed to SimOpt.random.fixedSeed,')
+    disp('   and set SimOpt.random.active to ''true''.')
 else
     SimOpt.random.seed = SimOpt.random.fixedSeed;
     randn('state',SimOpt.random.seed);

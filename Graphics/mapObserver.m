@@ -47,6 +47,12 @@ if isa(mapView,'char')
             el = 60;
             fov = 40;
             rd = max([world.dims.l,world.dims.w,world.dims.h]);
+        case 'self'
+            % d. self
+            az = 41;
+            el = 60;
+            fov = 90;
+            rd = max([world.dims.l,world.dims.w,world.dims.h]);
         otherwise
             az = 0;
             el = 25;

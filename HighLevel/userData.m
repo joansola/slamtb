@@ -88,7 +88,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
 %     'angularVelDegrees',    [0;0;10],...    % ang. velocity, in degrees
 %     'velStd',               [0;0;0],...     % lin. vel. error, std
 %     'angVelStd',            [0;0;0],...     % ang. vel. error, std, degrees
-%     'dv',                   [1;0;0],...     % veolcity increment
+%     'dv',                   [0;0;0],...     % veolcity increment
 %     'dwDegrees',            [0;0;0],...     % ang. vel. increment, degrees
 %     'dvStd',                [0;0;0],...     % vel perturbation std
 %     'dwStd',                [0;0;1]);       % ang vel pert. std, degrees
@@ -114,20 +114,35 @@ Sensor{1} = struct(...
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 
-Sensor{2} = struct(...
-    'id',                   2,...           % sensor identifier
-    'name',                 'Micropix',...      % sensor name
-    'type',                 'pinHole',...   % type of sensor
-    'robot',                1,...           % robot where it is mounted
-    'position',             [0;-0.15;.6],...     % position in robot
-    'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
-    'positionStd',          [0;0;0],...     % position error std
-    'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
-    'imageSize',            [640;480],...   % image size
-    'pixErrorStd',          2.0,...         % pixel error std
-    'intrinsic',            [320;240;320;320],... % intrinsic params
-    'distortion',           [],...          % distortion params
-    'frameInMap',           false);         % add sensor frame in slam map?
+% Sensor{2} = struct(...
+%     'id',                   2,...           % sensor identifier
+%     'name',                 'Micropix',...      % sensor name
+%     'type',                 'pinHole',...   % type of sensor
+%     'robot',                1,...           % robot where it is mounted
+%     'position',             [0;-0.15;.6],...     % position in robot
+%     'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
+%     'positionStd',          [0;0;0],...     % position error std
+%     'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
+%     'imageSize',            [640;480],...   % image size
+%     'pixErrorStd',          2.0,...         % pixel error std
+%     'intrinsic',            [320;240;320;320],... % intrinsic params
+%     'distortion',           [],...          % distortion params
+%     'frameInMap',           false);         % add sensor frame in slam map?
+
+% Sensor{3} = struct(...
+%     'id',                   2,...           % sensor identifier
+%     'name',                 'Micropix',...      % sensor name
+%     'type',                 'pinHole',...   % type of sensor
+%     'robot',                1,...           % robot where it is mounted
+%     'position',             [0;0;.8],...     % position in robot
+%     'orientationDegrees',   [-90;0;0],...      % orientation in robot, roll pitch yaw
+%     'positionStd',          [0;0;0],...     % position error std
+%     'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
+%     'imageSize',            [640;480],...   % image size
+%     'pixErrorStd',          1.0,...         % pixel error std
+%     'intrinsic',            [320;240;500;500],...   % intrinsic params
+%     'distortion',           [],...          % distortion params
+%     'frameInMap',           true );         % add sensor frame in slam map?
 
 % Sensor{3} = struct(...
 %     'id',                   2,...           % sensor identifier
@@ -154,7 +169,7 @@ Opt = struct(...
         'num3dLmks',        75),...        % number of 3d landmarks
     'correct',              struct(...      % options for lmk correction
         'reprojectLmks',    true,...       % reproject lmks after active search?
-        'nUpdates',         10,...           % max simultaneus updates
+        'nUpdates',         6,...           % max simultaneus updates
         'MD2th',            9,...           % Threshold on Mahalanobis distance
         'linTestTh',        0.1),...        % threshold on IDP linearity test
     'init',                 struct(...      % Options for initialization
@@ -189,29 +204,29 @@ SimOpt = struct(...
 %       'rgbcmykw'  1-char predifined Matlab colors
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
-    'renderer',         'zbuffer',...    % renderer
-    'mapProj',          'persp',...      % projection of the 3d figure
-    'mapView',           [30 45 40 20],...% viewpoint of the 3d figure
-    'mapCol',            struct(...      % Map figure colors:
-        'border',        [1 1 1],...  %   [r g b]      
-        'axes',          [0 0 0],...     % with:
-        'bckgnd',        [1 1 1],...  %   [0 0 0] black
-        'raw',           .1*[1 1 1],...  %   or 'r', 'b', etc.
-        'simu',          'g',...         %   
-        'est',           'b',...
-        'ground',        [.8 .8 .8],...
-        'label',         [.0 .5 0]),...
-    'senCol',            struct(...      % Sensor figure colors:
-        'border',        .8*[1 1 1],...  %   [r g b]      
-        'axes',          [0 0 0],...     % with:
-        'bckgnd',        [1 1 1],...  %   [1 1 1] white
-        'raw',           .1*[1 1 1],...  %   or 'r', 'b', etc.
-        'label',         .5*[1 1 1]),...
-    'figSize',           struct(...
-        'map',           [320 240],...   % map figure size
-        'sen',           [320 240],...   % sensor figure size
-    'video',             struct(...      % video options
-        'createVideo',   false)));       % create video sequence?
+    'renderer',         'opengl',...    % renderer
+    'createVideo',      false,...       % create video sequence?
+    'map',              struct(...      % map figure options
+        'proj',         'persp',...     % projection of the 3d figure
+        'view',         [30 45 40 20],...% viewpoint of the 3d figure
+        'size',         [320 240],...   % map figure size
+        'colors',       struct(...      % map figure colors
+            'border',   [1 1 1],...     %   [r g b]      
+            'axes',     [0 0 0],...     % with:
+            'bckgnd',   [1 1 1],...     %   [0 0 0] black
+            'simLmks',  .1*[1 1 1],...  %   [1 1 1] white
+            'simu',     'g',...         %   or 'r', 'b', etc.   
+            'est',      'b',...         % estimated robots and sensors
+            'ground',   [.8 .8 .8],...  % simulated robots and sensors
+            'label',    [.0 .5 0])),... % landmark ID labels
+    'sensor',           struct(...      % sensor figures options
+        'size',         [320 240],...   % sensor figure size
+        'colors',       struct(...      % Sensor figure colors:
+            'border',   .8*[1 1 1],...  %    
+            'axes',     [0 0 0],...     % 
+            'bckgnd',   [1 1 1],...     %
+            'raw',      .1*[1 1 1],...  % 
+            'label',    .5*[1 1 1])));  %
 
 
 % Experiment options 

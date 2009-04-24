@@ -134,14 +134,19 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
     % Figure of the Map:
     drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen);
-    imgFrame(MapFig.fig,sprintf('fig%03d.png',currentFrame));
+    
+    if FigOpt.createVideo
+        imgFrame(MapFig.fig,sprintf('map%03d.png',currentFrame));
+    end
 
     % Figures for all sensors
     for sen = [Sen.sen]
         
         drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:));
-        imgFrame(SenFig(sen).fig,sprintf('sen%d-%03d.png',sen,currentFrame));
-    
+        
+        if FigOpt.createVideo
+            imgFrame(SenFig(sen).fig,sprintf('sen%d-%03d.png',sen,currentFrame));
+        end
     end
     
     % Do draw all objects

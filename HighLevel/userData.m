@@ -109,25 +109,25 @@ Sensor{1} = struct(...
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std
     'imageSize',            [640;480],...   % image size
-    'pixErrorStd',          2.0,...         % pixel error std
+    'pixErrorStd',          1.0,...         % pixel error std
     'intrinsic',            [320;240;320;320],... % intrinsic params
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 
-Sensor{2} = struct(...
-    'id',                   2,...           % sensor identifier
-    'name',                 'Micropix',...      % sensor name
-    'type',                 'pinHole',...   % type of sensor
-    'robot',                1,...           % robot where it is mounted
-    'position',             [0;-0.15;.6],...     % position in robot
-    'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
-    'positionStd',          [0;0;0],...     % position error std
-    'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
-    'imageSize',            [640;480],...   % image size
-    'pixErrorStd',          2.0,...         % pixel error std
-    'intrinsic',            [320;240;320;320],... % intrinsic params
-    'distortion',           [],...          % distortion params
-    'frameInMap',           false);         % add sensor frame in slam map?
+% Sensor{2} = struct(...
+%     'id',                   2,...           % sensor identifier
+%     'name',                 'Micropix',...      % sensor name
+%     'type',                 'pinHole',...   % type of sensor
+%     'robot',                1,...           % robot where it is mounted
+%     'position',             [0;-0.15;.6],...     % position in robot
+%     'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
+%     'positionStd',          [0;0;0],...     % position error std
+%     'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
+%     'imageSize',            [640;480],...   % image size
+%     'pixErrorStd',          2.0,...         % pixel error std
+%     'intrinsic',            [320;240;320;320],... % intrinsic params
+%     'distortion',           [],...          % distortion params
+%     'frameInMap',           false);         % add sensor frame in slam map?
 
 % Sensor{3} = struct(...
 %     'id',                   2,...           % sensor identifier
@@ -168,7 +168,7 @@ Opt = struct(...
     'map',                  struct(...      % options for the map
         'num3dLmks',        75),...        % number of 3d landmarks
     'correct',              struct(...      % options for lmk correction
-        'reprojectLmks',    true,...       % reproject lmks after active search?
+        'reprojectLmks',    false,...       % reproject lmks after active search?
         'nUpdates',         8,...           % max simultaneus updates
         'MD2th',            9,...           % Threshold on Mahalanobis distance
         'linTestTh',        0.1),...        % threshold on IDP linearity test
@@ -208,7 +208,7 @@ FigOpt = struct(...
     'createVideo',      false,...       % create video sequence?
     'map',              struct(...      % map figure options
         'proj',         'persp',...     % projection of the 3d figure
-        'view',         'self',...% viewpoint of the 3d figure [30 45 40 20]
+        'view',         'top',...       % viewpoint of the 3d figure [30 45 40 20]
         'size',         [320 240],...   % map figure size
         'colors',       struct(...      % map figure colors
             'border',   [1 1 1],...     %   [r g b]      
@@ -225,8 +225,8 @@ FigOpt = struct(...
             'border',   .8*[1 1 1],...  %    
             'axes',     [0 0 0],...     % 
             'bckgnd',   [1 1 1],...     %
-            'raw',      .1*[1 1 1],...  % 
-            'label',    .5*[1 1 1])));  %
+            'raw',      [0 0 0],...     % 
+            'label',    [.5 .5 .5])));  %
 
 
 % Experiment options 

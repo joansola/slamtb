@@ -43,8 +43,8 @@ if isa(mapView,'char')
             rd = max([world.dims.l,world.dims.w,world.dims.h]);
         case 'view'
             % d. view
-            az = 41;
-            el = 60;
+            az = 30;
+            el = 40;
             fov = 40;
             rd = max([world.dims.l,world.dims.w,world.dims.h]);
         case 'self'

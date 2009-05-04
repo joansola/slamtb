@@ -44,7 +44,7 @@ switch Rob.motion
         Map.x(Rob.frame.r) = Rob.frame.x;
         
         % New motion model
-        % case {'myModel'} <-- uncomment
+    % case {'myModel'} <-- uncomment
         % YOU: enter your model code here.
         
     otherwise
@@ -53,8 +53,5 @@ switch Rob.motion
 end
 
 % Covariances matrix update - this is common to all models
-m = Map.used;
+predictBlockEkf(r,F_x,Rob.con.U,F_u);
 
-Map.P(r,m) = F_x * Map.P(r,m);
-Map.P(m,r) = Map.P(m,r) * F_x';
-Map.P(r,r) = Map.P(r,r) + F_u * Rob.con.U * F_u';

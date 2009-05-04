@@ -15,8 +15,6 @@ function [Rob,Sen,Lmk,Obs] = correctLmk(Rob,Sen,Lmk,Obs)
 
 %   (c) 2009 David Marquez @ LAAS-CNRS.
 
-global Map
-
 % get landmark range
 lr = Lmk.state.r ;        % lmk range in Map
 
@@ -30,19 +28,13 @@ else
     H_rsl = [Obs.Jac.E_r Obs.Jac.E_l];
 end
 
-P_xrsl = Map.P(Map.used,rslr);
+% correct map
+correctBlockEkf(rslr,H_rsl,Obs.inn);
 
-K      = P_xrsl*H_rsl'*Obs.inn.iZ;
 
-Map.x(Map.used)          = Map.x(Map.used) + K*Obs.inn.z;
-Map.P(Map.used,Map.used) = Map.P(Map.used,Map.used) - K*Obs.inn.Z*K';
-
+% Rob and Sen synchronized with Map
 Rob = map2rob(Rob);
 Sen = map2sen(Sen);
 
+% Flags and info updates
 Obs.updated = true;
-
-
-
-
-

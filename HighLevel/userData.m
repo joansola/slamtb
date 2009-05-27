@@ -168,7 +168,7 @@ Opt = struct(...
     'map',                  struct(...      % options for the map
         'num3dLmks',        75),...        % number of 3d landmarks
     'correct',              struct(...      % options for lmk correction
-        'reprojectLmks',    false,...       % reproject lmks after active search?
+        'reprojectLmks',    true,...       % reproject lmks after active search?
         'nUpdates',         8,...           % max simultaneus updates
         'MD2th',            9,...           % Threshold on Mahalanobis distance
         'linTestTh',        0.1),...        % threshold on IDP linearity test

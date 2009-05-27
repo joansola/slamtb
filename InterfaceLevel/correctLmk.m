@@ -31,7 +31,6 @@ end
 % correct map
 correctBlockEkf(rslr,H_rsl,Obs.inn);
 
-
 % Rob and Sen synchronized with Map
 Rob = map2rob(Rob);
 Sen = map2sen(Sen);

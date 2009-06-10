@@ -110,7 +110,7 @@ Sensor{1} = struct(...
     'orientationStd',       [0;0;0],...     % orient. error std
     'imageSize',            [640;480],...   % image size
     'pixErrorStd',          1.0,...         % pixel error std
-    'intrinsic',            [320;240;320;320],... % intrinsic params
+    'intrinsic',            [320;240;320;320],... % intrinsic params [u0 v0 au av]
     'distortion',           [],...          % distortion params
     'frameInMap',           false);         % add sensor frame in slam map?
 
@@ -133,7 +133,7 @@ Sensor{2} = struct(...
 %     'id',                   2,...           % sensor identifier
 %     'name',                 'Micropix',...      % sensor name
 %     'type',                 'pinHole',...   % type of sensor
-%     'robot',                1,...           % robot where it is mounted
+%     'robot',                2,...           % robot where it is mounted
 %     'position',             [0;0;.8],...     % position in robot
 %     'orientationDegrees',   [-90;0;0],...      % orientation in robot, roll pitch yaw
 %     'positionStd',          [0;0;0],...     % position error std
@@ -181,7 +181,7 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
     'random',               struct(...      % random generator options
-        'active',           true,...       % use true random generator?
+        'active',           true,...        % use true random generator?
         'fixedSeed',        1,...           % random seed for non-random runs
         'seed',             0));            % actual seed
 

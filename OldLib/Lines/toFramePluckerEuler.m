@@ -2,7 +2,7 @@ function [L,Lt,Le,Lli] = toFramePluckerEuler(t,e,Li)
 
 % TOFRAMEPLUCKEREULER  Transform plucker line to a given frame.
 %   L = TOFRAMEPLUCKEREULER(T,E,Li) expresses in frame (T,E) the line Li
-%   originally expressed in global frame.
+%   originally expressed in global frame. E is a vector of Euler angles.
 %
 %   The formula for transformation is
 %

@@ -7,7 +7,7 @@
 %   using this toolbox.
 %
 %   Beginners should not modify this file, just edit USERDATA.M and enter
-%   the data you wish to simulate.
+%   and/or modify the data you wish to simulate.
 %
 %   More advanced users should be able to create new landmark models, new
 %   initialization methods, and possibly extensions to multi-map SLAM. Good

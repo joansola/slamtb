@@ -1,6 +1,6 @@
 function [hf,HFf,HFh] = toFrameHomo(f,h)
 
-% TOFRAMEHOMO  TO-frame transformation for homogeneous coordinates
+% TOFRAMEHOMO  To-frame transformation for homogeneous point.
 %   PF = TOFRAMEHOMO(F,P) transforms homogeneous point P from the global
 %   frame to the frame F.
 %

@@ -1,8 +1,8 @@
-function [L,Lt,Le,Lli] = toFramePluckerEuler(t,e,Li)
+function [L,Lc,Lli] = toFramePlucker(C,Li)
 
-% TOFRAMEPLUCKEREULER  Transform plucker line to a given frame.
-%   L = TOFRAMEPLUCKEREULER(T,E,Li) expresses in frame (T,E) the line Li
-%   originally expressed in global frame. E is a vector of Euler angles.
+% TOFRAMEPLUCKER  Transform plucker line to a given frame.
+%   L = TOFRAMEPLUCKER(C,Li) expresses in frame C=[t;q] the line Li
+%   originally expressed in global frame.
 %
 %   The formula for transformation is
 %
@@ -10,11 +10,14 @@ function [L,Lt,Le,Lli] = toFramePluckerEuler(t,e,Li)
 %           [ zeros(3)        Rt ] * Li
 %
 %   where 
-%       Rt    = e2R(E)'
+%       Rt    = q2R(iq)
 %      [it]_x = hat(it)
-%       it    = te2it(t,E).
+%       iq    = q2qc(q)
+%       it    = t2it(t,q)
+%       t     = C(1:3)
+%       q     = C(4:7)
 %
-%   [L,Lt,Le,Lli] = TOFRAMEPLUCKER(...) returns the Jacobians wrt T, E
+%   [L,Lc,Lli] = TOFRAMEPLUCKER(...) returns the Jacobians wrt C
 %   and Li. 
 %
 %   See also FROMFRAMEPLUCKER, TXP, HAT, CROSS, Q2R, Q2QC, T2IT.
@@ -26,11 +29,14 @@ function [L,Lt,Le,Lli] = toFramePluckerEuler(t,e,Li)
 ai = Li(1:3);
 bi = Li(4:6);
 
+t = C(1:3);
+q = C(4:7);
+
 if nargout == 1
     
     % get it and Rt of inverse transform
-    it = te2it(t,e);
-    Rt = e2R(e)';
+    it = t2it(t,q);
+    Rt = q2R(q)';
 
     % compute a and b
     b  = Rt*bi;
@@ -41,27 +47,26 @@ if nargout == 1
 
 else
 
-    % get it of inverse transform
-    [it,ITt,ITe]     = te2it(t,e);
+    % get it and iq of inverse transform
+    [it,ITt,ITq]     = t2it(t,q);
 
     % compute a and b
-    [b,Be,Bbi]       = Etp(e,bi);
-    [txb,TXBit,TXBb] = txp(it,b);
-    [Ra,RAe,RAai]    = Etp(e,ai);
+    [b,Bq,Bbi]       = Rtp(q,bi);
+    [txb,TXBit,TXBb] = crossJ(it,b);
+    [Ra,RAq,RAai]    = Rtp(q,ai);
     
     a = Ra + txb;
     
     % Jacobians from the chain rule
     At  = TXBit*ITt;
-    Ae  = RAe + TXBit*ITe + TXBb*Be;
+    Aq  = RAq + TXBit*ITq + TXBb*Bq;
     Aai = RAai;
     Abi = TXBb*Bbi;
     
     % Build outputs
     L   = [a;b];
     
-    Lt  = [At;zeros(3)];
-    Le  = [Ae;Be];
+    Lc  = [At Aq;zeros(3) Bq];
     Lli = [Aai Abi;zeros(3) Bbi];
     
 end
@@ -70,16 +75,16 @@ return
 
 %%
 
-syms a b c x y z real
+syms a b c d x y z real
 syms L1 L2 L3 L4 L5 L6 real
 
-e = [a;b;c];
+q = [a;b;c;d];
 t = [x;y;z];
+C = [t;q];
 Li = [L1;L2;L3;L4;L5;L6];
 
-[L,Lt,Le,Lli] = toFramePluckerEuler(t,e,Li);
+[L,Lc,Lli] = toFramePlucker(C,Li);
 
-simplify(Lt  - jacobian(L,t))
-simplify(Le  - jacobian(L,e))
+simplify(Lc  - jacobian(L,C))
 simplify(Lli - jacobian(L,Li))
 

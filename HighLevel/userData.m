@@ -8,9 +8,8 @@
 %   * Use as many robots and sensors as you wish.
 %   * Assign sensors to robots via Sensor{i}.robot.
 %   * Use field Sensor{i}.d for radial distortion parameters if desired.
-%   * Define one instance of each landmark type you wish to use. Use the
-%   field Landmark{i}.naxNbr to specify the maximum number of such
-%   landmarks that the SLAM map must support.
+%   * Use the field Opt.map.num3dLmk to specify the maximum number of
+%   3d landmarks that the SLAM map must support.
 %
 %   See further comments within the file for more detailed information.
 %
@@ -174,8 +173,8 @@ Opt = struct(...
         'linTestTh',        0.1),...        % threshold on IDP linearity test
     'init',                 struct(...      % Options for initialization
         'idpPnt',           struct(...      % opt. for IDP init
-            'nonObsMean',   0.01,...        % mean of non obs. for initialization
-            'nonObsStd',    1)));           % std of non obs for initialization
+            'nonObsMean',   .1,...        % mean of non obs. for initialization
+            'nonObsStd',    .5)));           % std of non obs for initialization
         
 % Simulation options
 %   - random

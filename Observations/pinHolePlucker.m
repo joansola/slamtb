@@ -1,10 +1,12 @@
-function [l,Lk,Ll] = pinHolePlucker(k,L)
+function [l,v,Lk,Ll] = pinHolePlucker(k,L)
 
 % PINHOLEPLUCKER  Projects plucker line.
 %   PINHOLEPLUCKER(K,L) projects the Plucker line L into a pin hole camera
 %   K=[u0;v0;au;av] at the origin.
 %
 %   [l,Lk,Ll] = ... returns Jacobians wrt K and L.
+%
+%   See also PINHOLE.
 
 % (c) 2008 Joan Sola @ LAAS-CNRS
 
@@ -16,7 +18,9 @@ l = [...
     au*L2
     -u0*av*L1-au*v0*L2+au*av*L3];
 
-if nargout > 1
+v = L(4:6);
+
+if nargout > 2
     
     Lk = [...
         [            0,            0,            0,           L1]

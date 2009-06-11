@@ -29,14 +29,14 @@ function [L,Lc,Lli] = toFramePlucker(C,Li)
 ai = Li(1:3);
 bi = Li(4:6);
 
-t = C(1:3);
-q = C(4:7);
+t = C.t;
+q = C.q;
 
 if nargout == 1
     
     % get it and Rt of inverse transform
     it = t2it(t,q);
-    Rt = q2R(q)';
+    Rt = C.Rt;
 
     % compute a and b
     b  = Rt*bi;

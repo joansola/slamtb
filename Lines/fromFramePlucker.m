@@ -24,12 +24,12 @@ function [L,Lc,Lli] = fromFramePlucker(C,Li)
 ai = Li(1:3);
 bi = Li(4:6);
 
-t = C(1:3);
-q = C(4:7);
+t = C.t;
+q = C.q;
 
 if nargout == 1
 
-    R = q2R(q);
+    R = C.R;
 
     b = R*bi;
     a = R*ai + hat(t)*b;
@@ -63,19 +63,20 @@ return
 syms a b c d x y z real
 syms L1 L2 L3 L4 L5 L6 real
 
-q = [a;b;c;d];
-t = [x;y;z];
-Li = [L1;L2;L3;L4;L5;L6];
+q   = [a;b;c;d];
+t   = [x;y;z];
+C.x = [t;q];
+C   = updateFrame(C);
+Li  = [L1;L2;L3;L4;L5;L6];
 
-[L,Lt,Lq,Lli] = fromFramePlucker(t,q,Li);
+[L,Lc,Lli] = fromFramePlucker(C,Li);
 
-simplify(Lt  - jacobian(L,t))
-simplify(Lq  - jacobian(L,q))
+simplify(Lc  - jacobian(L,C.x))
 simplify(Lli - jacobian(L,Li))
 
 
 %% test inv. transform
-Li2 = toFramePlucker(t,q,L);
+Li2 = toFramePlucker(C,L);
 
 EL = simplify(Li - Li2);
 

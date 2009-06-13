@@ -19,19 +19,32 @@ function [l, L_rf, L_sf, L_sk, L_hm, L_beta] = ...
 % Frame World -> Robot  :  Rf
 % Frame Robot -> Sensor :  Sf
 
-% L in Sensor Frame
-[ls, LS_sk, LS_hm, LS_beta] = invPinHolePlucker(Sk,hm,beta) ;
+if nargout == 1
 
-% L in world frame
-[lr, LR_sf, LR_ls] = fromFramePlucker(Sf, ls) ;
-[l,  L_rf,  L_lr]  = fromFramePlucker(Rf, lr) ;
+    % L in Sensor Frame
+    ls = invPinHolePlucker(Sk,hm,beta) ;
 
-% chain rule for Jacobians
-L_sf = L_lr*LR_sf ;
-L_ls = L_lr*LR_ls ;
-L_sk = L_ls*LS_sk ;
-L_hm = L_ls*LS_hm ;
-L_beta = L_ls*LS_beta ;
+    % L in world frame
+    lr = fromFramePlucker(Sf, ls) ;
+    l  = fromFramePlucker(Rf, lr) ;
+
+else
+
+    % L in Sensor Frame
+    [ls, LS_sk, LS_hm, LS_beta] = invPinHolePlucker(Sk,hm,beta) ;
+
+    % L in world frame
+    [lr, LR_sf, LR_ls] = fromFramePlucker(Sf, ls) ;
+    [l,  L_rf,  L_lr]  = fromFramePlucker(Rf, lr) ;
+
+    % chain rule for Jacobians
+    L_sf   = L_lr*LR_sf ;
+    L_ls   = L_lr*LR_ls ;
+    L_sk   = L_ls*LS_sk ;
+    L_hm   = L_ls*LS_hm ;
+    L_beta = L_ls*LS_beta ;
+
+end
 
 return
 
@@ -65,4 +78,5 @@ Sk   = [100 100 100 100]';
 hm   = [1 0 0]';
 beta = [1 0]';
 
-[l,L_r,L_s,L_k,L_hm,L_beta] = retroProjPlkLinFromPinHoleOnRob(Rf,Sf,Sk,hm,beta)
+[l,L_r,L_s,L_k,L_hm,L_beta]  = retroProjPlkLinFromPinHoleOnRob(Rf,Sf,Sk,hm,beta)
+[l2,L2_s,L2_k,L2_hm,L2_beta] = retroProjectPlucker(Sf,Sk,hm,beta)

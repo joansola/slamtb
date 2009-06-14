@@ -127,7 +127,7 @@ for f = fmin:fmax
             obsTab(1,i).rawR = Obs.rawR;
             
             % Compute innovations
-            obsTab(1,i) = pluckerInnovation(obsTab(1,i),Cam,Lmk.Line(i),innSpace);
+            obsTab(1,i) = apluckerInnovation(obsTab(1,i),Cam,Lmk.Line(i),innSpace);
             
             if obsTab(1,i).MD < 6 
                 
@@ -146,7 +146,7 @@ for f = fmin:fmax
                 end
                 
             end
-            a = pluckerAngle(Map.X(Lmk.Line(i).r));
+            a = apluckerAngle(Map.X(Lmk.Line(i).r));
             c = cos(a);
             angle = rad2deg(a);
             if norm(c) > pi/180
@@ -183,7 +183,7 @@ for f = fmin:fmax
 
             % initialize
             if ~ isempty(Lmk.Line(id).r)
-                Lmk.Line(id) = initPluckerLine(Lmk.Line(id),Cam,Obs,Beta);
+                Lmk.Line(id) = initAPluckerLine(Lmk.Line(id),Cam,Obs,Beta);
             end
             
             % increment initialized lines counter

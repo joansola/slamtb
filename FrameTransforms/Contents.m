@@ -17,8 +17,6 @@
 %   Rtp           - Transposed rotation matrix (from quaternion) times vector.
 %   frame2iMatrix - Frame to motion matrix.
 %   frame2matrix  - Frame to motion matrix.
-%
-% Inverse depth points
-%   py2vec        - Pitch and yaw to 3D direction vector.
-%   vec2py        - 3D vector to pitch and yaw direction
+
+
 

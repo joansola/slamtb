@@ -16,6 +16,11 @@
 %   invPinHole                     - Inverse pin-hole camera model, with radial distortion correction.
 %   pinHoleIdp                     - Pin-hole camera model for Inverse depth points, with radial distortion.
 %   invPinHoleIdp                  - Inverse pin-hole camera model for IDP, with radial distortion correction.
+%   pinHolePlucker                 - Projects plucker line.
+%   invPinHolePlucker              - Retro-projects plucker line
+%   aInvPinHolePlucker             - Inverse pin hole model for Plucker lines
+%   pinHoleSegment                 - Pin hole projection of a segment.
+%   pluckerInvCamera                - Inverse Plucker projection matrix
 %   isVisible                      - Points visible from pinHole camera.
 %   invDistortion                  - Radial distortion correction calibration.
 %
@@ -23,3 +28,5 @@
 %   projEucPntIntoPinHoleOnRob      - Project Euc pnt into pinhole on robot.
 %   projIdpPntIntoPinHoleOnRob      - Project Idp pnt into pinhole on robot.
 %   retroProjIdpPntFromPinHoleOnRob - Retro-project idp from pinhole on robot.
+%   projPlkLinIntoPinHoleOnRob      - Project Plucker line into pinhole on robot.
+%   retroProjPlkLinFromPinHoleOnRob - Retro-project Plucker line from pinhole on robot.

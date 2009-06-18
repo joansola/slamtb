@@ -25,3 +25,4 @@
 %   mapObserver   - Define observer camera for map plots.
 %   moreindatatip - Display index information in the data tip.
 %   satColor      - Saturate color.
+%   imgFrame      - Writes frame to image file.

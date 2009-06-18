@@ -2,4 +2,5 @@
 %
 % Files
 %   innovation - Innovation of an observation.
-%   ekfExpectation - Expected observation in EKF.
+%   correctBlockEkf - Correct in block-defined EKF.
+%   predictBlockEkf - Covariance predict in block-defined EKF.

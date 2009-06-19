@@ -172,10 +172,13 @@ Opt = struct(...
         'MD2th',            9,...           % Threshold on Mahalanobis distance
         'linTestTh',        0.1),...        % threshold on IDP linearity test
     'init',                 struct(...      % Options for initialization
-        'initType',         'idpPnt',...    % Type os lmk to use for init
-        'idpPnt',           struct(...      % opt. for IDP init
-            'nonObsMean',   .1,...        % mean of non obs. for initialization
-            'nonObsStd',    .5)));           % std of non obs for initialization
+        'initType',         'hmgPnt',...    % Type os lmk to use for init
+        'idpPnt',           struct(...     % options for lmk correction
+            'nonObsMean',   .1,...          % reproject lmks after active search?
+            'nonObsStd',    .5),...         % max simultaneus updates
+        'hmgPnt',           struct(...     % opt. for IDP init
+            'nonObsMean',   .1,...          % mean of non obs. for initialization
+            'nonObsStd',    .5)));          % std of non obs for initialization
         
 % Simulation options
 %   - random

@@ -70,6 +70,15 @@ for lmk=find(used)
             drawEucLmk(MapFig, Lmk(lmk), color);
             % TODO : print the landmark
             %            fprintf('[updateMapFig.m] Error, landmark type eucPnt not implemented \n') ;
+            
+        case {'hmgPnt'}
+            color = [.5 .5 1];
+            drawHmgLmk(MapFig, Lmk(lmk), color);
+            % TODO : print the landmark
+            %            fprintf('[updateMapFig.m] Error, landmark type eucPnt not implemented \n') ;
+            
+            
+            
         otherwise
             % TODO : print an error and go out
             error(['The landmark type is unknown, cannot display the landmark in map figure ( type: ',Lmk(lmkIndex).type,' unknown) !\n']);

@@ -64,6 +64,20 @@ switch Sen.type
 
                 vis = isVisible(e,depth,Sen.par.imSize);
                 R   = Sen.par.pixCov ;  % sensor cov
+                
+            case {'hmgPnt'} % euclidean point
+
+                % Point3D --> pixel -(value and Jacobians)-
+                [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
+                    projHmgPntIntoPinHoleOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.d, ...
+                    l) ;
+
+                vis = isVisible(e,depth,Sen.par.imSize);
+                R   = Sen.par.pixCov ;  % sensor cov
 
 
             otherwise % unknown landmark type for pin hole sensor

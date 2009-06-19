@@ -53,6 +53,10 @@ switch Sen.type
                     colors = ['b' 'c']'; % magenta/red
                     drawObsPoint(SenFig, Obs(lmk), colors);
 
+                case {'hmgPnt'}
+
+                    colors = ['b' 'c']'; % magenta/red
+                    drawObsPoint(SenFig, Obs(lmk), colors);
 
                     % ADD HERE FOR NEW LANDMARK
                     % case {'newLandmark'}

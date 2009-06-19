@@ -28,6 +28,10 @@
 %   updateEndPoints     - 3D landmark, IDL is Inverse Depth Line
 %
 % Segments (2D lines)
-%   points2hm           - Homogeneous line from two homogeneous points.
+
 %   points2rt           - Points to rho theta 2D line conversion.
 %   trimSegment         - Trim segment at image borders
+%   hmgLin2rt           - Homogeneous to rho-theta line expression in the plane.
+%   pp2hmgLin           - Homogeneous line from two homogeneous points
+%   rt2hmgLin           - 
+%   seg2hmgLin          - Segment to homogeneous line conversion.

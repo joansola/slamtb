@@ -5,7 +5,7 @@
 %   fromFramePlucker    - Transform plucker line from a given frame.
 %   planeBase2dirVector - Plucker line dir. vector from base spec.
 %   planeVec2planeBase  - Orthonormal base for a plane
-%   pluckerAngle        - 
+%   pluckerAngle        - Angle between Plucker vectors.
 %   points2plucker      - Plucker line from two homogeneous points
 %   projectPlucker      - Project Plucker line
 %   retroProjectPlucker - Retro project Plucker line
@@ -23,15 +23,14 @@
 %   idl2pp              - Inverse depth line to passage points.
 %   intersectPpLines    - Intersect two point-point lines.
 %   intersectPvLines    - Intersect two point-vector lines.
-%   ppLine2pvLine       - PNTSLINE2PNTVECLINE  Points line to point-vector line transform.
+%   ppLine2pvLine       - Points line to point-vector line transform.
 %   ppp2idl             - Points to inverse depth line conversion.
 %   updateEndPoints     - 3D landmark, IDL is Inverse Depth Line
 %
 % Segments (2D lines)
-
-%   points2rt           - Points to rho theta 2D line conversion.
 %   trimSegment         - Trim segment at image borders
 %   hmgLin2rt           - Homogeneous to rho-theta line expression in the plane.
 %   pp2hmgLin           - Homogeneous line from two homogeneous points
-%   rt2hmgLin           - 
+%   rt2hmgLin           - Rho-theta to homogeneous line conversion.
 %   seg2hmgLin          - Segment to homogeneous line conversion.
+%   pp2rt               - Points to rho theta 2D line conversion.

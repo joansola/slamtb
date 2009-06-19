@@ -1,11 +1,11 @@
 function [m,M_l] = ppLine2pvLine(l)
 
-% PNTSLINE2PNTVECLINE  Points line to point-vector line transform.
-%   PNTSLINE2PNTVECLINE(PPL) transforms the points line PPL=[P1;P2] to a
+% PPLINE2PVLINE  Points line to point-vector line transform.
+%   PPLINE2PVLINE(PPL) transforms the points line PPL=[P1;P2] to a
 %   point-vector line [P1;V], where V is a non-normalized director vector
 %   of the line.
 %
-%   [pvl,PVL_ppl] = PNTSLINE2PNTVECLINE(PPL) returns the Jacobian of the
+%   [pvl,PVL_ppl] = PPLINE2PVLINE(PPL) returns the Jacobian of the
 %   transformation.
 
 m(1:3,1) = l(1:3);

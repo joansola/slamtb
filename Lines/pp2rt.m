@@ -1,7 +1,7 @@
-function [rt,RTp,RTq] = points2rt(p,q)
+function [rt,RTp,RTq] = pp2rt(p,q)
 
-% POINTS2RT  Points to rho theta 2D line conversion.
-%   POINTS2RT(P,Q) is the rho-theta line in the plane joining the
+% PP2RT  Points to rho theta 2D line conversion.
+%   PP2RT(P,Q) is the rho-theta line in the plane joining the
 %   two  points P and Q. P and Q can be either Euclidean 2-points or
 %   homogeneous 3-points.
 %  

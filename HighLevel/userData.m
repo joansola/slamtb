@@ -180,25 +180,25 @@ Sensor{1} = struct(...
 % Estimation options 
 %   - reprojection, active search, etc
 Opt = struct(...
-    'map',                  struct(...      % options for the map
-        'num3dLmks',        75),...        % number of 3d landmarks
-    'correct',              struct(...      % options for lmk correction
+    'map',                  struct(...    % options for the map
+        'num3dLmks',        100),...        % number of 3d landmarks
+    'correct',              struct(...    % options for lmk correction
         'reprojectLmks',    true,...       % reproject lmks after active search?
-        'nUpdates',         8,...           % max simultaneus updates
-        'MD2th',            9,...           % Threshold on Mahalanobis distance
-        'linTestTh',        0.1),...        % threshold on IDP linearity test
-    'init',                 struct(...      % Options for initialization
-        'initType',         'hmgPnt',...    % Type of lmk to use for init
-        'idpPnt',           struct(...     % options for lmk correction
+        'nUpdates',         8,...          % max simultaneus updates
+        'MD2th',            9,...          % Threshold on Mahalanobis distance
+        'linTestTh',        0.1),...       % threshold on IDP linearity test
+    'init',                 struct(...    % Options for initialization
+        'initType',         'hmgPnt',...   % Type of lmk to use for init
+        'idpPnt',           struct(...     % options for lmk initialization
             'nonObsMean',   .1,...          % reproject lmks after active search?
             'nonObsStd',    .5),...         % max simultaneus updates
         'hmgPnt',           struct(...     % opt. for Hom Pnt init
-            'nonObsMean',   .5,...          % mean of non obs. for initialization
-            'nonObsStd',    .5),...          % std of non obs for initialization
+            'nonObsMean',   .1,...          % mean of non obs. for initialization
+            'nonObsStd',    .5),...         % std of non obs for initialization
         'plkLin',           struct(...     % opt. for Plucker line init
-            'nonObsMean',   [.01;.01],...          % mean of non obs. for initialization
-            'nonObsStd',    [.5;.5])));          % std of non obs for initialization
-        
+            'nonObsMean',   [.01;.01],...   % mean of non obs. for initialization
+            'nonObsStd',    [.5;.5])));     % std of non obs for initialization
+
 % Simulation options
 %   - random
 SimOpt = struct(...                    

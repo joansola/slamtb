@@ -13,8 +13,8 @@ function [s,d,S_k,S_si] = pinHoleSegment(k,si)
 %
 %   See also PINHOLE.
 
-p1 = si(1:3);
-p2 = si(4:6);
+p1 = si(1:3,:);
+p2 = si(4:6,:);
 
 if nargout <= 2
 
@@ -25,21 +25,29 @@ if nargout <= 2
 
 else % Jacobians
 
-    [e1,d1,E1_p1,E1_k] = pinHole(p1,k);
-    [e2,d2,E2_p2,E2_k] = pinHole(p2,k);
-    s       = [e1;e2];
-    d       = [d1;d2];
+    if size(si,2) == 1
 
-    S_k = [...
-        E1_k
-        E2_k];
-    
-    Z23 = zeros(2,3);
-    
-    S_si = [...
-        E1_p1 Z23
-        Z23   E2_p2];
-    
+        [e1,d1,E1_p1,E1_k] = pinHole(p1,k);
+        [e2,d2,E2_p2,E2_k] = pinHole(p2,k);
+        s       = [e1;e2];
+        d       = [d1;d2];
+
+        S_k = [...
+            E1_k
+            E2_k];
+
+        Z23 = zeros(2,3);
+
+        S_si = [...
+            E1_p1 Z23
+            Z23   E2_p2];
+
+    else
+
+        error('Jacobians not available for multiple segments.')
+
+    end
+
 end
 
 return

@@ -32,13 +32,14 @@ Time = struct(...
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
 World = struct(...
-    'xMin',                 -10,...         % playground limits
-    'xMax',                 10,...
-    'yMin',                 -10,...
-    'yMax',                 10,...
-    'zMin',                 -10,...
-    'zMax',                 10,...
-    'points',               thickCloister(-6,6,-6,6,1,5));  % 3d point landmarks
+    'xMin',             -10,...         % playground limits
+    'xMax',             10,...
+    'yMin',             -10,...
+    'yMax',             10,...
+    'zMin',             -10,...
+    'zMax',             10,...
+    'points',           thickCloister(-6,6,-6,6,1,5),... % 3d point landmarks
+    'segments',         house);
 
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
@@ -59,7 +60,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
     'daDegrees',            [0;0;.9],...     % angle increment, degrees
     'dxStd',                [0.01;0.01;0.01],...  % odo linear error std
     'daStd',                [0.1;0.1;0.1]);      % odo ang error std, degrees
-
+% 
 % Robot{2} = struct(...                     % ODOMETRY EXAMPLE
 %     'id',                   2,...           % robot identifier
 %     'name',                 'Dala',...      % robot name
@@ -91,6 +92,20 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
 %     'dwDegrees',            [0;0;0],...     % ang. vel. increment, degrees
 %     'dvStd',                [0;0;0],...     % vel perturbation std
 %     'dwStd',                [0;0;1]);       % ang vel pert. std, degrees
+
+% Robot{1} = struct(...                     % ODOMETRY EXAMPLE
+%     'id',                   1,...           % robot identifier
+%     'name',                 'Dala',...      % robot name
+%     'type',                 'atrv',...      % type of robot
+%     'motion',               'odometry',...  % motion model
+%     'position',             [0;0;0],...     % robot position in map
+%     'orientationDegrees',   [0;0;0],...     % orientation, in degrees, roll pitch yaw.
+%     'positionStd',          [0;0;0],...     % position error, std
+%     'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
+%     'dx',                   [.08;0;0],...     % position increment
+%     'daDegrees',            [0;0;.9],...     % angle increment, degrees
+%     'dxStd',                [0.01;0.01;0.01],...  % odo linear error std
+%     'daStd',                [0.1;0.1;0.1]);      % odo ang error std, degrees
 
 
 % Sensor things 
@@ -172,13 +187,16 @@ Opt = struct(...
         'MD2th',            9,...           % Threshold on Mahalanobis distance
         'linTestTh',        0.1),...        % threshold on IDP linearity test
     'init',                 struct(...      % Options for initialization
-        'initType',         'hmgPnt',...    % Type os lmk to use for init
+        'initType',         'plkLin',...    % Type of lmk to use for init
         'idpPnt',           struct(...     % options for lmk correction
             'nonObsMean',   .1,...          % reproject lmks after active search?
             'nonObsStd',    .5),...         % max simultaneus updates
-        'hmgPnt',           struct(...     % opt. for IDP init
-            'nonObsMean',   .1,...          % mean of non obs. for initialization
-            'nonObsStd',    .5)));          % std of non obs for initialization
+        'hmgPnt',           struct(...     % opt. for Hom Pnt init
+            'nonObsMean',   .5,...          % mean of non obs. for initialization
+            'nonObsStd',    .5),...          % std of non obs for initialization
+        'plkLin',           struct(...     % opt. for Plucker line init
+            'nonObsMean',   [.01;.01],...          % mean of non obs. for initialization
+            'nonObsStd',    [.5;.5])));          % std of non obs for initialization
         
 % Simulation options
 %   - random

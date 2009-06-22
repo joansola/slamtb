@@ -46,8 +46,9 @@ switch Lmk.type
             
         end
         
-    case 'eucPnt'
+    case {'eucPnt','hmgPnt'}
         % do nothing
+        
         
     % case 'myLmk' 
         % edit this 'myLmk' name to put your own landmark type

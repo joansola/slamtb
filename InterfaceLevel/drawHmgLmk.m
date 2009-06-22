@@ -12,7 +12,7 @@ hmg = Map.x(ran) ;
 HMG = Map.P(ran,ran) ;
 
 % Covariance
-[eucl, EUCLhmg] = hmg2p(hmg) ;
+[eucl, EUCLhmg] = hmg2euc(hmg) ;
 EUCL = EUCLhmg*HMG*EUCLhmg' ;
 
 % the ellipse

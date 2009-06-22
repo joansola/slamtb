@@ -20,7 +20,7 @@ function [hmg, HMG_rf, HMG_sf, HMG_sk, HMG_sd, HMG_u, HMG_n] = ...
 % Frame Robot -> Sensor :  Sf
 
 % Pixel Hmg:
-[hmpix,HMPIX_u] = pix2hm(u);
+[hmpix,HMPIX_u] = euc2hmg(u);
 
 if(isempty(Sd))
     % In Sensor Frame:

@@ -42,7 +42,7 @@ if nargout <= 2 % only pixel
 else % Jacobians
     
     % landmark position in euclidian space:
-    [leucl, LEUCLl] = hmg2p(l) ;
+    [leucl, LEUCLl] = hmg2euc(l) ;
     
     if size(l,2) == 1  % single point
         

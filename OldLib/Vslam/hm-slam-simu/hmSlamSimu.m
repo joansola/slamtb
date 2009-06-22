@@ -6,6 +6,8 @@
 
 %% START
 % clear all variables
+
+clear ;
 clear global; 
 clear displayMaxUsed
 

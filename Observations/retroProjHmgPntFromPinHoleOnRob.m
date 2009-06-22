@@ -1,51 +1,55 @@
-function [hmg, HMG_rf, HMG_sf, HMG_sk, HMG_sd, HMG_u, HMG_invdepth] = ...
+function [hmg, HMG_rf, HMG_sf, HMG_sk, HMG_sd, HMG_u, HMG_n] = ...
     retroProjHmgPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, u, n)
 
-% RETROPROJHMGPNTFROMPINHOLEONROB Retro-project Homogene point from pinhole on robot.
+% RETROPROJHMGPNTFROMPINHOLEONROB Retro-project Homogene point from pinhole
+% on robot.
 %
-%   IDP = RETROPROJHMGPNTFROMPINHOLEONROB(RF, SF, SK, SC, U, N) gives the
-%   retroprojected IDP in World Frame from an observed pixel U. RF and SF
+%   HMG = RETROPROJIDPPNTFROMPINHOLEONROB(RF, SF, SK, SC, U, N) gives the
+%   retroprojected HMG in World Frame from an observed pixel U. RF and SF
 %   are Robot and Sensor Frames, SK and SD are camera calibration and
 %   distortion correction parameters. U is the pixel coordinate and N is
-%   the non-observable inverse depth. IDP is a 6-vector :
-%     IDP = [X Y Z Pitch Yaw IDepth]'
+%   the non-observable inverse depth. HMG is a 4-vector :
+%     HMG = [X Y Z IDepth]'
 %
-%   [IDP, IDP_rf, IDP_sf, IDP_k, IDP_c, IDP_u, IDP_n] = ... returns the
+%   [HMG, HMG_RF, HMG_SF, HMG_SK, HMG_SD, HMG_U, HMG_N] = ... returns the
 %   Jacobians wrt RF.x, SF.x, SK, SC, U and N.
 %
-%   See also INVPINHOLEIDP, FROMFRAMEIDP.
+%   See also INVPINHOLEHMG, FROMFRAMEHMG.
 
 % Frame World -> Robot  :  Rf
 % Frame Robot -> Sensor :  Sf
 
+% Pixel Hmg:
+[hmpix,HMPIX_u] = pix2hm(u);
+
 if(isempty(Sd))
-    % lmk position in Sensor Frame
-    [p, P_u, P_d, P_sk] = invPinHole(u,1,Sk) ;
+    % In Sensor Frame:
+    [hmsen, HMSEN_sk, HMSEN_hmpix, HMSEN_n] = invPinHoleHmg(Sk,hmpix,n) ;
 else
-    % lmk position in Sensor Frame
-    [p, P_u, P_rho, P_sk, P_sd] = invPinHole(u,1/n,Sk,Sd) ;
+    error('??? NYI ''Sd'' for invPinHoleHmg')
 end
 
-% lmk position in Robot Frame
-[pr,PR_sf,PR_p] = fromFrame(Sf,p) ;
+% In rob Frame
+[hmrob, HMROB_sf, HMROB_hmsen] = fromFrameHmg(Sf,hmsen) ;
 
-% lmk position in World Frame
-[pw,PW_rf,PW_pr] = fromFrame(Rf,pr) ;
+% In World Frame
+[hmg, HMG_rf, HMG_hmrob] = fromFrameHmg(Rf,hmrob) ;
 
-hmg = [pw ; n] ;
-HMG_rf =    [PW_rf           ; 0,0,0, 0,0,0,0 ] ;
-HMG_sf =    [PW_pr*PR_sf     ; 0,0,0, 0,0,0,0 ] ;
-HMG_sk =    [PW_pr*PR_p*P_sk ; 0,0,0,0 ] ;
+
+
+% Jacobians
+
+HMG_sf = HMG_hmrob*HMROB_sf ;
+HMG_sk = HMG_hmrob*HMROB_hmsen*HMSEN_sk ;
 
 if(isempty(Sd))
-    HMG_sd = [] ;
+    HMG_sd = Sd ;
 else
-    HMG_sd =    [PW_pr*PR_p*P_sd ; 0,0 ] ;
-end 
+    error('??? NYI ''Sd'' for invPinHoleHmg')
+end
 
-
-HMG_u        = [PW_pr*PR_p*P_u ; 0,0 ] ;
-HMG_invdepth = [0;0;0;1] ;
+HMG_u = HMG_hmrob*HMROB_hmsen*HMSEN_hmpix*HMPIX_u ;
+HMG_n = HMG_hmrob*HMROB_hmsen*HMSEN_n ;
 
 end
 

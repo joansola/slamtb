@@ -39,8 +39,9 @@ World = struct(...
     'zMin',             -10,...
     'zMax',             10,...
     'points',           thickCloister(-6,6,-6,6,1,5),... % 3d point landmarks
-    'segments',         house);
-
+    'segments',         '');
+    %'segments',         house);
+    
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
 %   - motion models (add new model strings if you need more):
@@ -187,7 +188,7 @@ Opt = struct(...
         'MD2th',            9,...           % Threshold on Mahalanobis distance
         'linTestTh',        0.1),...        % threshold on IDP linearity test
     'init',                 struct(...      % Options for initialization
-        'initType',         'plkLin',...    % Type of lmk to use for init
+        'initType',         'hmgPnt',...    % Type of lmk to use for init
         'idpPnt',           struct(...     % options for lmk correction
             'nonObsMean',   .1,...          % reproject lmks after active search?
             'nonObsStd',    .5),...         % max simultaneus updates

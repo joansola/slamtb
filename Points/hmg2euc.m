@@ -1,6 +1,6 @@
 function [eu,EUhm] = hmg2euc(hm)
 
-% HM2EU Homogeneous to Euclidean transform
+% HMG2EUC Homogeneous to Euclidean point transform.
 %
 
 s = size(hm,1);

@@ -3,16 +3,16 @@ function [l, L_rf, L_sf, L_sk, L_hm, L_beta] = ...
 
 % RETROPROJPLKLINFROMPINHOLEONROB Retro-project Plucker line from pinhole on robot.
 %
-%   L = RETROPROJPLKLINFROMPINHOLEONROB(RF, SF, SK, HM, beta) gives the
+%   L = RETROPROJPLKLINFROMPINHOLEONROB(RF, SF, SK, HML, beta) gives the
 %   retroprojected Plucker line L in World Frame from an observed
 %   homogeneous line HM. RF and SF are Robot and Sensor Frames, SK is the
-%   camera calibration parameters vector, HM is the detected homogeneous 2D
+%   camera calibration parameters vector, HML is the detected homogeneous 2D
 %   line and BETA is the non-measurable prior. L is a 6-vector :
 %     L = [nx ny nz vx vy vz]'
 %   with the 6 Plucker coordinates of a line in 3D space.
 %
 %   [L, L_rf, L_sf, L_k, L_hm, L_n] = ... returns the
-%   Jacobians wrt RF.x, SF.x, SK, SC, HM and N.
+%   Jacobians wrt RF.x, SF.x, SK, SC, HML and N.
 %
 %   See also INVPINHOLEIDP, FROMFRAMEIDP.
 

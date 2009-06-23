@@ -2,7 +2,7 @@ function [hm, v, HM_r, HM_s, HM_k, HM_l] = ...
     projPlkLinIntoPinHoleOnRob(Rf, Sf, Spk, l)
 
 % PROJPLKLININTOPINHOLEONROB Project Plucker line into pinhole on robot.
-%    [U,S] = PROJPLKLININTOPINHOLEONROB(RF, SF, SPK, SPD, L) projects 3D
+%    [HML,S] = PROJPLKLININTOPINHOLEONROB(RF, SF, SPK, SPD, L) projects 3D
 %    Plucker line L into a pin-hole camera mounted on a robot, providing
 %    also the non-measurable vector. The input parameters are:
 %       RF : robot frame
@@ -10,11 +10,11 @@ function [hm, v, HM_r, HM_s, HM_k, HM_l] = ...
 %       SPK: pin-hole intrinsic parameters [u0 v0 au av]'
 %       L  : 3D Plucker line [nx ny nz vz vy vz]'
 %    The output parameters are:
-%       HM : 2D homogeneous line [a b c]'
-%       V  : non-measurable vector [vx vy vz]'
+%       HML : 2D homogeneous line [a b c]'
+%       V   : non-measurable vector [vx vy vz]'
 %
-%    [HM,S,HM_R,HM_S,HM_K,HM_L] = ... gives also the jacobians of the
-%    observation HM wrt all input parameters. 
+%    [HML,S,HM_R,HM_S,HM_K,HM_L] = ... gives also the jacobians of the
+%    observation HML wrt all input parameters. 
 %
 %    See also PINHOLEPLUCKER, TOFRAMEPLUCKER, PROJEUCPNTINTOPINHOLEONROB.
 
@@ -22,8 +22,8 @@ function [hm, v, HM_r, HM_s, HM_k, HM_l] = ...
 
 if nargout <= 2 % only pixel
     
-    lr    = toFramePlucker(Rf,l);
-    ls    = toFramePlucker(Sf,lr);
+    lr     = toFramePlucker(Rf,l);
+    ls     = toFramePlucker(Sf,lr);
     
     [hm,v] = pinHolePlucker(Spk,ls);
     

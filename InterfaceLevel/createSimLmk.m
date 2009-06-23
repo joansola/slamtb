@@ -8,7 +8,7 @@ function SimLmk = createSimLmk(World)
 N            = size(World.points,2); % number of landmarks in the simulated world
 
 
-SimLmk.ids          = 100+(1:N); % id is different than index
+SimLmk.ids          = (1:N); % id is different than index
 SimLmk.points       = World.points;
 SimLmk.lims.xMin    = World.xMin;
 SimLmk.lims.xMax    = World.xMax;

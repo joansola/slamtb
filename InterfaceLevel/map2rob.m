@@ -7,6 +7,9 @@ function Rob = map2rob(Rob)
 
 global Map
 
+% normalize quaternion
+Map.x(Rob.frame.r(4:7)) = normvec(Map.x(Rob.frame.r(4:7)));
+
 % means
 Rob.state.x = Map.x(Rob.state.r);
 Rob.frame.x = Map.x(Rob.frame.r);

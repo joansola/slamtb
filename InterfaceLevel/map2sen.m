@@ -9,6 +9,9 @@ global Map
 
 if Sen.frameInMap
 
+    % normalize quaternion in Map
+    Map.x(Rob.frame.r(4:7)) = normvec(Map.x(Rob.frame.r(4:7)));
+    
     Sen.state.x = Map.x(Sen.state.r);
     Sen.frame.x = Map.x(Sen.frame.r);
 

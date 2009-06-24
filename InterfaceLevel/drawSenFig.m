@@ -19,8 +19,8 @@ switch Sen.type
 
         % 1. Simulated landmark visualisation
         set(SenFig.raw,...
-            'xdata',Raw.data.points(1,:),...
-            'ydata',Raw.data.points(2,:))
+            'xdata',Raw.data.points.coord(1,:),...
+            'ydata',Raw.data.points.coord(2,:))
 
         % 2. Process only visible landmarks:
         % a - first erase lmks that were drawn but are no longer visible

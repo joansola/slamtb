@@ -14,7 +14,6 @@ function [F,F_r,F_u] = odo3(F,u)
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS.
 
-
 dv = u(4:6);
 dx = u(1:3);
 
@@ -47,7 +46,8 @@ F = updateFrame(F);
 
 return
 
-%% Jac
+%% Jacobians
+
 syms x y z a b c d real
 syms dx dy dz dp dq dr real
 Fi.x=[x;y;z;a;b;c;d];

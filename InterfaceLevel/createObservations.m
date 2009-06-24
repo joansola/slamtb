@@ -1,4 +1,4 @@
-function Obs = createObservations(Sen,EstOpt)
+function Obs = createObservations(Sen,Opt)
 
 % CREATEOBSERVATIONS Create Obs structure array.
 %   Rob = CREATEOBSERVATIONS(Sen,Lmk) creates the Obs() structure array to
@@ -8,7 +8,7 @@ function Obs = createObservations(Sen,EstOpt)
 
 for sen = 1:numel(Sen)
     
-    for lmk = 1:EstOpt.map.num3dLmks
+    for lmk = 1:Opt.map.numLmks
         
         S = Sen(sen);
 %         L = Lmk(lmk);

@@ -51,23 +51,33 @@ if any(vis) % Consider only visible observations
 
     for lmk = lmksToObs % for each landmark to correct
         
+        % Update Lmk stats
+        Lmk(lmk).nSearch = Lmk(lmk).nSearch + 1;
+        
         % 3. MATCH FEATURE
         Obs(lmk) = matchFeature(Raw,Obs(lmk));
 
         if Obs(lmk).matched
+            
+            % Update Lmk stats
+            Lmk(lmk).nMatch = Lmk(lmk).nMatch + 1;
         
             % 4. COMPUTE INNOVATIONS
             Rob = map2rob(Rob);
             Sen = map2sen(Sen);
+            
             if Opt.correct.reprojectLmks
-
                 % re-project landmark for improved Jacobians
                 Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
             end
+            
             Obs(lmk) = observationInnovation(Obs(lmk));
 
             % 5. TEST CONSISTENCE
             if Obs(lmk).inn.MD2 < Opt.correct.MD2th 
+
+                % Update Lmk stats
+                Lmk(lmk).nInlier = Lmk(lmk).nInlier + 1;
 
                 % TODO: see where to put the if Obs.vis ... and the
                 % projectLmk().
@@ -82,13 +92,12 @@ if any(vis) % Consider only visible observations
             else % obs is inconsistent - do not update
                 
                 Obs(lmk).updated = false;
-                % TODO: add smarter code to delete bad landmarks
-                fprintf('Deleted landmark ''%d''.\n',Lmk(lmk).id)
-                [Lmk(lmk),Obs(lmk)] = deleteLmk(Lmk(lmk),Obs(lmk));
                 
             end % if consistent
             
         end % if matched
+        
+        [Lmk(lmk),Obs(lmk)] = smartDeleteLmk(Lmk(lmk),Obs(lmk));
         
     end % for lmk = lmkList
     

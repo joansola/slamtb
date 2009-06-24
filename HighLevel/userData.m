@@ -27,7 +27,7 @@
 Time = struct(...
     'dt',                   .1,...          % sampling time, seconds
     'firstFrame',           1,...           % first frame #
-    'lastFrame',            600);            % last frame #
+    'lastFrame',            800);            % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -57,10 +57,10 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
     'orientationDegrees',   [0;0;0],...     % orientation, in degrees, roll pitch yaw.
     'positionStd',          [0;0;0],...     % position error, std
     'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
-    'dx',                   [.08;0;0],...     % position increment
-    'daDegrees',            [0;0;.9],...     % angle increment, degrees
-    'dxStd',                [0.01;0.01;0.01],...  % odo linear error std
-    'daStd',                [0.1;0.1;0.1]);      % odo ang error std, degrees
+    'dx',                   [.04;0;0],...     % position increment
+    'daDegrees',            [0;0;.45],...     % angle increment, degrees
+    'dxStd',                0.003*[1;1;1],...  % odo linear error std
+    'daStd',                0.03*[1;1;1]);      % odo ang error std, degrees
 % 
 % Robot{2} = struct(...                     % ODOMETRY EXAMPLE
 %     'id',                   2,...           % robot identifier
@@ -94,19 +94,6 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
 %     'dvStd',                [0;0;0],...     % vel perturbation std
 %     'dwStd',                [0;0;1]);       % ang vel pert. std, degrees
 
-% Robot{1} = struct(...                     % ODOMETRY EXAMPLE
-%     'id',                   1,...           % robot identifier
-%     'name',                 'Dala',...      % robot name
-%     'type',                 'atrv',...      % type of robot
-%     'motion',               'odometry',...  % motion model
-%     'position',             [0;0;0],...     % robot position in map
-%     'orientationDegrees',   [0;0;0],...     % orientation, in degrees, roll pitch yaw.
-%     'positionStd',          [0;0;0],...     % position error, std
-%     'orientationStd',       [0;0;0],...     % orient. error, std, in degrees
-%     'dx',                   [.08;0;0],...     % position increment
-%     'daDegrees',            [0;0;.9],...     % angle increment, degrees
-%     'dxStd',                [0.01;0.01;0.01],...  % odo linear error std
-%     'daStd',                [0.1;0.1;0.1]);      % odo ang error std, degrees
 
 
 % Sensor things 
@@ -148,7 +135,7 @@ Sensor{1} = struct(...
 %     'id',                   2,...           % sensor identifier
 %     'name',                 'Micropix',...      % sensor name
 %     'type',                 'pinHole',...   % type of sensor
-%     'robot',                2,...           % robot where it is mounted
+%     'robot',                1,...           % robot where it is mounted
 %     'position',             [0;0;.8],...     % position in robot
 %     'orientationDegrees',   [-90;0;0],...      % orientation in robot, roll pitch yaw
 %     'positionStd',          [0;0;0],...     % position error std
@@ -159,20 +146,6 @@ Sensor{1} = struct(...
 %     'distortion',           [],...          % distortion params
 %     'frameInMap',           true );         % add sensor frame in slam map?
 
-% Sensor{3} = struct(...
-%     'id',                   2,...           % sensor identifier
-%     'name',                 'Micropix',...      % sensor name
-%     'type',                 'pinHole',...   % type of sensor
-%     'robot',                2,...           % robot where it is mounted
-%     'position',             [0;-0.15;.6],...     % position in robot
-%     'orientationDegrees',   [-90;0;-90],...      % orientation in robot, roll pitch yaw
-%     'positionStd',          [0;0;0],...     % position error std
-%     'orientationStd',       [1.5;1.5;1.5],...     % orient. error std
-%     'imageSize',            [640;480],...   % image size
-%     'pixErrorStd',          1.0,...         % pixel error std
-%     'intrinsic',            [320;240;500;500],...   % intrinsic params
-%     'distortion',           [],...          % distortion params
-%     'frameInMap',           true );         % add sensor frame in slam map?
 
 
 
@@ -181,7 +154,8 @@ Sensor{1} = struct(...
 %   - reprojection, active search, etc
 Opt = struct(...
     'map',                  struct(...    % options for the map
-        'num3dLmks',        100),...        % number of 3d landmarks
+        'numLmks',          75,...        % number of 3d landmarks
+        'lmkSize',          4),...         % Size of landmark
     'correct',              struct(...    % options for lmk correction
         'reprojectLmks',    true,...       % reproject lmks after active search?
         'nUpdates',         15,...          % max simultaneus updates
@@ -193,7 +167,7 @@ Opt = struct(...
             'nonObsMean',   .1,...          % mean of non obs
             'nonObsStd',    .5),...         % std of non obs
         'hmgPnt',           struct(...     % opt. for Hom Pnt init
-            'nonObsMean',   .1,...          % mean of non obs
+            'nonObsMean',   1,...          % mean of non obs
             'nonObsStd',    .5),...         % std of non obs
         'plkLin',           struct(...     % opt. for Plucker line init
             'nonObsMean',   [.1;.1],...     % mean of non obs
@@ -205,7 +179,7 @@ SimOpt = struct(...
     'random',               struct(...      % random generator options
         'active',           true,...        % use true random generator?
         'fixedSeed',        1,...           % random seed for non-random runs
-        'seed',             0));            % actual seed
+        'seed',             []));            % actual seed
 
 
 

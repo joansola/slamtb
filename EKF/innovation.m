@@ -9,7 +9,7 @@ function [z,Z,iZ,MD2] = innovation(y,R,e,E)
 %     Z = R + E
 %
 %   [z,Z,iZ,MD2] = INNOVATION(...) returns also the inverse of the
-%   innovation covariance and the squared Mahalanobis distance.
+%   innovation covariance iZ and the squared Mahalanobis distance MD2.
 %
 %   See also MAHALANOBIS.
 

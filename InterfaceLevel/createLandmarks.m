@@ -1,4 +1,4 @@
-function Lmk = createLandmarks(EstOpt)
+function Lmk = createLandmarks(Opt)
 
 % CREATELANDMARKS  Create Lmk structure array.
 %   Lmk = CREATELANDMARKS(Landmark) creates the structure array Lmk() to be
@@ -6,7 +6,7 @@ function Lmk = createLandmarks(EstOpt)
 %   as specified by the user in userData.m. There must be one Landmark{}
 %   per each landmark type considered. See userData.m for details.
 
-for lmk = 1:EstOpt.map.num3dLmks
+for lmk = 1:Opt.map.numLmks
 
     Lmk(lmk).lmk  = lmk;
     Lmk(lmk).id   = [];

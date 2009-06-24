@@ -10,10 +10,10 @@ switch Raw.type
     case 'simu'
 
         id = Obs.lid;
-        idx = find(Raw.data.appearance==id);
+        idx = find(Raw.data.points.app==id);
 
         if ~isempty(idx)
-            Obs.meas.y   = Raw.data.points(:,idx);
+            Obs.meas.y   = Raw.data.points.coord(:,idx);
             Obs.measured = true;
             Obs.matched  = true;
         else

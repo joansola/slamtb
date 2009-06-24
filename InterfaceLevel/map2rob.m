@@ -7,8 +7,10 @@ function Rob = map2rob(Rob)
 
 global Map
 
-% normalize quaternion
-Map.x(Rob.frame.r(4:7)) = normvec(Map.x(Rob.frame.r(4:7)));
+% normalize quaternion - mean and cov
+[Map.x(Rob.frame.r(4:7)), NQ_q] = normvec(Map.x(Rob.frame.r(4:7)),1);
+Map.P(Rob.frame.r(4:7),Map.used) = NQ_q*Map.P(Rob.frame.r(4:7),Map.used);
+Map.P(Map.used,Rob.frame.r(4:7)) = Map.P(Map.used,Rob.frame.r(4:7))*NQ_q';
 
 % means
 Rob.state.x = Map.x(Rob.state.r);

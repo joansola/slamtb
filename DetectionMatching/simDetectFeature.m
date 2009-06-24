@@ -1,4 +1,4 @@
-function [y,R,newId] = simDetectFeature(lmkIds, raw, pixCov)
+function [y,R,newId] = simDetectFeature(lmkIds, raw, pixCov, imSize)
 
 %SIMDETECTFEATURE Detected feature.
 %   [Y,R,NEWID] = SIMDETECTFEATURE(LMKIDS,RAW,PIXCOV) return the
@@ -11,14 +11,22 @@ function [y,R,newId] = simDetectFeature(lmkIds, raw, pixCov)
 
 
 
-[newIds,newIdsIdx] = setdiff(raw.appearance,lmkIds);
+[newIds,newIdsIdx] = setdiff(raw.points.app,lmkIds);
+
+visPnts = inSquare(...
+    raw.points.coord(:,newIdsIdx),   ...
+    [0 imSize(1) 0 imSize(2)], ...
+    imSize(1)/20);
+
+newIds(~visPnts)    = [];
+newIdsIdx(~visPnts) = [];
 
 if ~isempty(newIds)
     newId    = newIds(1);
     newIdx   = newIdsIdx(1);
     
-    % bet new point coordinates and covariance
-    y        = raw.points(:,newIdx);
+    % best new point coordinates and covariance
+    y        = raw.points.coord(:,newIdx);
     R        = pixCov;
     
 else

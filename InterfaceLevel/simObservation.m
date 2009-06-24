@@ -15,20 +15,27 @@ Raw.type = 'simu';
 
 switch SimSen.type
     
-    % camera pinHole
-    case {'pinHole'}
+    case {'pinHole'}      % camera pinHole
+
+        % Project all virtual world
+        [Raw.data.points.coord, s] = projEucPntIntoPinHoleOnRob(...
+            SimRob.frame, ...
+            SimSen.frame, ...
+            SimSen.par.k, ...
+            SimSen.par.d, ...
+            SimLmk.points);
+        Raw.data.points.app  = SimLmk.ids;
         
-        [Raw.data.points, s] = projEucPntIntoPinHoleOnRob(SimRob.frame, SimSen.frame, SimSen.par.k, SimSen.par.d, SimLmk.points);
-        Raw.data.appearance  = SimLmk.ids;
+        % Remove non visible
+        vis = isVisible(Raw.data.points.coord,s,SimSen.par.imSize);
         
-        vis = isVisible(Raw.data.points,s,SimSen.par.imSize);
+        Raw.data.points.coord(:, ~vis)  = [];
+        Raw.data.points.app(~vis) = [];
         
-        Raw.data.points(:, ~vis)  = [];
-        Raw.data.appearance(~vis) = [];
-        
-%         Raw.data.points = Raw.data.points + SimSen.par.pixErr*randn(size(Raw.data.points));
-        % unknown
-        % -------
+        % Add sensor noise
+        Raw.data.points.coord = Raw.data.points.coord + ...
+            SimSen.par.pixErr*randn(size(Raw.data.points.coord));
+
     otherwise
         % Print an error and exit
         error('??? Unknown sensor type ''%s''.',Sen.type);

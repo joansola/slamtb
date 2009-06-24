@@ -1,10 +1,10 @@
-function Map = createMap(Rob,Sen,EstOpt)
+function Map = createMap(Rob,Sen,Opt)
 
 % CREATEMAP Create an empty Map structure.
-%   Map = CREATEMAP(Rob,Sen,Lmk) creates the structure Map from the
-%   information contained in Rob, Sen and Lmk. The resulting structure is
-%   an EKF map with all empty spaces, able to host all states necessary for
-%   Rob, Sen and Lmk. It contains the fields:
+%   Map = CREATEMAP(Rob,Sen,Lmk,Opt) creates the structure Map from the
+%   information contained in Rob, Sen and Lmk, using options Opt. The
+%   resulting structure is an EKF map with all empty spaces, able to host
+%   all states necessary for Rob, Sen and Lmk. It contains the fields:
 %       .used   flags vector to used states in the map
 %       .x      state vector
 %       .P      covariances matrix
@@ -16,7 +16,7 @@ function Map = createMap(Rob,Sen,EstOpt)
 R = [Rob.state];
 S = [Sen.state];
 
-n = sum([R.size S.size 3*EstOpt.map.num3dLmks]);
+n = sum([R.size S.size Opt.map.lmkSize*Opt.map.numLmks]);
 
 Map.used = false(n,1);
 

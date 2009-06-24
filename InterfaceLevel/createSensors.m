@@ -1,10 +1,13 @@
-function Sen = createSensors(Sensor)
+function [Sen,Raw] = createSensors(Sensor)
 
 % CREATESENSORS Create sensors structure array.
 %   Sen = CREATESENSORS(Sensor) creates the Sen() structure array to be
 %   used as SLAM data. The input Sensor{}  is a cell array of structures as
 %   specified by the user in userData.m. There must be one Sensor{} per
 %   each sensor considered in the simulation. See userData.m for details.
+%
+%   [Sen,Raw] = CREATESENSORS(...) creates an empty Raw structure for each
+%   sensor.
 
 
 % (c) 2009 Joan Sola @ LAAS-CNRS
@@ -61,6 +64,10 @@ for sen = 1:numel(Sensor)
     So.state.r     = [];  % robot is not yet in the Map.
 
     Sen(sen) = So; % output sensor structure
+    
+    % Create empty Raw structure
+    Raw(sen).type = '';
+    Raw(sen).data = struct([]);
 
 end
 

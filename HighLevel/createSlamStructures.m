@@ -1,4 +1,4 @@
-function [Rob,Sen,Lmk,Obs,Tim] = createSlamStructures(Robot,Sensor,Time,Opt)
+function [Rob,Sen,Raw,Lmk,Obs,Tim] = createSlamStructures(Robot,Sensor,Time,Opt)
 
 % CREATESLAMSTRUCTURES  Initialize SLAM data structures from user data.
 global Map
@@ -7,7 +7,7 @@ global Map
 Rob = createRobots(Robot);
 
 % Create sensors
-Sen = createSensors(Sensor);
+[Sen,Raw] = createSensors(Sensor);
 
 % Install sensors in robots
 [Rob,Sen] = installSensors(Rob,Sen);

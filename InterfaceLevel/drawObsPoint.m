@@ -12,9 +12,6 @@ function drawObsPoint(SenFig, Obs, colors)
 
 posOffset = [0;-15];
 
-% get the lmk idx
-% lmk = Obs.lid;
-
 % the measurement:
 if Obs.measured
     y = Obs.meas.y;
@@ -29,7 +26,7 @@ else
 end
 
 % the ellipse
-[X,Y] = cov2elli(Obs.exp.e, Obs.exp.E, 3, 10) ;
+[X,Y] = cov2elli(Obs.exp.e, Obs.exp.E+Obs.meas.R, 3, 10) ;
 set(SenFig.ellipse(Obs.lmk),...
     'xdata', X,...
     'ydata', Y,...
@@ -40,7 +37,7 @@ set(SenFig.ellipse(Obs.lmk),...
 pos = Obs.exp.e + posOffset;
 set(SenFig.label(Obs.lmk),...
     'position', pos,...
-    'string',num2str(Obs.lid),...
+    'string',   num2str(Obs.lid),...
     'vis',      'on');
 
 

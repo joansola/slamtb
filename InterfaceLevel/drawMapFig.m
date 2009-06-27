@@ -45,9 +45,9 @@ end
 
 
 % erase non used landmarks
-
-used   = [Lmk.used];
-drawn = (strcmp((get([MapFig.estLmk.ellipse],'visible')),'on'))';
+used  = [Lmk.used];
+ellipseHandles = [MapFig.estLmk.ellipse];
+drawn = (strcmp((get(ellipseHandles(1:2:end),'visible')),'on'))';
 erase = drawn & ~used;
 
 set([MapFig.estLmk(erase).mean],'visible','off');
@@ -55,38 +55,11 @@ set([MapFig.estLmk(erase).ellipse],'visible','off');
 
 % for each landmark:
 for lmk=find(used)
-
-    switch (Lmk(lmk).type)
-
-        % landmark types
-        % --------------
-        case {'idpPnt'}
-            color = [1 0.5 0.5];
-            drawIdpLmk(MapFig, Lmk(lmk), color);
-            % TODO : print the landmark
-            %            fprintf('[updateMapFig.m] Error, landmark type idpPnt not implemented \n') ;
-        case {'eucPnt'}
-            color = [.5 .5 1];
-            drawEucLmk(MapFig, Lmk(lmk), color);
-            % TODO : print the landmark
-            %            fprintf('[updateMapFig.m] Error, landmark type eucPnt not implemented \n') ;
-            
-        case {'hmgPnt'}
-            color = [.5 .5 1];
-            drawHmgLmk(MapFig, Lmk(lmk), color);
-            % TODO : print the landmark
-            %            fprintf('[updateMapFig.m] Error, landmark type eucPnt not implemented \n') ;
-            
-            
-            
-        otherwise
-            % TODO : print an error and go out
-            error(['The landmark type is unknown, cannot display the landmark in map figure ( type: ',Lmk(lmkIndex).type,' unknown) !\n']);
-    end
+    drawLmk(MapFig,Lmk(lmk));
 end
 
+% Simulate camera viewpoint
 if nargin == 7 && strcmp(FigOpt.map.view,'self')
-    % MAP VIEW -- uncomment to simulate a view from camera 1
     set(MapFig.axes,...
         'cameraposition', fromFrame(Rob(1).frame, fromFrame(Sen(1).frame,[0;0;.02])),...
         'cameratarget',   fromFrame(Rob(1).frame, fromFrame(Sen(1).frame,[0;0;1])),...

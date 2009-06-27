@@ -155,7 +155,7 @@ Sensor{1} = struct(...
 Opt = struct(...
     'map',                  struct(...    % options for the map
         'numLmks',          75,...        % number of 3d landmarks
-        'lmkSize',          4),...         % Size of landmark
+        'lmkSize',          3),...         % Size of landmark
     'correct',              struct(...    % options for lmk correction
         'reprojectLmks',    true,...       % reproject lmks after active search?
         'nUpdates',         15,...          % max simultaneus updates
@@ -177,7 +177,7 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
     'random',               struct(...      % random generator options
-        'active',           true,...        % use true random generator?
+        'active',           true,...        % select new random seed?
         'fixedSeed',        1,...           % random seed for non-random runs
         'seed',             []));            % actual seed
 
@@ -204,7 +204,7 @@ FigOpt = struct(...
     'createVideo',      false,...       % create video sequence?
     'map',              struct(...      % map figure options
         'proj',         'persp',...     % projection of the 3d figure
-        'view',         'view',...       % viewpoint of the 3d figure [30 45 40 20]
+        'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
         'size',         [400 300],...   % map figure size
         'colors',       struct(...      % map figure colors
             'border',   [1 1 1],...     %   [r g b]      

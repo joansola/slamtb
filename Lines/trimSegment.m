@@ -26,7 +26,7 @@ if all(insq) % both endpoints are in the image
 
 else % at least one endpoint is out of the image
 
-    H = pp2hm(a,b); % homogeneous line
+    H = pp2hmgLin(a,b); % homogeneous line
     L = [1; 0; 0];  % left image border
     R = [1; 0;-w];  % right
     T = [0; 1; 0];  % top

@@ -17,14 +17,14 @@ switch SimSen.type
     
     case {'pinHole'}      % camera pinHole
 
-        % Project all virtual world
+        % Project virtual world's points
         [Raw.data.points.coord, s] = projEucPntIntoPinHoleOnRob(...
             SimRob.frame, ...
             SimSen.frame, ...
             SimSen.par.k, ...
             SimSen.par.d, ...
-            SimLmk.points);
-        Raw.data.points.app  = SimLmk.ids;
+            SimLmk.points.coord);
+        Raw.data.points.app  = SimLmk.points.id;
         
         % Remove non visible
         vis = isVisible(Raw.data.points.coord,s,SimSen.par.imSize);
@@ -35,6 +35,24 @@ switch SimSen.type
         % Add sensor noise
         Raw.data.points.coord = Raw.data.points.coord + ...
             SimSen.par.pixErr*randn(size(Raw.data.points.coord));
+
+        % Project virtual world's segments
+        [Raw.data.segments.coord, s] = projSegLinIntoPinHoleOnRob(...
+            SimRob.frame, ...
+            SimSen.frame, ...
+            SimSen.par.k, ...
+            SimLmk.segments.coord);
+        Raw.data.segments.app  = SimLmk.segments.id;
+        
+        % Remove non visible
+        [Raw.data.segments.coord,vis] = visibleSegment(Raw.data.segments.coord,s,SimSen.par.imSize);
+        
+        Raw.data.segments.coord(:, ~vis)  = [];
+        Raw.data.segments.app(~vis) = [];
+        
+        % Add sensor noise
+        Raw.data.segments.coord = Raw.data.segments.coord + ...
+            SimSen.par.pixErr*randn(size(Raw.data.segments.coord));
 
     otherwise
         % Print an error and exit

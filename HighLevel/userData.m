@@ -39,8 +39,7 @@ World = struct(...
     'zMin',             -10,...
     'zMax',             10,...
     'points',           thickCloister(-6,6,-6,6,1,5),... % 3d point landmarks
-    'segments',         '');
-    %'segments',         house);
+    'segments',         house);
     
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.

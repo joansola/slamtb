@@ -118,7 +118,6 @@ for f = fmin:fmax
     %   1.d  Observe Nl lines
     %------------------------
     for i = 1:size(obsTab,2)
-%         if obsTab(1,i).vis && visSegments(i) % visible line
         if Lmk.Line(i).used && visSegments(i) % visible line
 
             % Search line

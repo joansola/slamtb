@@ -1,4 +1,11 @@
-function [p0,P0_l] = lineOrigin(L)
+function [p0,P0_l] = pluckerOrigin(L)
+
+% PLUCKERORIGIN  Plucker line origin.
+%   PLUCKERORIGIN(L) returns the closest point of the Plucker line L to the
+%   origin of coordinates. This point is considered the origin for the
+%   line's own 1D reference frame.
+%
+%   [p,P_l] = PLUCKERORIGIN(...) returns the Jacobian wrt the line L.
 
 n = L(1:3);
 v = L(4:6);
@@ -36,6 +43,6 @@ return
 
 syms nx ny nz vx vy vz real
 L = [nx;ny;nz;vx;vy;vz];
-[p0,P0_l] = lineOrigin(L);
+[p0,P0_l] = pluckerOrigin(L);
 
 simplify(P0_l - jacobian(p0,L))

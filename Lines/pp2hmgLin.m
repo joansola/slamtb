@@ -13,14 +13,14 @@ function [l,Lp,Lq] = pp2hmgLin(p,q)
 
 if nargout == 1
     if numel(p) == 2 % Support for Euclidean points
-        p = eu2hm(p);
-        q = eu2hm(q);
+        p = euc2hmg(p);
+        q = euc2hmg(q);
     end
     l = cross(p,q);
 else
     if numel(p) == 2 % Support for Euclidean points
-        [p,Pp] = eu2hm(p);
-        [q,Qq] = eu2hm(q);
+        [p,Pp] = euc2hmg(p);
+        [q,Qq] = euc2hmg(q);
         [l,Lp,Lq] = crossJ(p,q);
         Lp = Lp*Pp;
         Lq = Lq*Qq;

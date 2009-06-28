@@ -24,6 +24,8 @@ function [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 % 4- compute innovation.
 % 5- perform consistency test. If it is OK:
 % 6- do EKF correction
+% 7- do reparametrization
+% 8- do params update
 
 % 0. UPDATE ROB AND SEN INFO FROM MAP
 Rob = map2rob(Rob);
@@ -79,15 +81,16 @@ if any(vis) % Consider only visible observations
                 % Update Lmk stats
                 Lmk(lmk).nInlier = Lmk(lmk).nInlier + 1;
 
-                % TODO: see where to put the if Obs.vis ... and the
-                % projectLmk().
                 % 6. CORRECT EKF
                 
                 % All EKF correct things
                 [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
 
+                % 7. REPARAMETRIZATION
                 % Transform to cheaper parametrization if possible
                 [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
+                
+                % 8. COMPUTE INTERNAL PARAMS
 
             else % obs is inconsistent - do not update
                 

@@ -5,20 +5,22 @@ function SimLmk = createSimLmk(World)
 %   from information contained in the user-defined World structure. See
 %   userData.m for the specification of this input structure.
 
-N            = size(World.points,2); % number of landmarks in the simulated world
+PN = size(World.points,2); % number of points in the simulated world
+SN = size(World.segments,2); % number of segments
 
-
-SimLmk.ids          = (1:N); % id is different than index
-SimLmk.points       = World.points;
-SimLmk.lims.xMin    = World.xMin;
-SimLmk.lims.xMax    = World.xMax;
-SimLmk.lims.yMin    = World.yMin;
-SimLmk.lims.yMax    = World.yMax;
-SimLmk.lims.zMin    = World.zMin;
-SimLmk.lims.zMax    = World.zMax;
-SimLmk.dims.l       = SimLmk.lims.xMax - SimLmk.lims.xMin; % playground dimensions
-SimLmk.dims.w       = SimLmk.lims.yMax - SimLmk.lims.yMin;
-SimLmk.dims.h       = SimLmk.lims.zMax - SimLmk.lims.zMin;
-SimLmk.center.xMean = (SimLmk.lims.xMax + SimLmk.lims.xMin)/2; % center fo playground
-SimLmk.center.yMean = (SimLmk.lims.yMax + SimLmk.lims.yMin)/2;
-SimLmk.center.zMean = (SimLmk.lims.zMax + SimLmk.lims.zMin)/2;
+SimLmk.points.id      = (1:PN);
+SimLmk.points.coord   = World.points;
+SimLmk.segments.id    = PN+(1:SN); 
+SimLmk.segments.coord = World.segments;
+SimLmk.lims.xMin      = World.xMin;
+SimLmk.lims.xMax      = World.xMax;
+SimLmk.lims.yMin      = World.yMin;
+SimLmk.lims.yMax      = World.yMax;
+SimLmk.lims.zMin      = World.zMin;
+SimLmk.lims.zMax      = World.zMax;
+SimLmk.dims.l         = SimLmk.lims.xMax - SimLmk.lims.xMin; % playground dimensions
+SimLmk.dims.w         = SimLmk.lims.yMax - SimLmk.lims.yMin;
+SimLmk.dims.h         = SimLmk.lims.zMax - SimLmk.lims.zMin;
+SimLmk.center.xMean   = (SimLmk.lims.xMax + SimLmk.lims.xMin)/2; % center fo playground
+SimLmk.center.yMean   = (SimLmk.lims.yMax + SimLmk.lims.yMin)/2;
+SimLmk.center.zMean   = (SimLmk.lims.zMax + SimLmk.lims.zMin)/2;

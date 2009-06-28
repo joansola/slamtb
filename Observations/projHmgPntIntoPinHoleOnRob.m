@@ -2,28 +2,24 @@ function [u, s, U_r, U_s, U_k, U_d, U_l] = ...
     projHmgPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, l)
 
 
-%
-% TODO
-% 
-
-% PROJEUCPNTINTOPINHOLEONROB Project Euc pnt into pinhole on robot.
-%    [U,S] = PROJEUCPNTINTOPINHOLEONROB(RF, SF, SPK, SPD, L) projects 3D
-%    Euclidean points into a pin-hole camera mounted on a robot, providing
+% PROJHMGPNTINTOPINHOLEONROB Project Hmg pnt into pinhole on robot.
+%    [U,S] = PROJHMGPNTINTOPINHOLEONROB(RF, SF, SPK, SPD, P) projects 3D
+%    homogeneous points into a pin-hole camera mounted on a robot, providing
 %    also the non-measurable depth. The input parameters are:
 %       RF : robot frame
 %       SF : pin-hole sensor frame in robot
 %       SPK: pin-hole intrinsic parameters [u0 v0 au av]'
 %       SPD: radial distortion parameters [K2 K4 K6 ...]'
-%       L  : 3D point [x y z]'
+%       P  : 3D point [x y z]'
 %    The output parameters are:
 %       U  : 2D pixel [u v]'
 %       S  : non-measurable depth
 %
-%    The function accepts a points matrix L = [L1 ... Ln] as input.
+%    The function accepts a points matrix P = [P1 ... Pn] as input.
 %    In this case, it returns a pixels matrix U = [U1 ... Un] and a depths
 %    row-vector S = [S1 ... Sn].
 %
-%    [U,S,U_R,U_S,U_K,U_D,U_L] = ... gives also the jacobians of the
+%    [U,S,U_R,U_S,U_K,U_D,U_P] = ... gives also the jacobians of the
 %    observation U wrt all input parameters. Note that this only works for
 %    single points.
 %

@@ -105,7 +105,7 @@ Sensor{1} = struct(...
     'name',                 'Micropix',...  % sensor name
     'type',                 'pinHole',...   % type of sensor
     'robot',                1,...           % robot where it is mounted
-    'position',             [0;0.15;.6],...    % position in robot
+    'position',             [0;0;.6],...    % position in robot
     'orientationDegrees',   [-90;0;-90],...   % orientation in robot, roll pitch yaw
     'positionStd',          [0;0;0],...     % position error std
     'orientationStd',       [0;0;0],...     % orient. error std

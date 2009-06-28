@@ -20,9 +20,11 @@
 %   invPinHolePlucker              - Retro-projects plucker line
 %   aInvPinHolePlucker             - Inverse pin hole model for Plucker lines
 %   pinHoleSegment                 - Pin hole projection of a segment.
-%   pluckerInvCamera                - Inverse Plucker projection matrix
+%   pluckerInvCamera               - Inverse Plucker projection matrix
 %   isVisible                      - Points visible from pinHole camera.
 %   invDistortion                  - Radial distortion correction calibration.
+%   invPinHoleHmg                  - Inverse pin-hole camera model for HMG.
+%   visibleSegment                 - Visible segment.
 %
 % Observation models, with 2 frame transforms
 %   projEucPntIntoPinHoleOnRob      - Project Euc pnt into pinhole on robot.
@@ -30,3 +32,6 @@
 %   retroProjIdpPntFromPinHoleOnRob - Retro-project idp from pinhole on robot.
 %   projPlkLinIntoPinHoleOnRob      - Project Plucker line into pinhole on robot.
 %   retroProjPlkLinFromPinHoleOnRob - Retro-project Plucker line from pinhole on robot.
+%   projHmgPntIntoPinHoleOnRob      - Project Hmg pnt into pinhole on robot.
+%   retroProjHmgPntFromPinHoleOnRob - Retro-proj. Hmg pnt from pinhole on rob.
+%   projSegLinIntoPinHoleOnRob      - Project segment line into pinhole on robot.

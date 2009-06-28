@@ -9,9 +9,10 @@ function [y,R,newId] = simDetectFeature(lmkIds, raw, pixCov, imSize)
 
 %   (c) 2009 DavidMarquez @ LAAS-CNRS.
 
+% apps  = [raw.points.app raw.segments.app];
+apps  = raw.points.app;
 
-
-[newIds,newIdsIdx] = setdiff(raw.points.app,lmkIds);
+[newIds,newIdsIdx] = setdiff(apps,lmkIds);
 
 visPnts = inSquare(...
     raw.points.coord(:,newIdsIdx),   ...

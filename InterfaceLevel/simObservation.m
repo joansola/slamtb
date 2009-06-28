@@ -26,16 +26,15 @@ switch SimSen.type
             SimLmk.points.coord);
         Raw.data.points.app  = SimLmk.points.id;
         
-        % Remove non visible
-        vis = isVisible(Raw.data.points.coord,s,SimSen.par.imSize);
-        
-        Raw.data.points.coord(:, ~vis)  = [];
-        Raw.data.points.app(~vis) = [];
-        
         % Add sensor noise
         Raw.data.points.coord = Raw.data.points.coord + ...
             SimSen.par.pixErr*randn(size(Raw.data.points.coord));
 
+        % Remove non visible
+        vis = isVisible(Raw.data.points.coord,s,SimSen.par.imSize);        
+        Raw.data.points.coord(:, ~vis)  = [];
+        Raw.data.points.app(~vis) = [];
+        
         % Project virtual world's segments
         [Raw.data.segments.coord, s] = projSegLinIntoPinHoleOnRob(...
             SimRob.frame, ...
@@ -44,16 +43,19 @@ switch SimSen.type
             SimLmk.segments.coord);
         Raw.data.segments.app  = SimLmk.segments.id;
         
-        % Remove non visible
-        [Raw.data.segments.coord,vis] = visibleSegment(Raw.data.segments.coord,s,SimSen.par.imSize);
-        
-        Raw.data.segments.coord(:, ~vis)  = [];
-        Raw.data.segments.app(~vis) = [];
-        
         % Add sensor noise
         Raw.data.segments.coord = Raw.data.segments.coord + ...
             SimSen.par.pixErr*randn(size(Raw.data.segments.coord));
 
+        % Remove non visible
+        [Raw.data.segments.coord,vis] = visibleSegment( ...
+            Raw.data.segments.coord,...
+            s,...
+            SimSen.par.imSize,...
+            10);  % min 10 pixels long
+        Raw.data.segments.coord(:, ~vis)  = [];
+        Raw.data.segments.app(~vis) = [];
+        
     otherwise
         % Print an error and exit
         error('??? Unknown sensor type ''%s''.',Sen.type);

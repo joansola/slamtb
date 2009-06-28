@@ -4,8 +4,6 @@ function drawPlkLin(MapFig,Lmk,color)
 
 global Map
 
-posOffset = [0;0;.2];
-
 % r   = Lmk.state.r; % range
 % plk = Map.x(r); % mean
 % PLK = Map.P(r,r); % covariances matrix
@@ -17,10 +15,10 @@ posOffset = [0;0;.2];
 % E2 = E2_plk*PLK*E2_plk';
 
 % extract endpoints info
-e1 = Lmk.par.endp1.e;
-E1 = Lmk.par.endp1.E;
-e2 = Lmk.par.endp2.e;
-E2 = Lmk.par.endp2.E;
+e1 = Lmk.par.endp(1).e;
+E1 = Lmk.par.endp(1).E;
+e2 = Lmk.par.endp(2).e;
+E2 = Lmk.par.endp(2).E;
 
 % the mean:
 set(MapFig.estLmk(Lmk.lmk).mean,...
@@ -48,7 +46,9 @@ set(MapFig.estLmk(Lmk.lmk).ellipse(1),...
     'visible', 'on');
 
 % the label
+n = Map.x(Lmk.r(1:3)); % Plucker's normal vector
+posOffset = 0.2*n;     % label orthogonally out of the line.
 set(MapFig.estLmk(Lmk.lmk).label,...
-    'position', e1 + posOffset,...
+    'position', 0.5*(e1+e2) + posOffset,...
     'string',   num2str(Lmk.id),...
     'visible',  'on');

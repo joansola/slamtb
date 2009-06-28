@@ -1,4 +1,4 @@
-function e = trimSegment(s,imSize)
+function e = trimSegment(s,imSize,mrg)
 
 % TRIMSEGMENT  Trim segment at image borders
 %   TRIMSEGMENT(S,IMSIZE) trims the segment S at the image borders
@@ -7,9 +7,12 @@ function e = trimSegment(s,imSize)
 %   IMSIZE = [HSIZE,VSIZE]. The output segment has the same orientation as
 %   the input one.
 %
-%   See also TRIMLINE, PINHOLESEGMENT.
+%   TRIMSEGMENT(...,MRG) restricts the image size to be smaller in MRG
+%   pixels at its four borders.
+%
+%   See also PINHOLESEGMENT.
 
-%   (c) 2008 Joan Sola @ LAAS-CNRS
+%   (c) 2008-2009 Joan Sola @ LAAS-CNRS
 
 % input segment's endpoints
 a = s(1:2);
@@ -18,7 +21,11 @@ b = s(3:4);
 % image witdh and height
 [w,h] = split(imSize);
 
-insq = inSquare([a b],[0 w 0 h]);
+if nargin < 3
+    insq = inSquare([a b],[0 w 0 h]);
+else
+    insq = inSquare([a b],[0 w 0 h],mrg);
+end
 
 if all(insq) % both endpoints are in the image
 

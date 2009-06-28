@@ -26,10 +26,14 @@
 %   ppp2idl             - Points to inverse depth line conversion.
 %   updateEndPoints     - 3D landmark, IDL is Inverse Depth Line
 %
-% Segments (2D lines)
+% 3D segments
+%   toFrameSegment      - Express in local frame a set of segments from global frame
+%
+% 2D lines - mixed hmg, pp, seg, ...
 %   hmgLin2rt           - Homogeneous to rho-theta line expression in the plane.
 %   pp2hmgLin           - Homogeneous line from two homogeneous points
 %   rt2hmgLin           - Rho-theta to homogeneous line conversion.
 %   seg2hmgLin          - Segment to homogeneous line conversion.
 %   pp2rt               - Points to rho theta 2D line conversion.
+%   hh2p                - Intersection of 2 homogeneous lines.
 %   trimSegment         - Trim segment at image borders

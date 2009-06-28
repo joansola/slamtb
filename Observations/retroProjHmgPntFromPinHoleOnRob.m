@@ -1,8 +1,7 @@
 function [hmg, HMG_rf, HMG_sf, HMG_sk, HMG_sd, HMG_u, HMG_n] = ...
     retroProjHmgPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, u, n)
 
-% RETROPROJHMGPNTFROMPINHOLEONROB Retro-project Homogene point from pinhole
-% on robot.
+% RETROPROJHMGPNTFROMPINHOLEONROB Retro-proj. Hmg pnt from pinhole on rob.
 %
 %   HMG = RETROPROJIDPPNTFROMPINHOLEONROB(RF, SF, SK, SC, U, N) gives the
 %   retroprojected HMG in World Frame from an observed pixel U. RF and SF

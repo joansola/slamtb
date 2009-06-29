@@ -13,7 +13,7 @@ for lmk = 1:Opt.map.numLmks
     Lmk(lmk).type = '';
     Lmk(lmk).used = false;
 
-    %         Lmk(lmk).state.size = [];
+    % Landmark state range in Map
     Lmk(lmk).state.r = [];
 
     % Landmark descriptor or signature

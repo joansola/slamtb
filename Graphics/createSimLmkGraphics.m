@@ -1,4 +1,4 @@
-function [ph,sh] = createSimLmkGraphics(SimLmk,colr,ax)
+function handle = createSimLmkGraphics(SimLmk,colr,ax)
 
 % CREATESIMLMKGRAPHICS  Crate simulated landmark graphics.
 %   CREATESIMLMKGRAPHICS(SIMLMK,LBLCLR) creates the graphics objects for
@@ -25,9 +25,15 @@ if ~isempty(SimLmk.points.coord)
         'color',        colr,...
         'linestyle',    'none',...
         'marker',       '+');
+else
+    ph = line('vis','off');
 end
 
 % segments
 if ~isempty(SimLmk.segments.coord)
     sh = drawSegmentsObject(SimLmk.segments.coord,colr,1);
+else
+    sh = [];
 end
+
+handle = [ph;sh];

@@ -1,15 +1,14 @@
-function [y,R,newId] = simDetectFeature(lmkIds, raw, pixCov, imSize)
+function [y,R,newId] = simDetectPnt(lmkIds, raw, pixCov, imSize)
 
-%SIMDETECTFEATURE Detected feature.
-%   [Y,R,NEWID] = SIMDETECTFEATURE(LMKIDS,RAW,PIXCOV) return the
-%   coordinates Y, the covariance R and the new id NEWID of the new point,
-%   based on the simulation data.
+%SIMDETECTPNT Detect 2D point in simulated Raw data.
+%   [Y,R,NEWID] = SIMDETECTPNT(LMKIDS,RAW,PIXCOV) return the coordinates Y,
+%   the covariance R and the new id NEWID of the new point, based on the
+%   simulation data.
 %
-%   See also INITNEWLMK.
+%   See also INITNEWLMK, SIMDETECTLIN.
 
 %   (c) 2009 DavidMarquez @ LAAS-CNRS.
 
-% apps  = [raw.points.app raw.segments.app];
 apps  = raw.points.app;
 
 [newIds,newIdsIdx] = setdiff(apps,lmkIds);

@@ -35,6 +35,10 @@ switch (Lmk.type)
     case {'hmgPnt'}
         color = [1 0.5 0.5];
         drawHmgPnt(MapFig, Lmk, color);
+        
+    case {'plkLin'}
+        color = [.5 .5 1];
+        drawPlkLin(MapFig, Lmk, color);
 
     otherwise
         % TODO : print an error and go out

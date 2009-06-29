@@ -19,18 +19,21 @@ function [Lmk,Obs] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 Rob = map2rob(Rob);
 Sen = map2sen(Sen);
 
-% Type of the lmk to initialize
-typeOfLmkToInit = Opt.init.initType;
-switch typeOfLmkToInit
+% Type of the lmk to initialize - with error check.
+switch Opt.init.initType
     case {'hmgPnt'}
         lmkSize = 4;
     case {'idpPnt','plkLin'}
         lmkSize = 6;
     case {'idlLin','ancPlkLin'}
         lmkSize = 9;
+    case {'eucPnt'}
+        error('??? Unable to initialize lmk type ''%s''. Try using ''idpPnt'' instead.',Opt.init.initType);
     otherwise
-        error('??? Unknown Init lmk type. ''%s''',typeOfLmkToInit);
+        error('??? Unknown lmk type ''%s''.', Opt.init.initType);
 end
+
+% get free space in the Map.
 r = newRange(lmkSize);
 if numel(r) < lmkSize
     return;
@@ -39,14 +42,30 @@ end
 % index to first free Idp lmk
 lmk = newLmk(Lmk);
 
+% Feature detection
 switch Raw.type
     case {'simu'}
-        [y, R, newId] = simDetectFeature(...
-            [Lmk([Lmk.used]).id],...
-            Raw.data,...
-            Sen.par.pixCov,...
-            Sen.par.imSize);
-        app           = newId;
+        switch Opt.init.initType(4:end)
+            case 'Pnt'
+                [y, R, newId] = simDetectPnt(...
+                    [Lmk([Lmk.used]).id],...
+                    Raw.data,...
+                    Sen.par.pixCov,...
+                    Sen.par.imSize);
+                app = newId;
+                e   = y;
+                E   = R;
+                Z   = R;
+        
+            case 'Lin'
+                [y, R, newId] = simDetectLin(...
+                    [Lmk([Lmk.used]).id],...
+                    Raw.data,...
+                    Sen.par.pixCov);
+                app = newId;
+                [e,E] = propagateUncertainty(y,R,@seg2hmgLin);
+                Z     = R(1:2,1:2);
+        end
         
     case {'real'}
         % NYI : Not Yet Implemented
@@ -62,12 +81,13 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
     Obs(lmk).sid      = Sen.id;
     Obs(lmk).lid      = newId;
     Obs(lmk).stype    = Sen.type;
-    Obs(lmk).ltype    = typeOfLmkToInit;
+    Obs(lmk).ltype    = Opt.init.initType;
     Obs(lmk).meas.y   = y;
     Obs(lmk).meas.R   = R;
-    Obs(lmk).exp.e    = y;
-    Obs(lmk).exp.E    = R;
-    Obs(lmk).exp.um   = det(R);  % uncertainty measure
+    Obs(lmk).exp.e    = e;
+    Obs(lmk).exp.E    = E;
+    Obs(lmk).exp.Z    = Z;
+    Obs(lmk).exp.um   = det(Z);  % uncertainty measure
     Obs(lmk).app.curr = app;
     Obs(lmk).app.pred = app;
     Obs(lmk).vis      = true;
@@ -75,12 +95,13 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
     Obs(lmk).matched  = true;
     Obs(lmk).updated  = true;
 
+    % retro-project feature onto 3D space
     switch Sen.type
 
         % camera pinHole
         case {'pinHole'}
             % type of lmk to init
-            switch typeOfLmkToInit
+            switch Opt.init.initType
                 case {'idpPnt'}
                     % INIT LMK OF TYPE: Inverse depth point
                     [l, L_rf, L_sf, L_sk, L_sd, L_obs, L_n] = ...
@@ -114,13 +135,13 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
                         Rob.frame, ...
                         Sen.frame, ...
                         Sen.par.k, ...
-                        y, ...
+                        e, ...
                         Opt.init.plkLin.nonObsMean) ;
 
                     N = diag(Opt.init.plkLin.nonObsStd.^2) ;
                     
                 otherwise
-                    error('??? Unknown landmark type to initialize ''%s''.',typeOfLmkToInit)
+                    error('??? Unknown landmark type to initialize ''%s''.',Opt.init.initType)
             end
 
         otherwise % -- Sen.type
@@ -137,7 +158,7 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
         L_sf, ...
         L_obs, ...
         L_n, ...
-        R, ...
+        E, ...
         N) ;
 
     % add to Map and get lmk range in Map
@@ -146,13 +167,22 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
     % Fill Lmk structure before exit
     Lmk(lmk).lmk     = lmk;
     Lmk(lmk).id      = newId;
-    Lmk(lmk).type    = typeOfLmkToInit ;
+    Lmk(lmk).type    = Opt.init.initType ;
     Lmk(lmk).used    = true;
     Lmk(lmk).sig     = app;
     Lmk(lmk).nSearch = 1;
     Lmk(lmk).nMatch  = 1;
     Lmk(lmk).nInlier = 1;
     
+    % Init internal state
+    switch Lmk(lmk).type
+        case {'eucPnt','idpPnt','hmgPnt'}
+        case 'plkLin'
+            Lmk(lmk).par.endp(1).t = 0;
+            Lmk(lmk).par.endp(2).t = 1;
+        otherwise
+            error('??? Unknown landmark type ''%s''.',Lmk(lmk).type);
+    end
     
 end
 

@@ -159,7 +159,7 @@ Opt = struct(...
         'reprojectLmks',    true,...       % reproject lmks after active search?
         'nUpdates',         15,...          % max simultaneus updates
         'MD2th',            9,...          % Threshold on Mahalanobis distance
-        'linTestTh',        0.1),...       % threshold on IDP linearity test
+        'linTestIdp',        0.1),...       % threshold on IDP linearity test
     'init',                 struct(...    % Options for initialization
         'initType',         'idpPnt',...   % Type of lmk to use for init
         'idpPnt',           struct(...     % options for lmk initialization
@@ -170,7 +170,11 @@ Opt = struct(...
             'nonObsStd',    .5),...         % std of non obs
         'plkLin',           struct(...     % opt. for Plucker line init
             'nonObsMean',   [.1;.1],...     % mean of non obs
-            'nonObsStd',    [.5;.5])));     % std of non obs
+            'nonObsStd',    [.5;.5])),...     % std of non obs
+    'obs',                  struct(...     % Observation options
+        'lines',            struct(...        % lines options
+            'minLength',    10)));            % minimum segment length
+        
 
 % Simulation options
 %   - random
@@ -178,7 +182,8 @@ SimOpt = struct(...
     'random',               struct(...      % random generator options
         'active',           true,...        % select new random seed?
         'fixedSeed',        1,...           % random seed for non-random runs
-        'seed',             []));            % actual seed
+        'seed',             []),...            % actual seed
+    'obs',                  Opt.obs);       % Observation options
 
 
 
@@ -204,7 +209,7 @@ FigOpt = struct(...
     'map',              struct(...      % map figure options
         'proj',         'persp',...     % projection of the 3d figure
         'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
-        'size',         [400 300],...   % map figure size
+        'size',         [320 240],...   % map figure size
         'colors',       struct(...      % map figure colors
             'border',   [1 1 1],...     %   [r g b]      
             'axes',     [0 0 0],...     % with:

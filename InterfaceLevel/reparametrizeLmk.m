@@ -20,7 +20,7 @@ switch Lmk.type
         % Test for linearity:
         Ld = xyzLinTest(Rob,Sen,Lmk);
         
-        if Ld < Opt.correct.linTestTh
+        if Ld < Opt.correct.linTestIdp
             
             % ranges
             ir = Lmk.state.r;  % idp

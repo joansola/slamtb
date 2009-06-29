@@ -1,4 +1,4 @@
-function  Raw = simObservation(SimRob, SimSen, SimLmk)
+function  Raw = simObservation(SimRob, SimSen, SimLmk, Opt)
 
 % SIMOBSERVATION Observe simulated landmarks.
 %   RAW = SIMOBSERVATION(SIMROB,SIMSEN,SIMLMK) returns the raw data
@@ -52,7 +52,8 @@ switch SimSen.type
             Raw.data.segments.coord,...
             s,...
             SimSen.par.imSize,...
-            10);  % min 10 pixels long
+            10,...                     % 10 pix margin
+            Opt.obs.lines.minLength);  % min 10 pixels long
         Raw.data.segments.coord(:, ~vis)  = [];
         Raw.data.segments.app(~vis) = [];
         

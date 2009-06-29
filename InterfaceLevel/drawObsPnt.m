@@ -1,7 +1,8 @@
-function drawObsPoint(SenFig, Obs, colors)
+function drawObsPnt(SenFig, Obs, colors)
 
-% DRAWOBSPOINT  Redraw a landmark on the pinHole sensor figure.
-%   DRAWOBSPOINT(SENFIG, OBS, COLORS)  (re)draw a landmark on the pinHole sensor figure.
+% DRAWOBSPNT  Redraw a landmark on the pinHole sensor figure.
+%   DRAWOBSPNT(SENFIG, OBS, COLORS)  (re)draw a landmark on the pinHole
+%   sensor figure.
 %
 %   COLORS is the colors witch apply to the point figure. ex:
 %    colors = ['m' 'r']; % magenta/red or

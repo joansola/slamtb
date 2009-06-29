@@ -25,7 +25,7 @@ switch Sen.type
         % 2. Process only visible landmarks:
         % a - first erase lmks that were drawn but are no longer visible
         vis   = [Obs(:).vis];
-        drawn = (strcmp((get(SenFig.ellipse,'vis')),'on'))';
+        drawn = (strcmp((get(SenFig.ellipse(:,1),'vis')),'on'))';
         erase = drawn & ~vis;
 
         set(SenFig.measure(erase),'vis','off');
@@ -39,32 +39,27 @@ switch Sen.type
             % --------------
             switch Obs(lmk).ltype
 
-                % idp
-                % ---
-                case {'idpPnt'}
-
+                case {'idpPnt'}  % IDP point
                     colors = ['m' 'r']'; % magenta/red
-                    drawObsPoint(SenFig, Obs(lmk), colors);
+                    drawObsPnt(SenFig, Obs(lmk), colors);
 
-                    % euclidian
-                    % ---------
-                case {'eucPnt'}
+                case {'eucPnt'}  % Euclidean point
+                    colors = ['b' 'c']'; % blue/cyan
+                    drawObsPnt(SenFig, Obs(lmk), colors);
 
-                    colors = ['b' 'c']'; % magenta/red
-                    drawObsPoint(SenFig, Obs(lmk), colors);
-
-                case {'hmgPnt'}
-
+                case {'hmgPnt'}  % Homogeneous point
                     colors = ['m' 'r']'; % magenta/red
-                    drawObsPoint(SenFig, Obs(lmk), colors);
+                    drawObsPnt(SenFig, Obs(lmk), colors);
+                    
+                case {'plkLin'}  % Plucker line
+                    colors = ['b' 'c']'; % blue/cyan
+                    drawObsLin(SenFig, Obs(lmk), colors);
 
-                    % ADD HERE FOR NEW LANDMARK
-                    % case {'newLandmark'}
+                    % ADD HERE FOR NEW LANDMARK TYPE
+                case {'newLandmark'}
                     % do something
 
 
-                    % unknown
-                    % -------
                 otherwise
                     % Print an error and exit
                     error('??? Unable to display landmark ''%s'' with sensor ''%s''.',Obs(lmk).ltype,Sen.type);

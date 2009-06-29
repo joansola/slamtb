@@ -83,7 +83,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         for sen = SimRob(rob).sensors
 
             % Observe simulated landmarks
-            Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk) ;
+            Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk, SimOpt) ;
 
         end % end process sensors
 

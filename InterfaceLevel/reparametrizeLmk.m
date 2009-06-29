@@ -13,8 +13,8 @@ function [Lmk,Obs] = reparametrizeLmk(Rob,Sen,Lmk,Obs,Opt)
 global Map
 
 switch Lmk.type
+    
     case 'idpPnt' 
-        
         % we will convert from inverse-depth to euclidean.
         
         % Test for linearity:
@@ -46,7 +46,7 @@ switch Lmk.type
             
         end
         
-    case {'eucPnt','hmgPnt'}
+    case {'eucPnt','hmgPnt','plkLin'}
         % do nothing
         
         
@@ -56,4 +56,5 @@ switch Lmk.type
         
     otherwise
         error('??? Unknown landmark type ''%s''.',Lmk.type)
+
 end

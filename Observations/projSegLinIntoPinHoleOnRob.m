@@ -1,4 +1,5 @@
-function [s,d] = projSegLinIntoPinHoleOnRob(Rf, Sf, k, seg)
+function [s, d, S_rf, S_sf, S_k, S_seg] = ...
+    projSegLinIntoPinHoleOnRob(Rf, Sf, k, seg)
 
 % PROJSEGLININTOPINHOLEONROB Project segment line into pinhole on robot.
 %    [S,D] = PROJSEGLININTOPINHOLEONROB(RF, SF, SPK, SEG) projects 3D line
@@ -15,9 +16,29 @@ function [s,d] = projSegLinIntoPinHoleOnRob(Rf, Sf, k, seg)
 %    The function accepts a segments matrix SEG = [SEG1 ... SEGn] as input.
 %    In this case, it returns a segments matrix S = [S1 ... Sn] and a
 %    depths row-vector D = [D1 ... Dn].
+%
+%   [S, D, S_rf, S_sf, S_k, S_seg] = PROJSEGLININTOPINHOLEONROB(...)
+%   returns the Jacobians wrt all input parameters.
+%
+%   See also TOFRAMESEGMENT, PINHOLESEGMENT, PROJEUCPNTINTOPINHOLEONROB.
 
 
-sr = toFrameSegment(Rf,seg);
-ss = toFrameSegment(Sf,sr);
-[s,d] = pinHoleSegment(k,ss);
+if nargout <= 2
+    
+    sr    = toFrameSegment(Rf,seg);
+    ss    = toFrameSegment(Sf,sr);
+    [s,d] = pinHoleSegment(k,ss);
 
+else % we want Jacobians
+    
+    % partial values and Jacobians
+    [sr, SR_rf, SR_seg] = toFrameSegment(Rf,seg);
+    [ss, SS_sf, SS_sr]  = toFrameSegment(Sf,sr);
+    [s, d, S_k, S_ss]   = pinHoleSegment(k,ss);
+    
+    % chain rule
+    S_sf  = S_ss*SS_sf;
+    S_rf  = S_sr*SR_rf;
+    S_seg = S_ss*SS_sr*SR_seg;
+
+end

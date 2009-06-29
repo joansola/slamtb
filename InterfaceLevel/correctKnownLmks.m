@@ -91,6 +91,7 @@ if any(vis) % Consider only visible observations
                 [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
                 
                 % 8. COMPUTE INTERNAL PARAMS
+                % Lmk(lmk) = updateLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
 
             else % obs is inconsistent - do not update
                 

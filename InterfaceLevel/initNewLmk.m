@@ -149,6 +149,10 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
     Lmk(lmk).type    = typeOfLmkToInit ;
     Lmk(lmk).used    = true;
     Lmk(lmk).sig     = app;
+    Lmk(lmk).nSearch = 1;
+    Lmk(lmk).nMatch  = 1;
+    Lmk(lmk).nInlier = 1;
+    
     
 end
 

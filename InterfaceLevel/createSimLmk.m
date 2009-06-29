@@ -5,6 +5,13 @@ function SimLmk = createSimLmk(World)
 %   from information contained in the user-defined World structure. See
 %   userData.m for the specification of this input structure.
 
+if isempty(World.points)
+    World.points = zeros(3,0);
+end
+if isempty(World.segments)
+    World.segments = zeros(6,0);
+end
+
 PN = size(World.points,2); % number of points in the simulated world
 SN = size(World.segments,2); % number of segments
 

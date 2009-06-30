@@ -13,33 +13,34 @@ v = L(4:6);
 
 if nargout == 1
 
-    vn   = normvec(v);
-    p0   = pluckerOrigin(L);
-    e1   = p0 + s1*vn;
-    e2   = p0 + s2*vn;
+    vn = normvec(v);
+    p0 = pluckerOrigin(L);
+    e1 = p0 + s1*vn;
+    e2 = p0 + s2*vn;
 
 else % Jac
     
     [vn,VN_v] = normvec(v,0);
     [p0,P0_l] = pluckerOrigin(L);
-    P0_n = P0_l(:,1:3);
-    P0_v = P0_l(:,4:6);
+
+    P0_n  = P0_l(:,1:3);
+    P0_v  = P0_l(:,4:6);
     
-    e1 = p0 + s1*vn;
+    e1    = p0 + s1*vn;
     E1_s1 = vn;
 
-    E1_n = P0_n;
-    E1_v = P0_v + s1*VN_v;
+    E1_n  = P0_n;
+    E1_v  = P0_v + s1*VN_v;
 
-    E1_l = [E1_n E1_v];
+    E1_l  = [E1_n E1_v];
 
-    e2 = p0 + s2*vn;
+    e2    = p0 + s2*vn;
     E2_s2 = vn;
 
-    E2_n = P0_n;
-    E2_v = P0_v + s2*VN_v;
+    E2_n  = P0_n;
+    E2_v  = P0_v + s2*VN_v;
 
-    E2_l = [E2_n E2_v];
+    E2_l  = [E2_n E2_v];
 
 end
 

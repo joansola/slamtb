@@ -29,7 +29,7 @@ end
 % init output arrays
 n   = size(s,2);
 sv  = zeros(4,n);
-vis = zeros(1,n);
+vis = false(1,n);
 
 % loop all segments
 for i = 1:n

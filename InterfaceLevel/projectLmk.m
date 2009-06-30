@@ -90,7 +90,7 @@ switch Sen.type
                     l); % expectation is a homogeneous line
                 
                 % Segment endpoints --> projected
-                si = [Lmk.par.endp.e]';
+                si = [Lmk.par.endp(1).e;Lmk.par.endp(2).e];
                 % [s, d, S_rf, S_sf, S_k, S_seg] = projSegLinIntoPinHoleOnRob(...
                 [s, d] = projSegLinIntoPinHoleOnRob(...
                     Rob.frame, ...
@@ -98,8 +98,8 @@ switch Sen.type
                     Sen.par.k, ...
                     si); % projected endpoints segment
                 
-                vis = visibleSegment(s,d);
-                R   = blkdiag(Sen.par.pixCov,Sen.par.pixCov);
+                [s,vis] = visibleSegment(s,d,Sen.par.imSize);
+%                 R   = blkdiag(Sen.par.pixCov,Sen.par.pixCov);
 
 
             otherwise % unknown landmark type for pin hole sensor
@@ -132,7 +132,7 @@ end
 E = E_rsl*Map.P(rslr,rslr)*E_rsl' ;
 
 % update the Obs structure
-Obs.meas.R  = R ;
+% Obs.meas.R  = R ;
 Obs.exp.e   = e ;
 Obs.exp.E   = E ;
 Obs.exp.um  = det(E);  % uncertainty measure proportional to ellipsoid area

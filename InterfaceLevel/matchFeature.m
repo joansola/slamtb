@@ -9,19 +9,27 @@ switch Raw.type
 
     case 'simu'
 
-        id = Obs.lid;
-        idx = find(Raw.data.points.app==id);
+        switch Obs.ltype(4:6)
+            case 'Pnt'
+                rawDataLmks = Raw.data.points;
+            case 'Lin'
+                rawDataLmks = Raw.data.segments;
+            otherwise
+                error('??? Unknown landmark type ''%s''.',Obs.ltype);
+        end
+
+
+        id  = Obs.lid;
+        idx = find(rawDataLmks.app==id);
 
         if ~isempty(idx)
-            Obs.meas.y   = Raw.data.points.coord(:,idx);
+            Obs.meas.y   = rawDataLmks.coord(:,idx);
             Obs.measured = true;
             Obs.matched  = true;
         else
             Obs.measured = false;
             Obs.matched  = false;
         end
-
-
         % case 'real'
         % TODO: the real case
 

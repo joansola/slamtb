@@ -30,7 +30,7 @@ switch Opt.init.initType
     case {'eucPnt'}
         error('??? Unable to initialize lmk type ''%s''. Try using ''idpPnt'' instead.',Opt.init.initType);
     otherwise
-        error('??? Unknown lmk type ''%s''.', Opt.init.initType);
+        error('??? Unknown landmark type ''%s''.', Opt.init.initType);
 end
 
 % get free space in the Map.
@@ -45,35 +45,20 @@ lmk = newLmk(Lmk);
 % Feature detection
 switch Raw.type
     case {'simu'}
-        switch Opt.init.initType(4:end)
-            case 'Pnt'
-                [y, R, newId] = simDetectPnt(...
-                    [Lmk([Lmk.used]).id],...
-                    Raw.data,...
-                    Sen.par.pixCov,...
-                    Sen.par.imSize);
-                app = newId;
-                e   = y;
-                E   = R;
-                Z   = R;
-        
-            case 'Lin'
-                [y, R, newId] = simDetectLin(...
-                    [Lmk([Lmk.used]).id],...
-                    Raw.data,...
-                    Sen.par.pixCov);
-                app = newId;
-                [e,E] = propagateUncertainty(y,R,@seg2hmgLin);
-                Z     = R(1:2,1:2);
-        end
-        
+        [newId, app, meas, exp, inn] = simDetectFeat(...
+            Opt.init.initType,    ...
+            [Lmk([Lmk.used]).id], ...
+            Raw.data,             ...
+            Sen.par.pixCov,       ...
+            Sen.par.imSize);
+
     case {'real'}
         % NYI : Not Yet Implemented
-        %[y,R,newId] = detectFeature([Lmk(usedLmks).id],Raw.data,Sen.par);
+        %[newId, app, meas, exp, inn] = detectFeat([Lmk(usedLmks).id],Raw.data,Sen.par);
         error('??? Unknown Raw type. ''real'': NYI.');
 end
 
-if ~isempty(y)  % a feature was detected --> initialize it in IDP
+if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP
 
     % fill Obs struct before continuing
     Obs(lmk).sen      = Sen.sen;
@@ -82,12 +67,10 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
     Obs(lmk).lid      = newId;
     Obs(lmk).stype    = Sen.type;
     Obs(lmk).ltype    = Opt.init.initType;
-    Obs(lmk).meas.y   = y;
-    Obs(lmk).meas.R   = R;
-    Obs(lmk).exp.e    = e;
-    Obs(lmk).exp.E    = E;
-    Obs(lmk).exp.Z    = Z;
-    Obs(lmk).exp.um   = det(Z);  % uncertainty measure
+    Obs(lmk).meas     = meas;
+    Obs(lmk).exp      = exp;
+    Obs(lmk).exp.um   = det(inn.Z);  % uncertainty measure
+    Obs(lmk).inn      = inn;
     Obs(lmk).app.curr = app;
     Obs(lmk).app.pred = app;
     Obs(lmk).vis      = true;
@@ -96,58 +79,7 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
     Obs(lmk).updated  = true;
 
     % retro-project feature onto 3D space
-    switch Sen.type
-
-        % camera pinHole
-        case {'pinHole'}
-            % type of lmk to init
-            switch Opt.init.initType
-                case {'idpPnt'}
-                    % INIT LMK OF TYPE: Inverse depth point
-                    [l, L_rf, L_sf, L_sk, L_sd, L_obs, L_n] = ...
-                        retroProjIdpPntFromPinHoleOnRob( ...
-                        Rob.frame, ...
-                        Sen.frame, ...
-                        Sen.par.k, ...
-                        Sen.par.d, ...
-                        y, ...
-                        Opt.init.idpPnt.nonObsMean) ;
-
-                    N = Opt.init.idpPnt.nonObsStd^2 ;
-        
-                case {'hmgPnt'}
-                    % INIT LMK OF TYPE: Homogeneous point
-                    [l, L_rf, L_sf, L_sk, L_sd, L_obs, L_n] = ...
-                        retroProjHmgPntFromPinHoleOnRob( ...
-                        Rob.frame, ...
-                        Sen.frame, ...
-                        Sen.par.k, ...
-                        Sen.par.d, ...
-                        y, ...
-                        Opt.init.hmgPnt.nonObsMean) ;
-
-                    N = Opt.init.hmgPnt.nonObsStd^2 ;
-                
-                case {'plkLin'}
-                    % INIT LMK OF TYPE: Plucker line
-                    [l, L_rf, L_sf, L_sk, L_obs, L_n] = ...
-                        retroProjPlkLinFromPinHoleOnRob( ...
-                        Rob.frame, ...
-                        Sen.frame, ...
-                        Sen.par.k, ...
-                        e, ...
-                        Opt.init.plkLin.nonObsMean) ;
-
-                    N = diag(Opt.init.plkLin.nonObsStd.^2) ;
-                    
-                otherwise
-                    error('??? Unknown landmark type to initialize ''%s''.',Opt.init.initType)
-            end
-
-        otherwise % -- Sen.type
-            % Print an error and exit
-            error('??? Unknown sensor type. ''%s''.',Sen.type);
-    end % -- Sen.type
+    [l, L_rf, L_sf, L_obs, L_n, N] = retroProjLmk(Rob,Sen,Obs(lmk),Opt);
 
     % get new Lmk, covariance and cross-variance.
     [P_LL,P_LX] = getNewLmkCovs( ...
@@ -158,7 +90,7 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
         L_sf, ...
         L_obs, ...
         L_n, ...
-        E, ...
+        exp.E, ...
         N) ;
 
     % add to Map and get lmk range in Map
@@ -178,8 +110,14 @@ if ~isempty(y)  % a feature was detected --> initialize it in IDP
     switch Lmk(lmk).type
         case {'eucPnt','idpPnt','hmgPnt'}
         case 'plkLin'
-            Lmk(lmk).par.endp(1).t = 0;
-            Lmk(lmk).par.endp(2).t = 1;
+            t1 = 0;
+            t2 = 1;
+            Lmk(lmk).par.endp(1).t = t1;
+            Lmk(lmk).par.endp(2).t = t2;
+            [e1,e2] = pluckerEndpoints(l, t1, t2);
+            Lmk(lmk).par.endp(1).e = e1;
+            Lmk(lmk).par.endp(2).e = e2;
+            
         otherwise
             error('??? Unknown landmark type ''%s''.',Lmk(lmk).type);
     end
@@ -188,6 +126,7 @@ end
 
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [P_LL,P_LX] = getNewLmkCovs(SenFrameInMap, RobFrameR, SenFrameR,...
     L_rf, L_sf, L_obs, L_n, R, N)

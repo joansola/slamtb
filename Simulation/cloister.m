@@ -36,18 +36,19 @@ eastext  = [zext+ext;-cext];
 westint  = [zint-int;cint];
 westext  = [zext-ext;cext];
 
-centh  = [cmidle;zmidle];
-centv  = [zmidle;cmidle];
+% centh  = [cmidle;zmidle];
+% centv  = [zmidle;cmidle];
 
 % remove central doubled point
-s = size(centh,2);
-if mod(s,2) ~= 0
-    c = (s+1)/2;
-    centh(:,c) = [];
-end
+% s = size(centh,2);
+% if mod(s,2) ~= 0
+%     c = (s+1)/2;
+%     centh(:,c) = [];
+% end
 
 
 
-f = [northint northext southint southext eastint eastext westint westext centh centv];
+% f = [northint northext southint southext eastint eastext westint westext centh centv];
+f = [northint northext southint southext eastint eastext westint westext];
 % f = f-n/2-1;
 f = tsize*f/(n+1);

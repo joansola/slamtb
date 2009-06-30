@@ -73,7 +73,7 @@ if any(vis) % Consider only visible observations
                 Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
             end
             
-            Obs(lmk) = observationInnovation(Obs(lmk));
+            Obs(lmk) = observationInnovation(Obs(lmk),Opt.correct.innType);
 
             % 5. TEST CONSISTENCE
             if Obs(lmk).inn.MD2 < Opt.correct.MD2th 

@@ -159,7 +159,8 @@ Opt = struct(...
         'reprojectLmks',    true,...       % reproject lmks after active search?
         'nUpdates',         15,...          % max simultaneus updates
         'MD2th',            9,...          % Threshold on Mahalanobis distance
-        'linTestIdp',        0.1),...       % threshold on IDP linearity test
+        'linTestIdp',        0.1,...       % threshold on IDP linearity test
+        'innType',          'ortDst'),...  % innovation type for lines
     'init',                 struct(...    % Options for initialization
         'initType',         'idpPnt',...   % Type of lmk to use for init
         'idpPnt',           struct(...     % options for lmk initialization
@@ -170,10 +171,10 @@ Opt = struct(...
             'nonObsStd',    .5),...         % std of non obs
         'plkLin',           struct(...     % opt. for Plucker line init
             'nonObsMean',   [.1;.1],...     % mean of non obs
-            'nonObsStd',    [.5;.5])),...     % std of non obs
+            'nonObsStd',    [.5;.5])),...    % std of non obs
     'obs',                  struct(...     % Observation options
-        'lines',            struct(...        % lines options
-            'minLength',    10)));            % minimum segment length
+        'lines',            struct(...      % lines options
+            'minLength',    10)));          % minimum segment length
         
 
 % Simulation options
@@ -182,7 +183,7 @@ SimOpt = struct(...
     'random',               struct(...      % random generator options
         'active',           true,...        % select new random seed?
         'fixedSeed',        1,...           % random seed for non-random runs
-        'seed',             []),...            % actual seed
+        'seed',             []),...            % current seed
     'obs',                  Opt.obs);       % Observation options
 
 

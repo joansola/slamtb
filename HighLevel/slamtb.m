@@ -69,6 +69,7 @@ clear Robot Sensor World Time   % clear all user data
 
 
 %% IV. Main loop
+skip = 0;
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 1. SIMULATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -132,25 +133,24 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 3. VISUALIZATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % Figure of the Map:
-    drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen, FigOpt);
-    
-    if FigOpt.createVideo
-        imgFrame(MapFig.fig,sprintf('map%03d.png',currentFrame));
-    end
+    skip = skip - 1;
+    if skip <= 0 || currentFrame == Tim.lastFrame
+        skip = FigOpt.skipFrames;
+        
+        % Figure of the Map:
+        drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen, FigOpt);
+        makeVideoFrame(MapFig,sprintf('map-%04d.png',currentFrame),FigOpt,ExpOpt);
 
-    % Figures for all sensors
-    for sen = [Sen.sen]
-        
-        drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:));
-        
-        if FigOpt.createVideo
-            imgFrame(SenFig(sen).fig,sprintf('sen%d-%03d.png',sen,currentFrame));
+        % Figures for all sensors
+        for sen = [Sen.sen]
+            drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:));
+            makeVideoFrame(SenFig(sen),sprintf('sen%02d-%04d.png',sen,currentFrame),FigOpt,ExpOpt);
+
         end
+
+        % Do draw all objects
+        drawnow;
     end
-    
-    % Do draw all objects
-    drawnow;
     
 
 

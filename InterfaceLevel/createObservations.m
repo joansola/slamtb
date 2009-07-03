@@ -37,9 +37,12 @@ for sen = 1:numel(Sen)
         O.measured  = false;      % lmk has been measured?
         O.matched   = false;      % lmk has been matched?
         O.updated   = false;      % lmk has been updated?
-        O.Jac.E_r   = [];         % Jac wrt robot state - Obs function
-        O.Jac.E_s   = [];         % Jac wrt sensor
-        O.Jac.E_l   = [];         % Jac wrt landmark
+        O.Jac.E_r   = [];         % Jac of expectation wrt robot state - Obs function
+        O.Jac.E_s   = [];         % Jac of expectation wrt sensor
+        O.Jac.E_l   = [];         % Jac of expectation wrt landmark
+        O.Jac.Z_r   = [];         % Jac of innovation wrt robot state - Inn function
+        O.Jac.Z_s   = [];         % Jac of innovation wrt sensor
+        O.Jac.Z_l   = [];         % Jac of innovation wrt landmark
         
         Obs(sen,lmk) = O;
         

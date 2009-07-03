@@ -38,8 +38,8 @@ World = struct(...
   'yMax',             10,...
   'zMin',             -10,...
   'zMax',             10,...
-  'points',           thickCloister(-6,6,-6,6,1,5),... % 3d point landmarks. 
-  'segments',         []);  % 3D segments. 
+  'points',           thickCloister(-6,6,-6,6,1,5),... % 3d point landmarks - see THICKCLOISTER. 
+  'segments',         []);  % 3D segments - see HOUSE. 
     
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
@@ -59,7 +59,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'dx',                 [.04;0;0],...     % position increment
   'daDegrees',          [0;0;.45],...     % angle increment, degrees
   'dxStd',              0.003*[1;1;1],...  % odo linear error std
-  'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
+  'daStd',              0*0.03*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -97,7 +97,7 @@ Sensor{1} = struct(...
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
   'pixErrorStd',        1.0,...         % pixel error std
-  'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
+  'intrinsic',          [320;240;200;200],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
 
@@ -153,7 +153,7 @@ Opt = struct(...
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
     'active',         true,...         % select new random seed?
-    'fixedSeed',      1,...            % random seed for non-random runs
+    'fixedSeed',      207948,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 

@@ -21,15 +21,15 @@ lr = Lmk.state.r ;        % lmk range in Map
 % Rob-Sen-Lmk range and Jacobian
 if Sen.frameInMap
     rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
-    H_rsl = [Obs.Jac.E_r Obs.Jac.E_s Obs.Jac.E_l];
+    Z_rsl = [Obs.Jac.Z_r Obs.Jac.Z_s Obs.Jac.Z_l];
     
 else
     rslr  = [Rob.frame.r ; lr]; % range of robot and landmark
-    H_rsl = [Obs.Jac.E_r Obs.Jac.E_l];
+    Z_rsl = [Obs.Jac.Z_r Obs.Jac.Z_l];
 end
 
 % correct map
-correctBlockEkf(rslr,H_rsl,Obs.inn);
+correctBlockEkf(rslr,-Z_rsl,Obs.inn);
 
 % Rob and Sen synchronized with Map
 Rob = map2rob(Rob);

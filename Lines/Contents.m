@@ -10,6 +10,10 @@
 %   pluckerEndpoints    - Plucker line and abscissas to endpoints conversion.
 %   pluckerOrigin       - Plucker line origin.
 %   pluckerAngle        - Angle between Plucker vectors.
+%   pix2PluckerRay      - 
+%   lines2abscissa      - Abscissa of Plucer line at the intersection with ray.
+%   lines2point         - Intersection point of 2 Plucker lines. Result in Homogeneous.
+%   lines2Epoint        - Intersection point of 2 Plucker lines. Result in Euclidean.
 %
 % Anchored Plucker lines
 %   anchorPlucker       - Plucker to anchored Plucker line conversion
@@ -28,12 +32,17 @@
 %
 % 3D segments
 %   toFrameSegment      - Express in local frame a set of segments from global frame
+%   segLength           - Segment length.
 %
 % 2D lines - mixed hmg, pp, seg, ...
+%   trimSegment         - Trim segment at image borders
+%   trimHmgLin          - Trim 2D homogeneous line at image borders
 %   hmgLin2rt           - Homogeneous to rho-theta line expression in the plane.
 %   pp2hmgLin           - Homogeneous line from two homogeneous points
+%   pp2rt               - Points to rho theta 2D line conversion.
 %   rt2hmgLin           - Rho-theta to homogeneous line conversion.
 %   seg2hmgLin          - Segment to homogeneous line conversion.
-%   pp2rt               - Points to rho theta 2D line conversion.
 %   hh2p                - Intersection of 2 homogeneous lines.
-%   trimSegment         - Trim segment at image borders
+%   lp2d                - Line-point signed distance, in 2D.
+%   hms2hh              - Orthogonal endpoints innovation for homogeneous line and segment.
+

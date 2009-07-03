@@ -18,7 +18,7 @@ switch Sen.type
     case {'pinHole'}
 
         % 1. Simulated landmark visualisation
-        set(SenFig.raw,...
+        set(SenFig.raw.points,...
             'xdata',Raw.data.points.coord(1,:),...
             'ydata',Raw.data.points.coord(2,:))
 
@@ -53,7 +53,7 @@ switch Sen.type
                     
                 case {'plkLin'}  % Plucker line
                     colors = ['b' 'c']'; % blue/cyan
-                    drawObsLin(SenFig, Obs(lmk), colors);
+                    drawObsLin(SenFig, Obs(lmk), colors, Sen.par.imSize);
 
                     % ADD HERE FOR NEW LANDMARK TYPE
                 case {'newLandmark'}

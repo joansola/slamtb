@@ -110,13 +110,20 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP
     switch Lmk(lmk).type
         case {'eucPnt','idpPnt','hmgPnt'}
         case 'plkLin'
-            t1 = -28;
-            t2 = 28;
-            Lmk(lmk).par.endp(1).t = t1;
-            Lmk(lmk).par.endp(2).t = t2;
-            [e1,e2] = pluckerEndpoints(l, t1, t2);
-            Lmk(lmk).par.endp(1).e = e1;
-            Lmk(lmk).par.endp(2).e = e2;
+%             t1 = -6;
+%             t2 = 6;
+%             Lmk(lmk).par.endp(1).t = t1;
+%             Lmk(lmk).par.endp(2).t = t2;
+%             [e1,e2] = pluckerEndpoints(l, t1, t2);
+%             Lmk(lmk).par.endp(1).e = e1;
+%             Lmk(lmk).par.endp(2).e = e2;
+            
+            [seg, t] = retroProjPlkEndPnts(Rob,Sen,Lmk(lmk),Obs(lmk));
+            Lmk(lmk).par.endp(1).t = t(1);
+            Lmk(lmk).par.endp(2).t = t(2);
+            Lmk(lmk).par.endp(1).e = seg(1:3);
+            Lmk(lmk).par.endp(2).e = seg(4:6);
+            
             
         otherwise
             error('??? Unknown landmark type ''%s''.',Lmk(lmk).type);

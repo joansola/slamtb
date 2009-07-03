@@ -20,8 +20,8 @@ function [z,Z,iZ,MD2,Z_e,Z_y] = innovation(y,R,e,E,f)
 %   [z,Z,iZ,MD2] = INNOVATION(...) returns also the inverse of the
 %   innovation covariance iZ and the squared Mahalanobis distance MD2.
 %
-%   [z,Z,iZ,MD2,F_e,F_y] returns the Jacobians wrt the expectation e and
-%   the measurement y.
+%   [z,Z,iZ,MD2,F_e,F_y] INNOVATION(...) returns the Jacobians wrt the
+%   expectation e and the measurement y.
 %
 %   EXAMPLES:
 %   innovation(seg,SEG,hmLin,HMLIN,@hms2hh) is the innovation of a segment
@@ -48,4 +48,3 @@ if nargout >= 3
         MD2 = z'*iZ*z;
     end
 end
-

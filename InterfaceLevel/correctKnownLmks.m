@@ -50,6 +50,9 @@ if any(vis) % Consider only visible observations
     [Obs(lmksToSkip).measured] = deal(false);
     [Obs(lmksToSkip).matched]  = deal(false);
     [Obs(lmksToSkip).updated]  = deal(false);
+%     [Obs.measured] = deal(false);
+%     [Obs.matched]  = deal(false);
+%     [Obs.updated]  = deal(false);
 
     for lmk = lmksToObs % for each landmark to correct
         
@@ -73,7 +76,7 @@ if any(vis) % Consider only visible observations
                 Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
             end
             
-            Obs(lmk) = observationInnovation(Obs(lmk),Opt.correct.innType);
+            Obs(lmk) = observationInnovation(Obs(lmk),Opt.correct.lines.innType);
 
             % 5. TEST CONSISTENCE
             if Obs(lmk).inn.MD2 < Opt.correct.MD2th 
@@ -91,7 +94,7 @@ if any(vis) % Consider only visible observations
                 [Lmk(lmk),Obs(lmk)] = reparametrizeLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
                 
                 % 8. COMPUTE INTERNAL PARAMS
-                % Lmk(lmk) = updateLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
+                Lmk(lmk) = updateLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
 
             else % obs is inconsistent - do not update
                 

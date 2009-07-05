@@ -27,7 +27,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            800);           % last frame #
+  'lastFrame',            100);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -59,7 +59,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'dx',                 [.04;0;0],...     % position increment
   'daDegrees',          [0;0;.45],...     % angle increment, degrees
   'dxStd',              0.003*[1;1;1],...  % odo linear error std
-  'daStd',              0*0.03*[1;1;1]);      % odo ang error std, degrees
+  'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -97,7 +97,7 @@ Sensor{1} = struct(...
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
   'pixErrorStd',        1.0,...         % pixel error std
-  'intrinsic',          [320;240;200;200],... % intrinsic params [u0 v0 au av]
+  'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
 
@@ -131,7 +131,10 @@ Opt = struct(...
     'nUpdates',       8,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
-    'innType',        'ortDst'),...  % innovation type for lines
+    'lines',          struct(...     % options for line corrections
+      'innType',      'ortDst',...    % innovation type for lines
+      'extPolicy',    false,...       % line extending policy ?
+      'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
@@ -145,7 +148,7 @@ Opt = struct(...
       'nonObsStd',    [.5;.5])),...   % std of non obs
   'obs',              struct(...    % Observation options
     'lines',          struct(...     % lines options
-      'minLength',    10)));          % minimum segment length
+      'minLength',    20)));          % minimum segment length
         
 
 % Simulation options
@@ -178,28 +181,28 @@ SimOpt = struct(...
 FigOpt = struct(...
   'renderer',     'opengl',...    % renderer
   'createVideo',  false,...       % create video sequence?
-  'skipFrames',   0,...          % frames to skip for faster processing
+  'skipFrames',   0,...           % frames to skip for faster processing
   'map',          struct(...      % map figure options
-    'proj',       'persp',...     % projection of the 3d figure
-    'view',       'view',...      % viewpoint of the 3d figure [30 45 40 20]
-    'size',       [320 240],...   % map figure size
-    'colors',     struct(...      % map figure colors
-      'border',   [1 1 1],...     %   [r g b]      
-      'axes',     [0 0 0],...     % with:
-      'bckgnd',   [1 1 1],...     %   [0 0 0] black
-      'simLmks',  .1*[1 1 1],...  %   [1 1 1] white
-      'simu',     'g',...         %   or 'r', 'b', etc.   
-      'est',      'b',...         % estimated robots and sensors
-      'ground',   [.8 .8 .8],...  % simulated robots and sensors
-      'label',    [.0 .5 0])),... % landmark ID labels
+    'proj',       'persp',...      % projection of the 3d figure
+    'view',       'view',...       % viewpoint of the 3d figure [30 45 40 20]
+    'size',       [320 240],...    % map figure size
+    'colors',     struct(...       % map figure colors
+      'border',   [1 1 1],...       %   [r g b]      
+      'axes',     [0 0 0],...       % with:
+      'bckgnd',   [1 1 1],...       %   [0 0 0] black
+      'simLmks',  .1*[1 1 1],...    %   [1 1 1] white
+      'simu',     'g',...           %   or 'r', 'b', etc.   
+      'est',      'b',...           % estimated robots and sensors
+      'ground',   [.8 .8 .8],...    % simulated robots and sensors
+      'label',    [.0 .5 0])),...   % landmark ID labels
   'sensor',       struct(...      % sensor figures options
-    'size',       [320 240],...   % sensor figure size
-    'colors',     struct(...      % Sensor figure colors:
-      'border',   .8*[1 1 1],...  %    
-      'axes',     [0 0 0],...     % 
-      'bckgnd',   [1 1 1],...     %
-      'raw',      [0 0 0],...     % 
-      'label',    [.5 .5 .5])));  %
+    'size',       [320 240],...    % sensor figure size
+    'colors',     struct(...       % Sensor figure colors:
+      'border',   .8*[1 1 1],...    %    
+      'axes',     [0 0 0],...       % 
+      'bckgnd',   [1 1 1],...       %
+      'raw',      [0 0 0],...       % 
+      'label',    [.5 .5 .5])));    %
 
 
 % Experiment options 

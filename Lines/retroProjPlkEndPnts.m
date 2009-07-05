@@ -21,6 +21,10 @@ l = Map.x(Lmk.state.r);
 [e2,t2] = intersectPlucker(l,r2);
 
 % build segment and abscissas vector
-seg = [e1;e2];
-t   = [t1;t2];
-
+if t2 > t1
+    seg = [e1;e2];
+    t   = [t1;t2];
+else
+    seg = [e2;e1];
+    t   = [t2;t1];
+end

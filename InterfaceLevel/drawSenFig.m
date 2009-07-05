@@ -1,4 +1,4 @@
-function drawSenFig(SenFig, Sen, Raw, Obs)
+function SenFig = drawSenFig(SenFig, Sen, Raw, Obs)
 
 % DRAWSENFIG  Redraw one sensor figure.
 % 	DRAWSENFIG(SENFIG, SEN, RAW, OBS) updates all the handles in the
@@ -17,28 +17,31 @@ switch Sen.type
     % --------------
     case {'pinHole'}
 
-        % 1. Simulated landmark visualisation
-        set(SenFig.raw.points,...
-            'xdata',Raw.data.points.coord(1,:),...
-            'ydata',Raw.data.points.coord(2,:))
+        % 1. Raw data visualisation
+        drawRaw(SenFig, Raw);
 
         % 2. Process only visible landmarks:
         % a - first erase lmks that were drawn but are no longer visible
         vis   = [Obs(:).vis];
-        drawn = (strcmp((get(SenFig.ellipse(:,1),'vis')),'on'))';
+        drawn = SenFig.drawn;
         erase = drawn & ~vis;
-
-        set(SenFig.measure(erase),'vis','off');
-        set(SenFig.ellipse(erase),'vis','off');
-        set(SenFig.label(erase),  'vis','off');
+        if any(erase)
+            set(SenFig.measure(erase),'vis','off');
+            set(SenFig.mean(erase),   'vis','off');
+            set(SenFig.ellipse(erase),'vis','off');
+            set(SenFig.label(erase),  'vis','off');
+            SenFig.drawn(erase) = false;
+        end
 
         % b - now draw only visible landmarks
         for lmk = find(vis)
 
+            SenFig.drawn(lmk) = true;
+
             % Landmark type:
             % --------------
             switch Obs(lmk).ltype
-
+                
                 case {'idpPnt'}  % IDP point
                     colors = ['m' 'r']'; % magenta/red
                     drawObsPnt(SenFig, Obs(lmk), colors);
@@ -63,11 +66,9 @@ switch Sen.type
                 otherwise
                     % Print an error and exit
                     error('??? Unable to display landmark ''%s'' with sensor ''%s''.',Obs(lmk).ltype,Sen.type);
+
             end % and of the "switch" on sensor type
 
-
-
-            %                 else % Lmk is not visible : draw blank
         end
 
 

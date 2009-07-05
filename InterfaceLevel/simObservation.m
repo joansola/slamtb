@@ -35,6 +35,8 @@ switch SimSen.type
         Raw.data.points.coord(:, ~vis)  = [];
         Raw.data.points.app(~vis) = [];
         
+        
+        
         % Project virtual world's segments
         [Raw.data.segments.coord, s] = projSegLinIntoPinHoleOnRob(...
             SimRob.frame, ...
@@ -52,7 +54,7 @@ switch SimSen.type
             Raw.data.segments.coord,...
             s,...
             SimSen.par.imSize,...
-            10,...                     % 10 pix margin
+            0,...                     % 10 pix margin
             Opt.obs.lines.minLength);  % min 10 pixels long
         Raw.data.segments.coord(:, ~vis)  = [];
         Raw.data.segments.app(~vis) = [];

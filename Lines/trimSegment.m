@@ -139,3 +139,24 @@ for i=1:numel(s)
     s{i}'
     (trimSegment(s{i},imsize))'
 end
+
+%% test
+lmin = 10;
+mrg = 0;
+imSize = [640;480];
+cla
+lh = line('color','c','linewidth',3);
+yh = line('color','r','linestyle','--')
+
+%%
+s = randn(4,1)*600
+
+set(lh,'xdata',s([1,3]),'ydata',s([2,4]))
+
+sv = trimSegment(s,imSize)
+
+if isempty(sv)
+    set(yh,'xdata',[],'ydata',[])
+else
+    set(yh,'xdata',sv([1,3]),'ydata',sv([2,4]))
+end

@@ -11,7 +11,7 @@ function drawObsLin(SenFig, Obs, colors, imSize)
 %
 
 
-posOffset = [0;-15];
+posOffset = 8;
 
 % the measurement:
 if Obs.measured
@@ -50,12 +50,12 @@ end
 %     'vis',   'on');
 
 % the label
-pos = (Obs.meas.y(1:2)+Obs.meas.y(3:4))*0.5 + posOffset;
+c = (Obs.meas.y(1:2)+Obs.meas.y(3:4))*0.5; % segment's center
+v = (Obs.meas.y(1:2)-Obs.meas.y(3:4));     % segment's vector
+n = normvec([-v(2);v(1)]);                 % segment's normal vector
+pos = c + n*posOffset;
 set(SenFig.label(Obs.lmk),...
     'position', pos,...
     'string',   num2str(Obs.lid),...
     'vis',      'on');
-
-
-
 

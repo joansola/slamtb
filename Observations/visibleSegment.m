@@ -46,24 +46,44 @@ for i = 1:n
 
         u = normvec(b-a); % uncorrected direction
         if ad<0           % endpoint A is behind the camera
-            a = b + 1e8*u;
+            a = b + 1e6*u;
         elseif bd<0       % endpoint B is behind the camera
-            b = a - 1e8*u;
+            b = a - 1e6*u;
         end
 
         % trim segment at image borders, with margin
         ss = trimSegment([a;b],imSize,mrg);
 
         % check visibility and assign output
-        if numel(ss) == 0 % null vector -> not visible
-            sv(:,i) = zeros(4,1);
-            vis(i) = false;
-        elseif segLength(ss) < lmin % too short -> not visible
-            sv(:,i) = zeros(4,1);
-            vis(i) = false;
-        else
+        if ...  % conditions for visibility (add with AND if needed)
+                ~isempty(ss) ...           % no-null vector
+                && (segLength(ss) >= lmin) % minimum length
+            
             sv(:,i) = ss; % visible
             vis(i) = true;
         end
     end
 end
+
+return
+
+%% test - generate 2 line handles
+lmin = 10;
+mrg = 0;
+imSize = [100;100];
+cla
+axis([0,imSize(1),0,imSize(2)])
+lh = line('color','r','linestyle','--')
+yh = line('color','c','linewidth',3);
+
+%% test - plot random lines
+s = 300+randn(4,1)*400
+% d = randn(2,1)
+
+s = [-20;50;120;50]
+d = [-1;-1]
+
+[sv,vis] = visibleSegment(s,d,imSize,mrg,lmin)
+
+set(lh,'xdata',s([1,3]),'ydata',s([2,4]))
+set(yh,'xdata',sv([1,3]),'ydata',sv([2,4]))

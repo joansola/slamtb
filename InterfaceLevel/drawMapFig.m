@@ -10,6 +10,7 @@ function drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen, FigOpt)
 %
 %   See also CREATEMAPFIG.
 
+
 % SIMULATED OBJECTS
 
 % for each robot:
@@ -22,7 +23,6 @@ for rob = 1:numel(SimRob)
     end
 
 end
-
 
 
 
@@ -43,18 +43,21 @@ for rob = 1:numel(Rob)
 end
 
 
-
 % erase non used landmarks
 used  = [Lmk.used];
-ellipseHandles = [MapFig.estLmk.ellipse];
-drawn = (strcmp((get(ellipseHandles(1:2:end),'visible')),'on'))';
+drawn = [MapFig.estLmk.drawn];
 erase = drawn & ~used;
 
-set([MapFig.estLmk(erase).mean],'visible','off');
-set([MapFig.estLmk(erase).ellipse],'visible','off');
+if any(erase)
+    [MapFig.estLmk(erase).drawn] = deal(false);
+    set([MapFig.estLmk(erase).mean],   'visible','off');
+    set([MapFig.estLmk(erase).ellipse],'visible','off');
+    set([MapFig.estLmk(erase).label],  'visible','off');
+end
 
 % for each landmark:
 for lmk=find(used)
+    MapFig.estLmk(lmk).drawn = true;
     drawLmk(MapFig,Lmk(lmk));
 end
 

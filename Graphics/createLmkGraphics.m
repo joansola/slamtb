@@ -8,14 +8,17 @@ function handleStr = createLmkGraphics(Lmk,labelColor,ax)
 %   CREATELMKGRAPHICS(...,AX) creates the graphics at axes AX.
 %
 %   HSTR = CREATELMKGRAPHICS returns a structure of handles for the three
-%   objects:
-%       HSTR.mean     the mean
-%       HSTR.ellipse  the 3-sigma ellipsoid
-%       HSTR.label    the label.
-
+%   objects plus a flag for drawn landmarks:
+%       HSTR.drawn      is landmark drawn?
+%       HSTR.mean       the mean
+%       HSTR.ellipse()  the 3-sigma ellipsoids
+%       HSTR.label      the label.
+%
 if nargin < 3
     ax = gca;
 end
+
+handleStr.drawn = false;     % flag for drawn landmark
 
 handleStr.mean = line(...    % for the means, point or segment
     'parent',       ax,...

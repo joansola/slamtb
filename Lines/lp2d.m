@@ -16,18 +16,19 @@ end
 n   = l(1:2);
 nn2 = dot(n,n);
 nn  = sqrt(nn2);
-nn3 = nn2*nn;
 ltp = l'*p;
 
 d   = ltp/p(3)/nn;
 
 if nargout > 1 % jac
     
+    nn3     = nn2*nn;
+
     [u,v,w] = split(p);
     [a,b,c] = split(l);
     
-    D_l = [ u/w/nn-ltp/w/nn3*a, v/w/nn-ltp/w/nn3*b,  1/nn];
-    D_p = [ a/w/nn, b/w/nn, c/w/nn-ltp/w^2/nn]*P_p;
+    D_l = [ u/w/nn-ltp/w/nn3*a, v/w/nn-ltp/w/nn3*b,  1/nn             ];
+    D_p = [ a/w/nn,             b/w/nn,              c/w/nn-ltp/w^2/nn]*P_p;
 
 end
 

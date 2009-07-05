@@ -28,5 +28,5 @@ function [MapFig,SenFig] = createGraphicsStructures(...
 MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigOpt);
 
 % Init sensor's measurement space figures
-SenFig = createSenFig(Sen,Obs,FigOpt);
+SenFig = createSenFig(Sen,Obs,SimLmk,FigOpt);
 

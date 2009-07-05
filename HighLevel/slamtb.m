@@ -33,7 +33,7 @@ clear
 global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
-userDataPlk;   % user-defined data. SCRIPT.
+userData;   % user-defined data. SCRIPT.
 
 %% II. Initialize all data structures from user-defined data in userData.m
 % SLAM data
@@ -143,7 +143,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
         % Figures for all sensors
         for sen = [Sen.sen]
-            drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:));
+            SenFig = drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:));
             makeVideoFrame(SenFig(sen),sprintf('sen%02d-%04d.png',sen,currentFrame),FigOpt,ExpOpt);
 
         end

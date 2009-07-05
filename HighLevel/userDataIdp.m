@@ -27,19 +27,19 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            200);           % last frame #
+  'lastFrame',            800);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
 World = struct(...
-  'xMin',             -2,...         % playground limits
-  'xMax',             20,...
-  'yMin',             -2,...
-  'yMax',             20,...
+  'xMin',             -10,...         % playground limits
+  'xMax',             10,...
+  'yMin',             -10,...
+  'yMax',             10,...
   'zMin',             -10,...
   'zMax',             10,...
-  'points',           [],... % 3d point landmarks - see THICKCLOISTER. 
-  'segments',         house(6,4,0));  % 3D segments - see HOUSE. 
+  'points',           thickCloister(-6,6,-6,6,1,5),... % 3d point landmarks - see THICKCLOISTER. 
+  'segments',         []);  % 3D segments - see HOUSE. 
     
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
@@ -52,7 +52,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'name',               'Dala',...      % robot name
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
-  'position',           [0;0;0],...     % robot position in map
+  'position',           [0;-5;0],...     % robot position in map
   'orientationDegrees', [0;0;0],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
@@ -91,12 +91,12 @@ Sensor{1} = struct(...
   'name',               'Micropix',...  % sensor name
   'type',               'pinHole',...   % type of sensor
   'robot',              1,...           % robot where it is mounted
-  'position',           [0;0;1.5],...    % position in robot
+  'position',           [0;0;.6],...    % position in robot
   'orientationDegrees', [-90;0;-90],... % orientation in robot, roll pitch yaw
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        0.1,...         % pixel error std
+  'pixErrorStd',        1.0,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
@@ -125,10 +125,10 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'numLmks',        75,...         % number of 3d landmarks
-    'lmkSize',        6),...         % Size of landmark
+    'lmkSize',        4),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       23,...         % max simultaneus updates
+    'nUpdates',       8,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -136,7 +136,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'initType',       'plkLin',...   % Type of lmk to use for init
+    'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -155,8 +155,8 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'active',         false,...         % select new random seed?
-    'fixedSeed',      209273,...            % random seed for non-random runs
+    'active',         true,...         % select new random seed?
+    'fixedSeed',      207948,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 
@@ -201,7 +201,7 @@ FigOpt = struct(...
       'border',   .8*[1 1 1],...  %    
       'axes',     [0 0 0],...     % 
       'bckgnd',   [1 1 1],...     %
-      'raw',      .3*[1 1 1],...     % 
+      'raw',      [0 0 0],...     % 
       'label',    [.5 .5 .5])));  %
 
 

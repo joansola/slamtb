@@ -18,10 +18,12 @@ switch Rob.motion
         Rob.frame.x = Rob.state.x(1:7);
         Rob.vel.x   = Rob.state.x(8:13);
         Rob.frame   = updateFrame(Rob.frame);
+        Rob.frame.q = normvec(Rob.frame.q);
 
         % other motion type:
     case  {'odometry'}
         Rob.frame   = odo3(Rob.frame,Rob.con.u);
+        Rob.frame.q = normvec(Rob.frame.q);
 
     otherwise
         error('??? Unknown motion model ''%s''.',Rob.motion);

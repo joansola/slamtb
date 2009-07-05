@@ -27,6 +27,7 @@ switch Raw.type
             Obs.measured = true;
             Obs.matched  = true;
         else
+            Obs.meas.y   = zeros(size(Obs.meas.y));
             Obs.measured = false;
             Obs.matched  = false;
         end

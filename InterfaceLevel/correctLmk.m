@@ -1,39 +1,17 @@
-function [Rob,Sen,Lmk,Obs] = correctLmk(Rob,Sen,Lmk,Obs)
+function [Rob,Sen,Lmk,Obs] = correctLmk(Rob,Sen,Lmk,Obs,Opt)
 
-%  CORRECTLMKS  Correct landmarks.
-%    [ROB,SEN,LMK,OBS] = correctLmks(ROB,SEN,LMK,OBS) returns the
-%    measurement update of robot and sensor based on correction of
-%    subsisting maps. For each map, first we recuperate the previously
-%    stored Jacobians and the covariances matrix of the innovation, and
-%    then apply the correction equations to get the updated maps
-%       ROB:  the robot
-%       SEN:  the sensor
-%       LMK:  the set of landmarks
-%       OBS:  the observation structure for the sensor SEN
-%
-%    See also CORRECTKNOWNLMKS, PROJECTLMK.
+% CORRECTLMK  Correct landmark.
+%   [Rob,Sen,Lmk,Obs] = CORRECTLMK(Rob,Sen,Lmk,Obs,Opt) performs all
+%   landmark correction steps in EKF SLAM: stochastic EKF correction,
+%   landmark reparametrization, and non-stochastic landmark correction (for
+%   landmark parameters not maintained in the stochastic map).
 
-%   (c) 2009 David Marquez @ LAAS-CNRS.
+% EKF correction
+[Rob,Sen,Lmk,Obs] = ekfCorrectLmk(Rob,Sen,Lmk,Obs);
 
-% get landmark range
-lr = Lmk.state.r ;        % lmk range in Map
+% Transform to cheaper parametrization if possible
+[Lmk,Obs] = reparametrizeLmk(Rob,Sen,Lmk,Obs,Opt);
 
-% Rob-Sen-Lmk range and Jacobian
-if Sen.frameInMap
-    rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
-    Z_rsl = [Obs.Jac.Z_r Obs.Jac.Z_s Obs.Jac.Z_l];
-    
-else
-    rslr  = [Rob.frame.r ; lr]; % range of robot and landmark
-    Z_rsl = [Obs.Jac.Z_r Obs.Jac.Z_l];
-end
+% COMPUTE INTERNAL PARAMS
+Lmk = updateLmkParams(Rob,Sen,Lmk,Obs,Opt);
 
-% correct map
-correctBlockEkf(rslr,-Z_rsl,Obs.inn);
-
-% Rob and Sen synchronized with Map
-Rob = map2rob(Rob);
-Sen = map2sen(Sen);
-
-% Flags and info updates
-Obs.updated = true;

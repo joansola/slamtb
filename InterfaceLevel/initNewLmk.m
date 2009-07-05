@@ -118,6 +118,11 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP
             Lmk(lmk).par.endp(1).e = e1;
             Lmk(lmk).par.endp(2).e = e2;
             
+            Obs(lmk).par.endp(1).e = Obs(lmk).meas.y(1:2);
+            Obs(lmk).par.endp(2).e = Obs(lmk).meas.y(3:4);
+            Obs(lmk).par.endp(1).E = Obs(lmk).meas.R(1:2,1:2);
+            Obs(lmk).par.endp(2).E = Obs(lmk).meas.R(3:4,3:4);
+            
 %             [seg, t] = retroProjPlkEndPnts(Rob,Sen,Lmk(lmk),Obs(lmk));
 %             Lmk(lmk).par.endp(1).t = t(1);
 %             Lmk(lmk).par.endp(2).t = t(2);

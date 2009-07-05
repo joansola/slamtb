@@ -28,7 +28,7 @@ switch Sen.type
         if any(erase)
             set(SenFig.measure(erase),'vis','off');
             set(SenFig.mean(erase),   'vis','off');
-            set(SenFig.ellipse(erase),'vis','off');
+            set(SenFig.ellipse(erase,:),'vis','off');
             set(SenFig.label(erase),  'vis','off');
             SenFig.drawn(erase) = false;
         end
@@ -55,7 +55,7 @@ switch Sen.type
                     drawObsPnt(SenFig, Obs(lmk), colors);
                     
                 case {'plkLin'}  % Plucker line
-                    colors = ['b' 'c']'; % blue/cyan
+                    colors = ['b' 'c' 'y']'; % blue/cyan
                     drawObsLin(SenFig, Obs(lmk), colors, Sen.par.imSize);
 
                     % ADD HERE FOR NEW LANDMARK TYPE

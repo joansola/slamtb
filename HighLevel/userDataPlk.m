@@ -34,12 +34,12 @@ Time = struct(...
 World = struct(...
   'xMin',             -2,...         % playground limits
   'xMax',             20,...
-  'yMin',             -2,...
-  'yMax',             20,...
+  'yMin',             -5,...
+  'yMax',             15,...
   'zMin',             -10,...
   'zMax',             10,...
   'points',           [],... % 3d point landmarks - see THICKCLOISTER. 
-  'segments',         house(6,4,0));  % 3D segments - see HOUSE. 
+  'segments',         house(6,-1,0));  % 3D segments - see HOUSE. 
     
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
@@ -53,7 +53,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
   'position',           [0;0;0],...     % robot position in map
-  'orientationDegrees', [0;0;0],...     % orientation, in degrees, roll pitch yaw.
+  'orientationDegrees', [0;0;-20],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.04;0;0],...     % position increment
@@ -96,7 +96,7 @@ Sensor{1} = struct(...
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        0.1,...         % pixel error std
+  'pixErrorStd',        0.2,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
@@ -134,7 +134,7 @@ Opt = struct(...
     'lines',          struct(...     % options for line corrections
       'innType',      'ortDst',...    % innovation type for lines
       'extPolicy',    false,...       % line extending policy ?
-      'extSwitch',    10)),...        % extension policy switch point in pixels
+      'extSwitch',    40)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'initType',       'plkLin',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
@@ -184,7 +184,7 @@ FigOpt = struct(...
   'skipFrames',   0,...          % frames to skip for faster processing
   'map',          struct(...      % map figure options
     'proj',       'persp',...     % projection of the 3d figure
-    'view',       'view',...      % viewpoint of the 3d figure [30 45 40 20]
+    'view',       [40 45 40 30],...      % viewpoint of the 3d figure [30 45 40 20]
     'size',       [320 240],...   % map figure size
     'colors',     struct(...      % map figure colors
       'border',   [1 1 1],...     %   [r g b]      
@@ -201,7 +201,7 @@ FigOpt = struct(...
       'border',   .8*[1 1 1],...  %    
       'axes',     [0 0 0],...     % 
       'bckgnd',   [1 1 1],...     %
-      'raw',      .3*[1 1 1],...     % 
+      'raw',      .3*[1 1 1],...  % 
       'label',    [.5 .5 .5])));  %
 
 

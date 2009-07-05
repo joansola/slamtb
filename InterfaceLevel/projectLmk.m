@@ -48,7 +48,7 @@ switch Sen.type
                     l) ;
 
                 vis = isVisible(e,depth,Sen.par.imSize);
-                R   = Sen.par.pixCov ;  % sensor cov
+                %                 R   = Sen.par.pixCov ;  % sensor cov
 
 
             case {'eucPnt'} % euclidean point
@@ -63,8 +63,8 @@ switch Sen.type
                     l) ;
 
                 vis = isVisible(e,depth,Sen.par.imSize);
-                R   = Sen.par.pixCov ;  % sensor cov
-                
+                %                 R   = Sen.par.pixCov ;  % sensor cov
+
             case {'hmgPnt'} % euclidean point
 
                 % Point3D --> pixel -(value and Jacobians)-
@@ -77,10 +77,10 @@ switch Sen.type
                     l) ;
 
                 vis = isVisible(e,depth,Sen.par.imSize);
-                R   = Sen.par.pixCov ;  % sensor cov
-                
+                %                 R   = Sen.par.pixCov ;  % sensor cov
+
             case {'plkLin'}
-                
+
                 % Plucker line --> homogeneous line (value and Jacs)
                 [e, v, E_rf, E_sf, E_k, E_l] = ...
                     projPlkLinIntoPinHoleOnRob( ...
@@ -88,22 +88,23 @@ switch Sen.type
                     Sen.frame, ...
                     Sen.par.k, ...
                     l); % expectation is a homogeneous line
-                
-                % Segment endpoints --> projected
-                si = [Lmk.par.endp(1).e;Lmk.par.endp(2).e];
+
+                % Segment --> projected
+                [si,SI_l] = pluckerSegment(l,[Lmk.par.endp.t]);
+                %                 si = [Lmk.par.endp(1).e;Lmk.par.endp(2).e];
                 % [s, d, S_rf, S_sf, S_k, S_seg] = projSegLinIntoPinHoleOnRob(...
-                [s, d] = projSegLinIntoPinHoleOnRob(...
+                [s, d, S_rf, S_sf, S_sk, S_si] = projSegLinIntoPinHoleOnRob(...
                     Rob.frame, ...
                     Sen.frame, ...
                     Sen.par.k, ...
                     si); % projected endpoints segment
-                
+
                 [s,vis] = visibleSegment(s,d,Sen.par.imSize);
-%                 R   = blkdiag(Sen.par.pixCov,Sen.par.pixCov);
+
 
 
             otherwise % unknown landmark type for pin hole sensor
-                error('??? Landmark type ''%s'' non implemented for sensor ''%s''.',Lmk.type,Sen.type);
+                error('??? Unknown landmark type ''%s'' for sensor ''%s''.',Lmk.type,Sen.type);
 
         end
 
@@ -140,3 +141,23 @@ Obs.Jac.E_r = E_rf;
 Obs.Jac.E_s = E_sf;
 Obs.Jac.E_l = E_l;
 %                 Obs.app.pred = Lmk.sig; %% TODO: app.curr in better way
+
+% Other parameters
+switch Obs.ltype(4:6)
+    case 'Lin'
+
+        % Rob-Sen-Lmk Jacobian of projected segment
+        if Sen.frameInMap
+            S_rsl = [S_rf S_sf S_si*SI_l];
+        else
+            S_rsl = [S_rf S_si*SI_l];
+        end
+
+        % compute endpoints covariances
+        S = S_rsl*Map.P(rslr,rslr)*S_rsl';
+        Obs.par.endp(1).e = s(1:2);
+        Obs.par.endp(2).e = s(3:4);
+        Obs.par.endp(1).E = S(1:2,1:2) + Obs.meas.R(1:2,1:2);
+        Obs.par.endp(2).E = S(3:4,3:4) + Obs.meas.R(3:4,3:4);
+
+end

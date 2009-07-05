@@ -33,6 +33,7 @@ for sen = 1:numel(Sen)
         O.app.pred  = [];         % predicted appearence
         O.app.curr  = [];         % current appearence
         O.app.sc    = 0;          % match score
+        O.par       = [];         % other params
         O.vis       = false;      % lmk is visible?
         O.measured  = false;      % lmk has been measured?
         O.matched   = false;      % lmk has been matched?

@@ -37,8 +37,9 @@ else % we want Jacobians
     [s, d, S_k, S_ss]   = pinHoleSegment(k,ss);
     
     % chain rule
+    S_sr  = S_ss*SS_sr;
     S_sf  = S_ss*SS_sf;
     S_rf  = S_sr*SR_rf;
-    S_seg = S_ss*SS_sr*SR_seg;
+    S_seg = S_sr*SR_seg;
 
 end

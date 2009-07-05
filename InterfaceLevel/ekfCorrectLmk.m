@@ -18,7 +18,7 @@ function [Rob,Sen,Lmk,Obs] = ekfCorrectLmk(Rob,Sen,Lmk,Obs)
 % get landmark range
 lr = Lmk.state.r ;        % lmk range in Map
 
-% Rob-Sen-Lmk range and Jacobian
+% Rob-Sen-Lmk range and Jacobian of innovation wrt active states.
 if Sen.frameInMap
     rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
     Z_rsl = [Obs.Jac.Z_r Obs.Jac.Z_s Obs.Jac.Z_l];
@@ -28,12 +28,10 @@ else
     Z_rsl = [Obs.Jac.Z_r Obs.Jac.Z_l];
 end
 
-% correct map
+% correct map. See that Jac wrt innovation is changed sign.
 correctBlockEkf(rslr,-Z_rsl,Obs.inn);
 
-% Rob and Sen synchronized with Map
-Rob = map2rob(Rob);
-Sen = map2sen(Sen);
+% % Rob and Sen synchronized with Map
+% Rob = map2rob(Rob);
+% Sen = map2sen(Sen);
 
-% Flags and info updates
-Obs.updated = true;

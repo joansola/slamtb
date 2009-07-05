@@ -12,6 +12,8 @@ function [Rob,Sen,Lmk,Obs] = correctLmk(Rob,Sen,Lmk,Obs,Opt)
 % Transform to cheaper parametrization if possible
 [Lmk,Obs] = reparametrizeLmk(Rob,Sen,Lmk,Obs,Opt);
 
-% COMPUTE INTERNAL PARAMS
+% Update off-filter parameters
 Lmk = updateLmkParams(Rob,Sen,Lmk,Obs,Opt);
 
+% update flags and info
+Obs.updated = true;

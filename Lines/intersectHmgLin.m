@@ -1,15 +1,15 @@
-function [p,Ph1,Ph2] = hh2p(h1,h2,euc)
+function [p,Ph1,Ph2] = intersectHmgLin(h1,h2,euc)
 
-% HH2P  Intersection of 2 homogeneous lines.
-%   HH2P(H1,H2) is the intersection point in homogeneous coordinates of the
+% INTERSECTHMGLIN  Intersection of 2 homogeneous lines.
+%   INTERSECTHMGLIN(H1,H2) is the intersection point in homogeneous coordinates of the
 %   two homogeneous lines H1 and H2, defined in the projective plane P^2.
 %
-%   HH2P(H1,H2,EUC), with EUC ~= 0, returns the point in Euclidean
+%   INTERSECTHMGLIN(H1,H2,EUC), with EUC ~= 0, returns the point in Euclidean
 %   coordinates.
 %
-%   [P,P_h1,P_h2] = HH2P(...) returns the Jacobians wrt the lines H1 and H2.
+%   [P,P_h1,P_h2] = INTERSECTHMGLIN(...) returns the Jacobians wrt the lines H1 and H2.
 %
-%   See also PP2HM.
+%   See also PP2HMGLIN.
 
 if nargout == 1
 
@@ -38,13 +38,13 @@ l = [l1;l2;l3];
 m = [m1;m2;m3];
 
 %% homogeneous
-[p,Pl,Pm] = hh2p(l,m);
+[p,Pl,Pm] = intersectHmgLin(l,m);
 
 Pl - jacobian(p,l)
 Pm - jacobian(p,m)
 
 %% Euclidean
-[p,Pl,Pm] = hh2p(l,m,1);
+[p,Pl,Pm] = intersectHmgLin(l,m,1);
 
 Pl - jacobian(p,l)
 Pm - jacobian(p,m)

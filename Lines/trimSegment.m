@@ -40,10 +40,10 @@ else % at least one endpoint is out of the image
     B = [0; 1;-h];  % bottom
 
     % intersections of infinite line with infinite borders
-    HL = hh2p(H,L,1);
-    HR = hh2p(H,R,1);
-    HT = hh2p(H,T,1);
-    HB = hh2p(H,B,1);
+    HL = intersectHmgLin(H,L,1);
+    HR = intersectHmgLin(H,R,1);
+    HT = intersectHmgLin(H,T,1);
+    HB = intersectHmgLin(H,B,1);
 
     % bring to image borders
     i = 1;

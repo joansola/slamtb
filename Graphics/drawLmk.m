@@ -1,4 +1,4 @@
-function drawLmk(MapFig,Lmk)
+function drawLmk(MapFig,Lmk,MapOpt)
 
 % DRAWLMK  Draw 3D landmark.
 %   DRAWLMK(MapFig,Lmk) draws 3D landmark Lmk into the map figure by
@@ -37,8 +37,8 @@ switch (Lmk.type)
         drawHmgPnt(MapFig, Lmk, color);
         
     case {'plkLin'}
-        color = [.5 .5 1];
-        drawPlkLin(MapFig, Lmk, color);
+        color = [.8 .8 1];
+        drawPlkLin(MapFig, Lmk, color, MapOpt);
 
     otherwise
         % TODO : print an error and go out

@@ -39,7 +39,7 @@ World = struct(...
   'zMin',             -10,...
   'zMax',             10,...
   'points',           [],... % 3d point landmarks - see THICKCLOISTER. 
-  'segments',         house(6,-1,0));  % 3D segments - see HOUSE. 
+  'segments',         house(6,2,0));  % 3D segments - see HOUSE. 
     
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
@@ -53,11 +53,11 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
   'position',           [0;0;0],...     % robot position in map
-  'orientationDegrees', [0;0;-20],...     % orientation, in degrees, roll pitch yaw.
+  'orientationDegrees', [0;0;45],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.04;0;0],...     % position increment
-  'daDegrees',          [0;0;.45],...     % angle increment, degrees
+  'daDegrees',          [0;0;-.30],...     % angle increment, degrees
   'dxStd',              0.003*[1;1;1],...  % odo linear error std
   'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
 
@@ -133,7 +133,7 @@ Opt = struct(...
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
       'innType',      'ortDst',...    % innovation type for lines
-      'extPolicy',    false,...       % line extending policy ?
+      'extPolicy',    true,...       % line extending policy ?
       'extSwitch',    40)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'initType',       'plkLin',...   % Type of lmk to use for init
@@ -184,13 +184,14 @@ FigOpt = struct(...
   'skipFrames',   0,...          % frames to skip for faster processing
   'map',          struct(...      % map figure options
     'proj',       'persp',...     % projection of the 3d figure
-    'view',       [40 45 40 30],...      % viewpoint of the 3d figure [30 45 40 20]
+    'view',       [40 20 30 30],...      % viewpoint of the 3d figure [30 45 40 20]
     'size',       [320 240],...   % map figure size
+    'showEllip',  false,...        % show ellipsoids?
     'colors',     struct(...      % map figure colors
       'border',   [1 1 1],...     %   [r g b]      
       'axes',     [0 0 0],...     % with:
       'bckgnd',   [1 1 1],...     %   [0 0 0] black
-      'simLmks',  .1*[1 1 1],...  %   [1 1 1] white
+      'simLmks',  .3*[1 1 1],...  %   [1 1 1] white
       'simu',     'g',...         %   or 'r', 'b', etc.   
       'est',      'b',...         % estimated robots and sensors
       'ground',   [.8 .8 .8],...  % simulated robots and sensors

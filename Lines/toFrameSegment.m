@@ -36,7 +36,7 @@ if s==1 % one segment
         [P2_F,P2F_f,P2F_p2w] = toFrame(F,S_W(4:6,:));
         S_F = [P1_F;P2_F];
         SF_f = [P1F_f;P2F_f];
-        SF_sw = [P1F_p1w zeros(3);zeros(3) P2F_p2w];
+        SF_sw = blkdiag(P1F_p1w,P2F_p2w);
     end
 
 else % multiple points

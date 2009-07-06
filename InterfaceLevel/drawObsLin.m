@@ -28,8 +28,8 @@ end
 
 % the mean and ellipses
 s = trimHmgLin(Obs.exp.e, imSize);
-% if ~isempty(s)
-if Obs.vis
+if Obs.vis && ~isempty(s)
+% if Obs.vis
     % mean
     X = s([1 3]);
     Y = s([2 4]);

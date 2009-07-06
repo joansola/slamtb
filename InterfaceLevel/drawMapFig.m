@@ -58,7 +58,7 @@ end
 % for each landmark:
 for lmk=find(used)
     MapFig.estLmk(lmk).drawn = true;
-    drawLmk(MapFig,Lmk(lmk));
+    drawLmk(MapFig,Lmk(lmk),FigOpt.map);
 end
 
 % Simulate camera viewpoint

@@ -87,7 +87,7 @@ if any(vis) % Consider only visible observations
                     Lmk(lmk), ...
                     Obs(lmk), ...
                     Opt          );
-
+                
             else % obs is inconsistent - do not update
 
                 Obs(lmk).updated = false;

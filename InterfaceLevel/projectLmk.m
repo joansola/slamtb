@@ -24,11 +24,12 @@ function Obs = projectLmk(Rob,Sen,Lmk,Obs)
 
 global Map
 
-
+% PREVIOUS TASKS
 % get landmark range and mean
 lr = Lmk.state.r ;        % lmk range in Map
 l  = Map.x(lr) ;               % lmk mean
 
+% PROJECTION FUNCTION
 % explore all sensor and landmark types
 switch Sen.type
 
@@ -87,20 +88,28 @@ switch Sen.type
                     Rob.frame, ...
                     Sen.frame, ...
                     Sen.par.k, ...
-                    l); % expectation is a homogeneous line
+                    l); % expectation e is a homogeneous line
+                
+                ine12 = 1/norm(e(1:2));
+                e = e*ine12;
+                E_rf = E_rf*ine12;
+                E_sf = E_sf*ine12;
+                E_k  = E_k*ine12;
+                E_l  = E_l*ine12;
 
-                % Segment --> projected
+                % 3d Segment
                 [si,SI_l] = pluckerSegment(l,[Lmk.par.endp.t]);
-                %                 si = [Lmk.par.endp(1).e;Lmk.par.endp(2).e];
-                % [s, d, S_rf, S_sf, S_k, S_seg] = projSegLinIntoPinHoleOnRob(...
+
+                % projected segment
                 [s, d, S_rf, S_sf, S_sk, S_si] = projSegLinIntoPinHoleOnRob(...
                     Rob.frame, ...
                     Sen.frame, ...
                     Sen.par.k, ...
-                    si); % projected endpoints segment
-
+                    si); 
+                
+                % segment visibility
                 [s,vis] = visibleSegment(s,d,Sen.par.imSize);
-
+                vis = true;
 
 
             otherwise % unknown landmark type for pin hole sensor
@@ -114,12 +123,7 @@ switch Sen.type
 end % sensor type
 
 
-% update the Obs structure
-Obs.sid     = Sen.id ;
-Obs.lid     = Lmk.id ;
-Obs.ltype   = Lmk.type ;
-Obs.vis     = vis ;
-
+% COVARIANCES
 % Rob-Sen-Lmk range and Jacobian
 if Sen.frameInMap
     rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
@@ -132,19 +136,11 @@ end
 % Expectation covariances matrix
 E = E_rsl*Map.P(rslr,rslr)*E_rsl' ;
 
-% update the Obs structure
-% Obs.meas.R  = R ;
-Obs.exp.e   = e ;
-Obs.exp.E   = E ;
-Obs.exp.um  = det(E);  % uncertainty measure proportional to ellipsoid area
-Obs.Jac.E_r = E_rf;
-Obs.Jac.E_s = E_sf;
-Obs.Jac.E_l = E_l;
-%                 Obs.app.pred = Lmk.sig; %% TODO: app.curr in better way
 
 % Other parameters
 switch Obs.ltype(4:6)
     case 'Lin'
+        % for lines, project endpoints with covariances:
 
         % Rob-Sen-Lmk Jacobian of projected segment
         if Sen.frameInMap
@@ -153,11 +149,25 @@ switch Obs.ltype(4:6)
             S_rsl = [S_rf S_si*SI_l];
         end
 
-        % compute endpoints covariances
-        S = S_rsl*Map.P(rslr,rslr)*S_rsl';
+        % compute endpoints and covariances
+        S = S_rsl*Map.P(rslr,rslr)*S_rsl'; % segment covariance
         Obs.par.endp(1).e = s(1:2);
         Obs.par.endp(2).e = s(3:4);
         Obs.par.endp(1).E = S(1:2,1:2) + Obs.meas.R(1:2,1:2);
         Obs.par.endp(2).E = S(3:4,3:4) + Obs.meas.R(3:4,3:4);
 
 end
+
+
+% UPDATE OBS STRUCTURE
+Obs.sid     = Sen.id ;
+Obs.lid     = Lmk.id ;
+Obs.ltype   = Lmk.type ;
+Obs.vis     = vis ;
+Obs.exp.e   = e ;
+Obs.exp.E   = E ;
+Obs.exp.um  = det(E);  % uncertainty measure proportional to ellipsoid area
+Obs.Jac.E_r = E_rf;
+Obs.Jac.E_s = E_sf;
+Obs.Jac.E_l = E_l;
+

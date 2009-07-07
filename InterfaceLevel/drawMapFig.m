@@ -32,12 +32,12 @@ end
 for rob = 1:numel(Rob)
 
     % robots
-    MapFig.estRob(rob) = drawObject(MapFig.estRob(rob),Rob(rob));
+    MapFig.Rob(rob) = drawObject(MapFig.Rob(rob),Rob(rob));
 
     for sen = Rob(rob).sensors
         % sensors
         F = composeFrames(Rob(rob).frame,Sen(sen).frame);
-        MapFig.estSen(sen) = drawObject(MapFig.estSen(sen),Sen(sen),F);
+        MapFig.Sen(sen) = drawObject(MapFig.Sen(sen),Sen(sen),F);
     end
 
 end
@@ -45,19 +45,19 @@ end
 
 % erase non used landmarks
 used  = [Lmk.used];
-drawn = [MapFig.estLmk.drawn];
+drawn = [MapFig.Lmk.drawn];
 erase = drawn & ~used;
 
 if any(erase)
-    [MapFig.estLmk(erase).drawn] = deal(false);
-    set([MapFig.estLmk(erase).mean],   'visible','off');
-    set([MapFig.estLmk(erase).ellipse],'visible','off');
-    set([MapFig.estLmk(erase).label],  'visible','off');
+    [MapFig.Lmk(erase).drawn] = deal(false);
+    set([MapFig.Lmk(erase).mean],   'visible','off');
+    set([MapFig.Lmk(erase).ellipse],'visible','off');
+    set([MapFig.Lmk(erase).label],  'visible','off');
 end
 
 % for each landmark:
 for lmk=find(used)
-    MapFig.estLmk(lmk).drawn = true;
+    MapFig.Lmk(lmk).drawn = true;
     drawLmk(MapFig,Lmk(lmk),FigOpt.map);
 end
 

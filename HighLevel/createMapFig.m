@@ -20,9 +20,9 @@ function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigOpt)
 %       .simRob array of handles to the simulated robots 'patch' objects
 %       .simSen array of handles to the simulated sensors 'patch' objects
 %       .simLmk handle to the simulated landmarks 'line' object
-%       .estRob array of handles to the estimated robots 'patch' objects
-%       .estSen array of handles to the estimated sensors 'patch' objects
-%       .estLmk array of structures with handles to the estimated landmarks, with
+%       .Rob array of handles to the estimated robots 'patch' objects
+%       .Sen array of handles to the estimated sensors 'patch' objects
+%       .Lmk array of structures with handles to the estimated landmarks, with
 %           .mean       handle to the ellipsoid's center 'line' object
 %           .ellipse    handle to the ellipsoid's contour 'line' object
 %
@@ -84,6 +84,39 @@ set(MapFig.axes,...
     'zcolor',             FigOpt.map.colors.bckgnd,...
     'color' ,             FigOpt.map.colors.bckgnd);
 
+% landmarks - do not loop, draw all at once
+MapFig.simLmk = createSimLmkGraphics(SimLmk,FigOpt.map.colors.simLmks,MapFig.axes);
+
+
+% ESTIMATED OBJECTS
+% robots
+for rob = 1:numel(Rob)
+
+    % create and draw robot
+    MapFig.Rob(rob) = createObjPatch(Rob(rob),FigOpt.map.colors.est,MapFig.axes);
+
+    % sensors
+    for sen = Rob(rob).sensors
+
+        % create and draw sensor
+        MapFig.Sen(sen) = createObjPatch(Sen(sen),FigOpt.map.colors.est,MapFig.axes);
+        
+        % redraw sensor in robot frame
+        F = composeFrames(Rob(rob).frame,Sen(sen).frame);
+        drawObject(MapFig.Sen(sen),Sen(sen),F);
+
+    end
+end
+
+
+% landmarks
+for lmk = 1:numel(Lmk)
+
+    MapFig.Lmk(lmk) = createLmkGraphics(Lmk(lmk),FigOpt.map.colors.label,MapFig.axes);
+
+end
+
+
 % SIMULATED OBJECTS
 % Ground
 MapFig.ground = createGround(SimLmk,MapFig.axes,FigOpt.map.colors.ground);
@@ -107,34 +140,3 @@ for rob = 1:numel(SimRob)
 end
 
 
-% landmarks - do not loop, draw all at once
-MapFig.simLmk = createSimLmkGraphics(SimLmk,FigOpt.map.colors.simLmks,MapFig.axes);
-
-
-% ESTIMATED OBJECTS
-% robots
-for rob = 1:numel(Rob)
-
-    % create and draw robot
-    MapFig.estRob(rob) = createObjPatch(Rob(rob),FigOpt.map.colors.est,MapFig.axes);
-
-    % sensors
-    for sen = Rob(rob).sensors
-
-        % create and draw sensor
-        MapFig.estSen(sen) = createObjPatch(Sen(sen),FigOpt.map.colors.est,MapFig.axes);
-        
-        % redraw sensor in robot frame
-        F = composeFrames(Rob(rob).frame,Sen(sen).frame);
-        drawObject(MapFig.estSen(sen),Sen(sen),F);
-
-    end
-end
-
-
-% landmarks
-for lmk = 1:numel(Lmk)
-
-    MapFig.estLmk(lmk) = createLmkGraphics(Lmk(lmk),FigOpt.map.colors.label,MapFig.axes);
-
-end

@@ -90,14 +90,15 @@ switch Sen.type
                     Sen.par.k, ...
                     l); % expectation e is a homogeneous line
                 
+                % normalize wrt director vector e(1:2):
                 ine12 = 1/norm(e(1:2));
-                e = e*ine12;
-                E_rf = E_rf*ine12;
-                E_sf = E_sf*ine12;
-                E_k  = E_k*ine12;
-                E_l  = E_l*ine12;
+                e     = e    * ine12;
+                E_rf  = E_rf * ine12;
+                E_sf  = E_sf * ine12;
+                % E_k   = E_k  * ine12;
+                E_l   = E_l  * ine12;
 
-                % 3d Segment
+                % 3d Segment from Plucker line and abscissas
                 [si,SI_l] = pluckerSegment(l,[Lmk.par.endp.t]);
 
                 % projected segment
@@ -109,7 +110,7 @@ switch Sen.type
                 
                 % segment visibility
                 [s,vis] = visibleSegment(s,d,Sen.par.imSize);
-                vis = true;
+%                 vis = true;
 
 
             otherwise % unknown landmark type for pin hole sensor

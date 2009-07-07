@@ -1,7 +1,9 @@
 function [seg, t] = retroProjPlkEndPnts(Rob,Sen,Lmk,Obs)
 
 % RETROPROJPLKENDPNTS  Retro project Plucker endpoints.
-%   [SEG,T] = RETROPROJPLKENDPNTS(Rob,Sen,Lmk,Obs)
+%   [SEG,T] = RETROPROJPLKENDPNTS(Rob,Sen,Lmk,Obs) retroprojects the
+%   segment endpoints in Bos.meas.y onto the Plucker line Lmk.
+
 
 global Map
 

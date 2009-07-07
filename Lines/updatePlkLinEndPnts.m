@@ -1,6 +1,11 @@
 function Lmk = updatePlkLinEndPnts(Rob,Sen,Lmk,Obs,Opt)
 
 % UPDATEPLKLINENDPNTS  Update Plucker endpoints.
+%   Lmk = UPDATEPLKLINENDPNTS(Rob,Sen,Lmk,Obs,Opt) updates endpoint
+%   abscissas in Plucker line Lmk by using the last observation Obs and the
+%   options in Opt.
+%
+%   See also UPDATELMKPARAMS, RETROPROJPLKENDPNTS.
 
 [seg, t] = retroProjPlkEndPnts(Rob,Sen,Lmk,Obs);
 

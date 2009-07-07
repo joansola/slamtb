@@ -27,7 +27,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            800);           % last frame #
+  'lastFrame',            200);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -181,28 +181,29 @@ SimOpt = struct(...
 FigOpt = struct(...
   'renderer',     'opengl',...    % renderer
   'createVideo',  false,...       % create video sequence?
-  'skipFrames',   0,...          % frames to skip for faster processing
+  'skipFrames',   0,...           % frames to skip for faster processing
   'map',          struct(...      % map figure options
     'proj',       'persp',...     % projection of the 3d figure
     'view',       'view',...      % viewpoint of the 3d figure [30 45 40 20]
     'size',       [320 240],...   % map figure size
+    'showEllip',  false,...        % show ellipsoids?
     'colors',     struct(...      % map figure colors
       'border',   [1 1 1],...     %   [r g b]      
       'axes',     [0 0 0],...     % with:
       'bckgnd',   [1 1 1],...     %   [0 0 0] black
-      'simLmks',  .1*[1 1 1],...  %   [1 1 1] white
+      'simLmks',  .3*[1 1 1],...  %   [1 1 1] white
       'simu',     'g',...         %   or 'r', 'b', etc.   
       'est',      'b',...         % estimated robots and sensors
       'ground',   [.8 .8 .8],...  % simulated robots and sensors
       'label',    [.0 .5 0])),... % landmark ID labels
   'sensor',       struct(...      % sensor figures options
-    'size',       [320 240],...   % sensor figure size
-    'colors',     struct(...      % Sensor figure colors:
-      'border',   .8*[1 1 1],...  %    
-      'axes',     [0 0 0],...     % 
-      'bckgnd',   [1 1 1],...     %
-      'raw',      [0 0 0],...     % 
-      'label',    [.5 .5 .5])));  %
+    'size',       [320 240],...    % sensor figure size
+    'colors',     struct(...       % Sensor figure colors:
+      'border',   .8*[1 1 1],...    %    
+      'axes',     [0 0 0],...       % 
+      'bckgnd',   [1 1 1],...       %
+      'raw',      [0 0 0],...       % 
+      'label',    [.5 .5 .5])));    %
 
 
 % Experiment options 

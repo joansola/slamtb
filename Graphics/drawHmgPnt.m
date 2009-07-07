@@ -1,6 +1,6 @@
-function drawHmgLmk(MapFig, Lmk, color)
+function drawHmgPnt(MapFig, Lmk, color)
 
-% DRAWEUCLMK  Draw Euclidean point landmark in MapFig.
+% DRAWEUCLMK  Draw Homogeneous point landmark in MapFig.
 
 global Map
 

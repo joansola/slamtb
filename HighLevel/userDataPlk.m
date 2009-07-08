@@ -27,19 +27,19 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            200);           % last frame #
+  'lastFrame',            800);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
 World = struct(...
-  'xMin',             -2,...         % playground limits
+  'xMin',             -20,...         % playground limits
   'xMax',             20,...
-  'yMin',             -15,...
-  'yMax',             5,...
+  'yMin',             -20,...
+  'yMax',             20,...
   'zMin',             -10,...
   'zMax',             10,...
   'points',           [],... % 3d point landmarks - see THICKCLOISTER. 
-  'segments',         house(6,-7,0));  % 3D segments - see HOUSE. 
+  'segments',         house(-2,-2,0));  % 3D segments - see HOUSE. 
     
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
@@ -52,14 +52,14 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'name',               'Dala',...      % robot name
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
-  'position',           [0;0;0],...     % robot position in map
-  'orientationDegrees', [0;0;-50],...     % orientation, in degrees, roll pitch yaw.
+  'position',           [-7;0;0],...     % robot position in map
+  'orientationDegrees', [0;0;-90],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-  'dx',                 [.04;0;0],...     % position increment
-  'daDegrees',          [0;0;.25],...     % angle increment, degrees
-  'dxStd',              0.003*[1;1;1],...  % odo linear error std
-  'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
+  'dx',                 [.1;0;0],...     % position increment
+  'daDegrees',          [0;0;.8],...     % angle increment, degrees
+  'dxStd',              0.005*[1;1;1],...  % odo linear error std
+  'daStd',              0.02*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -92,7 +92,7 @@ Sensor{1} = struct(...
   'type',               'pinHole',...   % type of sensor
   'robot',              1,...           % robot where it is mounted
   'position',           [0;0;1.5],...    % position in robot
-  'orientationDegrees', [-90;0;-90],... % orientation in robot, roll pitch yaw
+  'orientationDegrees', [-90;0;0],... % orientation in robot, roll pitch yaw
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
@@ -101,20 +101,20 @@ Sensor{1} = struct(...
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
 
-% Sensor{2} = struct(...
-%   'id',                 2,...           % sensor identifier
-%   'name',               'Micropix',...      % sensor name
-%   'type',               'pinHole',...   % type of sensor
-%   'robot',              1,...           % robot where it is mounted
-%   'position',           [0;-0.15;.6],...     % position in robot
-%   'orientationDegrees', [-90;0;-90],...      % orientation in robot, roll pitch yaw
-%   'positionStd',        [0;0;0],...     % position error std
-%   'orientationStd',     [1.5;1.5;1.5],...     % orient. error std
-%   'imageSize',          [640;480],...   % image size
-%   'pixErrorStd',        2.0,...         % pixel error std
-%   'intrinsic',          [320;240;320;320],... % intrinsic params
-%   'distortion',         [],...          % distortion params
-%   'frameInMap',         false);         % add sensor frame in slam map?
+Sensor{2} = struct(...
+  'id',                 2,...           % sensor identifier
+  'name',               'Micropix',...      % sensor name
+  'type',               'pinHole',...   % type of sensor
+  'robot',              1,...           % robot where it is mounted
+  'position',           [0.3;0;1.5],...     % position in robot
+  'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
+  'positionStd',        [0;0;0],...     % position error std
+  'orientationStd',     [0;0;0],...     % orient. error std
+  'imageSize',          [640;480],...   % image size
+  'pixErrorStd',        0.1,...         % pixel error std
+  'intrinsic',          [320;240;320;320],... % intrinsic params
+  'distortion',         [],...          % distortion params
+  'frameInMap',         false);         % add sensor frame in slam map?
 
 
 
@@ -184,7 +184,7 @@ FigOpt = struct(...
   'skipFrames',   1,...          % frames to skip for faster processing
   'map',          struct(...      % map figure options
     'proj',       'persp',...     % projection of the 3d figure
-    'view',       [20 15 30 30],...      % viewpoint of the 3d figure [30 45 40 20]
+    'view',       [20 15 60 15],...      % viewpoint of the 3d figure [30 45 40 20]
     'size',       [320 240],...   % map figure size
     'showEllip',  false,...        % show ellipsoids?
     'colors',     struct(...      % map figure colors
@@ -198,6 +198,7 @@ FigOpt = struct(...
       'label',    [.0 .5 0])),... % landmark ID labels
   'sensor',       struct(...      % sensor figures options
     'size',       [320 240],...   % sensor figure size
+    'showEllip',  false,...       % show ellipses?
     'colors',     struct(...      % Sensor figure colors:
       'border',   .8*[1 1 1],...  %    
       'axes',     [0 0 0],...     % 

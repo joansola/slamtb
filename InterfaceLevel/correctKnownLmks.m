@@ -55,7 +55,7 @@ if any(vis) % Consider only visible observations
         Lmk(lmk).nSearch = Lmk(lmk).nSearch + 1;
 
         % 3. TRY TO MATCH FEATURE
-        Obs(lmk) = matchFeature(Raw,Obs(lmk));
+        Obs(lmk) = matchFeature(Sen,Raw,Obs(lmk));
 
         if Obs(lmk).matched
 

@@ -110,8 +110,8 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP
     switch Lmk(lmk).type
         case {'eucPnt','idpPnt','hmgPnt'}
         case 'plkLin'
-            t1 = -600;
-            t2 =  600;
+            t1 = -10;
+            t2 =  10;
             Lmk(lmk).par.endp(1).t = t1;
             Lmk(lmk).par.endp(2).t = t2;
             [e1,e2] = pluckerEndpoints(l, t1, t2);

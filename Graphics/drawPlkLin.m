@@ -14,12 +14,6 @@ t   = [Lmk.par.endp.t]'; % abscissas of endpoints, t = [t1;t2]
 E1 = E1_plk*PLK*E1_plk';
 E2 = E2_plk*PLK*E2_plk';
 
-% extract endpoints info
-% e1 = Lmk.par.endp(1).e;
-% E1 = Lmk.par.endp(1).E;
-% e2 = Lmk.par.endp(2).e;
-% E2 = Lmk.par.endp(2).E;
-
 % the mean:
 set(MapFig.Lmk(Lmk.lmk).mean,...
     'xdata',   [e1(1);e2(1)],...

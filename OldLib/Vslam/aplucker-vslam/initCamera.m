@@ -18,8 +18,8 @@ global CAMDIM STATDIM
 
 
 % intrinsic and image size
-k      = [320 240 360 360];
-imSize = [640 480];
+k      = [240 240 300 300];
+imSize = [480 480];
 dist   = [];
 undist = [];
 r      = 1:CAMDIM;

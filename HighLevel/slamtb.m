@@ -143,7 +143,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
         % Figures for all sensors
         for sen = [Sen.sen]
-            SenFig = drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:));
+            SenFig(sen) = drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:),FigOpt);
             makeVideoFrame(SenFig(sen),sprintf('sen%02d-%04d.png',sen,currentFrame),FigOpt,ExpOpt);
 
         end

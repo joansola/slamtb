@@ -27,7 +27,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            200);           % last frame #
+  'lastFrame',            800);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -128,7 +128,7 @@ Opt = struct(...
     'lmkSize',        4),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       8,...          % max simultaneus updates
+    'nUpdates',       15,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -181,7 +181,7 @@ SimOpt = struct(...
 FigOpt = struct(...
   'renderer',     'opengl',...    % renderer
   'createVideo',  false,...       % create video sequence?
-  'skipFrames',   0,...           % frames to skip for faster processing
+  'skipFrames',   10,...           % frames to skip for faster processing
   'map',          struct(...      % map figure options
     'proj',       'persp',...     % projection of the 3d figure
     'view',       'view',...      % viewpoint of the 3d figure [30 45 40 20]

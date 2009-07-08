@@ -1,7 +1,7 @@
-function Obs = matchFeature(Raw,Obs)
+function Obs = matchFeature(Sen,Raw,Obs)
 
 % MATCHFEATURE  Match feature.
-% 	Obs = MATCHFEATURE(Raw,Obs) matches one feature in Raw to the predicted
+% 	Obs = MATCHFEATURE(Sen,Raw,Obs) matches one feature in Raw to the predicted
 % 	feature in Obs.
 
 
@@ -12,8 +12,10 @@ switch Raw.type
         switch Obs.ltype(4:6)
             case 'Pnt'
                 rawDataLmks = Raw.data.points;
+                R = Sen.par.pixCov;
             case 'Lin'
                 rawDataLmks = Raw.data.segments;
+                R = blkdiag(Sen.par.pixCov,Sen.par.pixCov);
             otherwise
                 error('??? Unknown landmark type ''%s''.',Obs.ltype);
         end
@@ -24,10 +26,12 @@ switch Raw.type
 
         if ~isempty(idx)
             Obs.meas.y   = rawDataLmks.coord(:,idx);
+            Obs.meas.R   = R;
             Obs.measured = true;
             Obs.matched  = true;
         else
             Obs.meas.y   = zeros(size(Obs.meas.y));
+            Obs.meas.R   = R;
             Obs.measured = false;
             Obs.matched  = false;
         end

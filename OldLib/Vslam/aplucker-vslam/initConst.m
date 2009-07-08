@@ -14,14 +14,14 @@ deNDR      = (0.004)^2; % [rad^2/m]
 vPert    = .02; % [m/s^(3/2)]
 wPert    = .05; % [rad/s^(3/2)]
 % Vision measurements observation noise 
-pixNoise = .75;      % [pixels]
+pixNoise = .5;      % [pixels]
 % Sigma value
 ns = 3;
 
 % Landmark management
 maxLine     =  50;   % Maximum number of lines
-simultLines =  5;    % Maximum simultaneous line updates
-maxInit     =  12;   % Maximum simultaneous initializations
+simultLines =  50;    % Maximum simultaneous line updates
+maxInit     =  50;   % Maximum simultaneous initializations
 
 % Image management
 imageGrid   = 7;     % Image grid subdivisions per axis
@@ -41,7 +41,7 @@ ANCDIM  = POSDIM + LMKDIM; % Anchored Plucker lines
 dt = 1/30;
 
 % Initialization params
-beta  = [0.0001;0.0001];
+beta  = [0.1;0];
 sigmaBeta = [0.5;0.5];
 BETA  = diag(sigmaBeta.^2);
 Beta  = struct('beta',beta,'BETA',BETA);

@@ -1,8 +1,8 @@
-function SenFig = drawSenFig(SenFig, Sen, Raw, Obs)
+function SenFig = drawSenFig(SenFig, Sen, Raw, Obs, FigOpt)
 
 % DRAWSENFIG  Redraw one sensor figure.
-% 	DRAWSENFIG(SENFIG, SEN, RAW, OBS) updates all the handles in the
-% 	handles structure SENFIG to reflect the observations OBS taken by
+% 	DRAWSENFIG(SENFIG, SEN, RAW, OBS, FIGOPT) updates all the handles in
+% 	the handles structure SENFIG to reflect the observations OBS taken by
 % 	sensor SEN, together with the raw data RAW. SENFIG is one sensor figure
 % 	structure created with CREATESENFIG.
 %
@@ -56,7 +56,7 @@ switch Sen.type
                     
                 case {'plkLin'}  % Plucker line
                     colors = ['b' 'c' 'y']'; % blue/cyan
-                    drawObsLin(SenFig, Obs(lmk), colors, Sen.par.imSize);
+                    drawObsLin(SenFig, Obs(lmk), colors, Sen.par.imSize, FigOpt.sensor);
 
                     % ADD HERE FOR NEW LANDMARK TYPE
                 case {'newLandmark'}

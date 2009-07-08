@@ -10,20 +10,20 @@ experim = 'house';
 % Simulation options
 randSeed    = -1;
 fmin        = 1;
-fmax        = 140;
+fmax        = 628;
 reproject   = 1;
-noiseFactor = .5;
-innSpace    = 'hh';
+noiseFactor = 0.5;
+innSpace    = 'rt';
 
 % camera frame
 t = [0;0;1.5];
-e = [-90;0;-120];
+e = [-90;0;0];
 q = e2q(deg2rad(e));
 camPos = [t;q];
 camVel = zeros(6,1);
 
 % odometry
-odometry = [0;0;0.1;  0;deg2rad(-.55);0];
+odometry = [0.1;0;0;  0;-0.01;0];
 %odometry = [0.1;0.0;-0.1;  0;deg2rad(-0.55);0];
 
 % Visualization options
@@ -260,7 +260,6 @@ for f = fmin:fmax
 %         Log.nees(le,f-fmin+1) = nees;
 %         le = le + 1;
 %     end
-        
     
 %%
     %=======================================================
@@ -285,6 +284,8 @@ for f = fmin:fmax
     % Simulated camera - nominal
     SimuCam = odo3(SimuCam,odometry);
     
+    
+
     
 end
 

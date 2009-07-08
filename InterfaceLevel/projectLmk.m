@@ -139,7 +139,7 @@ E = E_rsl*Map.P(rslr,rslr)*E_rsl' ;
 
 
 % Other parameters
-switch Obs.ltype(4:6)
+switch Lmk.type(4:6)
     case 'Lin'
         % for lines, project endpoints with covariances:
 
@@ -154,8 +154,8 @@ switch Obs.ltype(4:6)
         S = S_rsl*Map.P(rslr,rslr)*S_rsl'; % segment covariance
         Obs.par.endp(1).e = s(1:2);
         Obs.par.endp(2).e = s(3:4);
-        Obs.par.endp(1).E = S(1:2,1:2) + Obs.meas.R(1:2,1:2);
-        Obs.par.endp(2).E = S(3:4,3:4) + Obs.meas.R(3:4,3:4);
+        Obs.par.endp(1).E = S(1:2,1:2);
+        Obs.par.endp(2).E = S(3:4,3:4);
 
 end
 

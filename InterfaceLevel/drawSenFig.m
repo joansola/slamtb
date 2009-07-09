@@ -18,7 +18,8 @@ switch Sen.type
     case {'pinHole'}
 
         % 1. Raw data visualisation
-        drawRaw(SenFig, Raw);
+        drawRawPnts(SenFig, Raw);
+        drawRawLines(SenFig, Raw);
 
         % 2. Process only visible landmarks:
         % a - first erase lmks that were drawn but are no longer visible
@@ -43,19 +44,19 @@ switch Sen.type
             switch Obs(lmk).ltype
                 
                 case {'idpPnt'}  % IDP point
-                    colors = ['m' 'r']'; % magenta/red
+                    colors = ['mr']'; % magenta/red
                     drawObsPnt(SenFig, Obs(lmk), colors);
 
                 case {'eucPnt'}  % Euclidean point
-                    colors = ['b' 'c']'; % blue/cyan
+                    colors = ['bc']'; % blue/cyan
                     drawObsPnt(SenFig, Obs(lmk), colors);
 
                 case {'hmgPnt'}  % Homogeneous point
-                    colors = ['m' 'r']'; % magenta/red
+                    colors = ['mr']'; % magenta/red
                     drawObsPnt(SenFig, Obs(lmk), colors);
                     
                 case {'plkLin'}  % Plucker line
-                    colors = ['b' 'c' 'y']'; % blue/cyan
+                    colors = ['bgy']'; % blue/cyan
                     drawObsLin(SenFig, Obs(lmk), colors, Sen.par.imSize, FigOpt.sensor);
 
                     % ADD HERE FOR NEW LANDMARK TYPE

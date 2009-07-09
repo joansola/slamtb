@@ -33,7 +33,9 @@ function H = house(x,y,z,l,w,h)
 %       h_F = [toFrame(F,h(1:3,:));toFrame(F,h(4:6,:))]
 %   or the function TOFRAMESEGMENT.
 %
-%   See also DRAWSEGMENTSOBJECT, TOFRAMESEGMENT.
+%   To project the house into a pin-hole camera, use PINHOLESEGMENT.
+%
+%   See also DRAWSEGMENTSOBJECT, TOFRAMESEGMENT, PINHOLESEGMENT.
 
 
 % (c) 2008 Joan Sola @ LAAS-CNRS.

@@ -71,6 +71,7 @@ clear Robot Sensor World Time   % clear all user data
 %% IV. Main loop
 skip = 0;
 for currentFrame = Tim.firstFrame : Tim.lastFrame
+    
     % 1. SIMULATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -90,6 +91,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
     end % end process robots
 
+    
 
     % 2. ESTIMATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -138,13 +140,24 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         skip = FigOpt.skipFrames;
         
         % Figure of the Map:
-        drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen, FigOpt);
-        makeVideoFrame(MapFig,sprintf('map-%04d.png',currentFrame),FigOpt,ExpOpt);
+        drawMapFig(MapFig,  ...
+            Rob, Sen, Lmk,  ...
+            SimRob, SimSen, ...
+            FigOpt);
+        
+        makeVideoFrame(MapFig, ...
+            sprintf('map-%04d.png',currentFrame), ...
+            FigOpt, ExpOpt);
 
         % Figures for all sensors
         for sen = [Sen.sen]
-            SenFig(sen) = drawSenFig(SenFig(sen), Sen(sen), Raw(sen), Obs(sen,:),FigOpt);
-            makeVideoFrame(SenFig(sen),sprintf('sen%02d-%04d.png',sen,currentFrame),FigOpt,ExpOpt);
+            SenFig(sen) = drawSenFig(SenFig(sen), ...
+                Sen(sen), Raw(sen), Obs(sen,:), ...
+                FigOpt);
+            
+            makeVideoFrame(SenFig(sen), ...
+                sprintf('sen%02d-%04d.png', sen, currentFrame),...
+                FigOpt, ExpOpt);
 
         end
 
@@ -163,3 +176,4 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 end
 
 %% V. Post-processing
+

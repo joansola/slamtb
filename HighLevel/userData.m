@@ -8,8 +8,13 @@
 %   * Use as many robots and sensors as you wish.
 %   * Assign sensors to robots via Sensor{i}.robot.
 %   * Use field Sensor{i}.d for radial distortion parameters if desired.
-%   * Use the field Opt.map.num3dLmk to specify the maximum number of
-%   3d landmarks that the SLAM map must support.
+%   * Use the field Opt.map.numLmk and .lmkSize to specify the maximum
+%   number of landmarks that the SLAM map must support.
+%   * Use Opt.init.initType to select the type of landmarks to use. Try
+%   with one in this list:
+%       'idpPnt', 'hmgPnt', 'plkLin'.
+%   * Use World.points and World.segments to create artificial worlds of
+%   points or segments. Check functions THICKCLOISTER and HOUSE.
 %
 %   See further comments within the file for more detailed information.
 %
@@ -17,7 +22,8 @@
 %   store different simulation conditions. Just modify the call in SLAMTB
 %   to point to the particular 'USERDATA' file you want.
 %
-%   See also SLAMTB, EULERANGLES.
+%   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAIDP,
+%   USERDATAHMG, USERDATAPLK.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 
@@ -27,7 +33,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            200);           % last frame #
+  'lastFrame',            800);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -38,7 +44,7 @@ World = struct(...
   'yMax',             10,...
   'zMin',             -10,...
   'zMax',             10,...
-  'points',           thickCloister(-6,6,-6,6,1,5),... % 3d point landmarks - see THICKCLOISTER. 
+  'points',           thickCloister(-6,6,-6,6,1,7),... % 3d point landmarks - see THICKCLOISTER. 
   'segments',         []);  % 3D segments - see HOUSE. 
     
 % Robot things with their controls
@@ -197,13 +203,14 @@ FigOpt = struct(...
       'ground',   [.8 .8 .8],...  % simulated robots and sensors
       'label',    [.0 .5 0])),... % landmark ID labels
   'sensor',       struct(...      % sensor figures options
-    'size',       [320 240],...    % sensor figure size
-    'colors',     struct(...       % Sensor figure colors:
-      'border',   .8*[1 1 1],...    %    
-      'axes',     [0 0 0],...       % 
-      'bckgnd',   [1 1 1],...       %
-      'raw',      [0 0 0],...       % 
-      'label',    [.5 .5 .5])));    %
+    'size',       [320 240],...   % sensor figure size
+    'showEllip',  false,...       % show ellipses?
+    'colors',     struct(...      % Sensor figure colors:
+      'border',   .8*[1 1 1],...  %    
+      'axes',     [0 0 0],...     % 
+      'bckgnd',   [1 1 1],...     %
+      'raw',      .3*[1 1 1],...  % 
+      'label',    [.5 .5 .5])));  %
 
 
 % Experiment options 

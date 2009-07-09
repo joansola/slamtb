@@ -13,8 +13,8 @@ function [X,Y,Z] = idp3elli(idp,IDP,ns,NP)
 %       x0 = idp2p(idp)
 %       P = J*IDP*J'
 %
-%   being J the Jacobian of the conversion function. This conversion can be
-%   more easily achieved with the function propagateUncertainty.m.
+%   being J the Jacobian of the conversion function. This conversion is
+%   performed internally by the function PROPAGATEUNCERTAINTY.
 %
 %   The ellipsoid can be plotted in a 3D graphic by just creating a line
 %   with line(X,Y,Z).

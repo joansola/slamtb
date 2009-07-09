@@ -1,4 +1,7 @@
-% USERDATA  User data for universal SLAM.
+% USERDATA  User data for universal SLAM - Homogeneous points example.
+%   This is a particular case of USERDATA.M. It is intended for
+%   demonstration of the SLAM toolbox with homogeneous points.
+%
 %   Edit this script to enter the information you need for SLAM. Variable
 %   names and comments should make this file easy to understand. Follow
 %   these guidelines:
@@ -38,7 +41,7 @@ World = struct(...
   'yMax',             10,...
   'zMin',             -10,...
   'zMax',             10,...
-  'points',           thickCloister(-6,6,-6,6,1,5),... % 3d point landmarks - see THICKCLOISTER. 
+  'points',           thickCloister(-6,6,-6,6,1,7),... % 3d point landmarks - see THICKCLOISTER. 
   'segments',         []);  % 3D segments - see HOUSE. 
     
 % Robot things with their controls

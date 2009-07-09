@@ -1,4 +1,7 @@
-% USERDATA  User data for universal SLAM.
+% USERDATA  User data for SLAMTB - Plucker lines example.
+%   This is a particular case of USERDATA.M. It is intended for
+%   demonstration of the SLAM toolbox with Plucker lines.
+%
 %   Edit this script to enter the information you need for SLAM. Variable
 %   names and comments should make this file easy to understand. Follow
 %   these guidelines:
@@ -8,8 +11,13 @@
 %   * Use as many robots and sensors as you wish.
 %   * Assign sensors to robots via Sensor{i}.robot.
 %   * Use field Sensor{i}.d for radial distortion parameters if desired.
-%   * Use the field Opt.map.num3dLmk to specify the maximum number of
-%   3d landmarks that the SLAM map must support.
+%   * Use the field Opt.map.numLmk and .lmkSize to specify the maximum
+%   number of landmarks that the SLAM map must support.
+%   * Use Opt.init.initType to select the type of landmarks to use. Try
+%   with one in this list:
+%       'idpPnt', 'hmgPnt', 'plkLin'.
+%   * Use World.points and World.segments to create artificial worlds of
+%   points or segments. Check functions THICKCLOISTER and HOUSE.
 %
 %   See further comments within the file for more detailed information.
 %
@@ -17,7 +25,7 @@
 %   store different simulation conditions. Just modify the call in SLAMTB
 %   to point to the particular 'USERDATA' file you want.
 %
-%   See also SLAMTB, EULERANGLES.
+%   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 
@@ -27,7 +35,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            800);           % last frame #
+  'lastFrame',            400);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -57,7 +65,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.1;0;0],...     % position increment
-  'daDegrees',          [0;0;.8],...     % angle increment, degrees
+  'daDegrees',          [0;0;1],...     % angle increment, degrees
   'dxStd',              0.005*[1;1;1],...  % odo linear error std
   'daStd',              0.02*[1;1;1]);      % odo ang error std, degrees
 
@@ -96,25 +104,25 @@ Sensor{1} = struct(...
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        0.1,...         % pixel error std
+  'pixErrorStd',        0.2,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
 
-Sensor{2} = struct(...
-  'id',                 2,...           % sensor identifier
-  'name',               'Micropix',...      % sensor name
-  'type',               'pinHole',...   % type of sensor
-  'robot',              1,...           % robot where it is mounted
-  'position',           [0.3;0;1.5],...     % position in robot
-  'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
-  'positionStd',        [0;0;0],...     % position error std
-  'orientationStd',     [0;0;0],...     % orient. error std
-  'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        0.1,...         % pixel error std
-  'intrinsic',          [320;240;320;320],... % intrinsic params
-  'distortion',         [],...          % distortion params
-  'frameInMap',         false);         % add sensor frame in slam map?
+% Sensor{2} = struct(...
+%   'id',                 2,...           % sensor identifier
+%   'name',               'Micropix',...      % sensor name
+%   'type',               'pinHole',...   % type of sensor
+%   'robot',              1,...           % robot where it is mounted
+%   'position',           [0.3;0;1.5],...     % position in robot
+%   'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
+%   'positionStd',        [0;0;0],...     % position error std
+%   'orientationStd',     [0;0;0],...     % orient. error std
+%   'imageSize',          [640;480],...   % image size
+%   'pixErrorStd',        0.2,...         % pixel error std
+%   'intrinsic',          [320;240;320;320],... % intrinsic params
+%   'distortion',         [],...          % distortion params
+%   'frameInMap',         false);         % add sensor frame in slam map?
 
 
 
@@ -128,7 +136,7 @@ Opt = struct(...
     'lmkSize',        6),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       23,...         % max simultaneus updates
+    'nUpdates',       15,...         % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -186,7 +194,7 @@ FigOpt = struct(...
     'proj',       'persp',...     % projection of the 3d figure
     'view',       [20 15 60 15],...      % viewpoint of the 3d figure [30 45 40 20]
     'size',       [320 240],...   % map figure size
-    'showEllip',  false,...        % show ellipsoids?
+    'showEllip',  true,...        % show ellipsoids?
     'colors',     struct(...      % map figure colors
       'border',   [1 1 1],...     %   [r g b]      
       'axes',     [0 0 0],...     % with:

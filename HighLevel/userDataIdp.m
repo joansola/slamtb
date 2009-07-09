@@ -1,4 +1,7 @@
-% USERDATA  User data for universal SLAM.
+% USERDATA  User data for universal SLAM - Inverse depth points example.
+%   This is a particular case of USERDATA.M. It is intended for
+%   demonstration of the SLAM toolbox with inverse depth points.
+%
 %   Edit this script to enter the information you need for SLAM. Variable
 %   names and comments should make this file easy to understand. Follow
 %   these guidelines:
@@ -38,7 +41,7 @@ World = struct(...
   'yMax',             10,...
   'zMin',             -10,...
   'zMax',             10,...
-  'points',           thickCloister(-6,6,-6,6,1,5),... % 3d point landmarks - see THICKCLOISTER. 
+  'points',           thickCloister(-6,6,-6,6,1,7),... % 3d point landmarks - see THICKCLOISTER. 
   'segments',         []);  % 3D segments - see HOUSE. 
     
 % Robot things with their controls
@@ -111,7 +114,7 @@ Sensor{1} = struct(...
 %   'positionStd',        [0;0;0],...     % position error std
 %   'orientationStd',     [1.5;1.5;1.5],...     % orient. error std
 %   'imageSize',          [640;480],...   % image size
-%   'pixErrorStd',        2.0,...         % pixel error std
+%   'pixErrorStd',        1.0,...         % pixel error std
 %   'intrinsic',          [320;240;320;320],... % intrinsic params
 %   'distortion',         [],...          % distortion params
 %   'frameInMap',         false);         % add sensor frame in slam map?

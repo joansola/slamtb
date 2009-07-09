@@ -1,6 +1,6 @@
 function drawHmgPnt(MapFig, Lmk, color)
 
-% DRAWEUCLMK  Draw Homogeneous point landmark in MapFig.
+% DRAWHMGPNT  Draw Homogeneous point landmark in MapFig.
 
 global Map
 

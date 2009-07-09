@@ -142,7 +142,7 @@ Opt = struct(...
     'lines',          struct(...     % options for line corrections
       'innType',      'ortDst',...    % innovation type for lines
       'extPolicy',    false,...       % line extending policy ?
-      'extSwitch',    60)),...        % extension policy switch point in pixels
+      'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'initType',       'plkLin',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
@@ -163,7 +163,7 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'active',         false,...         % select new random seed?
+    'active',         true,...         % select new random seed?
     'fixedSeed',      209273,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options

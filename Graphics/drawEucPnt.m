@@ -1,6 +1,6 @@
 function drawEucPnt(MapFig, Lmk, color)
 
-% DRAWEUCLMK  Draw Euclidean point landmark in MapFig.
+% DRAWEUCPNT  Draw Euclidean point landmark in MapFig.
 
 global Map
 

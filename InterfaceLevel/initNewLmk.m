@@ -96,7 +96,7 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP
     % add to Map and get lmk range in Map
     Lmk(lmk).state.r = addToMap(l,P_LL,P_LX);
 
-    % Fill Lmk structure before exit
+    % Fill Lmk structure
     Lmk(lmk).lmk     = lmk;
     Lmk(lmk).id      = newId;
     Lmk(lmk).type    = Opt.init.initType ;
@@ -106,34 +106,9 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP
     Lmk(lmk).nMatch  = 1;
     Lmk(lmk).nInlier = 1;
     
-    % Init internal state
-    switch Lmk(lmk).type
-        case {'eucPnt','idpPnt','hmgPnt'}
-        case 'plkLin'
-            t1 = -10;
-            t2 =  10;
-            Lmk(lmk).par.endp(1).t = t1;
-            Lmk(lmk).par.endp(2).t = t2;
-            [e1,e2] = pluckerEndpoints(l, t1, t2);
-            Lmk(lmk).par.endp(1).e = e1;
-            Lmk(lmk).par.endp(2).e = e2;
-            
-            
-%             [seg, t] = retroProjPlkEndPnts(Rob,Sen,Lmk(lmk),Obs(lmk));
-%             Lmk(lmk).par.endp(1).t = t(1);
-%             Lmk(lmk).par.endp(2).t = t(2);
-%             Lmk(lmk).par.endp(1).e = seg(1:3);
-%             Lmk(lmk).par.endp(2).e = seg(4:6);
-
-            Obs(lmk).par.endp(1).e = Obs(lmk).meas.y(1:2);
-            Obs(lmk).par.endp(2).e = Obs(lmk).meas.y(3:4);
-            Obs(lmk).par.endp(1).E = Obs(lmk).meas.R(1:2,1:2);
-            Obs(lmk).par.endp(2).E = Obs(lmk).meas.R(3:4,3:4);
-            
-            
-        otherwise
-            error('??? Unknown landmark type ''%s''.',Lmk(lmk).type);
-    end
+    % Init off-filter landmark params
+    [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk));
+    
     
 end
 

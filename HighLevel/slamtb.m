@@ -33,7 +33,7 @@ clear
 global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
-userData;   % user-defined data. SCRIPT.
+userDataPlk;   % user-defined data. SCRIPT.
 
 %% II. Initialize all data structures from user-defined data in userData.m
 % SLAM data

@@ -1,6 +1,6 @@
 function drawObsLin(SenFig, Obs, imSize, SenFigOpt)
 
-% DRAWOBSLIN  Redraw a line landmark on the pinHole sensor figure.
+% DRAWOBSLIN  Draw an observed line on the pinHole sensor figure.
 %   DRAWOBSLIN(SENFIG, OBS, COLORS, IMSIZE, SENFIGOPT)  redraws a line
 %   landmark on the pinHole sensor figure.
 %
@@ -24,9 +24,9 @@ if Obs.measured
         'vis',   'on');
     
     % the label
-    c = (Obs.meas.y(1:2)+Obs.meas.y(3:4))*0.5; % segment's center
-    v = (Obs.meas.y(1:2)-Obs.meas.y(3:4));     % segment's vector
-    n = normvec([-v(2);v(1)]);          % segment's normal vector
+    c = (y(1:2)+y(3:4))*0.5;     % segment's center
+    v = (y(1:2)-y(3:4));         % segment's vector
+    n = normvec([-v(2);v(1)]);   % segment's normal vector
     pos = c + n*posOffset;
     set(SenFig.label(Obs.lmk),...
         'position', pos,...
@@ -68,7 +68,7 @@ if ~isempty(s)
             'vis',   'on');
     end
     
-else % not visible
+else % not visible - this piece of code only for robustness
     set(SenFig.mean(Obs.lmk),'vis','off');
     set(SenFig.ellipse(Obs.lmk,:),'vis','off');
 end

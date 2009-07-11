@@ -1,4 +1,4 @@
-% USERDATA  User data for universal SLAM.
+% USERDATA  User data for SLAMTB.
 %   Edit this script to enter the information you need for SLAM. Variable
 %   names and comments should make this file easy to understand. Follow
 %   these guidelines:

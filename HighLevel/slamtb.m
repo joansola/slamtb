@@ -69,7 +69,7 @@ clear Robot Sensor World Time   % clear all user data
 
 
 %% IV. Main loop
-skip = 0;
+Tim.skip = 0;
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     
     % 1. SIMULATION
@@ -135,9 +135,9 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 3. VISUALIZATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    skip = skip - 1;
-    if skip <= 0 || currentFrame == Tim.lastFrame
-        skip = FigOpt.skipFrames;
+    Tim.skip = Tim.skip - 1;
+    if Tim.skip <= 0 || currentFrame == Tim.lastFrame
+        Tim.skip = FigOpt.skipFrames;
         
         % Figure of the Map:
         drawMapFig(MapFig,  ...

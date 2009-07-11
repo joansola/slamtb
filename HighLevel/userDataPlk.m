@@ -1,4 +1,4 @@
-% USERDATA  User data for SLAMTB - Plucker lines example.
+% USERDATAPLK  User data for SLAMTB - Plucker lines example.
 %   This is a particular case of USERDATA.M. It is intended for
 %   demonstration of the SLAM toolbox with Plucker lines.
 %
@@ -26,7 +26,7 @@
 %   to point to the particular 'USERDATA' file you want.
 %
 %   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAIDP,
-%   USERDATAHMG, USERDATAPLK.
+%   USERDATAHMG, USERDATA.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 

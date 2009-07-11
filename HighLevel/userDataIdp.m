@@ -1,4 +1,4 @@
-% USERDATA  User data for universal SLAM - Inverse depth points example.
+% USERDATAIDP  User data for SLAMTB - Inverse depth points example.
 %   This is a particular case of USERDATA.M. It is intended for
 %   demonstration of the SLAM toolbox with inverse depth points.
 %
@@ -25,7 +25,7 @@
 %   store different simulation conditions. Just modify the call in SLAMTB
 %   to point to the particular 'USERDATA' file you want.
 %
-%   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAIDP,
+%   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATA,
 %   USERDATAHMG, USERDATAPLK.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS

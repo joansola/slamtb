@@ -1,4 +1,4 @@
-% USERDATA  User data for universal SLAM - Homogeneous points example.
+% USERDATAHMG  User data for SLAMTB - Homogeneous points example.
 %   This is a particular case of USERDATA.M. It is intended for
 %   demonstration of the SLAM toolbox with homogeneous points.
 %
@@ -26,7 +26,7 @@
 %   to point to the particular 'USERDATA' file you want.
 %
 %   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAIDP,
-%   USERDATAHMG, USERDATAPLK.
+%   USERDATA, USERDATAPLK.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 

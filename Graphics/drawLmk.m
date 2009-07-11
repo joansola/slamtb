@@ -25,20 +25,20 @@ switch (Lmk.type)
     % landmark types
     % --------------
     case {'idpPnt'}
-        color = [1 0.5 0.5];
-        drawIdpPnt(MapFig, Lmk, color);
+        colors = MapOpt.colors.othPnt;
+        drawIdpPnt(MapFig, Lmk, colors);
 
     case {'eucPnt'}
-        color = [.5 .5 1];
-        drawEucPnt(MapFig, Lmk, color);
+        colors = MapOpt.colors.eucPnt;
+        drawEucPnt(MapFig, Lmk, colors);
 
     case {'hmgPnt'}
-        color = [1 0.5 0.5];
-        drawHmgPnt(MapFig, Lmk, color);
+        colors = MapOpt.colors.othPnt;
+        drawHmgPnt(MapFig, Lmk, colors);
         
     case {'plkLin'}
-        color = [.8 .8 1];
-        drawPlkLin(MapFig, Lmk, color, MapOpt);
+        colors = MapOpt.colors.plkLin;
+        drawPlkLin(MapFig, Lmk, colors, MapOpt);
 
     otherwise
         % TODO : print an error and go out

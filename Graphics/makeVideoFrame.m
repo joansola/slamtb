@@ -5,7 +5,7 @@ function  makeVideoFrame(Fig,filename,FigOpt,ExpOpt)
 %   FIG to an image with name filename, using FIGOPT and EXPOPT.
 
 if FigOpt.createVideo
-    dir = [ExpOpt.root ExpOpt.lmkTypes '/' ExpOpt.sensingType '/'];
+    dir = [ExpOpt.root ExpOpt.lmkTypes '/' ExpOpt.sensingType '/images/'];
     if ~isdir(dir)
         mkdir(dir);
     end

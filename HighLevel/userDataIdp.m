@@ -11,8 +11,13 @@
 %   * Use as many robots and sensors as you wish.
 %   * Assign sensors to robots via Sensor{i}.robot.
 %   * Use field Sensor{i}.d for radial distortion parameters if desired.
-%   * Use the field Opt.map.num3dLmk to specify the maximum number of
-%   3d landmarks that the SLAM map must support.
+%   * Use the field Opt.map.numLmk and .lmkSize to specify the maximum
+%   number of landmarks that the SLAM map must support.
+%   * Use Opt.init.initType to select the type of landmarks to use. Try
+%   with one in this list:
+%       'idpPnt', 'hmgPnt', 'plkLin'.
+%   * Use World.points and World.segments to create artificial worlds of
+%   points or segments. Check functions THICKCLOISTER and HOUSE.
 %
 %   See further comments within the file for more detailed information.
 %
@@ -20,7 +25,8 @@
 %   store different simulation conditions. Just modify the call in SLAMTB
 %   to point to the particular 'USERDATA' file you want.
 %
-%   See also SLAMTB, EULERANGLES.
+%   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAIDP,
+%   USERDATAHMG, USERDATAPLK.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 
@@ -182,31 +188,51 @@ SimOpt = struct(...
 %       'rgbcmykw'  1-char predifined Matlab colors
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
-  'renderer',     'opengl',...    % renderer
-  'createVideo',  false,...       % create video sequence?
-  'skipFrames',   0,...           % frames to skip for faster processing
-  'map',          struct(...      % map figure options
-    'proj',       'persp',...     % projection of the 3d figure
-    'view',       'view',...      % viewpoint of the 3d figure [30 45 40 20]
-    'size',       [320 240],...   % map figure size
-    'showEllip',  false,...        % show ellipsoids?
-    'colors',     struct(...      % map figure colors
-      'border',   [1 1 1],...     %   [r g b]      
-      'axes',     [0 0 0],...     % with:
-      'bckgnd',   [1 1 1],...     %   [0 0 0] black
-      'simLmks',  .3*[1 1 1],...  %   [1 1 1] white
-      'simu',     'g',...         %   or 'r', 'b', etc.   
-      'est',      'b',...         % estimated robots and sensors
-      'ground',   [.8 .8 .8],...  % simulated robots and sensors
-      'label',    [.0 .5 0])),... % landmark ID labels
-  'sensor',       struct(...      % sensor figures options
-    'size',       [320 240],...    % sensor figure size
-    'colors',     struct(...       % Sensor figure colors:
-      'border',   .8*[1 1 1],...    %    
-      'axes',     [0 0 0],...       % 
-      'bckgnd',   [1 1 1],...       %
-      'raw',      [0 0 0],...       % 
-      'label',    [.5 .5 .5])));    %
+  'renderer',       'opengl',...    % renderer
+  'createVideo',    false,...       % create video sequence?
+  'skipFrames',     0,...           % frames to skip for faster processing
+  'map',            struct(...      % map figure options
+    'proj',         'persp',...     % projection of the 3d figure
+    'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
+    'size',         [320 240],...   % map figure size
+    'showEllip',    false,...       % show ellipsoids?
+    'colors',       struct(...      % map figure colors
+      'border',     [1 1 1],...      %   [r g b]      
+      'axes',       [0 0 0],...      % with:
+      'bckgnd',     [1 1 1],...      %   [0 0 0] black
+      'simLmk',     .3*[1 1 1],...   %   [1 1 1] white
+      'eucPnt',     struct(...       % euclidean point colors
+        'mean',     'b',...           % mean dot
+        'ellip',    [.5 .5 1]),...    % ellipsoid
+      'othPnt',     struct(...       % other point colors
+        'mean',     'r',...           % mean dot
+        'ellip',    [1 .5 .5]),...    % ellipsoid
+      'plkLin',     struct(...       % Plucker line colors
+        'mean',     'g',...           % mean line
+        'ellip',    [.5 1 .5]),...    % ellipsoid
+      'simu',       'g',...          %   or 'r', 'b', etc.   
+      'est',        'b',...          % estimated robots and sensors
+      'ground',     [.8 .8 .8],...   % simulated robots and sensors
+      'label',      [.0 .5 0])),...  % landmark ID labels
+  'sensor',         struct(...      % sensor figures options
+    'size',         [320 240],...    % sensor figure size
+    'showEllip',    false,...        % show ellipses?
+    'colors',       struct(...       % Sensor figure colors:
+      'border',     .8*[1 1 1],...    %    
+      'axes',       [0 0 0],...       % 
+      'bckgnd',     [1 1 1],...       %
+      'raw',        .3*[1 1 1],...    % 
+      'eucPnt',     struct(...       % euclidean point colors
+        'updated',  'c',...           % updated
+        'predicted','b'),...          % predicted
+      'othPnt',     struct(...       % other point colors
+        'updated',  'r',...           % updated
+        'predicted','m'),...          % predicted
+      'plkLin',     struct(...       % Plucker line colors
+        'meas',     'b',...           % measurement
+        'mean',     'g',...           % mean line
+        'ellip',    'y'),...          % ellipsoid
+      'label',      [.5 .5 .5])));    %
 
 
 % Experiment options 

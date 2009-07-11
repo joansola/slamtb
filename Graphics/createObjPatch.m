@@ -22,6 +22,7 @@ switch Obj.type
     case 'atrv'
         graph = thickVehicle(0.8);
     case 'pinHole'
+        % graph = camSimpleGraphics(0.1);
         graph = camGraphics(0.1);
     otherwise
         error('??? Unknown object type ''%s''.',Obj.type);

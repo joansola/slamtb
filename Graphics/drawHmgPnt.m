@@ -6,12 +6,11 @@ global Map
 
 posOffset = [0;0;.2];
 
-% Homogeneous
-hmg = Map.x(Lmk.state.r) ;
-HMG = Map.P(Lmk.state.r,Lmk.state.r) ;
-
-% Euclidean
-[x,P] = propagateUncertainty(hmg,HMG,@hmg2euc);
+% transform to Euclidean
+[x,P] = propagateUncertainty(       ...
+    Map.x(Lmk.state.r),             ...
+    Map.P(Lmk.state.r,Lmk.state.r), ...
+    @hmg2euc);
 
 % draw
-drawGauss3dPnt(MapFig.Lmk(Lmk.lmk),x,P,num2str(Lmk.id),color,posOffset);
+drawGauss3dPnt(MapFig.Lmk(Lmk.lmk),x,P,color,num2str(Lmk.id),posOffset);

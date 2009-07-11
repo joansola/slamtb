@@ -1,6 +1,18 @@
-function drawGauss3dPnt(hnds,x,P,label,color,posOffset,ns,NP)
+function drawGauss3dPnt(hnds,x,P,color,label,posOffset,ns,NP)
 
 % DRAWGAUSS3DPNT  Draw Gaussian 3d point
+%   DRAWGAUSS2DPNT(HNDS,X,P,COLOR,LABEL,LOFF) draws the Gaussian 3d point
+%   defined in handles HNDS, at position X, with an ellipsoid corresponding
+%   to covariances matrix P (with 10 points and 3-sigma size), with color
+%   COLOR, with a label LABEL at LOFF pixels from the point X.
+%
+%   The handles are in structure HNDS as follows:
+%       .mean    handle for the point's mean
+%       .ellipse handle for the ellipsoid
+%       .label   handle for the label
+%
+%   DRAWGAUSS3DPNT(...,NS,NP) accepts the sigma size NS and the number of
+%   points NP for drawing the ellipse.
 
 if nargin < 8
     NP = 10;
@@ -9,15 +21,16 @@ if nargin < 8
     end
 end
 
-% the expectation's mean:
+% the mean:
 set(hnds.mean,...
     'xdata',   x(1),...
     'ydata',   x(2),...
     'zdata',   x(3),...
     'color',   color.mean,...
+    'marker',  '.',...
     'visible', 'on');
 
-% the expectation's ellipse
+% the ellipsoid
 [X,Y,Z] = cov3elli(x, P, ns, NP) ;
 set(hnds.ellipse,...
     'xdata',   X,...

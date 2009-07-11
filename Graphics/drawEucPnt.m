@@ -10,5 +10,5 @@ posOffset = [0;0;.2];
 x = Map.x( Lmk.state.r);
 P = Map.P(Lmk.state.r,Lmk.state.r);
 
-drawGauss3dPnt(MapFig.Lmk(Lmk.lmk),x,P,num2str(Lmk.id),color,posOffset);
+drawGauss3dPnt(MapFig.Lmk(Lmk.lmk), x, P, color, num2str(Lmk.id), posOffset);
 

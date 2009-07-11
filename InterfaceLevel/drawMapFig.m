@@ -75,3 +75,7 @@ if nargin == 7 && strcmp(FigOpt.map.view,'self')
         'cameratarget',   fromFrame(Rob(1).frame, fromFrame(Sen(1).frame,[0;0;1])),...
         'cameraupvector', Rob(1).frame.R*Sen(1).frame.R*[0;-1;0]);
 end
+
+daz = FigOpt.map.orbit(1) * FigOpt.skipFrames;
+del = FigOpt.map.orbit(2) * FigOpt.skipFrames;
+camorbit(MapFig.axes,daz,del)

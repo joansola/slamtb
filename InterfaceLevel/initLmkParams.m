@@ -9,8 +9,8 @@ switch Lmk.type
     case {'eucPnt','idpPnt','hmgPnt'}
     case 'plkLin'
         l  = Map.x(Lmk.state.r);
-        t1 = -10;
-        t2 =  10;
+        t1 = -8;
+        t2 =  8;
         Lmk.par.endp(1).t = t1;
         Lmk.par.endp(2).t = t2;
         [e1,e2] = pluckerEndpoints(l, t1, t2);

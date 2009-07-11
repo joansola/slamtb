@@ -36,7 +36,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            800);           % last frame #
+  'lastFrame',            200);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -194,6 +194,7 @@ FigOpt = struct(...
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
     'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
+    'orbit',        [0 0],...       % AZ and EL orbit angle increments
     'size',         [320 240],...   % map figure size
     'showEllip',    false,...       % show ellipsoids?
     'colors',       struct(...      % map figure colors

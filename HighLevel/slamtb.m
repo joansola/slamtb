@@ -6,16 +6,14 @@
 %   Please read slamToolbox.pdf in the root directory thoroughly before
 %   using this toolbox.
 %
-%   Beginners should not modify this file, just edit USERDATA.M and enter
+%   - Beginners should not modify this file, just edit USERDATA.M and enter
 %   and/or modify the data you wish to simulate.
 %
-%   More advanced users should be able to create new landmark models, new
+%   - More advanced users should be able to create new landmark models, new
 %   initialization methods, and possibly extensions to multi-map SLAM. Good
 %   luck!
 %
-%   Expert users may want to add code for real-data experiments. Please try
-%   active-search techniques for vision, they are amazingly faster and
-%   robust.
+%   - Expert users may want to add code for real-data experiments. 
 %
 %   See also USERDATA.
 %
@@ -33,11 +31,11 @@ clear
 global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
-userData;   % user-defined data. SCRIPT.
+userData;      % user-defined data. SCRIPT.
 
 %% II. Initialize all data structures from user-defined data in userData.m
 % SLAM data
-[Rob,Sen,Raw,Lmk,Obs,Tim]  = createSlamStructures(...
+[Rob,Sen,Raw,Lmk,Obs,Tim]     = createSlamStructures(...
     Robot,...
     Sensor,...      % all user data
     Time,...
@@ -51,7 +49,7 @@ userData;   % user-defined data. SCRIPT.
     SimOpt);
 
 % Graphics handles
-[MapFig,SenFig]        = createGraphicsStructures(...
+[MapFig,SenFig]               = createGraphicsStructures(...
     Rob, Sen, Lmk, Obs,...      % SLAM data
     SimRob, SimSen, SimLmk,...  % Simulator data
     FigOpt);                    % User-defined graphic options

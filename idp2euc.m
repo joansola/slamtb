@@ -1,7 +1,7 @@
-function [p,Pidp] = idp2p(idp)
+function [p,Pidp] = idp2euc(idp)
 
-% IDP2P  Inverse Depth to cartesian point conversion.
-%   IDP2P(IDP) returns the cartesian 3D representation of the point coded
+% IDP2EUC  Inverse Depth to cartesian point conversion.
+%   IDP2EUC(IDP) returns the cartesian 3D representation of the point coded
 %   in Inverse depth.
 %
 %   IDP is a 6-vector : IDP = [x0 y0 z0 el az rho]' where
@@ -9,7 +9,7 @@ function [p,Pidp] = idp2p(idp)
 %       el, az: azimuth and elevation of the ray through P that starts at P0.
 %       rho: inverse of the distance from point P to P0.
 %
-%   [P,P_idp] = IDP2P(...) returns the Jacobian of the conversion wrt IDP.
+%   [P,P_idp] = IDP2EUC(...) returns the Jacobian of the conversion wrt IDP.
 %
 %   See also p2idp.
 
@@ -56,6 +56,6 @@ return
 
 syms x y z pitch yaw rho real
 idp = [x;y;z;pitch;yaw;rho];
-[p,Pidp] = idp2p(idp);
+[p,Pidp] = idp2euc(idp);
 
 Pidp - jacobian(p,idp) % it must return a matrix of zeros

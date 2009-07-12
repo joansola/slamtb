@@ -29,7 +29,7 @@ switch Lmk.type
             
             % point coordinates
             idp     = Map.x(ir);   % idp
-            [p,P_i] = idp2p(idp);  % euclidean
+            [p,P_i] = idp2euc(idp);  % euclidean
             
             % map updates
             Map.x(er) = p;     % mean

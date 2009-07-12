@@ -21,7 +21,7 @@ rho = idp(6);
 IDP = Map.P(ir,ir);
 RHO = IDP(6,6);
 
-xi  = idp2p(idp);
+xi  = idp2euc(idp);
 rwc = fromFrame(Rob.frame,Sen.frame.t); % current camera center
 
 hw        = xi-rwc;  % idp point to camera center

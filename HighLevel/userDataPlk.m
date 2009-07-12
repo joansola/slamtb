@@ -2,31 +2,7 @@
 %   This is a particular case of USERDATA.M. It is intended for
 %   demonstration of the SLAM toolbox with Plucker lines.
 %
-%   Edit this script to enter the information you need for SLAM. Variable
-%   names and comments should make this file easy to understand. Follow
-%   these guidelines:
-%
-%   * Specify site and estimation details for the current run.
-%   * Specify sampling time and start and end frames.
-%   * Use as many robots and sensors as you wish.
-%   * Assign sensors to robots via Sensor{i}.robot.
-%   * Use field Sensor{i}.d for radial distortion parameters if desired.
-%   * Use the field Opt.map.numLmk and .lmkSize to specify the maximum
-%   number of landmarks that the SLAM map must support.
-%   * Use Opt.init.initType to select the type of landmarks to use. Try
-%   with one in this list:
-%       'idpPnt', 'hmgPnt', 'plkLin'.
-%   * Use World.points and World.segments to create artificial worlds of
-%   points or segments. Check functions THICKCLOISTER and HOUSE.
-%
-%   See further comments within the file for more detailed information.
-%
-%   NOTE: You can have multiple copies of this file with different names to
-%   store different simulation conditions. Just modify the call in SLAMTB
-%   to point to the particular 'USERDATA' file you want.
-%
-%   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAIDP,
-%   USERDATAHMG, USERDATA.
+%   See also USERDATA.
 
 %   (c) 2009 Joan Sola @ LAAS-CNRS
 

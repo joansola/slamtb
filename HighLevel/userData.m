@@ -3,16 +3,17 @@
 %   names and comments should make this file easy to understand. Follow
 %   these guidelines:
 %
-%   * Specify site and estimation details for the current run.
-%   * Specify sampling time and start and end frames.
-%   * Use as many robots and sensors as you wish.
+%   * Specify site and estimation details for the current run in ExpOpt.
+%   * Specify sampling time and start and end frames in Tim.
+%   * Use as many robots and sensors as you wish with Robot{} and Sensor{}.
 %   * Assign sensors to robots via Sensor{i}.robot.
-%   * Use field Sensor{i}.d for radial distortion parameters if desired.
+%   * Use field Sensor{i}.distortion for radial distortion parameters if
+%   desired.
 %   * Use the field Opt.map.numLmk and .lmkSize to specify the maximum
 %   number of landmarks that the SLAM map must support.
 %   * Use Opt.init.initType to select the type of landmarks to use. Try
 %   with one in this list:
-%       'idpPnt', 'hmgPnt', 'plkLin'.
+%       'idpPnt', 'hmgPnt', 'plkLin', 'aplLin'.
 %   * Use World.points and World.segments to create artificial worlds of
 %   points or segments. Check functions THICKCLOISTER and HOUSE.
 %

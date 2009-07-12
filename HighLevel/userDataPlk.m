@@ -145,7 +145,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'initType',       'aplLin',...   % Type of lmk to use for init
+    'initType',       'plkLin',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -189,7 +189,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'createVideo',    true,...       % create video sequence?
+  'createVideo',    false,...       % create video sequence?
   'skipFrames',     1,...           % frames to skip for faster processing
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure

@@ -53,7 +53,7 @@ switch Sen.type
 
                 case {'plkLin','aplLin'}  % Plucker line
                     colors = FigOpt.sensor.colors.plkLin; 
-                    drawObsLin(SenFig, Obs(lmk), Sen.par.imSize, FigOpt.sensor);
+                    drawObsLin(SenFig, Obs(lmk), FigOpt.sensor);
 
                     % ADD HERE FOR NEW LANDMARK TYPE
                 case {'newLandmark'}

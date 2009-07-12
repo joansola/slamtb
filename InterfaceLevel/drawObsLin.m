@@ -1,12 +1,11 @@
-function drawObsLin(SenFig, Obs, imSize, SenFigOpt)
+function drawObsLin(SenFig, Obs, SenFigOpt)
 
 % DRAWOBSLIN  Draw an observed line on the pinHole sensor figure.
-%   DRAWOBSLIN(SENFIG, OBS, COLORS, IMSIZE, SENFIGOPT)  redraws a line
+%   DRAWOBSLIN(SENFIG, OBS, COLORS, SENFIGOPT)  redraws a line
 %   landmark on the pinHole sensor figure.
 %
-%   SENFIG is the sensor figure's handles structure.
-%   OBS    is the landmark-sensor observation structure.
-%   IMSIZE is the image size [width,height].
+%   SENFIG    is the sensor figure's handles structure.
+%   OBS       is the landmark-sensor observation structure.
 %   SENFIGOPT is the sensor figure options, SENFIGOPT = FigOpt.sen.
 %
 %   See also DRAWOBSPNT, DRAWSENFIG, TRIMHMGLIN, COV2ELLI.
@@ -40,6 +39,9 @@ else
 end
 
 % the expectation
+xlim = get(SenFig.axes,'xlim');
+ylim = get(SenFig.axes,'ylim');
+imSize = [xlim(2);ylim(2)];
 s = trimHmgLin(Obs.exp.e, imSize);
 if ~isempty(s)
  

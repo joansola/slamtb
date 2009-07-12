@@ -49,7 +49,6 @@ switch Sen.type
                     l) ;
 
                 vis = isVisible(e,depth,Sen.par.imSize);
-                %                 R   = Sen.par.pixCov ;  % sensor cov
 
 
             case {'eucPnt'} % euclidean point
@@ -64,7 +63,6 @@ switch Sen.type
                     l) ;
 
                 vis = isVisible(e,depth,Sen.par.imSize);
-                %                 R   = Sen.par.pixCov ;  % sensor cov
 
             case {'hmgPnt'} % euclidean point
 
@@ -78,7 +76,6 @@ switch Sen.type
                     l) ;
 
                 vis = isVisible(e,depth,Sen.par.imSize);
-                %                 R   = Sen.par.pixCov ;  % sensor cov
 
             case {'plkLin'}
 
@@ -110,7 +107,39 @@ switch Sen.type
                 
                 % segment visibility
                 [s,vis] = visibleSegment(s,d,Sen.par.imSize);
-%                 vis = true;
+                
+            case 'aplLin'
+                
+                % Anchored Plucker line --> homogeneous line (value and Jacs)
+                [e, v, E_rf, E_sf, E_k, E_l] = ...
+                    projAplLinIntoPinHoleOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    l); % expectation e is a homogeneous line
+
+                % normalize wrt director vector e(1:2):
+                ine12 = 1/norm(e(1:2));
+                e     = e    * ine12;
+                E_rf  = E_rf * ine12;
+                E_sf  = E_sf * ine12;
+                % E_k   = E_k  * ine12;
+                E_l   = E_l  * ine12;
+
+                % 3d Segment from Plucker line and abscissas
+                [pl,PL_l] = unanchorPlucker(l);
+                [si,SI_pl] = pluckerSegment(pl,[Lmk.par.endp.t]);
+                SI_l = SI_pl*PL_l;
+
+                % projected segment
+                [s, d, S_rf, S_sf, S_sk, S_si] = projSegLinIntoPinHoleOnRob(...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    si); 
+                
+                % segment visibility
+                [s,vis] = visibleSegment(s,d,Sen.par.imSize);
 
 
             otherwise % unknown landmark type for pin hole sensor

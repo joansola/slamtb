@@ -39,6 +39,11 @@ switch (Lmk.type)
     case {'plkLin'}
         colors = MapOpt.colors.plkLin;
         drawPlkLin(MapFig, Lmk, colors, MapOpt);
+        
+    case {'aplLin'}
+        colors = MapOpt.colors.plkLin;
+        drawAplLin(MapFig, Lmk, colors, MapOpt);
+        
 
     otherwise
         % TODO : print an error and go out

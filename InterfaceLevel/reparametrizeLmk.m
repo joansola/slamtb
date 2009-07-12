@@ -46,7 +46,7 @@ switch Lmk.type
             
         end
         
-    case {'eucPnt','hmgPnt','plkLin'}
+    case {'eucPnt','hmgPnt','plkLin','aplLin'}
         % do nothing
         
         

@@ -25,7 +25,7 @@ switch Opt.init.initType
         lmkSize = 4;
     case {'idpPnt','plkLin'}
         lmkSize = 6;
-    case {'idlLin','ancPlkLin'}
+    case {'idlLin','aplLin'}
         lmkSize = 9;
     case {'eucPnt'}
         error('??? Unable to initialize lmk type ''%s''. Try using ''idpPnt'' instead.',Opt.init.initType);

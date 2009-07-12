@@ -18,12 +18,12 @@ xf = Lf(1:3);
 nf = Lf(4:6);
 vf = Lf(7:9);
 
-t = F(1:3);
-q = F(4:7);
+t = F.t;
+q = F.q;
 
 if nargout == 1
     
-    R = q2R(q);
+    R = F.R;
     x = R*xf + t;
     n = R*nf;
     v = R*vf;

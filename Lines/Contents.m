@@ -1,7 +1,6 @@
 % LINES 2D and 3D line manipulations.
 %
 % Plucker lines
-%   aInvPinHolePlucker  - Inverse pin hole model for Plucker lines
 %   fromFramePlucker    - Transform plucker line from a given frame.
 %   toFramePlucker      - Transform plucker line to a given frame.
 %   planeBase2dirVector - Plucker line dir. vector from base spec.
@@ -10,10 +9,11 @@
 %   pluckerEndpoints    - Plucker line and abscissas to endpoints conversion.
 %   pluckerOrigin       - Plucker line origin.
 %   pluckerAngle        - Angle between Plucker vectors.
-%   pix2PluckerRay      - 
-%   lines2abscissa      - Abscissa of Plucer line at the intersection with ray.
+%   pix2PluckerRay      - Plucker ray from optical center through pixel.
 %   lines2point         - Intersection point of 2 Plucker lines. Result in Homogeneous.
 %   lines2Epoint        - Intersection point of 2 Plucker lines. Result in Euclidean.
+%   intersectPlucker    - Intersect Plucker lines, get point and abscissa.
+%   updatePlkLinEndPnts - Update Plucker endpoints.
 %
 % Anchored Plucker lines
 %   anchorPlucker       - Plucker to anchored Plucker line conversion
@@ -21,6 +21,7 @@
 %   toFrameAPlucker     - Anchored Plucker toFrame transform.
 %   reanchorPlucker     - Plucker to anchored Plucker line conversion
 %   unanchorPlucker     - Remove Plucker anchor.
+%   updateAplLinEndPnts - Update anchored Plucker endpoints.
 %
 % Inverse depth lines
 %   idl2pp              - Inverse depth line to passage points.
@@ -42,7 +43,11 @@
 %   pp2rt               - Points to rho theta 2D line conversion.
 %   rt2hmgLin           - Rho-theta to homogeneous line conversion.
 %   seg2hmgLin          - Segment to homogeneous line conversion.
-%   hh2p                - Intersection of 2 homogeneous lines.
 %   lp2d                - Line-point signed distance, in 2D.
 %   hms2hh              - Orthogonal endpoints innovation for homogeneous line and segment.
-
+%   hms2rti             - HMS2HH  Orthogonal endpoints innovation for homogeneous line and segment.
+%   intersectHmgLin     - Intersection of 2 homogeneous lines.
+%   retroProjAplEndPnts - Retro project anchored Plucker endpoints.
+%   retroProjPlkEndPnts - Retro project Plucker endpoints.
+%   seg2rt              - Segment to rho-theta conversion.
+%   xyzLinTest          - Linearity test of cartesian point given inverse depth point

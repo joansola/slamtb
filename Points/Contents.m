@@ -6,7 +6,12 @@
 %   fromFrameIdp - Transforms IDP from local frame to global frame.
 %   toFrameIdp   - Transforms IDP from global frame to local frame.
 %   p2idp        - Point to inverse-depth point conversion.
-%   idp2p        - Inverse Depth to cartesian point conversion.
 %   idpS2idpW    - Transform idp vector from "Sensor frame" to "World frame".
 %   py2vec       - Pitch and yaw to 3D direction vector.
 %   vec2py       - 3D vector to pitch and yaw direction
+%   euc2hmg      - Euclidean to Homogeneous point transform.
+%   fromFrameHmg - FROMFRAMEHOMO  Fom-frame transformation for homogeneous coordinates
+%   hmg2euc      - Homogeneous to Euclidean point transform.
+%   homogeneous  - Builds homogeneous motion matrix from frame f.
+%   idp2euc      - Inverse Depth to cartesian point conversion.
+%   xyzLinTest   - Linearity test of cartesian point given inverse depth point

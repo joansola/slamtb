@@ -1,5 +1,7 @@
 function [l, L_rf, L_sf, L_obs, L_n, N] = retroProjLmk(Rob,Sen,Obs,Opt)
 
+% RETROPROJLMK  Retro project landmark.
+
 switch Sen.type
 
     % camera pinHole

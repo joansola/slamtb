@@ -43,7 +43,7 @@ if MapOpt.showEllip
 end
 
 % the label
-n = Map.x(Lmk.state.r(1:3)); % Plucker's normal vector
+n = plk(1:3); % Plucker's normal vector
 posOffset = 0.2*n;     % label orthogonally out of the line.
 set(MapFig.Lmk(Lmk.lmk).label,...
     'position', 0.5*(e1+e2) + posOffset,...

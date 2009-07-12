@@ -133,8 +133,8 @@ Sensor{1} = struct(...
 %   - reprojection, active search, etc
 Opt = struct(...
   'map',              struct(...    % options for the map
-    'numLmks',        75,...         % number of 3d landmarks
-    'lmkSize',        6),...         % Size of landmark
+    'numLmks',        25,...         % number of 3d landmarks
+    'lmkSize',        9),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
     'nUpdates',       15,...         % max simultaneus updates
@@ -152,7 +152,7 @@ Opt = struct(...
     'hmgPnt',         struct(...     % opt. for Hom Pnt init
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
-    'plkLin',         struct(...     % opt. for Plucker line init
+    'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
       'nonObsMean',   [.1;0],...     % mean of non obs
       'nonObsStd',    [.25;1])),...   % std of non obs
   'obs',              struct(...    % Observation options
@@ -189,7 +189,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'createVideo',    false,...       % create video sequence?
+  'createVideo',    true,...       % create video sequence?
   'skipFrames',     1,...           % frames to skip for faster processing
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure

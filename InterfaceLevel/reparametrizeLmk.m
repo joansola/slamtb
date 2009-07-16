@@ -46,9 +46,13 @@ switch Lmk.type
             
         end
         
-    case {'eucPnt','hmgPnt','plkLin','aplLin'}
+    case {'eucPnt'}
         % do nothing
         
+    case {'hmgPnt','ahmPnt','plkLin','aplLin','idpLin','ahmLin'}
+        % do nothing, by now <- probably add here something to do
+        % Points should go to euclidean
+        % Lines should go to some minimal representation (polar? 'plrLin')
         
     % case 'myLmk' 
         % edit this 'myLmk' name to put your own landmark type

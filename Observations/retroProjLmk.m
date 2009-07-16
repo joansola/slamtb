@@ -57,9 +57,21 @@ switch Sen.type
                     Opt.init.plkLin.nonObsMean) ;
 
                 N = diag(Opt.init.plkLin.nonObsStd.^2) ;
+                
+            case 'idpLin'
+                % INIT LMK TYPE: Inverse-depth line.
+                [l, L_rf, L_sf, L_sk, L_obs, L_n] = ...
+                    retroProjIdpLinFromPinHoleOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Obs.meas.y, ...
+                    Opt.init.idpLin.nonObsMean) ;
+
+                N = diag(Opt.init.idpLin.nonObsStd.^2) ;
 
             otherwise
-                error('??? Unknown landmark type to initialize ''%s''.',Opt.init.initType)
+                error('??? Unknown landmark type ''%s'' for initialization.',Opt.init.initType)
         end
 
     otherwise % -- Sen.type

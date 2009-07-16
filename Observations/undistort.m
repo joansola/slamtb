@@ -18,19 +18,20 @@ function [up,UP_ud,UP_undist] = undistort(ud,unDist)
 
 % (c) 2006-2008 Joan Sola @ LAAS-CNRS
 
-r2 = sum(ud.^2);
 
 n = length(unDist);
 
 if n == 0
     up = ud;
 
-    if size(up,2) == 1
+    if (nargout > 1) && (size(up,2) == 1)
         UP_ud     = eye(2);
         UP_undist = zeros(2,0);
     end
 
 else
+    
+    r2    = sum(ud.^2);
     nn    = 1:n;    % orders vector
     r2n   = r2.^nn; % powers vector
     ratio = 1 + r2n*unDist;

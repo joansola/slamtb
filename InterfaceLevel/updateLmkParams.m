@@ -30,6 +30,9 @@ switch Sen.type
                 % update endpoints
                 Lmk = updateAplLinEndPnts(Rob,Sen,Lmk,Obs,Opt);
 
+            case 'idpLin'
+                % TODO: add endpoints update
+                
             otherwise
                 error('??? Unknown landmark type ''%s''.',Lmk.type)
         end

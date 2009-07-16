@@ -140,6 +140,42 @@ switch Sen.type
                 
                 % segment visibility
                 [s,vis] = visibleSegment(s,d,Sen.par.imSize);
+                
+                
+            case 'idpLin'
+                
+                % Anchored Plucker line --> homogeneous line (value and Jacs)
+                [s, v, S_rf, S_sf, S_k, S_l] = ...
+                    projIdpLinIntoPinHoleOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    l); % expectation s is a 2d segment
+                [e, E_s] = seg2hmgLin(s); % expectation e is a homogeneous line
+                E_rf = E_s*S_rf;
+                E_sf = E_s*S_sf;
+                E_l  = E_s*S_l;
+
+                % normalize wrt director vector e(1:2):
+                ine12 = 1/norm(e(1:2));
+                e     = e    * ine12;
+                E_rf  = E_rf * ine12;
+                E_sf  = E_sf * ine12;
+                % E_k   = E_k  * ine12;
+                E_l   = E_l  * ine12;
+
+                % 3d Segment from Plucker line and abscissas
+                [si,SI_l] = idpLinSegment(l,[Lmk.par.endp.t]);
+
+                % projected segment
+                [s, d, S_rf, S_sf, S_sk, S_si] = projSegLinIntoPinHoleOnRob(...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    si); 
+                
+                % segment visibility
+                [s,vis] = visibleSegment(s,d,Sen.par.imSize);
 
 
             otherwise % unknown landmark type for pin hole sensor

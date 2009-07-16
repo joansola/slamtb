@@ -51,7 +51,7 @@ switch Sen.type
                     colors = FigOpt.sensor.colors.othPnt;
                     drawObsPnt(SenFig, Obs(lmk), colors);
 
-                case {'plkLin','aplLin'}  % Plucker line
+                case {'plkLin','aplLin','idpLin'}  % Plucker line
                     colors = FigOpt.sensor.colors.plkLin; 
                     drawObsLin(SenFig, Obs(lmk), FigOpt.sensor);
 

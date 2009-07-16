@@ -44,6 +44,9 @@ switch (Lmk.type)
         colors = MapOpt.colors.plkLin;
         drawAplLin(MapFig, Lmk, colors, MapOpt);
         
+    case 'idpLin'
+        colors = MapOpt.colors.plkLin;
+        drawIdpLin(MapFig, Lmk, colors, MapOpt);
 
     otherwise
         % TODO : print an error and go out

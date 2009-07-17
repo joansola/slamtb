@@ -1,9 +1,11 @@
-function Lmk = updateIdpLinEndPnts(Rob,Sen,Lmk,Obs)
+function Lmk = updateIdpLinEndPnts(Rob,Sen,Lmk,Obs,Opt)
 
 % UPDATEIDPLINENDPNTS  Update IDP line endpoints.
 
+global Map
+
 % 3D landmark, IDL is Inverse Depth Line
-idl = Lmk.state.x;      % This is the inverse depth line vector
+idl = Map.x(Lmk.state.r); % This is the inverse depth line vector
 seg = idpLin2seg(idl);  % segment of support points
 L   = seg2pvLin(seg);   % this is a point-vector line
 
@@ -12,39 +14,55 @@ s  = Obs.meas.y; % This is the measured segment, a 4-vector [x1;y1;x2;y2].
 u1 = s(1:2);     % this is one endpoint
 u2 = s(3:4);     % this is the other endpoint
 
+
+
 % optical ray
 x0 = fromFrame(Rob.frame,Sen.frame.t);  % this is optical centre in world frame
 R  = Rob.frame.R*Sen.frame.R;      % Rob and Sen rotations, composed
 v1 = R*invPinHole(u1,1,Sen.par.k); % the first vector
 v2 = R*invPinHole(u2,1,Sen.par.k); % the second vector
 
-% point-vector forms of optical rays
-R1 = [x0;v1]; % optical ray of first observed endpoint
-R2 = [x0;v2]; % optical ray of second observed endpoint
 
-% intersections
-[T1,P11] = intersectPvLines(L,R1); % line with optical ray 1
-[T2,P21] = intersectPvLines(L,R2); % line with optical ray 2
+a = [vecsAngle(v1,(seg(4:6)-seg(1:3)))
+    vecsAngle(v2,(seg(4:6)-seg(1:3)))];
 
-t1 = T1(1); % take only the abcissa in landmark line
-t2 = T2(1); % (only abcissa in landmark line is of any interest)
+if  all(a > pi/4)
 
-% put always the smallest abscissa first:
-if t1>t2
-    t = [t2;t1]; % t is now a vector with the 2 abscissas
-else
-    t = [t1;t2];
+    % point-vector forms of optical rays
+    R1 = [x0;v1]; % optical ray of first observed endpoint
+    R2 = [x0;v2]; % optical ray of second observed endpoint
+
+    % intersections
+    [T1,P11] = intersectPvLines(L,R1); % line with optical ray 1
+    [T2,P21] = intersectPvLines(L,R2); % line with optical ray 2
+
+    t1 = T1(1); % take only the abcissa in landmark line
+    t2 = T2(1); % (only abcissa in landmark line is of any interest)
+
+    % put always the smallest abscissa first:
+    if t1>t2
+        t = [t2;t1]; % t is now a vector with the 2 abscissas
+    else
+        t = [t1;t2];
+    end
+
+    % here we should see if the new abscissas make the segment longer or not.
+    % This is already programmed somewhere in Jafar. I leave it like t_new = t:
+    if Opt.correct.lines.extPolicy
+        % extend endpoint 1
+        if t(1) < Lmk.par.endp(1).t
+            Lmk.par.endp(1).t = t(1);
+            Lmk.par.endp(1).e = P11;
+        end
+
+        % extend endpoint 2
+        if t(2) > Lmk.par.endp(2).t
+            Lmk.par.endp(2).t = t(2);
+            Lmk.par.endp(2).e = P21;
+        end
+    end
+
 end
-
-% here we should see if the new abscissas make the segment longer or not.
-% This is already programmed somewhere in Jafar. I leave it like t_new = t:
-t_new = t;
-
-% finally we assign to the landmark object.
-Lmk.par.endp(1).t = t_new(1);
-Lmk.par.endp(2).t = t_new(2);
-Lmk.par.endp(1).e = P11;
-Lmk.par.endp(2).e = P21;
 
 return
 

@@ -32,9 +32,11 @@ end
 
 % segments
 if ~isempty(SimLmk.segments.coord)
-    sh = drawSegmentsObject(SimLmk.segments.coord,colr,2);
+%     sh = drawSegmentsObject(SimLmk.segments.coord,colr,2);
+    sh = [];
 else
     sh = [];
 end
-% sh=[];
+
+% all graphics
 handle = [ph;sh];

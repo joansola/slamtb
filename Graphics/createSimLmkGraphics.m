@@ -36,5 +36,5 @@ if ~isempty(SimLmk.segments.coord)
 else
     sh = [];
 end
-
+% sh=[];
 handle = [ph;sh];

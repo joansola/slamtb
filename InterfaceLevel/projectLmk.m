@@ -127,9 +127,7 @@ switch Sen.type
                 E_l   = E_l  * ine12;
 
                 % 3d Segment from Plucker line and abscissas
-                [pl,PL_l] = unanchorPlucker(l);
-                [si,SI_pl] = pluckerSegment(pl,[Lmk.par.endp.t]);
-                SI_l = SI_pl*PL_l;
+                [si,SI_l] = aPluckerSegment(l,[Lmk.par.endp.t]);
 
                 % projected segment
                 [s, d, S_rf, S_sf, S_sk, S_si] = projSegLinIntoPinHoleOnRob(...

@@ -14,7 +14,7 @@
 %   lines2Epoint        - Intersection point of 2 Plucker lines. Result in Euclidean.
 %   intersectPlucker    - Intersect Plucker lines, get point and abscissa.
 %   updatePlkLinEndPnts - Update Plucker endpoints.
-%   retroProjPlkEndPnts - Retro project Plucker endpoints.
+
 %
 % Anchored Plucker lines
 %   anchorPlucker       - Plucker to anchored Plucker line conversion
@@ -23,19 +23,27 @@
 %   reanchorPlucker     - Plucker to anchored Plucker line conversion
 %   unanchorPlucker     - Remove Plucker anchor.
 %   updateAplLinEndPnts - Update anchored Plucker endpoints.
-%   retroProjAplEndPnts - Retro project anchored Plucker endpoints.
+%   aPluckerSegment     - Anchored Plucker line's segment from abscissas.
+
 %
 % Inverse depth lines
 %   idl2pp              - Inverse depth line to passage points.
-%   intersectPpLines    - Intersect two point-point lines.
-%   intersectPvLines    - Intersect two point-vector lines.
-%   ppLine2pvLine       - Points line to point-vector line transform.
 %   ppp2idl             - Points to inverse depth line conversion.
-%   updateEndPoints     - 3D landmark, IDL is Inverse Depth Line
+%   updateIdpLinEndPnts - Update IDP line endpoints.
+%   fromFrameIdpLin     - Transforms IDP line from local frame to global frame.
+%   idpLin2idpPnts      - IDP line to two IDP points conversion.
+%   idpLin2seg          - IDP line to segment conversion
+%   idpLinEndpoints     - IDP line endpoints.
+%   idpLinSegment       - IDP line endpoints.
 %
 % 3D segments
 %   toFrameSegment      - Express in local frame a set of segments from global frame
 %   segLength           - Segment length.
+%
+% Other 3d line types
+%   intersectPpLines    - Intersect two point-point lines.
+%   intersectPvLines    - Intersect two point-vector lines.
+%   ppLine2pvLine       - Points line to point-vector line transform.
 %
 % 2D lines - mixed hmg, pp, seg, ...
 %   trimSegment         - Trim segment at image borders

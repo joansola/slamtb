@@ -1,7 +1,7 @@
-function [t,p1,p2] = intersectPpLines(l1,l2)
+function [t,p1,p2] = intersectSegments(l1,l2)
 
-% INTERSECTPPLINES  Intersect two point-point lines.
-%   [T,P1,P2] = INTERSECTPPLINES(L1,L2) intersects the two point-point
+% INTERSECTSEGMENTS  Intersect two point-point lines.
+%   [T,P1,P2] = INTERSECTSEGMENTS(L1,L2) intersects the two point-point
 %   lines L1=[E1,F1] and L2=[E2,F2], and returns a vector of abscissas
 %   T=[T1;T2], and two intersection points P1 and P2, so that
 %
@@ -15,10 +15,10 @@ function [t,p1,p2] = intersectPpLines(l1,l2)
 %   the other line, that is, the line passing over P1 and P2 is orthogonal
 %   to both L1 and L2.
 %
-%   See also INTERSECTPVLINES, PPLINE2PVLINE.
+%   See also INTERSECTPVLINES, SEGMENT2PVLINE.
 
-m1 = pntsLine2pntVecLine(l1);
-m2 = pntsLine2pntVecLine(l2);
+m1 = seg2pvLin(l1);
+m2 = seg2pvLin(l2);
 
-[t,p1,p2] = pntVecLineIntersect(m1,m2);
+[t,p1,p2] = intersectPvLines(m1,m2);
 

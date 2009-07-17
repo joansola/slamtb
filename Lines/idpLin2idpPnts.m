@@ -1,5 +1,14 @@
 function [p1,p2,P1_l,P2_l] = idpLin2idpPnts(l)
 
+% IDPLIN2IDPPNTS  IDP line to two IDP points conversion.
+%   [P1,P2] = IDPLIN2IDPPNTS(L) extracts the two endpoints of the IDP line
+%   L in the form of two IDP points with the same anchor of that of the
+%   line.
+%
+%   [p1,p2,P1_l,P2_l] = IDPLIN2IDPPNTS(...) returns the Jacobians wrt L.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
+
 p1 = l(1:6,:);
 p2 = l([1:3 7:9],:);
 

@@ -13,7 +13,7 @@ function [t,p1,p2] = intersectPvLines(l1,l2)
 %   the other line, that is, the line passing over P1 and P2 is orthogonal
 %   to both L1 and L2.
 %
-%   See also INTERSECTPPLINES, PPLINE2PVLINE.
+%   See also INTERSECTSEGMENTSS, PPLINE2PVLINE.
 
 e1 = l1(1:3); % point in line
 v1 = l1(4:6);

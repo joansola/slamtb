@@ -1,9 +1,11 @@
-function Lmk = updateEndPoints(Rob,Sen,Lmk,Obs)
+function Lmk = updateIdpLinEndPnts(Rob,Sen,Lmk,Obs)
+
+% UPDATEIDPLINENDPNTS  Update IDP line endpoints.
 
 % 3D landmark, IDL is Inverse Depth Line
-idl     = Lmk.state.x;      % This is the inverse depth line vector
-[p1,p2] = idl2pp(idl);      % 3D support points
-L = ppLine2pvLine([p1;p2]); % this is a point-vector line
+idl = Lmk.state.x;      % This is the inverse depth line vector
+seg = idpLin2seg(idl);  % segment of support points
+L   = seg2pvLin(seg);   % this is a point-vector line
 
 % measured segment
 s  = Obs.meas.y; % This is the measured segment, a 4-vector [x1;y1;x2;y2].
@@ -24,8 +26,8 @@ R2 = [x0;v2]; % optical ray of second observed endpoint
 [T1,P11] = intersectPvLines(L,R1); % line with optical ray 1
 [T2,P21] = intersectPvLines(L,R2); % line with optical ray 2
 
-t1 = T1(1); % only abcissa in landmark line is of interest
-t2 = T2(1); % only abcissa in landmark line is of interest
+t1 = T1(1); % take only the abcissa in landmark line
+t2 = T2(1); % (only abcissa in landmark line is of any interest)
 
 % put always the smallest abscissa first:
 if t1>t2
@@ -39,9 +41,10 @@ end
 t_new = t;
 
 % finally we assign to the landmark object.
-Lmk.par.endpoints.abscissas = t_new;
-Lmk.par.endpoints.p1 = P11;
-Lmk.par.endpoints.p2 = P21;
+Lmk.par.endp(1).t = t_new(1);
+Lmk.par.endp(2).t = t_new(2);
+Lmk.par.endp(1).e = P11;
+Lmk.par.endp(2).e = P21;
 
 return
 
@@ -66,7 +69,7 @@ e2 = projEucPntIntoPinHoleOnRob(Rob.frame,Sen.frame,Sen.par.k,Sen.par.d,p2) + ra
 Obs.meas.y = [e1;e2];
 
 % abscissas
-Lmk = updateEndPoints(Rob,Sen,Lmk,Obs);
+Lmk = updateIdpLinEndPnts(Rob,Sen,Lmk,Obs);
 
 % print
 Lmk.par.endpoints.abscissas

@@ -1,7 +1,7 @@
-function idl = ppp2idl(p0,p1,p2)
+function idl = app2idpLin(p0,p1,p2)
 
-% PPP2IDL Points to inverse depth line conversion.
-%   PPP2IDL(P0,P1,P2) converts the line passing by the points P1 and P2
+% APP2IDL Anchor and points to inverse depth line conversion.
+%   APP2IDL(P0,P1,P2) converts the line passing by the points P1 and P2
 %   into the inverse-depth line anchored at point P0. the inverse depth
 %   line is coded as
 %

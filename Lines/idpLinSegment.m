@@ -1,5 +1,15 @@
 function [seg, SEG_l] = idpLinSegment(l,t)
 
+% IDPLINSEGMENT  IDP line endpoints.
+%   IDPLINSEGMENT(L,T) returns the 3D segment corresponding to the IDP line
+%   L at abscissas T = [t1;t2].
+%
+%   [s,S_l] = IDPLINSEGMENT(...) returns the Jacobian wrt L.
+%
+%   See also IDPLINENDPOINTS, IDPLIN2SEG, IDPLIN2IDPPNTS.
+
+%   (c) 2009 Joan Sola @ LAAS-CNRS.
+
 % abscissas
 t1 = t(1);
 t2 = t(2);

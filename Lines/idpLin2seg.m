@@ -1,5 +1,11 @@
 function [s, S_l] = idpLin2seg(l)
 
+% IDPLIN2SEG IDP line to segment conversion
+%   IDPLIN2SEG  returns a 3d segment with the two suppor points of the IDP
+%   line L.
+%
+%   [s, S_l] = IDPLIN2SEG(L) returns the Jacobian wrt L.
+
 if nargout == 1
 
     [e1, e2] = idpLin2idpPnts(l);

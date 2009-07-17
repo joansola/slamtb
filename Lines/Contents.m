@@ -14,7 +14,6 @@
 %   lines2Epoint        - Intersection point of 2 Plucker lines. Result in Euclidean.
 %   intersectPlucker    - Intersect Plucker lines, get point and abscissa.
 %   updatePlkLinEndPnts - Update Plucker endpoints.
-
 %
 % Anchored Plucker lines
 %   anchorPlucker       - Plucker to anchored Plucker line conversion
@@ -24,26 +23,24 @@
 %   unanchorPlucker     - Remove Plucker anchor.
 %   updateAplLinEndPnts - Update anchored Plucker endpoints.
 %   aPluckerSegment     - Anchored Plucker line's segment from abscissas.
-
 %
 % Inverse depth lines
-%   idl2pp              - Inverse depth line to passage points.
-%   ppp2idl             - Points to inverse depth line conversion.
 %   updateIdpLinEndPnts - Update IDP line endpoints.
 %   fromFrameIdpLin     - Transforms IDP line from local frame to global frame.
 %   idpLin2idpPnts      - IDP line to two IDP points conversion.
 %   idpLin2seg          - IDP line to segment conversion
 %   idpLinEndpoints     - IDP line endpoints.
 %   idpLinSegment       - IDP line endpoints.
+%   app2idpLin          - APP2IDL Anchor and points to inverse depth line conversion.
 %
 % 3D segments
 %   toFrameSegment      - Express in local frame a set of segments from global frame
 %   segLength           - Segment length.
+%   seg2pvLin           - Segment to point-vector line transform.
+%   intersectSegments   - Intersect two 3d segments.
 %
 % Other 3d line types
-%   intersectPpLines    - Intersect two point-point lines.
 %   intersectPvLines    - Intersect two point-vector lines.
-%   ppLine2pvLine       - Points line to point-vector line transform.
 %
 % 2D lines - mixed hmg, pp, seg, ...
 %   trimSegment         - Trim segment at image borders
@@ -58,4 +55,3 @@
 %   hms2hh              - Orthogonal endpoints innovation for homogeneous line and segment.
 %   hms2rti             - Rho-theta innovation for homogeneous line and segment.
 %   seg2rt              - Segment to rho-theta conversion.
-

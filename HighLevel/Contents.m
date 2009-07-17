@@ -6,6 +6,7 @@
 %   userDataHmg              - User data for SLAMTB - Homogeneous points example.
 %   userDataIdp              - User data for SLAMTB - Inverse depth points example.
 %   userDataPlk              - User data for SLAMTB - Plucker lines example.
+%   userDataIdl              - User data for SLAMTB - inverse-depth lines example.
 %
 % Functions
 %   createGraphicsStructures - Create figures and graphics handles structures.

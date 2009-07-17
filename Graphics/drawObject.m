@@ -1,6 +1,6 @@
 function  handle = drawObject(handle,Obj,frame)
 
-% DRAWOBJECT  Dispaly object graphics.
+%DRAWOBJECT Draw 3D object graphics.
 %   RH = DRAWOBJECT(CH,Obj) updates graphics handle RH for an object Obj.
 %   The object to be drawn in Obj.graphics, and the position Obj.frame.
 %

@@ -130,7 +130,10 @@ Opt = struct(...
       'nonObsStd',    .5),...         % std of non obs
     'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
       'nonObsMean',   [.1;0],...     % mean of non obs
-      'nonObsStd',    [.25;1])),...   % std of non obs
+      'nonObsStd',    [.25;1]),...   % std of non obs
+    'idpLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
+      'nonObsMean',   [.1;.1],...     % mean of non obs
+      'nonObsStd',    [.5;.5])),...   % std of non obs
   'obs',              struct(...    % Observation options
     'lines',          struct(...     % lines options
       'minLength',    20)));          % minimum segment length
@@ -172,6 +175,7 @@ FigOpt = struct(...
     'view',         [-60 20 40 20],... % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0.25 0.05],... % AZ and EL orbit angle increments
     'size',         [320 240],...   % map figure size
+    'showSimLmk',   true,...       % show simulated landmarks?
     'showEllip',    true,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      

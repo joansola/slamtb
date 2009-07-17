@@ -41,6 +41,7 @@
 %
 % Other 3d line types
 %   intersectPvLines    - Intersect two point-vector lines.
+%   vecsAngle           - Angle between two vectors.
 %
 % 2D lines - mixed hmg, pp, seg, ...
 %   trimSegment         - Trim segment at image borders
@@ -55,3 +56,4 @@
 %   hms2hh              - Orthogonal endpoints innovation for homogeneous line and segment.
 %   hms2rti             - Rho-theta innovation for homogeneous line and segment.
 %   seg2rt              - Segment to rho-theta conversion.
+%   vecsAngle           - Angle between two vectors.

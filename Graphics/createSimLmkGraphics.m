@@ -1,6 +1,6 @@
-function handle = createSimLmkGraphics(SimLmk,colr,ax)
+function handle = createSimLmkGraphics(SimLmk,colr,ax,showSimLmk)
 
-% CREATESIMLMKGRAPHICS  Crate simulated landmark graphics.
+%CREATESIMLMKGRAPHICS Create simulated landmark graphics.
 %   CREATESIMLMKGRAPHICS(SIMLMK,LBLCLR) creates the graphics objects for
 %   the simulated landmarks SIMLMK. The function supports opints and
 %   segments graphics, as specified by SIMLMK.opints and SIMLMK.segments.
@@ -31,9 +31,8 @@ else
 end
 
 % segments
-if ~isempty(SimLmk.segments.coord)
-%     sh = drawSegmentsObject(SimLmk.segments.coord,colr,2);
-    sh = [];
+if ~isempty(SimLmk.segments.coord) && showSimLmk
+    sh = drawSegmentsObject(SimLmk.segments.coord,colr,2);
 else
     sh = [];
 end

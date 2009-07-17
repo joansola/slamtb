@@ -84,7 +84,7 @@ set(MapFig.axes,...
     'vis',                'off');%,...
 
 % landmarks - do not loop, draw all at once
-MapFig.simLmk = createSimLmkGraphics(SimLmk,FigOpt.map.colors.simLmk,MapFig.axes);
+MapFig.simLmk = createSimLmkGraphics(SimLmk,FigOpt.map.colors.simLmk,MapFig.axes,FigOpt.map.showSimLmk);
 
 
 % ESTIMATED OBJECTS

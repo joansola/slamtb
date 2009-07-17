@@ -150,7 +150,10 @@ Opt = struct(...
     'hmgPnt',         struct(...     % opt. for Hom Pnt init
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
-    'plkLin',         struct(...     % opt. for Plucker line init
+    'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
+      'nonObsMean',   [.1;0],...     % mean of non obs
+      'nonObsStd',    [.25;1]),...   % std of non obs
+    'idpLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
       'nonObsMean',   [.1;.1],...     % mean of non obs
       'nonObsStd',    [.5;.5])),...   % std of non obs
   'obs',              struct(...    % Observation options
@@ -194,7 +197,8 @@ FigOpt = struct(...
     'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0 0],...       % AZ and EL orbit angle increments
     'size',         [320 240],...   % map figure size
-    'showEllip',    false,...       % show ellipsoids?
+    'showSimLmk',   true,...       % show simulated landmarks?
+    'showEllip',    true,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      
       'axes',       [0 0 0],...      % with:
@@ -207,8 +211,8 @@ FigOpt = struct(...
         'mean',     'r',...           % mean dot
         'ellip',    [1 .7 .7]),...    % ellipsoid
       'plkLin',     struct(...       % Plucker line colors
-        'mean',     'g',...           % mean line
-        'ellip',    [.7 1 .7]),...    % ellipsoid
+        'mean',     [0 .8 0],...           % mean line
+        'ellip',    [.6 1 .6]),...    % ellipsoid
       'simu',       'g',...          %   or 'r', 'b', etc.   
       'est',        'b',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors

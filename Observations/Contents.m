@@ -26,16 +26,21 @@
 %   invPinHoleHmg                   - Inverse pin-hole camera model for HMG.
 %   visibleSegment                  - Visible segment.
 %   invPinHoleAPlucker              - INVPINHOLEPALUCKER Retro-projects anchored plucker line
+%   invPinHoleIdpLin                - 
 %
 % Observation models, with 2 frame transforms
-%   retroProjLmk                    - Retro project landmark.
 %   projEucPntIntoPinHoleOnRob      - Project Euc pnt into pinhole on robot.
 %   projIdpPntIntoPinHoleOnRob      - Project Idp pnt into pinhole on robot.
-%   retroProjIdpPntFromPinHoleOnRob - Retro-project idp from pinhole on robot.
-%   projPlkLinIntoPinHoleOnRob      - Project Plucker line into pinhole on robot.
-%   retroProjPlkLinFromPinHoleOnRob - Retro-project Plucker line from pinhole on robot.
 %   projHmgPntIntoPinHoleOnRob      - Project Hmg pnt into pinhole on robot.
-%   retroProjHmgPntFromPinHoleOnRob - Retro-proj. Hmg pnt from pinhole on rob.
 %   projSegLinIntoPinHoleOnRob      - Project segment line into pinhole on robot.
+%   projPlkLinIntoPinHoleOnRob      - Project Plucker line into pinhole on robot.
 %   projAplLinIntoPinHoleOnRob      - Project anchored Plucker line into pinhole on robot.
+%   projIdpLinIntoPinHoleOnRob      - Project Idp line into pinhole on robot.
+%   retroProjLmk                    - Retro project landmark.
+%   retroProjIdpPntFromPinHoleOnRob - Retro-project idp from pinhole on robot.
+%   retroProjHmgPntFromPinHoleOnRob - Retro-proj. Hmg pnt from pinhole on rob.
+%   retroProjPlkLinFromPinHoleOnRob - Retro-project Plucker line from pinhole on robot.
+%   retroProjPlkEndPnts             - Retro project Plucker endpoints.
 %   retroProjAplLinFromPinHoleOnRob - Retro-project anchored Plucker line from pinhole on robot.
+%   retroProjAplEndPnts             - Retro project anchored Plucker endpoints.
+%   retroProjIdpLinFromPinHoleOnRob - retroprj Idp Line from pinhole on robot.

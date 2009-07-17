@@ -1,6 +1,6 @@
 function handleStr = createLmkGraphics(Lmk,labelColor,ax)
 
-% CREATELMKGRAPHICS  Crate landmark graphics.
+%CREATELMKGRAPHICS Create landmark graphics.
 %   CREATELMKGRAPHICS(LMK,LBLCLR) creates the graphics objects for the
 %   landmark LMK: a 3-sigma ellipsoid, a mean point, and a label with color
 %   LBLCLR.

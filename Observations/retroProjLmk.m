@@ -80,6 +80,6 @@ switch Sen.type
 
     otherwise % -- Sen.type
         % Print an error and exit
-        error('??? Unknown sensor type. ''%s''.',Sen.type);
+        error('??? Unknown sensor type ''%s''.',Sen.type);
 end % -- Sen.type
 

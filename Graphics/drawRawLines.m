@@ -1,5 +1,9 @@
 function drawRawLines(SenFig,Raw)
 
+% DRAWRAWLINES  Draw raw lines.
+%   DRAWRAWLINES(SENFIG,RAW)  redraws the 2D segments in RAW on figure
+%   SenFig.
+
 if ~isempty(Raw.data.segments.coord)
     
     m = size(Raw.data.segments.coord,2); % number of segments

@@ -1,6 +1,6 @@
 function [X,Y,Z] = idp3elli(idp,IDP,ns,NP)
 
-% IDP3ELLI 3D ellipsoid corresponding to an IDP point with covariance.
+%IDP3ELLI 3D ellipsoid from Gaussian IDP.
 %   [X,Y,Z] = IDP3ELLI(x0,P,ns,NP) gives X, Y and Z coordinates of the
 %   points corresponding to the 2 biggest semi-diametres of the ellipsoid
 %   defined by the covariances matrix P and centered at x0:

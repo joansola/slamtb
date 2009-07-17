@@ -1,6 +1,9 @@
 function drawAplLin(MapFig,Lmk,color,MapOpt)
 
-% DRAWPLKLIN  Draw Plucker line landmark in MapFig.
+% DRAWAPLLIN  Draw anchored Plucker line landmark in MapFig.
+%   DRAWAPLLIN(MapFig, Lmk, CLR, MapOpt) redraws in figure MapFig the
+%   anchored Plucker landmark Lmk, with color CLR. MapOpt is used to
+%   control visibility of some objects, see the code for details.
 
 global Map
 

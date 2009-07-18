@@ -1,21 +1,42 @@
-function [s,S1,S2] = makeSegment(p1,p2)
+function diginto(thestruct, level)
 
-% MAKESEGMENT  Make a segment out of two endpoints
-%   MAKESEGMENT(E1,E2) makes a segment out of the two endpoints E1 and E2
-%   by stacking both endpoints [E1;E2];
+% DIGINTO  Pretty print entire structure tree.
+%    DIGINTO(STR) pretty prints the fields' tree of structure STR.
 %
-%   [s,S1,S2] = MAKESEGMENT(E1,E2) returns the Jacobians of the segments
-%   wrt the endpoints.
+%    DIGINTO('all') prints all structures in the workspace.
 
-s = [p1(:);p2(:)];
-
-if nargout>1
-    
-    n  = numel(p1);
-    S1 = [eye(n);zeros(n)];
-    S2 = [zeros(n);eye(n)];
-    
+if strcmp(thestruct,'all')
+    disp('Printing all structures in workspace ''base''.')
+    w = evalin('base','whos');
+    for i = 1:numel(w)
+        if strcmp(w(i).class,'struct')
+            disp(w(i).name)
+            diginto(evalin('base',w(i).name))
+        end
+    end
+    return
 end
+
+if nargin < 2
+    level = 0;
+end
+if level == 0
+    disp(inputname(1))
+end
+
+fn = fieldnames(thestruct);
+for n = 1:length(fn)
+    tabs = '';
+    for m = 0:level
+        tabs = [tabs '|   '];
+    end
+    disp([tabs '.' fn{n}])
+    fn2 = thestruct.(fn{n});
+    if isstruct(fn2)
+        diginto(fn2, level+1);
+    end
+end
+
 
 
 

@@ -23,8 +23,8 @@
 %   store different simulation conditions. Just modify the call in SLAMTB
 %   to point to the particular 'USERDATA' file you want.
 %
-%   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAIDP,
-%   USERDATAHMG, USERDATAPLK.
+%   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAPNT,
+%   USERDATALIN.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
@@ -67,7 +67,21 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'dxStd',              0.003*[1;1;1],...  % odo linear error std
   'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
 
-% Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
+% Robot{2} = struct(...                     % ODOMETRY EXAMPLE
+%   'id',                 2,...           % robot identifier
+%   'name',               'Dala',...      % robot name
+%   'type',               'atrv',...      % type of robot
+%   'motion',             'odometry',...  % motion model
+%   'position',           [0;-6;0],...     % robot position in map
+%   'orientationDegrees', [0;0;0],...     % orientation, in degrees, roll pitch yaw.
+%   'positionStd',        [0;0;0],...     % position error, std
+%   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
+%   'dx',                 [.04;0;0],...     % position increment
+%   'daDegrees',          [0;0;.45],...     % angle increment, degrees
+%   'dxStd',              0.003*[1;1;1],...  % odo linear error std
+%   'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
+
+% Robot{3} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
 %   'name',               'Dala',...      % robot name
 %   'type',               'atrv',...      % type of robot
@@ -127,7 +141,6 @@ Sensor{1} = struct(...
 
 
 % Estimation options 
-%   - reprojection, active search, etc
 Opt = struct(...
   'map',              struct(...    % options for the map
     'numLmks',        75,...         % number of 3d landmarks
@@ -189,8 +202,8 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'createVideo',    false,...       % create video sequence?
-  'skipFrames',     0,...           % frames to skip for faster processing
+  'rendPeriod',     1,...           % frames to skip for faster processing
+  'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
     'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]

@@ -90,9 +90,9 @@ Sensor{1} = struct(...
   'orientationDegrees', [-90;0;0],... % orientation in robot, roll pitch yaw
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
-  'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        0.5,...         % pixel error std
-  'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
+  'imageSize',          [320;240],...   % image size
+  'pixErrorStd',        0.2,...         % pixel error std
+  'intrinsic',          [160;120;160;160],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
 
@@ -105,9 +105,9 @@ Sensor{1} = struct(...
 %   'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
 %   'positionStd',        [0;0;0],...     % position error std
 %   'orientationStd',     [0;0;0],...     % orient. error std
-%   'imageSize',          [640;480],...   % image size
+%   'imageSize',          [320;240],...   % image size
 %   'pixErrorStd',        0.2,...         % pixel error std
-%   'intrinsic',          [320;240;320;320],... % intrinsic params
+%   'intrinsic',          [160;120;160;160],... % intrinsic params
 %   'distortion',         [],...          % distortion params
 %   'frameInMap',         false);         % add sensor frame in slam map?
 
@@ -116,7 +116,6 @@ Sensor{1} = struct(...
 
 
 % Estimation options 
-%   - reprojection, active search, etc
 Opt = struct(...
   'map',              struct(...    % options for the map
     'numLmks',        25,...         % number of 3d landmarks
@@ -153,7 +152,7 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'active',         false,...         % select new random seed?
+    'active',         true,...         % select new random seed?
     'fixedSeed',      1,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
@@ -178,8 +177,8 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'createVideo',    false,...       % create video sequence?
-  'skipFrames',     1,...           % frames to skip for faster processing
+  'rendPeriod',     1,...           % frames to skip for faster processing
+  'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
     'view',         [-60 20 40 20],... % viewpoint of the 3d figure [30 45 40 20]
@@ -200,14 +199,14 @@ FigOpt = struct(...
         'ellip',    [1 .7 .7]),...    % ellipsoid
       'plkLin',     struct(...       % Plucker line colors
         'mean',     [0 .8 0],...           % mean line
-        'ellip',    [.6 1 .6]),...    % ellipsoid
+        'ellip',    [1 1 .7]),...    % ellipsoid
       'simu',       'g',...          %   or 'r', 'b', etc.   
       'est',        'b',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors
       'label',      [.0 .5 0])),...  % landmark ID labels
   'sensor',         struct(...      % sensor figures options
     'size',         [320 240],...    % sensor figure size
-    'showEllip',    false,...        % show ellipses?
+    'showEllip',    true,...        % show ellipses?
     'colors',       struct(...       % Sensor figure colors:
       'border',     .8*[1 1 1],...    %    
       'axes',       [0 0 0],...       % 
@@ -222,7 +221,7 @@ FigOpt = struct(...
       'plkLin',     struct(...       % Plucker line colors
         'meas',     'b',...           % measurement
         'mean',     'g',...           % mean line
-        'ellip',    'y'),...          % ellipsoid
+        'ellip',    [1 1 .2]),...          % ellipsoid
       'label',      [.5 .5 .5])));    %
 
 

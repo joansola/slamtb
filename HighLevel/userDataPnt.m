@@ -15,7 +15,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            200);           % last frame #
+  'lastFrame',            400);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -44,10 +44,10 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'orientationDegrees', [0;0;0],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-  'dx',                 [.04;0;0],...     % position increment
-  'daDegrees',          [0;0;.45],...     % angle increment, degrees
-  'dxStd',              0.003*[1;1;1],...  % odo linear error std
-  'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
+  'dx',                 [.08;0;0],...     % position increment
+  'daDegrees',          [0;0;.9],...     % angle increment, degrees
+  'dxStd',              0.006*[1;1;1],...  % odo linear error std
+  'daStd',              0.06*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -109,7 +109,6 @@ Sensor{1} = struct(...
 
 
 % Estimation options 
-%   - reprojection, active search, etc
 Opt = struct(...
   'map',              struct(...    % options for the map
     'numLmks',        75,...         % number of 3d landmarks
@@ -124,7 +123,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'initType',       'hmgPnt',...   % Type of lmk to use for init
+    'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -171,8 +170,8 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'createVideo',    false,...       % create video sequence?
-  'skipFrames',     0,...           % frames to skip for faster processing
+  'rendPeriod',     1,...           % frames to skip for faster processing
+  'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
     'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]

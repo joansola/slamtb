@@ -137,7 +137,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
     Tim.skip = Tim.skip - 1;
     if Tim.skip <= 0 || currentFrame == Tim.lastFrame
-        Tim.skip = FigOpt.skipFrames;
+        Tim.skip = FigOpt.rendPeriod;
         
         % Figure of the Map:
         drawMapFig(MapFig,  ...

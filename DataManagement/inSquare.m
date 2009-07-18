@@ -13,6 +13,8 @@ function inSq = inSquare(data,sq,m)
 %   DATA is a 2D-points matrix : DATA = [P1 ... PN] ,
 %   with Pi = [xi;yi].
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin < 3
     inSq = (data(1,:) >= sq(1)) & ...
         (data(1,:) <= sq(2)) & ...

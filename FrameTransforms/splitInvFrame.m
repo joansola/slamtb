@@ -12,6 +12,8 @@ function [it,Rt,Pc] = splitInvFrame(F)
 %
 %   See also FRAME, SPLITFRAME, UPDATEFRAME, TOFRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if isa(F,'struct')
     it = F.it;
     Rt = F.Rt;

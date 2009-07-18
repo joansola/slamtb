@@ -5,6 +5,8 @@ function predictBlockEkf(r,F_r,U,F_u)
 %   global map Map by using the prediction Jacobian F_r, referring to range
 %   r in the map, and perturbation covariances matrix U and Jacobian F_u.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 m = Map.used;

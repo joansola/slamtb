@@ -14,6 +14,8 @@ function [rp,RPq,RPp] = Rp(q,p)
 %
 %   See also RTP, Q2R.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 R  = q2R(q);
 rp = R*p;
 

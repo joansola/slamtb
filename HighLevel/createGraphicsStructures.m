@@ -20,8 +20,10 @@ function [MapFig,SenFig] = createGraphicsStructures(...
 %       SIMLMK:   Structure array of simulated landmarks.
 %       FIGOPT:   User-defined structure with options for figures
 %
-%   See also CREATEMAPFIG, CREATESENFIG, USERDATA, UNIVERSALSLAM, and
+%   See also CREATEMAPFIG, CREATESENFIG, USERDATA, SLAMTB, and
 %   consult slamToolbox.pdf in the root directory.
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 % Init map figure

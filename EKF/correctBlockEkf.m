@@ -10,6 +10,7 @@ function correctBlockEkf(r,H,Inn)
 %       .Z      its covariances matrix, Z  = HPH' + R
 %       .iZ     the inverse covariance, iZ = Z^-1.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 global Map
 

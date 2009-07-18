@@ -8,6 +8,6 @@ function H = frame2iMatrix(F)
 %
 %   See also FRAME2IMOTION, FRAME.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 H = [F.Rt F.it;0 0 0 1];

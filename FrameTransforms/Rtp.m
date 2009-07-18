@@ -14,6 +14,7 @@ function [rtp,RTPq,RTPp] = Rtp(q,p)
 %
 %   See also RP, Q2R.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 Rt  = q2R(q)'; % Transposed rotation matrix
 rtp = Rt*p;

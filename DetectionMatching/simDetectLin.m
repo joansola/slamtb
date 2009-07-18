@@ -2,6 +2,8 @@ function [newId, meas, exp, inn] = simDetectLin(lmkIds, raw, pixCov)
 
 % SIMDETECTLIN  Detect 2D segment in simulated raw data.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 apps  = raw.segments.app;
 
 [newIds,newIdsIdx] = setdiff(apps,lmkIds);

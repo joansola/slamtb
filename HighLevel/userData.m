@@ -26,8 +26,7 @@
 %   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAIDP,
 %   USERDATAHMG, USERDATAPLK.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS
-
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % Time variables 
 %   - sampling time, first and last frames

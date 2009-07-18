@@ -1,6 +1,9 @@
 function [Rob,Sen,Raw,Lmk,Obs,Tim] = createSlamStructures(Robot,Sensor,Time,Opt)
 
 % CREATESLAMSTRUCTURES  Initialize SLAM data structures from user data.
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 % Create robots and controls

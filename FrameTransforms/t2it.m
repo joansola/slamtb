@@ -8,6 +8,8 @@ function [it,ITt,ITq] = t2it(t,q)
 %
 %   where R = q2R(Q)
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 Rt = q2R(q)';
 
 it = -Rt*t;

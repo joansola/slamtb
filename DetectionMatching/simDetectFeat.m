@@ -32,6 +32,8 @@ function [newId, app, meas, exp, inn] = simDetectFeat(lmkType, lmkIds, raw, pixC
 %
 %   See also SIMDETECTPNT, SIMDETECTLIN, PROPAGATEUNCERTAINTY, SEG2HMGLIN.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 switch lmkType(4:6)
 
     case 'Pnt'

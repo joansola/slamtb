@@ -9,6 +9,8 @@ function [ep,EPq] = qpose2epose(qp)
 %
 %   See also EPOSE2QPOSE, EULERANGLES, QUATERNION, FRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if any(size(qp) ~= [7,1])
     warning('Input pose should be a column 7-vector')
 end

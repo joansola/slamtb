@@ -2,6 +2,7 @@ function [SimRob,SimSen,SimLmk,SimOpt] = createSimStructures(Robot,Sensor,World,
 
 % CREATESIMSTRUCTURES Create simulation data structures.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % Random generator
 if SimOpt.random.active

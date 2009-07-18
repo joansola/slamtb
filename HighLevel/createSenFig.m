@@ -23,7 +23,7 @@ function SenFig = createSenFig(Sen,Obs,SimLmk,FigOpt)
 %
 %   See also DRAWSENFIG, CREATEMAPFIG, LINE, SET, GET.
 
-
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 % loop all sensors

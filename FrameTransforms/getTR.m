@@ -9,7 +9,7 @@ function [T,R,Rt] = getTR(F)
 %
 % [T,R,Rt] = GETTR(...) gives also the transposed R
 
-global WDIM
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 T = F.t;
 R = F.R;

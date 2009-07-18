@@ -31,6 +31,8 @@ function [z,Z,iZ,MD2,Z_e,Z_y] = innovation(y,R,e,E,f)
 %
 %   See also HMS2HH, MAHALANOBIS.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin == 4  % Use plain Euclidean innovation
     z   = y - e;
     Z   = R + E;

@@ -13,6 +13,8 @@ function [t,q,R,Rt,Pi,Pc] = splitFrame(F)
 %
 %   See also FRAME, UPDATEFRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if isa(F,'struct')
     t  = F.t;
     q  = F.q;

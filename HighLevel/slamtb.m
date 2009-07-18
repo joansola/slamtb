@@ -15,14 +15,14 @@
 %
 %   - Expert users may want to add code for real-data experiments. 
 %
-%   See also USERDATA.
+%   See also USERDATA, USERDATAPNT, USERDATALIN.
 %
 %   Also consult slamToolbox.pdf in the root directory.
 
 %   Created and maintained by
-%   (c) 2009 Joan Sola @ LAAS-CNRS. jsola@laas.fr.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 %   Programmers:
-%   (c) David Marquez and Jean-Marie Codol @ LAAS-CNRS
+%   Copyright David Marquez and Jean-Marie Codol @ LAAS-CNRS
 
 %% OK we start here
 
@@ -31,7 +31,9 @@ clear
 global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
+
 userData;      % user-defined data. SCRIPT.
+
 
 %% II. Initialize all data structures from user-defined data in userData.m
 % SLAM data

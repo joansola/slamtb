@@ -23,6 +23,8 @@ function F = updateFrame(F)
 %
 %   See also FRAME, Q2R, Q2PI, PI2PC, SPLITFRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 % F.X(4:7) = F.X(4:7)/norm(F.X(4:7)); % normalize quaternion
 F.t  = F.x(1:3);
 F.q  = F.x(4:7);

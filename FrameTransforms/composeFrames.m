@@ -11,6 +11,8 @@ function H = composeFrames(F,G)
 %
 %   See also FRAME, SPLITFRAME, QUATERNION.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 H.t = fromFrame(F,G.t);
 H.q = qProd(F.q,G.q);
 H.x = [H.t;H.q];

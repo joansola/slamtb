@@ -43,7 +43,7 @@ xlim = get(SenFig.axes,'xlim');
 ylim = get(SenFig.axes,'ylim');
 imSize = [xlim(2);ylim(2)];
 s = trimHmgLin(Obs.exp.e, imSize);
-% if ~isempty(s)
+if ~isempty(s)
  
     % mean
     X = s([1 3]);
@@ -70,9 +70,9 @@ s = trimHmgLin(Obs.exp.e, imSize);
             'vis',   'on');
     end
     
-% else % not visible - this piece of code only for robustness
-%     set(SenFig.mean(Obs.lmk),'vis','off');
-%     set(SenFig.ellipse(Obs.lmk,:),'vis','off');
-% end
+else % not visible - this piece of code only for robustness
+    set(SenFig.mean(Obs.lmk),'vis','off');
+    set(SenFig.ellipse(Obs.lmk,:),'vis','off');
+end
 
 

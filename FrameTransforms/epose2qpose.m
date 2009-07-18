@@ -9,6 +9,8 @@ function [qp,QP_ep] = epose2qpose(ep)
 %
 %   See also QPOSE2EPOSE, EULERANGLES, QUATERNION, FRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if any(size(ep) ~= [6,1])
     warning('Input Euler-pose should be a column 6-vector')
 end

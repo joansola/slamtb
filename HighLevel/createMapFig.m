@@ -31,7 +31,7 @@ function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigOpt)
 %   See also DRAWMAPFIG, CREATESENFIG, MAPOBSERVER, LINE, PATCH, SURFACE,
 %   SET, GET.
 
-
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % Figure
 if ishandle(99)

@@ -11,6 +11,8 @@ function [t,R,Pi] = splitDirFrame(F)
 %
 %   See also FRAME, SPLITFRAME, UPDATEFRAME, TOFRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if isa(F,'struct')
     t = F.t;
     R = F.R;

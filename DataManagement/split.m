@@ -7,6 +7,7 @@ function varargout = split(A)
 %   [v1,...,vn] = SPLIT(M), with M a matrix, returns its rows as separate
 %   vectors v1 ... vn. It is an error if size(M,2) < nargout.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if min(size(A)) == 1
     % A is vector. We take row or column.

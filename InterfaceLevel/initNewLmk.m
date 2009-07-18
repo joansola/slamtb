@@ -13,7 +13,7 @@ function [Lmk,Obs] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 %
 %   See also GETNEWLMKCOVS
 
-%   (c) 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
+%   Copyright 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
 
 % 0. UPDATE ROB AND SEN INFO FROM MAP
 Rob = map2rob(Rob);

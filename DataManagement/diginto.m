@@ -1,9 +1,11 @@
 function diginto(thestruct, level)
 
 % DIGINTO  Pretty print entire structure tree.
-%    DIGINTO(STR) pretty prints the fields' tree of structure STR.
+%   DIGINTO(STR) pretty prints the fields' tree of structure STR.
 %
-%    DIGINTO('all') prints all structures in the workspace.
+%   DIGINTO('all') prints all structures in the workspace.
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if strcmp(thestruct,'all')
     disp('Printing all structures in workspace ''base''.')

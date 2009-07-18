@@ -2,6 +2,8 @@ function drawPnt(pntHandles,x,P,color)
 
 % DRAWPNT  Draw 3D Gaussian point with covariance and label.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 posOffset = [0;0;.2];
 
 % the expectation's mean:

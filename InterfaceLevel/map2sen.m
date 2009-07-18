@@ -5,6 +5,8 @@ function Sen = map2sen(Sen)
 %
 %   See also UPDATEFRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 if Sen.frameInMap

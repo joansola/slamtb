@@ -2,6 +2,7 @@ function world = initWorld(lim)
 
 % INITWORLD  Initialize world structure and dimensions
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % World dimensions
 world.xMin  = -4;

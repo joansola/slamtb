@@ -9,7 +9,7 @@ function [l,Lp,Lq] = pp2hmgLin(p,q)
 %
 %   See also CROSSJ, HH2P.
 
-% (c) 2008 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargout == 1
     if numel(p) == 2 % Support for Euclidean points

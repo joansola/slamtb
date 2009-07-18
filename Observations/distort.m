@@ -23,7 +23,7 @@ function [ud,UD_up,UD_dist] = distort(up,dist)
 %   Jacobians are trivially computed just for argument consistency: UDup =
 %   eye(2) and UDdist = zeros(2,length(dist)).
 
-%   (c) 2006-2008 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 r2 = sum(up.^2);
 

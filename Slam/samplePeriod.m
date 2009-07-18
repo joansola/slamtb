@@ -5,6 +5,8 @@ function dt = samplePeriod
 %
 %   See also TIC, TOC.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 dt = toc;
 tic;
 

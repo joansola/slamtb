@@ -18,7 +18,7 @@ function drawLmk(MapFig,Lmk,MapOpt)
 %
 %   See also DRAWIDPPNT, DRAWEUCPNT, DRAWHMGPNT.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 switch (Lmk.type)
 

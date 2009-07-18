@@ -6,7 +6,7 @@ function [py,PYv] = vec2py(v)
 %
 %   [PY,PYv] = VEC2PY(...) returns also the Jacobian wrt V.
 
-% (c) Joan Sola 2008
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 [x,y,z] = split(v);
 

@@ -18,6 +18,9 @@ function [sv,vis] = visibleSegment(s,d,imSize,mrg,lmin)
 %   The function works for segment matrices S = [S1 S2 ... Sn] and D = [D1
 %   D2 ... Dn], giving a segments matrix SV and a visibility vector VIS.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 % input options and defaults
 if nargin < 5
     lmin = 1;

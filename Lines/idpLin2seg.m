@@ -6,6 +6,8 @@ function [s, S_l] = idpLin2seg(l)
 %
 %   [s, S_l] = IDPLIN2SEG(L) returns the Jacobian wrt L.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargout == 1
 
     [e1, e2] = idpLin2idpPnts(l);

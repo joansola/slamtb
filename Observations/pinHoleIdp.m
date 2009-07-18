@@ -46,6 +46,8 @@ function [u,s,U_i,U_k,U_d] = pinHoleIdp(i,k,d)
 %
 %   See also PINHOLE, INVPINHOLEIDP.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 
 if nargout <= 2
 

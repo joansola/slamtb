@@ -2,6 +2,8 @@ function iK = invIntrinsic(k)
 
 % INVINTRINSIC Build inverse intrinsic matrix
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 [u0, v0, au, av] = split(k);
 
 iK = [...

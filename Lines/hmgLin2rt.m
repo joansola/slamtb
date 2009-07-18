@@ -6,6 +6,8 @@ function [rt,RThm] = hmgLin2rt(hm)
 %
 %   [rt,RT_hm] = HMGLIN2RT(...) returns the Jacobian wrt HM.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if ~isa(hm,'sym') && hm(3) > 0
     hm2 = -hm;
     s = -1;

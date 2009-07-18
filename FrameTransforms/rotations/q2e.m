@@ -8,7 +8,7 @@ function [e,Eq] = q2e(q)
 %
 %   See also QUATERNION, EULERANGLES, R2Q, E2Q, Q2V.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 

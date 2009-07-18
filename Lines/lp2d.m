@@ -7,6 +7,8 @@ function [d,D_l,D_p] = lp2d(l,p)
 %
 %   [d,D_hm,D_p) = LP2D(...) returns the Jacobians wrt HM and P.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if numel(p) == 2
     [p,P_p] = euc2hmg(p);
 else

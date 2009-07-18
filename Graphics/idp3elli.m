@@ -21,6 +21,7 @@ function [X,Y,Z] = idp3elli(idp,IDP,ns,NP)
 %
 %   See also COV3ELLI, LINE, IDP2P, PROPAGATEUNCERTAINTY.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 [p,P] = propagateUncertainty(idp,IDP,@idp2p);
 

@@ -5,7 +5,7 @@ function [q,Qa,Qu] = au2q(a,u)
 %
 %   [Q,Qa,Qu] = AU2Q(...) returns the Jacobians wrt A and U.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 q = [  cos(a/2)
     u*sin(a/2)];

@@ -10,6 +10,7 @@ function [u,Up] = project(p)
 %
 %   See also PINHOLE.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 u = [p(1,:)./p(3,:) ; p(2,:)./p(3,:)];
 

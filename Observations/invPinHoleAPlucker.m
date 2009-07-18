@@ -11,6 +11,8 @@ function [l,L_k,L_hm,L_beta] = invPinHoleAPlucker(Sk,hm,beta)
 %
 %   See also INVPINHOLEPLUCKER.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargout == 1
     % Plucker line 
     pl = invPinHolePlucker(Sk,hm,beta) ;

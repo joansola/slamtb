@@ -9,6 +9,8 @@ function [p, Pk, Ppixhm, Pnob] = invPinHoleHmg(k,pixhm,nob)
 %
 %   See also INVINTRINSIC.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 iK = invIntrinsic(k);
 
 if numel(pixhm) == 2

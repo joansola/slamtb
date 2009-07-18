@@ -13,6 +13,8 @@ function handle = createObjPatch(Obj,colr,ax)
 %
 %   See also CAMGRAPHICS, SET, GET.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin < 3
     ax = gca;
 end

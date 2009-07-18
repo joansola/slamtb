@@ -2,6 +2,8 @@ function drawIdpLin(MapFig,Lmk,color,MapOpt)
 
 % DRAWIDPLIN  Draw inverse-depth line landmark in MapFig.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 r   = Lmk.state.r; % range

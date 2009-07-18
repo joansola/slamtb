@@ -8,7 +8,7 @@ function [seg, SEG_l] = idpLinSegment(l,t)
 %
 %   See also IDPLINENDPOINTS, IDPLIN2SEG, IDPLIN2IDPPNTS.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % abscissas
 t1 = t(1);

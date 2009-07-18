@@ -4,6 +4,7 @@ function [seg, t] = retroProjPlkEndPnts(Rob,Sen,Lmk,Obs)
 %   [SEG,T] = RETROPROJPLKENDPNTS(Rob,Sen,Lmk,Obs) retroprojects the
 %   segment endpoints in Bos.meas.y onto the Plucker line Lmk.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 global Map
 

@@ -7,7 +7,7 @@ function [Lmk,Obs] = reparametrizeLmk(Rob,Sen,Lmk,Obs,Opt)
 %   point. A linearity test of cartesian point given inverse depth 
 %   point is performed.
 
-%   (c) 2009 David Marquez @ LAAS-CNRS.
+%   Copyright 2009 David Marquez @ LAAS-CNRS.
 
 
 global Map

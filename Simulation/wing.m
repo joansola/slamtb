@@ -6,6 +6,8 @@ function v = wing(size)
 %   
 %   WING(SIZE) allows for choosing the wing's size. Default is 1.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin == 0
     size = 1;
 end

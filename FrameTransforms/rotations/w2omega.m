@@ -8,9 +8,9 @@ function Omega=w2omega(w)
 %              W(2) -W(3)   0    W(1)
 %              W(3)  W(2) -W(1)   0  ];
 %
-% See also Q2PI, ODO3.
+%   See also Q2PI, ODO3.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
  
 

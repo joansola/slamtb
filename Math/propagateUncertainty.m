@@ -11,6 +11,9 @@ function [y,Y] = propagateUncertainty(x,X,f)
 %
 %   See also Q2EG.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 [y,Y_x] = f(x);
 Y = Y_x*X*Y_x';
 

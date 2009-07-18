@@ -18,7 +18,7 @@ function [hm, v, HM_r, HM_s, HM_k, HM_l] = ...
 %
 %    See also PINHOLEPLUCKER, TOFRAMEPLUCKER, PROJEUCPNTINTOPINHOLEONROB.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargout <= 2 % only pixel
     

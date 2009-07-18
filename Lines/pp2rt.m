@@ -7,7 +7,7 @@ function [rt,RTp,RTq] = pp2rt(p,q)
 %  
 %   [rt,RTp,RTq] = POINTS2RT(p,q) returns the Jacobians wrt P and Q.
 
-%   (c) 2008 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargout == 1
     

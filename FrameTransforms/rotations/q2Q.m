@@ -15,6 +15,7 @@ function Q = q2Q(q)
 %
 %   See also QUATERNION, R2Q, Q2E, Q2V.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 Q = [ q(1) -q(2) -q(3) -q(4)

@@ -13,6 +13,7 @@ function [p,Pidp] = idp2euc(idp)
 %
 %   See also p2idp.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 x0 = idp(1:3,:);   % origin
 py = idp(4:5,:);   % pitch and roll

@@ -7,7 +7,7 @@ function [p1,p2,P1_l,P2_l] = idpLin2idpPnts(l)
 %
 %   [p1,p2,P1_l,P2_l] = IDPLIN2IDPPNTS(...) returns the Jacobians wrt L.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 p1 = l(1:6,:);
 p2 = l([1:3 7:9],:);

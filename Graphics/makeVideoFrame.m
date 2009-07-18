@@ -4,6 +4,8 @@ function  makeVideoFrame(Fig,filename,FigOpt,ExpOpt)
 %   MAKEVIDEOFRAME(FIG,FNAME,FIGOPT,EXPOPT) exports the constents of figure
 %   FIG to an image with name filename, using FIGOPT and EXPOPT.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if FigOpt.createVideo
     dir = [ExpOpt.root ExpOpt.lmkTypes '/' ExpOpt.sensingType '/images/'];
     if ~isdir(dir)

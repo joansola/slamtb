@@ -7,7 +7,9 @@ function E = planeVec2planeBase(n)
 %
 %       e1 = [-N(2);N(1);0]/norm(N(1:2))
 %       e2 = cross(e1,N)
-%
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 
 e1 = [n(2);-n(1);0]/sqrt(dot(n(1:2),n(1:2)));
 e2 = cross(n,e1);

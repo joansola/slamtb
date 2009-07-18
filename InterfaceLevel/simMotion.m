@@ -7,6 +7,7 @@ function Rob = simMotion(Rob, Tim)
 %
 %   See also MOTION, CONSTVEL, ODO3, UPDATEFRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % motion model of the  robot:
 switch Rob.motion

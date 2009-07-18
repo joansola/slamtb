@@ -7,6 +7,8 @@ function [c,Ca,Cb] = crossJ(a,b)
 %
 %   See also CROSS, HAT.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 c = cross(a,b);
 
 if nargout > 1

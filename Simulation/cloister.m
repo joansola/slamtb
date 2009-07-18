@@ -6,6 +6,8 @@ function f = cloister(xmin,xmax,ymin,ymax,n)
 %
 %   See also THICKCLOISTER.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin < 5
     n = 9;
 end

@@ -6,6 +6,9 @@ function [h,Hf,Hh] = fromFrameHmg(f,hf)
 %
 %   [p,Pf,Ppf] = ... returns the Jacobians wrt F and PF.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 
 F = homogeneous(f)    ;
 [t,q] = splitFrame(f) ;

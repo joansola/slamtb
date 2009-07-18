@@ -9,6 +9,8 @@ function Obs = observationInnovation(Obs,innType)
 %
 %   See also INNOVATION, OBSERVEKNOWNLMKS.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 switch Obs.ltype(4:6)
 
     case 'Pnt'

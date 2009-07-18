@@ -7,6 +7,8 @@ function [s,S1,S2] = makeSegment(p1,p2)
 %   [s,S1,S2] = MAKESEGMENT(E1,E2) returns the Jacobians of the segments
 %   wrt the endpoints.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 s = [p1(:);p2(:)];
 
 if nargout>1

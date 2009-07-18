@@ -8,7 +8,7 @@ function l = segLength(seg)
 %   SEGLENGTH admits segment matrices S=[S1 ... Sn], in which case it
 %   returns a lengths vector L = [L1 ... Ln];
 
-% (c) 2009 Joan Sola @ LAAS@CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 n = size(seg,1);
 

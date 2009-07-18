@@ -8,6 +8,7 @@ function [l,L_f,L_lf] = fromFrameIdpLin(F,lf)
 %
 %   [I,L_f,L_lf] = FROMFRAMEIDPLIN(...) returns the Jacobians wrt F and IF.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargout == 1
     [p1f,p2f] = idpLin2idpPnts(lf);

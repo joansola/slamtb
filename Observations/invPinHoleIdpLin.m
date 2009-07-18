@@ -1,5 +1,10 @@
 function [l, L_seg, L_n, L_k, L_c] = invPinHoleIdpLin(seg,n,k,c)
 
+% INVPINHOLEIDPLIN IDP line retro projection.
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 if nargin < 4
     c = zeros(1,0);
     if nargin < 3

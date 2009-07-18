@@ -15,6 +15,9 @@ function [idp, IDP_rf, IDP_sf, IDP_sk, IDP_sd, IDP_u, IDP_invdepth] = ...
 %
 %   See also INVPINHOLEIDP, FROMFRAMEIDP.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 % Frame World -> Robot  :  Rf
 % Frame Robot -> Sensor :  Sf
 

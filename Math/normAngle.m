@@ -1,6 +1,9 @@
 function ao = normAngle(ai)
 
-% NORMANGLE Normalize angle to (-pi .. pi] values
+% NORMANGLE Normalize angle to (-pi .. pi] values.
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 
 ao = ai;
 while any(ao <= -pi)

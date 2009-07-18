@@ -13,7 +13,9 @@ function handleStr = createLmkGraphics(Lmk,labelColor,ax)
 %       HSTR.mean       the mean
 %       HSTR.ellipse()  the 3-sigma ellipsoids
 %       HSTR.label      the label.
-%
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin < 3
     ax = gca;
 end

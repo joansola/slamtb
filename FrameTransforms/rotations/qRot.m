@@ -6,6 +6,8 @@ function vr = qRot(v,q)
 %
 %   See also QUATERNION, Q2Q, QPROD.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 v = [0;v];
 
 vr = qProd(qProd(q,v),q2qc(q));

@@ -42,7 +42,7 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %
 %   See also PROJECT, DISTORT, PIXELLISE, INVPINHOLE, PINHOLEIDP.
 
-% (c) 2009 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % Point's depth
 s = p(3,:);

@@ -4,9 +4,10 @@ function world = thickCloister(x,X,y,Y,h,n)
 %   THICKCLOISTER(XMIN,XMAX,YMIN,YMAX,H,N) generates a 3D cloister in the
 %   limits indicated as parameters, with height H and with N points per
 %   side.
-
+%
 %   See also CLOISTER.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 switch nargin
     case {1, 2, 3, 4}

@@ -22,7 +22,7 @@ function [L,Lc,Lli] = toFramePlucker(C,Li)
 %
 %   See also FROMFRAMEPLUCKER, TXP, HAT, CROSS, Q2R, Q2QC, T2IT.
 
-%   (c) 2008 Joan Sola, LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 % extract input vectors ai and bi

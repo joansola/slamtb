@@ -7,6 +7,8 @@ function [a,Ak,Al] = aInvPinHolePlucker(k,l)
 %
 %   [A,Ak,Al] = ... returns the Jacobians wrt L and K.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 iK = pluckerInvCamera(k);
 
 a = iK*l;

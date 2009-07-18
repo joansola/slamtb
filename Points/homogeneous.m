@@ -1,7 +1,9 @@
 function H = homogeneous(f)
 
-% HOMOGENEOUS Builds homogeneous motion matrix from frame f.
+% HOMOGENEOUS Build motion matrix.
+%   HOMOGENEOUS(F) Builds homogeneous motion matrix from frame F.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 [t,q,R] = splitFrame(f);
 

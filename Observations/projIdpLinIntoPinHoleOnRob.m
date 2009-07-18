@@ -11,6 +11,9 @@ function [s, d, S_rf, S_sf, S_k, S_l] = projIdpLinIntoPinHoleOnRob(Rf, Sf, Sk, l
 %   [s, d, S_rf, S_sf, S_k, S_l] = (...) returns the Jacobians wrt all
 %   input parameters.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 if nargout <= 2
     
     sw = idpLin2seg(l);

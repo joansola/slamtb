@@ -15,6 +15,7 @@ function [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 %
 %    See also PROJECTLMK, PROJEUCPNTINTOPINHOLEONROB, IDP2P.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % steps in this function
 % 0- update Rob and Sen info from Map

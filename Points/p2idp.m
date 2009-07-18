@@ -17,7 +17,7 @@ function [idp,IDP_p,IDP_p0] = p2idp(p,p0)
 %
 %   See also IDP2P.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargout == 1
     m   = p-p0;

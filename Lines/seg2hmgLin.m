@@ -6,6 +6,9 @@ function [hm,HMs] = seg2hmgLin(s)
 %
 %   [hm,HMs] = SEG2HMGLIN(S) returns the Jacobians wrt S.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 p = s(1:2);
 q = s(3:4);
 if nargout == 1

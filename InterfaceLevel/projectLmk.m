@@ -22,6 +22,8 @@ function Obs = projectLmk(Rob,Sen,Lmk,Obs)
 %
 %   See also OBSERVEKNOWNLMKS.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 % PREVIOUS TASKS

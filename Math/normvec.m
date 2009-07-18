@@ -10,7 +10,7 @@ function [vn,VN_v] = normvec(v,jacMethod)
 %   matrix as Jacobian, meaning that the vector has been just scaled to
 %   length one by a scalar factor.
 
-% (c) 2008 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 n2 = dot(v,v);
 n  = sqrt(n2);

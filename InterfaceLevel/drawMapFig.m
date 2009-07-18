@@ -10,6 +10,8 @@ function drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen, FigOpt)
 %
 %   See also CREATEMAPFIG.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 % SIMULATED OBJECTS

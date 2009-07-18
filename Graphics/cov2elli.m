@@ -10,6 +10,7 @@ function [X,Y] = cov2elli(x,P,ns,NP)
 %
 %   See also COV3ELLI, LINE.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 persistent circle

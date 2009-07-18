@@ -9,7 +9,7 @@ function [qc,QCq] = q2qc(q)
 %
 %   See also QUATERNION, R2Q, Q2E, Q2V.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 

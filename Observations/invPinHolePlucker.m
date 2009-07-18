@@ -10,6 +10,8 @@ function [L,Lk,Ll,Lbeta] = invPinHolePlucker(k,l,beta)
 %
 %   See also PLANEVEC2PLANEBASE, PLANEBASE2DIRVECTOR.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin < 3
     beta = [1;0];
 end

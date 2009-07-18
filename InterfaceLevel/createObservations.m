@@ -5,6 +5,7 @@ function Obs = createObservations(Sen,Opt)
 %   be used as SLAM data, from the information contained in Sen() and
 %   Rob(). See the toolbox documentation for details on this structure.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 for sen = 1:numel(Sen)
     

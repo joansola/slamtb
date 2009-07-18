@@ -25,7 +25,7 @@ function [u, s, U_r, U_s, U_k, U_d, U_l] = ...
 %
 %    See also PINHOLE, TOFRAME, PROJIDPPNTINTOPINHOLEONROB.
 
-%   (c) 2009 David Marquez @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargout <= 2 % only pixel
     

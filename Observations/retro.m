@@ -7,6 +7,9 @@ function [p,Pup,Ps] = retro(up,s)
 %
 %   See also INVPINHOLE.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 
 p = [s.*up(1,:) ; s.*up(2,:) ; s.*ones(1,size(up,2))];
 

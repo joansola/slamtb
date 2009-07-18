@@ -9,6 +9,7 @@ function Pi = pi2pc(Pi)
 %
 % See also Q2QC, Q2PI, TOFRAME
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 Pi([1 3 4 5 6 8 9 10 11]) = -Pi([1 3 4 5 6 8 9 10 11]);
 

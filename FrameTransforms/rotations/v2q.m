@@ -6,6 +6,7 @@ function [q,Qv] = v2q(v)
 %
 %   See also QUATERNION, R2Q, Q2E, Q2V.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargout == 1
     

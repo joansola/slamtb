@@ -16,6 +16,7 @@ function Con = createControls(Robot)
 %
 %   See also CREATEROBOTS.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 switch Robot.motion
 

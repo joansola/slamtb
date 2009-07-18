@@ -6,7 +6,9 @@ function Tim = createTime(Time)
 %       .firstFrame     first frame to be processed
 %       .lastFrame      last frame to be processed
 %   from the fields in input structure Time.
-%
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 
 Tim = Time;
 

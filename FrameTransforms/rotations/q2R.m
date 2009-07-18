@@ -13,6 +13,8 @@ function [R,Rq] = q2R(q)
 %
 %   See also QUATERNION, R2Q, Q2E, Q2V.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 [a,b,c,d] = split(q);
 
 aa = a^2;

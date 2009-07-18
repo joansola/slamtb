@@ -10,6 +10,8 @@ function drawObsLin(SenFig, Obs, SenFigOpt)
 %
 %   See also DRAWOBSPNT, DRAWSENFIG, TRIMHMGLIN, COV2ELLI.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 posOffset = 8;
 colors = SenFigOpt.colors.plkLin; 
 

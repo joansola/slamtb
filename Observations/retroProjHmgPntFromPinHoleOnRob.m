@@ -15,6 +15,8 @@ function [hmg, HMG_rf, HMG_sf, HMG_sk, HMG_sd, HMG_u, HMG_n] = ...
 %
 %   See also INVPINHOLEHMG, FROMFRAMEHMG.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 % Frame World -> Robot  :  Rf
 % Frame Robot -> Sensor :  Sf
 

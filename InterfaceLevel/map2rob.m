@@ -5,6 +5,8 @@ function Rob = map2rob(Rob)
 %
 %   See also UPDATEFRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 % normalize quaternion - mean and cov

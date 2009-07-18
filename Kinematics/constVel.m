@@ -21,7 +21,7 @@ function [Xo, Xo_x, Xo_u] = constVel(X, u, dt)
 %
 %   See also RPREDICT, QPREDICT, V2Q, QUATERNION.
 
-% (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 if nargin == 2

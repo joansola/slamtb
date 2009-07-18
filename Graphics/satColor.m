@@ -14,7 +14,7 @@ function s = satColor(c)
 %   (white) depending on the gray level MEAN(C) being greater than 0.5 or
 %   not.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if isnumeric(c)
 

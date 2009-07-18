@@ -9,6 +9,8 @@ function [Lmk,Obs] = smartDeleteLmk(Lmk,Obs)
 %
 %   See also DELETELMK.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if Lmk.nSearch >= 10
     
     ratio = Lmk.nInlier/Lmk.nSearch;

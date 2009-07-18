@@ -9,6 +9,7 @@ function [R,Re] = e2R(e)
 %
 %   See also R2E.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 r  = e(1); %roll

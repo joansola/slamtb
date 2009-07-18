@@ -18,7 +18,7 @@ function [L,Lc,Lli] = fromFramePlucker(C,Li)
 %
 %   See also TOFRAMEPLUCKER, TXP, HAT, CROSS, Q2R.
 
-%   (c) 2008 Joan Sola, LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 ai = Li(1:3);

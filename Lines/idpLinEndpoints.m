@@ -12,7 +12,7 @@ function [e1, e2, E1_l, E2_l] = idpLinEndpoints(l,t1,t2)
 %
 %   See also IDPLINSEGMENT, IDPLIN2SEG, IDPLIN2IDPPNTS.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 [s, S_l] = idpLin2seg(l);
 

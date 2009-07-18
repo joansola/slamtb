@@ -15,6 +15,9 @@ function [t,p1,p2] = intersectPvLines(l1,l2)
 %
 %   See also INTERSECTSEGMENTS, SEG2PVLIN.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 e1 = l1(1:3); % point in line
 v1 = l1(4:6);
 e2 = l2(1:3);

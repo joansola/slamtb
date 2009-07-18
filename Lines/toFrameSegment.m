@@ -23,6 +23,9 @@ function [S_F,SF_f,SF_sw] = toFrameSegment(F,S_W)
 %
 %   See also TOFRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 s = size(S_W,2); % number of points in input matrix
 
 if s==1 % one segment

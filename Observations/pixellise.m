@@ -11,6 +11,8 @@ function [pix,PIXu,PIXk] = pixellise(u,k)
 %
 %   See also PINHOLE.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 u0 = k(1);
 v0 = k(2);
 au = k(3);

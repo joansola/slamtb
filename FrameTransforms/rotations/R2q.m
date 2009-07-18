@@ -4,7 +4,7 @@ function q = R2q(R)
 %
 %   See also QUATERNION, Q2R, Q2E, Q2V.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 

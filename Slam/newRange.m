@@ -13,6 +13,8 @@ function r = newRange(vecSize)
 %
 %   See also ADDTOMAP.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 if vecSize > 0

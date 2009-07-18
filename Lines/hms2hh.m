@@ -6,6 +6,8 @@ function [hh,HH_hm,HH_s] = hms2hh(hm,seg)
 %
 %   [HH,HH_hm,HH_s] = ... returns the Jacobians wrt HM and SEG.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 p = seg(1:2);
 q = seg(3:4);
 

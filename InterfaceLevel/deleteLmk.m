@@ -4,6 +4,8 @@ function [Lmk,Obs] = deleteLmk(Lmk,Obs)
 % 	[Lmk,Obs] = DELETELMK(Lmk,Obs) deletes the landmark Lmk from the map
 % 	Map and clears the necessary flags in Lmk and Obs.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 Map.used(Lmk.state.r) = false;

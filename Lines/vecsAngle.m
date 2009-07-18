@@ -1,6 +1,11 @@
 function a = vecsAngle(u,v)
 
 % VECSANGLE  Angle between two vectors.
+%   VECSANGLE(U,V) returns the angle between vectors U and V. The angle is
+%   defined between -pi/2 and pi/2.
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 
 a = acos(dot(u,v)/sqrt(dot(u,u)*dot(v,v)));
 if a > pi/2

@@ -8,7 +8,7 @@ function [l,v,Lk,Ll] = pinHolePlucker(k,L)
 %
 %   See also PINHOLE.
 
-% (c) 2008 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 [u0,v0,au,av] = split(k);
 [L1,L2,L3]    = split(L);

@@ -1,7 +1,13 @@
 function [eu,EUhm] = hmg2euc(hm)
 
 % HMG2EUC Homogeneous to Euclidean point transform.
+%   UMG2EUC(HM) is the Euclidean point corresponding to the homogeneous
+%   point HM.
 %
+%   [e, E_hm] = HMG2EUC(HM) returns the Jacobian of the transformation.
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 
 s = size(hm,1);
 n = size(hm,2);

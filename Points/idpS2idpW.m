@@ -10,7 +10,8 @@ function [idp_W, IDPWidps, IDPWrf, IDPWsf] = idpS2idpW(idp_S, Rf, Sf)
 %   operation but return the jacobians wrt parameters.
 %
 %   See also FROMFRAME, PY2VEC, VEC2PY.
-%
+
+%   Copyright 2009 Jean Marie Codol @ LAAS-CNRS.
 
 
 % Algorithm:

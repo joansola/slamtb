@@ -27,7 +27,7 @@ function kc = invDistortion(kd,n,cal,draw)
 %   and the error (r - r_d).
 %
 
-%     (c) 2006 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if numel(kd) == 0
     kc = [];

@@ -9,6 +9,8 @@ function [e1,e2,E1_l,E2_l,E1_s1,E2_s2] = pluckerEndpoints(L,s1,s2)
 %
 %   See also LS2E, LS2SEG.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 v = L(4:6);
 
 if nargout == 1

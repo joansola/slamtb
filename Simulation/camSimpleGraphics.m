@@ -21,7 +21,7 @@ function c = camSimpleGraphics(csize)
 %
 %   See also CAMGRAPHICS, PATCH, SET, DRAWOBJECT.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargin == 0
     csize = 0.1;

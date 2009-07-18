@@ -11,6 +11,8 @@ function v = thickVehicle(size)
 %   THICKVEHICLE(SIZE) allows for choosing a vehicle size. 
 %   Default is 0.5
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin == 0
     size = 1;
 end

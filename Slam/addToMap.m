@@ -34,7 +34,7 @@ function r = addToMap(x, P_LL, P_LX, r)
 %
 %   See also NEWRANGE, USEDRANGE.
 %
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 global Map
 

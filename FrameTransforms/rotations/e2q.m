@@ -8,7 +8,7 @@ function [q,Qe] = e2q(e)
 %
 %   See also QUATERNION, EULERANGLES, R2Q, Q2E, Q2V.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 qx = au2q(e(1),[1;0;0]); %  roll rot. on X axis

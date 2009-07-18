@@ -4,8 +4,8 @@ function Ld = xyzLinTest(Rob,Sen,Lmk)
 %   LD = XYZLINTEST(ROB,SEN,LMK) return a value with the result of the
 %   linearity test.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS. jsola@laas.fr.
-%   (c) 2009 David Marquez @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2009 David Marquez @ LAAS-CNRS.
 
 global Map
 

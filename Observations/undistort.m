@@ -16,7 +16,7 @@ function [up,UP_ud,UP_undist] = undistort(ud,unDist)
 %
 %   See also INVPINHOLE.
 
-% (c) 2006-2008 Joan Sola @ LAAS-CNRS
+%   Copyright 2006-2009 Joan Sola @ LAAS-CNRS.
 
 
 n = length(unDist);

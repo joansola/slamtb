@@ -13,6 +13,8 @@ function [s,d,S_k,S_si] = pinHoleSegment(k,si)
 %
 %   See also PINHOLE.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 p1 = si(1:3,:);
 p2 = si(4:6,:);
 

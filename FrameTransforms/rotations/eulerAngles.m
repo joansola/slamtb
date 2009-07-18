@@ -33,7 +33,7 @@
 %
 %   See also E2Q, Q2E, E2R, R2E, EPOSE2QPOSE, QPOSE2EPOSE, QUATERNION.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 

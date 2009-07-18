@@ -2,6 +2,8 @@ function drawPlkLin(MapFig,Lmk,color,MapOpt)
 
 % DRAWPLKLIN  Draw Plucker line landmark in MapFig.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 r   = Lmk.state.r; % range

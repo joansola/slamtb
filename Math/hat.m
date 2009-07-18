@@ -16,6 +16,9 @@ function [SQ,SQw] = hat(W)
 %
 %   See also ESSENTIAL.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 if numel(W) == 3;
     SQ = [...
         0    -W(3)  W(2)

@@ -6,6 +6,9 @@ function [qn,QNq] = normquat(q)
 %   [qn,QNq] = NORMQUAT(Q) returns also the Jacobian wrt Q. Note that this
 %   Jacobian is a symmetric 4x4 matrix.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 nq = sqrt(q(:)'*q(:));
 qn = q/nq;
 

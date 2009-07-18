@@ -6,7 +6,7 @@ function [v,Vpy] = py2vec(py)
 %
 %   [V,Vpy] = PY2VEC(...) returns also the Jacobian wrt PY.
 
-% (c) Joan Sola 2008
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 p = py(1,:);
 y = py(2,:);

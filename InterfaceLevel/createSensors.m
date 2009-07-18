@@ -10,7 +10,7 @@ function [Sen,Raw] = createSensors(Sensor)
 %   sensor.
 
 
-% (c) 2009 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 for sen = 1:numel(Sensor)
 

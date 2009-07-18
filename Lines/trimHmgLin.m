@@ -7,7 +7,7 @@ function e = trimHmgLin(H,imSize)
 %
 %   See also TRIMSEGMENT.
 %
-%   (c) 2008-2009 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 %   TRIMHMGLIN(...,MRG) restricts the image size to be smaller in MRG
 %   pixels at its four borders.

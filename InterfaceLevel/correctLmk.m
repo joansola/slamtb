@@ -6,6 +6,8 @@ function [Rob,Sen,Lmk,Obs] = correctLmk(Rob,Sen,Lmk,Obs,Opt)
 %   landmark reparametrization, and non-stochastic landmark correction (for
 %   landmark parameters not maintained in the stochastic map).
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 % EKF correction
 [Rob,Sen,Lmk,Obs] = ekfCorrectLmk(Rob,Sen,Lmk,Obs);
 

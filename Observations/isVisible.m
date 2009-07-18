@@ -15,6 +15,8 @@ function vis = isVisible(pix,depth,imSize,mrg)
 %
 %   See also INSQUARE.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 
 if nargin < 4
     mrg = 0;

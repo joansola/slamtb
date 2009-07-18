@@ -10,7 +10,7 @@ function Map = createMap(Rob,Sen,Opt)
 %       .P      covariances matrix
 %       .size   size of the map
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 R = [Rob.state];

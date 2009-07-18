@@ -37,8 +37,7 @@ function H = house(x,y,z,l,w,h)
 %
 %   See also DRAWSEGMENTSOBJECT, TOFRAMESEGMENT, PINHOLESEGMENT.
 
-
-% (c) 2008 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 switch nargin
     case 0

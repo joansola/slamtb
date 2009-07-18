@@ -7,6 +7,8 @@ function [p0,P0_l] = pluckerOrigin(L)
 %
 %   [p,P_l] = PLUCKERORIGIN(...) returns the Jacobian wrt the line L.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 n = L(1:3);
 v = L(4:6);
 

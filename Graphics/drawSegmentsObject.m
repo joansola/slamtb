@@ -10,7 +10,7 @@ function objHandle = drawSegmentsObject(O,color,lineWidth)
 %
 %   See also HOUSE, DRAWSEGMENTSIMAGE.
 
-%   (c) 2008 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 X = O([1 4],:);
 Y = O([2 5],:);

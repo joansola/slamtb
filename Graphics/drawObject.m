@@ -6,7 +6,7 @@ function  handle = drawObject(handle,Obj,frame)
 %
 %   RH = DRAWOBJECT(CH,Obj,F) ignores the Obj.frame and uses F instead.
 
-% (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 if nargin < 3

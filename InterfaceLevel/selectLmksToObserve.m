@@ -8,6 +8,8 @@ function [lmksToObs,lmksToSkip] = selectLmksToObserve(Obs,N)
 %
 %   See also OBSERVEKNOWNLMKS, SORT.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 Oexp = [Obs.exp];   % expectations structure array
 um   = [Oexp.um];   % uncertainty measures
 

@@ -6,7 +6,7 @@ function Rob = createRobots(Robot)
 %   specified by the user in userData.m. There must be one Robot{} per each
 %   robot considered in the simulation. See userData.m for details.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 for rob = 1:numel(Robot)
 

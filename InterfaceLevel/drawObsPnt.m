@@ -8,7 +8,9 @@ function drawObsPnt(SenFig, Obs, colors)
 %     colors.predicted = 'b'; % blue for only predicted points
 %     colors.updated   = 'c'; % cyan for updated points
 %   OBS is the observation of the couple (landmark/sensor).
-%
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 
 
 posOffset = [0;-15];

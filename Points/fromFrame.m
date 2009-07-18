@@ -22,6 +22,9 @@ function [p_W,Ff,Fp] = fromFrame(F,p_F)
 %
 %   See also FRAME, TOFRAME, Q2PI, QUATERNION, UPDATEFRAME, SPLITFRAME.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 %   [1] Joan Sola, "Towards visual localization, mapping and moving objects
 %   tracking by a moible robot," PhD dissertation, pages 181-183, Institut
 %   National Politechnique de Toulouse, 2007.

@@ -62,7 +62,7 @@
 %   See also Q2QC, QPROD, Q2Q, Q2R, Q2E, Q2V, R2Q, E2Q, V2Q, QPREDICT,
 %   EULERANGLES, EPOSE2QPOSE, QPOSE2EPOSE, FRAME.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 

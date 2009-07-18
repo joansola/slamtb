@@ -6,7 +6,7 @@ function a = pluckerAngle(L)
 %   and v. These vectors should be orthogonal in order for the vector L to
 %   be a line.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 n = L(1:3);
 v = L(4:6);

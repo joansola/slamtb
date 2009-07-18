@@ -12,7 +12,7 @@ function [F,F_r,F_u] = odo3(F,u)
 %
 %   See also FRAME, V2Q, QPROD, QUATERNION.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2005-2009 Joan Sola @ LAAS-CNRS.
 
 dv = u(4:6);
 dx = u(1:3);

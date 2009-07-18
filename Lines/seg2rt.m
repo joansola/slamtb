@@ -6,7 +6,7 @@ function [rt,RT_s] = seg2rt(seg)
 %
 %   [RT, RT_s] = SEG2RT(S) returns the Jacobian of RT wrt S.
 %
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargout == 1
     

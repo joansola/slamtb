@@ -5,6 +5,8 @@ function drawAplLin(MapFig,Lmk,color,MapOpt)
 %   anchored Plucker landmark Lmk, with color CLR. MapOpt is used to
 %   control visibility of some objects, see the code for details.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 r   = Lmk.state.r; % range

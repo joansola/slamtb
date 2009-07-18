@@ -10,6 +10,9 @@ function [i,I_f,I_if] = fromFrameIdp(F,i_F)
 %
 %   [I,I_f,I_if] = FROMFRAMEIDP(...) returns the Jacobians wrt F and IF.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 xf  = i_F(1:3,:);
 pyf = i_F(4:5,:);
 sf  = i_F(6,:);

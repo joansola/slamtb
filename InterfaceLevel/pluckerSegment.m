@@ -4,6 +4,8 @@ function [s, S_l, S_t] = pluckerSegment(l,t)
 %   PLUCKERSEGMENT(L,T) returns a segment [p1;p2] of two endpoints given a
 %   Plucker line L and its two endpoint abscissas in T.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 [e1,e2,E1_l,E2_l,E1_t1,E2_t2] = pluckerEndpoints(l,t(1),t(2));
 
 s = [e1;e2];

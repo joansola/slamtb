@@ -2,6 +2,8 @@ function [q,Q_la,Q_lb] = lines2Epoint(La,Lb)
 
 % LINES2EPOINT Intersection point of 2 Plucker lines. Result in Euclidean.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 na = La(1:3);
 nb = Lb(1:3);
 vb = Lb(4:6);

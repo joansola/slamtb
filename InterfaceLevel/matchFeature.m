@@ -4,6 +4,7 @@ function Obs = matchFeature(Sen,Raw,Obs)
 % 	Obs = MATCHFEATURE(Sen,Raw,Obs) matches one feature in Raw to the predicted
 % 	feature in Obs.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 switch Raw.type
 

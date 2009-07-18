@@ -1,5 +1,12 @@
 function [w, W_f, W_v] = fromFrameVec(F,v)
 
+% FROMFRAMEVEC  From frame function for vectors.
+%   FROMFRAMEVEC(F,V) transforms the 3d vector V from frame F to the global
+%   frame.
+%
+%   [w, W_f, W_v] = FROMFRAMEVEC(...) returns the Jacobians wrt F and V.
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 w = F.R*v;

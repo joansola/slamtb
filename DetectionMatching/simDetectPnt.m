@@ -7,7 +7,7 @@ function [newId, meas, exp, inn] = simDetectPnt(lmkIds, raw, pixCov, imSize)
 %
 %   See also INITNEWLMK, SIMDETECTLIN.
 
-%   Copyright 2009 DavidMarquez @ LAAS-CNRS.
+%   Copyright 2009 David Marquez @ LAAS-CNRS.
 
 apps  = raw.points.app;
 

@@ -17,7 +17,7 @@ function mapObs = mapObserver(world,mapView)
 %
 %   See also CREATEMAPFIG.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 % Observer camera:

@@ -9,6 +9,7 @@ function moreindatatip
 %
 % may 2006
 % Jean-luc.dellis@u-picardie.fr
+
 dcm_obj = datacursormode(gcf);
 if ~isempty(findall(gca,'type','hggroup','marker','square'))% if there is datatip, please delete it
     info_struct = getCursorInfo(dcm_obj);

@@ -20,6 +20,7 @@ function [q1,Uq,Uw] = qpredict(q,w,dt,met)
 %
 %   See also QPROD, W2OMEGA, Q2PI, V2Q, QUATERNION.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 switch nargin
     case 2

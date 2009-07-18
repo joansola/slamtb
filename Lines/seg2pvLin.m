@@ -7,7 +7,7 @@ function [m,M_l] = seg2pvLin(l)
 %   [pvl,PVL_ppl] = SEG2PVLIN(S) returns the Jacobian of the
 %   transformation.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 m(1:3,1) = l(1:3);
 m(4:6,1) = l(4:6)-l(1:3);

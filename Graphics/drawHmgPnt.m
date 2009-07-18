@@ -2,6 +2,8 @@ function drawHmgPnt(MapFig, Lmk, color)
 
 % DRAWHMGPNT  Draw Homogeneous point landmark in MapFig.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 posOffset = [0;0;.2];

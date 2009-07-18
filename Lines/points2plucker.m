@@ -24,6 +24,8 @@ function [L,La,Lb] = points2plucker(A,B)
 %
 %   See also PLANES2PLUCKER.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 
 L = [cross(A(1:3),B(1:3));A(4)*B(1:3)-B(4)*A(1:3)];
 

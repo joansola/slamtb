@@ -6,6 +6,8 @@ function mr = usedRange()
 %
 %   See also NEWRANGE, ADDTOMAP.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 mr = find(Map.used);

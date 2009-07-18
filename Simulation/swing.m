@@ -7,6 +7,8 @@ function wstruct = swing(wsize,color,ax)
 %
 %   See also WING, PATCH.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin < 3
     ax = gca;
 end

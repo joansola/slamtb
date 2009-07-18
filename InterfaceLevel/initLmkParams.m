@@ -2,6 +2,8 @@ function [Lmk,Obs] = initLmkParams(Rob,Sen,Lmk,Obs)
 
 % INITLMKPARAMS  Initialize off-filter landmark parameters.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 % Init internal state

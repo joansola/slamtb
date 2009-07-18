@@ -15,6 +15,9 @@ function [e,t] = intersectPlucker(L,r)
 %
 %   See also PLUCKERORIGIN.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 p0 = pluckerOrigin(L);
 e  = lines2Epoint(L,r);
 

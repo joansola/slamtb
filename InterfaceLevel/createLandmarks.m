@@ -6,6 +6,8 @@ function Lmk = createLandmarks(Opt)
 %   as specified by the user in userData.m. There must be one Landmark{}
 %   per each landmark type considered. See userData.m for details.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 for lmk = 1:Opt.map.numLmks
 
     Lmk(lmk).lmk  = lmk;

@@ -14,6 +14,8 @@ function drawGauss2dPnt(hnds,x,P,color,label,posOffset,ns,NP)
 %   DRAWGAUSS2DPNT(...,NS,NP) accepts the sigma size NS and the number of
 %   points NP for drawing the ellipse.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin < 8
     NP = 10;
     if nargin < 7

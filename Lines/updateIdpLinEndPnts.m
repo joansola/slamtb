@@ -2,6 +2,9 @@ function Lmk = updateIdpLinEndPnts(Rob,Sen,Lmk,Obs,Opt)
 
 % UPDATEIDPLINENDPNTS  Update IDP line endpoints.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 global Map
 
 % 3D landmark, IDL is Inverse Depth Line

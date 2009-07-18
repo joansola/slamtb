@@ -2,6 +2,8 @@ function drawEucPnt(MapFig, Lmk, color)
 
 % DRAWEUCPNT  Draw Euclidean point landmark in MapFig.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 global Map
 
 posOffset = [0;0;.2];

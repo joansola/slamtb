@@ -12,7 +12,7 @@ function [L,L_f,L_lf] = fromFrameAPlucker(F,Lf)
 %   [L,L_f,L_lf] = FROMFRAMEAPLUCKER(F,Lf) returns the Jacobians wrt F and
 %   Lf.
 
-% (c) 2008 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 xf = Lf(1:3);
 nf = Lf(4:6);

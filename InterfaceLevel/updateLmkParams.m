@@ -14,6 +14,8 @@ function Lmk = updateLmkParams(Rob,Sen,Lmk,Obs,Opt)
 %
 %   See also EKFCORRECTLMK, UPDATEPLKLINENDPNTS.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 switch Sen.type
 
     case 'pinHole'

@@ -8,6 +8,7 @@ function SenFig = drawSenFig(SenFig, Sen, Raw, Obs, FigOpt)
 %
 %   See also CREATESENFIG, DRAWMAPFIG.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % Sensor type:
 % ------------

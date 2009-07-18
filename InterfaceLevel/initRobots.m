@@ -8,7 +8,7 @@ function Rob = initRobots(Rob)
 %       setting Rob's mean and cov. matrices in Map
 %       setting all Map.used positions in the range to true
 
-% (c) 2009 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 for rob = 1:numel(Rob)

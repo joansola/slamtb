@@ -9,7 +9,7 @@ function  Raw = simObservation(SimRob, SimSen, SimLmk, Opt)
 %
 %   See also SIMMOTION PROJEUCPNTINTOPINHOLEONROB
 
-%   (c) 2009 David Marquez @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 Raw.type = 'simu';
 

@@ -10,6 +10,8 @@ function [i_F,IF_f,IF_i] = toFrameIdp(F,i)
 %
 %   [IF,IF_f,IF_i] = TOFRAMEIDP(...) returns the Jacobians wrt F and I.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 x  = i(1:3,:);
 py = i(4:5,:);
 s  = i(6,:);

@@ -7,7 +7,7 @@ function [q,Qq1,Qq2] = qProd(q1,q2)
 %
 %   See also QUATERNION, R2Q, Q2E, Q2V.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 [a,b,c,d] = split(q1);

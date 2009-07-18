@@ -7,6 +7,8 @@ function imgFrame(fig,file,ax)
 %   IMGFRAME(FIG,FILE,AX) uses the contents of axes AX in
 %   figure FIG instead.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 figure(fig)
 if nargin < 3
     frmh = fig;

@@ -13,7 +13,7 @@ function Rob = motion(Rob, Tim)
 %
 %   See also SIMMOTION, CONSTVEL, ODO3, UPDATEFRAME.
 
-%   (c) 2009 David Marquez @ LAAS-CNRS.
+%   Copyright 2009 David Marquez @ LAAS-CNRS.
 
 global Map
 

@@ -40,7 +40,7 @@ function [p,P_u,P_s,P_k,P_c] = invPinHole(u,s,k,c)
 %
 %   See also RETRO, UNDISTORT, DEPIXELLISE, PINHOLE.
 
-% (c) 2009 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 if nargout == 1 % only point

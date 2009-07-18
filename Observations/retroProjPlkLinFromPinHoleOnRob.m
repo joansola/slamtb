@@ -16,6 +16,9 @@ function [l, L_rf, L_sf, L_sk, L_hm, L_beta] = ...
 %
 %   See also INVPINHOLEIDP, FROMFRAMEIDP.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 % Frame World -> Robot  :  Rf
 % Frame Robot -> Sensor :  Sf
 

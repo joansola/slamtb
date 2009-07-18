@@ -25,6 +25,9 @@ function [t,p1,p2] = intersectSegments(l1,l2)
 %
 %   See also INTERSECTPVLINES, SEG2PVLIN.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 m1 = seg2pvLin(l1);
 m2 = seg2pvLin(l2);
 

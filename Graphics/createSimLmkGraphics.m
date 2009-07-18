@@ -11,6 +11,8 @@ function handle = createSimLmkGraphics(SimLmk,colr,ax,showSimLmk)
 %   objects. PH for one 'line' object with all points. 'SH' for N 'line'
 %   objects, one for each segment.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin < 3
     ax = gca;
 end

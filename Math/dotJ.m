@@ -8,6 +8,9 @@ function [d,Da,Db] = dotJ(a,b)
 %       Da = B'
 %       Db = A'
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 d = dot(a,b);
 Da = b';
 Db = a';

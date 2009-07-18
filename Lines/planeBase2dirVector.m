@@ -11,6 +11,8 @@ function [b,Ba,Bbeta] = planeBase2dirVector(a,beta)
 %
 %   See also PLANEVEC2PLANEBASE.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 E = planeVec2planeBase(a);
 
 b = E*beta;

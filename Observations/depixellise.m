@@ -8,6 +8,8 @@ function [uu,Up,Uc] = depixellise(pix,cal)
 %
 %   See also INVPINHOLE.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 u0 = cal(1);
 v0 = cal(2);
 au = cal(3);

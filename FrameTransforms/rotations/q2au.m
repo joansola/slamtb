@@ -5,6 +5,8 @@ function [a,u] = q2au(q)
 %   defined by the unity vector U, that is equivalent to that
 %   defined by the quaternion Q
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 u = q(2:4);
 u = u/norm(u);
 

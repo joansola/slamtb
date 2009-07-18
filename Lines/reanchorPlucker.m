@@ -5,6 +5,9 @@ function [L1,L1_l,L1_x1] = reanchorPlucker(L0,x1)
 %
 %   [L1,L1_l,L1_x] = REANCHORPLUCKER(L,X) returns the Jacobians.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 x0 = L0(1:3);
 n0 = L0(4:6);
 v0 = L0(7:9);

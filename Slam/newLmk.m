@@ -6,7 +6,7 @@ function lmk = newLmk(Lmk)
 %
 %   See also NEWRANGE, INITNEWLMKS.
 
-% Copyright 2009-2009 Joan sola @ LAAS-CNRS.
+%   Copyright 2009-2009 Joan sola @ LAAS-CNRS.
 
 lmk = find(~[Lmk.used],1,'first');
 

@@ -23,6 +23,9 @@ function [u,s,U_r,U_s,U_pk,U_pd,U_l]  = projIdpPntIntoPinHoleOnRob(Rf, Sf, Spk, 
 %
 %    See also PINHOLE, TOFRAME, PROJEUCPNTINTOPINHOLEONROB.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 if nargout <= 2  % No Jacobians requested
 
     p     = idp2euc(l);

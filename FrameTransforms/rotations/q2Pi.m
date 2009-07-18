@@ -18,6 +18,7 @@ function Pi = q2Pi(q)
 %
 %   See also W2OMEGA, Q2R
     
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 Pi = [-q(2) -q(3) -q(4)
        q(1) -q(4)  q(3)

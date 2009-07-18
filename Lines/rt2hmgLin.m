@@ -7,7 +7,7 @@ function [hm,HMrt] = rt2hmgLin(rt)
 %
 %   [hm, HM_rt] = RT2HMGLIN(...) returns the Jacobian matrix.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 rho   = rt(1);
 theta = rt(2);

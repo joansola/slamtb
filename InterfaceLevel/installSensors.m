@@ -5,7 +5,7 @@ function [Rob,Sen] = installSensors(Rob,Sen)
 %   the robot Rob(rob), with rob = Sen(sen).robot. Installation is done
 %   by augmenting the vector in field Rob(rob).sensors with the new sensor.
 
-% (c) 2009 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 for sen = 1:numel(Sen)

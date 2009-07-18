@@ -12,6 +12,8 @@ function [X,Y,Z] = cov3elli(x,P,ns,NP)
 %
 %   See also COV2ELLI, IDP3ELLI, LINE.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 persistent circle
 
 % Basic shape: 2 circles at 90 degrees, with the pole at the major axis X.

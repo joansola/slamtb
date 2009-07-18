@@ -5,6 +5,8 @@ function SimLmk = createSimLmk(World)
 %   from information contained in the user-defined World structure. See
 %   userData.m for the specification of this input structure.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if isempty(World.points)
     World.points = zeros(3,0);
 end

@@ -22,6 +22,9 @@ function [s, d, S_rf, S_sf, S_k, S_seg] = ...
 %
 %   See also TOFRAMESEGMENT, PINHOLESEGMENT, PROJEUCPNTINTOPINHOLEONROB.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 
 if nargout <= 2
     

@@ -10,7 +10,7 @@ function [r,Rr,Rv,Ra] = rpredict(r,v,a,dt)
 %
 %   See also VPREDICT, QPREDICT.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if nargin == 3
     dt = a;

@@ -3,6 +3,9 @@ function [l, L_rf, L_sf, L_k, L_seg, L_n] = ...
 
 % RETROPROJIDPLINFROMPINHOLEONROB retroprj Idp Line from pinhole on robot.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 if nargout == 1
     
     ls = invPinHoleIdpLin(k, seg, n) ;

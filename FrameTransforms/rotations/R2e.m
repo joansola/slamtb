@@ -4,7 +4,7 @@ function e = R2e(R)
 %
 %   See also FRAME.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
 

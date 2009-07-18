@@ -6,6 +6,8 @@ function handle = createGround(SimLmk,ax,color)
 %
 %   GH = CREATEGROUND(...) returns a handle to the 'surface' object.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargin < 2
     ax = gca;
 end

@@ -26,6 +26,8 @@ function [p_F,Tf,Tp] = toFrame(F,p_W)
 %   tracking by a moible robot," PhD dissertation, pages 181-183, Institut
 %   National Politechnique de Toulouse, 2007.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 s = size(p_W,2); % number of points in input matrix
 
 [t,q,R,Rt,Pi,Pc] = splitFrame(F);

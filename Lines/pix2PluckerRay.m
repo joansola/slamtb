@@ -6,6 +6,8 @@ function [L,L_u,L_k] = pix2PluckerRay(k,u)
 %
 %   [R, R_k, R_u] = PIX2PLUCKERRAY(...) returns the Jacobians wrt K and U.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 if nargout == 1
 
     n = [0;0;0];

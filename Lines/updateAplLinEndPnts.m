@@ -7,6 +7,9 @@ function Lmk = updateAplLinEndPnts(Rob,Sen,Lmk,Obs,Opt)
 %
 %   See also UPDATELMKPARAMS, RETROPROJAPLENDPNTS.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 [seg, t] = retroProjAplEndPnts(Rob,Sen,Lmk,Obs);
 
 if Opt.correct.lines.extPolicy

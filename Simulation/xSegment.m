@@ -4,6 +4,8 @@ function s = xSegment(x1,x2,y,z)
 %   XSEGMENT(X1,X2,Y,Z) makes an horizontal segment at the plane
 %   location (Y,Z) from depths X1 to X2.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
 s = [x1;y;z;x2;y;z];
 
 

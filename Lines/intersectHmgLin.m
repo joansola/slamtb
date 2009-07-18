@@ -11,6 +11,9 @@ function [p,Ph1,Ph2] = intersectHmgLin(h1,h2,euc)
 %
 %   See also PP2HMGLIN.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 if nargout == 1
 
     p = cross(h1,h2);

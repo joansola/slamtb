@@ -12,7 +12,7 @@ function idl = app2idpLin(p0,p1,p2)
 %       Mi are the pitch and yaw director angles of the ray P0-Pi
 %       Ri is the inverse of the distance from P0 to Pi
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % the director rays vectors
 v1 = p1-p0;

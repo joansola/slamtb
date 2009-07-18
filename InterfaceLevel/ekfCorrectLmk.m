@@ -13,7 +13,7 @@ function [Rob,Sen,Lmk,Obs] = ekfCorrectLmk(Rob,Sen,Lmk,Obs)
 %
 %    See also CORRECTKNOWNLMKS, PROJECTLMK.
 
-%   (c) 2009 David Marquez @ LAAS-CNRS.
+%   Copyright 2009 David Marquez @ LAAS-CNRS.
 
 % get landmark range
 lr = Lmk.state.r ;        % lmk range in Map

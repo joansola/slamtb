@@ -6,7 +6,7 @@ function [a,u,Av,Uv] = v2au(v)
 %
 %   [ALPHA,U,Av,Uv] = V2AU(...) returns the Jacobians of ALPHA and U wrt V.
 
-%   (c) 2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 v = v(:);
 a = sqrt(dot(v,v));

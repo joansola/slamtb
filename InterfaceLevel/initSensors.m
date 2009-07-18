@@ -8,7 +8,7 @@ function Sen = initSensors(Sen)
 %       setting Sen's mean and cov. matrices in Map
 %       setting all Map.used positions in the range to 'true'.
 
-% (c) 2009 Joan Sola @ LAAS-CNRS
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 for sen = 1:numel(Sen)
 

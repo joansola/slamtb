@@ -5,6 +5,9 @@ function [L,L_al] = unanchorPlucker(aL)
 %
 %   [L,L_Al] = UNANCHORPLUCKER(L,X) returns the Jacobians.
 
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+
+
 ax = aL(1:3);
 an = aL(4:6);
 av = aL(7:9);

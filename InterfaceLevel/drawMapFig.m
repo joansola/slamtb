@@ -1,4 +1,4 @@
-function drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen, FigOpt)
+function MapFig = drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen, FigOpt)
 
 % DRAWMAPFIG  Redraw the 3D map figure.
 %   DRAWMAPFIG(MAPFIG, ROB, SEN, LMK, SIMROB, SIMSEN) updates all

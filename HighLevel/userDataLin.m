@@ -91,7 +91,7 @@ Sensor{1} = struct(...
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [320;240],...   % image size
-  'pixErrorStd',        0.2,...         % pixel error std
+  'pixErrorStd',        0.1,...         % pixel error std
   'intrinsic',          [160;120;160;160],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
@@ -152,8 +152,8 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'active',         true,...         % select new random seed?
-    'fixedSeed',      1,...            % random seed for non-random runs
+    'newSeed',        false,...         % select new random seed?
+    'fixedSeed',      211236,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 
@@ -181,8 +181,8 @@ FigOpt = struct(...
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
-    'view',         [-60 20 40 20],... % viewpoint of the 3d figure [30 45 40 20]
-    'orbit',        [0.25 0.05],... % AZ and EL orbit angle increments
+    'view',         [-60 20 40 17],... % viewpoint of the 3d figure [30 45 40 20]
+    'orbit',        [0.25 0.05],... % AZ and EL orbit angle increments - [0.25 0.05]
     'size',         [320 240],...   % map figure size
     'showSimLmk',   false,...       % show simulated landmarks?
     'showEllip',    true,...        % show ellipsoids?

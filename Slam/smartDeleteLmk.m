@@ -2,8 +2,8 @@ function [Lmk,Obs] = smartDeleteLmk(Lmk,Obs)
 
 % SMARTDELETELMK  Smart deletion of landmarks.
 %   [Lmk,Obs] = SMARTDELETELMK(Lmk,Obs) detetes landmark Lmk if:
-%       * the ratio between inliers and searches is smaller than 0.5, and 
-%       * the number of searches is at least 10. 
+%       * the ratio between inliers and searches is smaller than 0.5, and
+%       * the number of searches is at least 10.
 %   Structure Obs, which must refer to the same landmark, is updated
 %   accordingly.
 %
@@ -12,11 +12,16 @@ function [Lmk,Obs] = smartDeleteLmk(Lmk,Obs)
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 if Lmk.nSearch >= 10
-    
-    ratio = Lmk.nInlier/Lmk.nSearch;
-    
-    if ratio < 0.5
-    
+
+    matchRatio       = Lmk.nMatch  / Lmk.nSearch;
+    consistencyRatio = Lmk.nInlier / Lmk.nMatch;
+
+    if matchRatio < 0.1 
+        fprintf('Deleted unstable landmark ''%d''.\n',Lmk.id)
+        [Lmk,Obs] = deleteLmk(Lmk,Obs);
+    end
+
+    if consistencyRatio < 0.5
         fprintf('Deleted inconsistent landmark ''%d''.\n',Lmk.id)
         [Lmk,Obs] = deleteLmk(Lmk,Obs);
     end
@@ -48,7 +53,7 @@ end
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

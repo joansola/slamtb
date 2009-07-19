@@ -109,6 +109,8 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP
     % Init off-filter landmark params
     [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk));
     
+    fprintf('Initialized landmark ''%d''.\n',Lmk(lmk).id)
+
     
 end
 

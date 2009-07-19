@@ -1,6 +1,6 @@
 function r = YZRectangle(x,y1,y2,z1,z2)
 
-% YZRECTANGLE rectangle in the YZ plane.
+%YZRECTANGLE Rectangle in the YZ plane.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 

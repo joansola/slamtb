@@ -1,6 +1,6 @@
 function v = thickVehicle(size)
 
-% THICKVEHICLE  creates a vehicle graphics 3D object.
+%THICKVEHICLE Create a vehicle graphics 3D object.
 %
 %   THICKVEHICLE creates a thick triangle representing a vehicle
 %   This triangle is heading towards vehicle principal axis

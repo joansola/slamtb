@@ -1,6 +1,6 @@
 function v = wing(size)
 
-% WING  creates a wing graphics 3D object.
+%WING Create a wing graphics 3D object.
 %   WING creates a multi-patch object representing a plane, sort of a
 %   hang-glider wing.
 %   

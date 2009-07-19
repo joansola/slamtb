@@ -54,8 +54,8 @@ switch SimSen.type
             Raw.data.segments.coord,...
             s,...
             SimSen.par.imSize,...
-            0,...                     % 10 pix margin
-            Opt.obs.lines.minLength);  % min 10 pixels long
+            0,...                      % N pixels margin
+            Opt.obs.lines.minLength);  % min segment length
         Raw.data.segments.coord(:, ~vis)  = [];
         Raw.data.segments.app(~vis) = [];
         

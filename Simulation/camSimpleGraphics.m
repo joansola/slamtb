@@ -1,6 +1,6 @@
 function c = camSimpleGraphics(csize)
 
-% CAMSIMPLEGRAPHICS  creates a simple camera graphics 3D object.
+%CAMSIMPLEGRAPHICS Create a simple camera graphics 3D object.
 %   CAMGRAPHICS creates a solid representing a camera. The objective is
 %   heading towards the camera optical axis and is located at camera
 %   position. Initial configuration is: position at origin and optical

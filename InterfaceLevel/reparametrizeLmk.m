@@ -44,6 +44,9 @@ switch Lmk.type
             Lmk.type  = 'eucPnt'; % new type
             Obs.ltype = 'eucPnt'; % new type
             
+            % fprintf('Reparametrized landmark ''%d'': ''idpPnt'' --> ''eucPnt''.\n', Lmk.id)
+
+            
         end
         
     case {'eucPnt'}

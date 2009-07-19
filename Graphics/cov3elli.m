@@ -14,12 +14,12 @@ function [X,Y,Z] = cov3elli(x,P,ns,NP)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-persistent circle
+persistent spheroid
 
 % Basic shape: 2 circles at 90 degrees, with the pole at the major axis X.
-if isempty(circle)
+if isempty(spheroid)
     alpha = 2*pi/NP*(0:NP);
-    circle = [...
+    spheroid = [...
         cos(alpha)    cos(alpha)
         sin(alpha)    zeros(1,NP+1)
         zeros(1,NP+1) sin(alpha)];
@@ -29,8 +29,8 @@ end
 [R,D] = svd(P);
 d     = sqrt(D);
 
-% circle -> aligned ellipse -> rotated ellipse -> ns-ellipse
-ellip = ns*R*d*circle;
+% spheroid -> aligned ellipsoid -> rotated ellipsoid -> ns-ellipsoid
+ellip = ns*R*d*spheroid;
 
 % output ready for plotting (X, Y and Z line vectors), offset by x
 X = x(1)+ellip(1,:);

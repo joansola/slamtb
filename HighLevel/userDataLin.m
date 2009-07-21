@@ -199,7 +199,7 @@ FigOpt = struct(...
         'ellip',    [1 .7 .7]),...    % ellipsoid
       'plkLin',     struct(...       % Plucker line colors
         'mean',     [0 .8 0],...           % mean line
-        'ellip',    [1 1 .7]),...    % ellipsoid
+        'ellip',    [.7 1 .7]),...    % ellipsoid
       'simu',       'g',...          %   or 'r', 'b', etc.   
       'est',        'b',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors

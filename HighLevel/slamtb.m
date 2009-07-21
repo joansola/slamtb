@@ -32,7 +32,7 @@ global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 
-userDataLin;      % user-defined data. SCRIPT.
+userData;        % user-defined data. SCRIPT.
 
 
 %% II. Initialize all data structures from user-defined data in userData.m

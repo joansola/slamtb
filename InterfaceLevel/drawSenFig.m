@@ -28,10 +28,10 @@ switch Sen.type
         drawn = SenFig.drawn;
         erase = drawn & ~vis;
         if any(erase)
-            set(SenFig.measure(erase),'vis','off');
-            set(SenFig.mean(erase),   'vis','off');
-            set(SenFig.ellipse(erase,:),'vis','off');
-            set(SenFig.label(erase),  'vis','off');
+            set(SenFig.measure(erase),   'vis', 'off');
+            set(SenFig.mean(erase),      'vis', 'off');
+            set(SenFig.ellipse(erase,:), 'vis', 'off');
+            set(SenFig.label(erase),     'vis', 'off');
             SenFig.drawn(erase) = false;
         end
 

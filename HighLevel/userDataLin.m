@@ -91,7 +91,7 @@ Sensor{1} = struct(...
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [320;240],...   % image size
-  'pixErrorStd',        0.1,...         % pixel error std
+  'pixErrorStd',        0.2,...         % pixel error std
   'intrinsic',          [160;120;160;160],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
@@ -141,11 +141,11 @@ Opt = struct(...
       'nonObsMean',   [.1;0],...     % mean of non obs
       'nonObsStd',    [.25;1]),...   % std of non obs
     'idpLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
-      'nonObsMean',   [.1;.1],...     % mean of non obs
-      'nonObsStd',    [.5;.5])),...   % std of non obs
+      'nonObsMean',   [.2;.2],...     % mean of non obs
+      'nonObsStd',    [.1;.1])),...   % std of non obs
   'obs',              struct(...    % Observation options
     'lines',          struct(...     % lines options
-      'minLength',    20)));          % minimum segment length
+      'minLength',    10)));          % minimum segment length
         
 
 % Simulation options

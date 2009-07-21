@@ -1,4 +1,4 @@
-function drawLmk(MapFig,Lmk,MapOpt)
+function MapFig = drawLmk(MapFig,Lmk,MapOpt)
 
 % DRAWLMK  Draw 3D landmark.
 %   DRAWLMK(MapFig,Lmk) draws 3D landmark Lmk into the map figure by

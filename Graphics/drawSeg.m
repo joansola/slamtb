@@ -1,38 +1,29 @@
-function drawIdpLin(MapFig,Lmk,color,MapOpt)
+function drawSeg(h,x,c)
 
-% DRAWIDPLIN  Draw inverse-depth line landmark in MapFig.
+% DRAWPNT  Draw 2D or 3D segment with color.
+%   DRAWPNT(H,S) Draws 2D or 3D segment S=[p1;p2] with handle H.
+%
+%   DRAWPNT(H,S,C) uses color C.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-global Map
+if numel(x) == 4
 
-r   = Lmk.state.r; % range
-idl = Map.x(r); % mean
-IDL = Map.P(r,r); % covariances matrix
-t   = [Lmk.par.endp.t]'; % abscissas of endpoints, t = [t1;t2]
+    set(h,'xdata',x([1 3]),'ydata',x([2 4]),'vis','on')
 
-% extract endpoints - mean and covariance
-[e1,e2,E1_idl,E2_idl] = idpLinEndpoints(idl,t(1),t(2));
-E1 = E1_idl*IDL*E1_idl';
-E2 = E2_idl*IDL*E2_idl';
+elseif numel(x) == 6
 
-% the mean:
-drawSeg(MapFig.Lmk(Lmk.lmk).mean,[e1;e2],color.mean)
+    set(h,'xdata',x([1 4]),'ydata',x([2 5]),'zdata',x([3 6]),'vis','on')
 
-% the covariance ellipses
-if MapOpt.showEllip
-    drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse(1), e1, E1, color.ellip)
-    drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse(2), e2, E2, color.ellip)
+else
+
+    error('??? Size of vector ''x'' not correct.')
+
 end
 
-% the label
-e = e2-e1;
-n = null([e e e]); 
-n = n(:,2)*sign(n(3,2)); % Inverse depth line's normal vector
-posOffset = 0.2*n;     % label orthogonally out of the line.
-drawLabel(MapFig.Lmk(Lmk.lmk).label,0.5*(e1+e2) + posOffset,num2str(Lmk.id))
-
-
+if nargin == 3
+    set(h,'color',c)
+end
 
 % ========== End of function - Start GPL license ==========
 
@@ -58,7 +49,7 @@ drawLabel(MapFig.Lmk(Lmk.lmk).label,0.5*(e1+e2) + posOffset,num2str(Lmk.id))
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

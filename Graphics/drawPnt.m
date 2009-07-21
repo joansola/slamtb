@@ -1,35 +1,29 @@
-function drawPnt(pntHandles,x,P,color)
+function drawPnt(h,x,c)
 
-% DRAWPNT  Draw 3D Gaussian point with covariance and label.
+% DRAWPNT  Draw 3D point with color.
+%   DRAWPNT(H,X) Draw 2D or 3D point with handle H at position X.
+%
+%   DRAWPNT(H,X,C) uses color C.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-posOffset = [0;0;.2];
+if numel(x) == 2
 
-% the expectation's mean:
-set(pntHandles.mean,...
-    'xdata',   x(1),...
-    'ydata',   x(2),...
-    'zdata',   x(3),...
-    'color',   satColor(color),...
-    'visible', 'on');
+    set(h,'xdata',x(1),'ydata',x(2),'vis','on')
 
-% the expectation's ellipse
-[X,Y,Z] = cov3elli(x, P, 3, 10) ;
-set(pntHandles.ellipse,...
-    'xdata',   X,...
-    'ydata',   Y,...
-    'zdata',   Z,...
-    'color',   color,...
-    'visible', 'on');
+elseif numel(x) == 3
 
-% the label
-set(pntHandles.label,...
-    'position', x + posOffset,...
-    'string',   num2str(Lmk.id),...
-    'visible',  'on');
+    set(h,'xdata',x(1),'ydata',x(2),'zdata',x(3),'vis','on')
 
+else
 
+    error('??? Size of vector ''x'' not correct.')
+
+end
+
+if nargin == 3
+    set(h,'color',c)
+end
 
 % ========== End of function - Start GPL license ==========
 
@@ -55,7 +49,7 @@ set(pntHandles.label,...
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

@@ -1,36 +1,13 @@
-function drawIdpLin(MapFig,Lmk,color,MapOpt)
+function drawLabel(h,x,t)
 
-% DRAWIDPLIN  Draw inverse-depth line landmark in MapFig.
+% DRAWLABEL Draw label in 2D or 3D plot.
+%   DRAWLABEL(H,P,T) redraws the label in handle H at position P
+%   and with text T.
 
-%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2009 Joan Sola @ LAAS-CNRS.
 
-global Map
-
-r   = Lmk.state.r; % range
-idl = Map.x(r); % mean
-IDL = Map.P(r,r); % covariances matrix
-t   = [Lmk.par.endp.t]'; % abscissas of endpoints, t = [t1;t2]
-
-% extract endpoints - mean and covariance
-[e1,e2,E1_idl,E2_idl] = idpLinEndpoints(idl,t(1),t(2));
-E1 = E1_idl*IDL*E1_idl';
-E2 = E2_idl*IDL*E2_idl';
-
-% the mean:
-drawSeg(MapFig.Lmk(Lmk.lmk).mean,[e1;e2],color.mean)
-
-% the covariance ellipses
-if MapOpt.showEllip
-    drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse(1), e1, E1, color.ellip)
-    drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse(2), e2, E2, color.ellip)
-end
-
-% the label
-e = e2-e1;
-n = null([e e e]); 
-n = n(:,2)*sign(n(3,2)); % Inverse depth line's normal vector
-posOffset = 0.2*n;     % label orthogonally out of the line.
-drawLabel(MapFig.Lmk(Lmk.lmk).label,0.5*(e1+e2) + posOffset,num2str(Lmk.id))
+set(h,'position',x,'string',t,'vis','on')
+    
 
 
 

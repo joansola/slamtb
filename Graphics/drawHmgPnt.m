@@ -15,7 +15,9 @@ posOffset = [0;0;.2];
     @hmg2euc);
 
 % draw
-drawGauss3dPnt(MapFig.Lmk(Lmk.lmk),x,P,color,num2str(Lmk.id),posOffset);
+drawPnt    (MapFig.Lmk(Lmk.lmk).mean,    x,    color.mean)
+drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
+drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
 
 
 

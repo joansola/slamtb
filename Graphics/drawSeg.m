@@ -1,9 +1,9 @@
 function drawSeg(h,x,c)
 
-% DRAWPNT  Draw 2D or 3D segment with color.
-%   DRAWPNT(H,S) Draws 2D or 3D segment S=[p1;p2] with handle H.
+% DRAWSEG  Draw 2D or 3D segment with color.
+%   DRAWSEG(H,S) Draws 2D or 3D segment S=[p1;p2] with handle H.
 %
-%   DRAWPNT(H,S,C) uses color C.
+%   DRAWSEG(H,S,C) uses color C.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 

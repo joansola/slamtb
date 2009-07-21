@@ -10,9 +10,12 @@
 %   createLmkGraphics    - Create landmark graphics.
 %   createGround         - Create ground graphics.
 %   createSimLmkGraphics - Create simulated landmark graphics.
+%   drawPnt              - Draw 3D point with color.
+%   drawEllipse          - Draw 2D ellipse or 3D ellipsoid.
+%   drawLabel            - Draw label in 2D or 3D plot.
+%   drawSeg              - Draw 2D or 3D segment with color.
 %   drawObject           - Draw 3D object graphics.
 %   drawLmk              - Draw 3D landmark.
-%   drawPnt              - Draw 3D Gaussian point with covariance and label.
 %   drawRaw              - Draw raw sensor data.
 %   drawEucPnt           - Draw Euclidean point landmark in MapFig.
 %   drawIdpPnt           - Draw inverse-depth point landmark in MapFig.
@@ -21,11 +24,9 @@
 %   drawAplLin           - Draw anchored Plucker line landmark in MapFig.
 %   drawIdpLin           - Draw inverse-depth line landmark in MapFig.
 %   drawRawLines         - Draw raw lines.
-%   drawRawPnts          - Draw raw lines.
+%   drawRawPnts          - Draw raw points.
 %   drawSegmentsImage    - Draw segments 2D object.
 %   drawSegmentsObject   - Draw segments object.
-%   drawGauss2dPnt       - Draw Gaussian 2d point.
-%   drawGauss3dPnt       - Draw Gaussian 3d point
 %
 % Figues, colors and other
 %   mapObserver          - Define observer camera for map plots.

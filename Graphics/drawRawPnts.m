@@ -1,6 +1,6 @@
 function drawRawPnts(SenFig,Raw)
 
-% DRAWRAWPNTS  Draw raw lines.
+% DRAWRAWPNTS  Draw raw points.
 %   DRAWRAWPNTS(SENFIG,RAW)  redraws the 2D points in RAW on figure SenFig.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.

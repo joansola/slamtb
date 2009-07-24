@@ -12,7 +12,7 @@ global Map
 if Sen.frameInMap
 
     % normalize quaternion in Map - mean and covariance
-    [Map.x(Rob.frame.r(4:7)),NQ_q] = normvec(Map.x(Rob.frame.r(4:7)),1);
+    [Map.x(Sen.frame.r(4:7)),NQ_q] = normvec(Map.x(Sen.frame.r(4:7)),1);
     Map.P(Sen.frame.r(4:7),Map.used) = NQ_q*Map.P(Sen.frame.r(4:7),Map.used);
     Map.P(Map.used,Sen.frame.r(4:7)) = Map.P(Map.used,Sen.frame.r(4:7))*NQ_q';
     

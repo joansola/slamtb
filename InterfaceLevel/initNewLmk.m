@@ -35,12 +35,18 @@ end
 
 % get free space in the Map.
 r = newRange(lmkSize);
-if numel(r) < lmkSize
+% index to first free Idp lmk
+lmk = newLmk(Lmk);
+
+if (numel(r) < lmkSize) 
+%     disp('!!! Map full. Unable to initialize landmark.')
+    return
+end
+if isempty(lmk)
+%     disp('!!! Lmk structure array full. Unable to initialize new landmark.')
     return;
 end
 
-% index to first free Idp lmk
-lmk = newLmk(Lmk);
 
 % Feature detection
 switch Raw.type

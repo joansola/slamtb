@@ -15,7 +15,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            400);           % last frame #
+  'lastFrame',            800);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -111,12 +111,12 @@ Sensor{1} = struct(...
 % Estimation options 
 Opt = struct(...
   'map',              struct(...    % options for the map
-    'numLmks',        75,...         % number of 3d landmarks
-    'lmkSize',        4),...         % Size of landmark
+    'numLmks',        73,...         % number of 3d landmarks
+    'lmkSize',        3),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
     'nUpdates',       8,...          % max simultaneus updates
-    'MD2th',          9,...          % Threshold on Mahalanobis distance
+    'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
       'innType',      'ortDst',...    % innovation type for lines
@@ -145,7 +145,7 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'newSeed',        false,...         % select new random seed?
+    'newSeed',        true,...         % select new random seed?
     'fixedSeed',      211236,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
@@ -184,15 +184,18 @@ FigOpt = struct(...
       'axes',       [0 0 0],...      % with:
       'bckgnd',     [1 1 1],...      %   [0 0 0] black
       'simLmk',     .3*[1 1 1],...   %   [1 1 1] white
-      'eucPnt',     struct(...       % euclidean point colors
+      'defPnt',     struct(...       % euclidean point colors
         'mean',     'b',...           % mean dot
         'ellip',    [.7 .7 1]),...    % ellipsoid
       'othPnt',     struct(...       % other point colors
         'mean',     'r',...           % mean dot
         'ellip',    [1 .7 .7]),...    % ellipsoid
-      'plkLin',     struct(...       % Plucker line colors
-        'mean',     [0 .8 0],...           % mean line
+      'defLin',     struct(...       % Plucker line colors
+        'mean',     [0 .8 0],...      % mean line
         'ellip',    [.6 1 .6]),...    % ellipsoid
+      'othLin',     struct(...       % Plucker line colors
+        'mean',     [.8 0 0],...      % mean line
+        'ellip',    [1 .6 .6]),...    % ellipsoid
       'simu',       'g',...          %   or 'r', 'b', etc.   
       'est',        'b',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors
@@ -205,16 +208,20 @@ FigOpt = struct(...
       'axes',       [0 0 0],...       % 
       'bckgnd',     [1 1 1],...       %
       'raw',        .3*[1 1 1],...    % 
-      'eucPnt',     struct(...       % euclidean point colors
+      'defPnt',     struct(...       % euclidean point colors
         'updated',  'c',...           % updated
         'predicted','b'),...          % predicted
       'othPnt',     struct(...       % other point colors
         'updated',  'r',...           % updated
         'predicted','m'),...          % predicted
-      'plkLin',     struct(...       % Plucker line colors
+      'defLin',     struct(...       % Plucker line colors
         'meas',     'b',...           % measurement
         'mean',     'g',...           % mean line
         'ellip',    'y'),...          % ellipsoid
+      'othLin',     struct(...       % Plucker line colors
+        'meas',     'b',...           % measurement
+        'mean',     'm',...           % mean line
+        'ellip',    'r'),...          % ellipsoid
       'label',      [.5 .5 .5])));    %
 
 

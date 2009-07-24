@@ -1,4 +1,4 @@
-function Obs = projectLmk(Rob,Sen,Lmk,Obs)
+function Obs = projectLmk(Rob,Sen,Lmk,Obs,Opt)
 
 % PROJECTLMK  Project landmark estimate into sensor's measurement space.
 %   Obs = PROJECTLMK(Rob,Sen,Lmk,Obs) projects the landmark Lmk into sensor
@@ -175,7 +175,7 @@ switch Sen.type
                     si); 
                 
                 % segment visibility
-                [s,vis] = visibleSegment(s,d,Sen.par.imSize);
+                [s,vis] = visibleSegment(s,d,Sen.par.imSize,0,Opt.obs.lines.minLength);
 
 
             otherwise % unknown landmark type for pin hole sensor

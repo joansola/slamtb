@@ -1,19 +1,22 @@
-function drawObsLin(SenFig, Obs, SenFigOpt)
+function drawObsLin(SenFig, Obs, colors, showEllip)
 
 % DRAWOBSLIN  Draw an observed line on the pinHole sensor figure.
-%   DRAWOBSLIN(SENFIG, OBS, COLORS, SENFIGOPT)  redraws a line
+%   DRAWOBSLIN(SENFIG, OBS, COLORS, SHOWELLIP)  redraws a line
 %   landmark on the pinHole sensor figure.
 %
 %   SENFIG    is the sensor figure's handles structure.
 %   OBS       is the landmark-sensor observation structure.
-%   SENFIGOPT is the sensor figure options, SENFIGOPT = FigOpt.sen.
+%   COLORS    is a structure with graphic colors:
+%       .meas   color of the measurement
+%       .ellip  color of the ellipses
+%       .label  color of the label
+%   SHOWELLIP is a flag for controlling ellipses visibility
 %
 %   See also DRAWOBSPNT, DRAWSENFIG, TRIMHMGLIN, COV2ELLI.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 posOffset = 8;
-colors = SenFigOpt.colors.plkLin; 
 
 % the measurement:
 if Obs.measured
@@ -44,7 +47,7 @@ if ~isempty(s)
     drawSeg(SenFig.mean(Obs.lmk),s,colors.mean)
 
     % ellipses
-    if SenFigOpt.showEllip
+    if showEllip
         drawEllipse(SenFig.ellipse(Obs.lmk,1), ...
             Obs.par.endp(1).e, ...
             Obs.par.endp(1).E, ...

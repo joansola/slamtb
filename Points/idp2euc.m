@@ -1,4 +1,4 @@
-function [p,Pidp] = idp2euc(idp)
+function [p,P_idp] = idp2euc(idp)
 
 % IDP2EUC  Inverse Depth to cartesian point conversion.
 %   IDP2EUC(IDP) returns the cartesian 3D representation of the point coded
@@ -22,19 +22,19 @@ r  = idp(6,:);     % inverse depth
 if size(idp,2) == 1 % one only Idp
 
 
-    [v,Vpy] = py2vec(py);  % unity vector
+    [v,V_py] = py2vec(py);  % unity vector
 
     p = x0 + v/r;
 
     if nargout > 1 % jacobians
 
-        Px  = eye(3);
-        Pv  = eye(3)/r;
-        Pr  = -v/r^2;
+        P_x  = eye(3);
+        P_v  = eye(3)/r;
+        P_r  = -v/r^2;
 
-        Ppy = Pv*Vpy;
+        P_py = P_v*V_py;
 
-        Pidp = [Px Ppy Pr];
+        P_idp = [P_x P_py P_r];
 
     end
 
@@ -57,9 +57,9 @@ return
 
 syms x y z pitch yaw rho real
 idp = [x;y;z;pitch;yaw;rho];
-[p,Pidp] = idp2euc(idp);
+[p,P_idp] = idp2euc(idp);
 
-Pidp - jacobian(p,idp) % it must return a matrix of zeros
+P_idp - jacobian(p,idp) % it must return a matrix of zeros
 
 
 

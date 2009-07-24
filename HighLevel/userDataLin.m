@@ -53,8 +53,8 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.1;0;0],...     % position increment
   'daDegrees',          [0;0;1],...     % angle increment, degrees
-  'dxStd',              0.005*[1;1;1],...  % odo linear error std
-  'daStd',              0.02*[1;1;1]);      % odo ang error std, degrees
+  'dxStd',              0.01*[1;1;1],...  % odo linear error std
+  'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -96,20 +96,35 @@ Sensor{1} = struct(...
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
 
-% Sensor{2} = struct(...
-%   'id',                 2,...           % sensor identifier
-%   'name',               'Micropix',...      % sensor name
-%   'type',               'pinHole',...   % type of sensor
-%   'robot',              1,...           % robot where it is mounted
-%   'position',           [0.3;0;1.5],...     % position in robot
-%   'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
-%   'positionStd',        [0;0;0],...     % position error std
-%   'orientationStd',     [0;0;0],...     % orient. error std
-%   'imageSize',          [320;240],...   % image size
-%   'pixErrorStd',        0.2,...         % pixel error std
-%   'intrinsic',          [160;120;160;160],... % intrinsic params
-%   'distortion',         [],...          % distortion params
-%   'frameInMap',         false);         % add sensor frame in slam map?
+Sensor{2} = struct(...
+  'id',                 2,...           % sensor identifier
+  'name',               'Micropix',...      % sensor name
+  'type',               'pinHole',...   % type of sensor
+  'robot',              1,...           % robot where it is mounted
+  'position',           [0;0;1.2],...     % position in robot
+  'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
+  'positionStd',        [0;0;0],...     % position error std
+  'orientationStd',     [1;1;1],...     % orient. error std
+  'imageSize',          [320;240],...   % image size
+  'pixErrorStd',        0.5,...         % pixel error std
+  'intrinsic',          [160;120;160;160],... % intrinsic params
+  'distortion',         [],...          % distortion params
+  'frameInMap',         true);         % add sensor frame in slam map?
+
+Sensor{3} = struct(...
+  'id',                 3,...           % sensor identifier
+  'name',               'Micropix',...      % sensor name
+  'type',               'pinHole',...   % type of sensor
+  'robot',              1,...           % robot where it is mounted
+  'position',           [0.3;0;1.5],...     % position in robot
+  'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
+  'positionStd',        [0;0;0],...     % position error std
+  'orientationStd',     [1;1;1],...     % orient. error std
+  'imageSize',          [320;240],...   % image size
+  'pixErrorStd',        0.5,...         % pixel error std
+  'intrinsic',          [160;120;160;160],... % intrinsic params
+  'distortion',         [],...          % distortion params
+  'frameInMap',         true);         % add sensor frame in slam map?
 
 
 
@@ -122,7 +137,7 @@ Opt = struct(...
     'lmkSize',        9),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       15,...         % max simultaneus updates
+    'nUpdates',       4,...         % max simultaneus updates per sensor
     'MD2th',          9,...          % Threshold on Mahalanobis distance
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -177,7 +192,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'rendPeriod',     1,...           % frames to skip for faster processing
+  'rendPeriod',     10,...           % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
@@ -191,15 +206,18 @@ FigOpt = struct(...
       'axes',       [0 0 0],...      % with:
       'bckgnd',     [1 1 1],...      %   [0 0 0] black
       'simLmk',     .3*[1 1 1],...   %   [1 1 1] white
-      'eucPnt',     struct(...       % euclidean point colors
+      'defPnt',     struct(...       % euclidean point colors
         'mean',     'b',...           % mean dot
         'ellip',    [.7 .7 1]),...    % ellipsoid
       'othPnt',     struct(...       % other point colors
         'mean',     'r',...           % mean dot
         'ellip',    [1 .7 .7]),...    % ellipsoid
-      'plkLin',     struct(...       % Plucker line colors
-        'mean',     [0 .8 0],...           % mean line
-        'ellip',    [.7 1 .7]),...    % ellipsoid
+      'defLin',     struct(...       % Plucker line colors
+        'mean',     [0 .8 0],...      % mean line
+        'ellip',    [.6 1 .6]),...    % ellipsoid
+      'othLin',     struct(...       % Plucker line colors
+        'mean',     [0 .8 0],...      % mean line
+        'ellip',    [.6 1 .6]),...    % ellipsoid
       'simu',       'g',...          %   or 'r', 'b', etc.   
       'est',        'b',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors
@@ -212,16 +230,20 @@ FigOpt = struct(...
       'axes',       [0 0 0],...       % 
       'bckgnd',     [1 1 1],...       %
       'raw',        .3*[1 1 1],...    % 
-      'eucPnt',     struct(...       % euclidean point colors
+      'defPnt',     struct(...       % euclidean point colors
         'updated',  'c',...           % updated
         'predicted','b'),...          % predicted
       'othPnt',     struct(...       % other point colors
         'updated',  'r',...           % updated
         'predicted','m'),...          % predicted
-      'plkLin',     struct(...       % Plucker line colors
+      'defLin',     struct(...       % Plucker line colors
         'meas',     'b',...           % measurement
         'mean',     'g',...           % mean line
-        'ellip',    [1 1 .2]),...          % ellipsoid
+        'ellip',    [0 .5 0]),...          % ellipsoid
+      'othLin',     struct(...       % Plucker line colors
+        'meas',     'b',...           % measurement
+        'mean',     'g',...           % mean line
+        'ellip',    [0 .5 0]),...          % ellipsoid
       'label',      [.5 .5 .5])));    %
 
 

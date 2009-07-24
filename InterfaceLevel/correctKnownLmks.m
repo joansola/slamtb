@@ -33,7 +33,7 @@ Sen = map2sen(Sen);
 % 1. PROJECT ALL LMKS - get all expectations
 for lmk = find([Lmk.used])
 
-    Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+    Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
 
 end ; % --- all landmarks are now projected.
 
@@ -52,7 +52,7 @@ if any(vis) % Consider only visible observations
 
     for lmk = lmksToObs % for each landmark to correct
 
-        % Update Lmk stats
+        % Update Lmk search counter
         Lmk(lmk).nSearch = Lmk(lmk).nSearch + 1;
 
         % 3. TRY TO MATCH FEATURE
@@ -60,7 +60,7 @@ if any(vis) % Consider only visible observations
 
         if Obs(lmk).matched
 
-            % Update Lmk stats
+            % Update Lmk matched counter
             Lmk(lmk).nMatch = Lmk(lmk).nMatch + 1;
 
             % 4. COMPUTE INNOVATIONS
@@ -69,7 +69,7 @@ if any(vis) % Consider only visible observations
 
             if Opt.correct.reprojectLmks
                 % re-project landmark for improved Jacobians
-                Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk));
+                Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
             end
 
             Obs(lmk) = observationInnovation(Obs(lmk),Opt.correct.lines.innType);
@@ -77,7 +77,7 @@ if any(vis) % Consider only visible observations
             % 5. CHECK CONSISTENCE
             if Obs(lmk).inn.MD2 < Opt.correct.MD2th
 
-                % Update Lmk stats
+                % Update Lmk inlier counter
                 Lmk(lmk).nInlier = Lmk(lmk).nInlier + 1;
 
                 % 6. LANDMARK CORRECTION
@@ -97,6 +97,7 @@ if any(vis) % Consider only visible observations
 
         end % if matched
 
+        % Conditional landmark deletion
         [Lmk(lmk),Obs(lmk)] = smartDeleteLmk(Lmk(lmk),Obs(lmk));
 
     end % for lmk = lmkList

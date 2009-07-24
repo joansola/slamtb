@@ -45,7 +45,7 @@ switch Sen.type
             switch Obs(lmk).ltype
                 
                 case {'eucPnt'}  % Euclidean point
-                    colors = FigOpt.sensor.colors.eucPnt;
+                    colors = FigOpt.sensor.colors.defPnt;
                     drawObsPnt(SenFig, Obs(lmk), colors);
 
                 case {'idpPnt','hmgPnt'}  % IDP and HMG points
@@ -53,8 +53,8 @@ switch Sen.type
                     drawObsPnt(SenFig, Obs(lmk), colors);
 
                 case {'plkLin','aplLin','idpLin'}  % Plucker line
-                    colors = FigOpt.sensor.colors.plkLin; 
-                    drawObsLin(SenFig, Obs(lmk), FigOpt.sensor);
+                    colors = FigOpt.sensor.colors.othLin; 
+                    drawObsLin(SenFig, Obs(lmk), colors, FigOpt.sensor.showEllip);
 
                     % ADD HERE FOR NEW LANDMARK TYPE
                 case {'newLandmark'}

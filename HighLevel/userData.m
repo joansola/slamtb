@@ -216,15 +216,18 @@ FigOpt = struct(...
       'axes',       [0 0 0],...      % with:
       'bckgnd',     [1 1 1],...      %   [0 0 0] black
       'simLmk',     .3*[1 1 1],...   %   [1 1 1] white
-      'eucPnt',     struct(...       % euclidean point colors
+      'defPnt',     struct(...       % euclidean point colors
         'mean',     'b',...           % mean dot
         'ellip',    [.7 .7 1]),...    % ellipsoid
       'othPnt',     struct(...       % other point colors
         'mean',     'r',...           % mean dot
         'ellip',    [1 .7 .7]),...    % ellipsoid
-      'plkLin',     struct(...       % Plucker line colors
-        'mean',     [0 .8 0],...           % mean line
+      'defLin',     struct(...       % Plucker line colors
+        'mean',     [0 .8 0],...      % mean line
         'ellip',    [.6 1 .6]),...    % ellipsoid
+      'othLin',     struct(...       % Plucker line colors
+        'mean',     [.8 0 0],...      % mean line
+        'ellip',    [1 .6 .6]),...    % ellipsoid
       'simu',       'g',...          %   or 'r', 'b', etc.   
       'est',        'b',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors
@@ -237,16 +240,20 @@ FigOpt = struct(...
       'axes',       [0 0 0],...       % 
       'bckgnd',     [1 1 1],...       %
       'raw',        .3*[1 1 1],...    % 
-      'eucPnt',     struct(...       % euclidean point colors
+      'defPnt',     struct(...       % euclidean point colors
         'updated',  'c',...           % updated
         'predicted','b'),...          % predicted
       'othPnt',     struct(...       % other point colors
         'updated',  'r',...           % updated
         'predicted','m'),...          % predicted
-      'plkLin',     struct(...       % Plucker line colors
+      'defLin',     struct(...       % Plucker line colors
         'meas',     'b',...           % measurement
         'mean',     'g',...           % mean line
         'ellip',    'y'),...          % ellipsoid
+      'othLin',     struct(...       % Plucker line colors
+        'meas',     'b',...           % measurement
+        'mean',     'm',...           % mean line
+        'ellip',    'r'),...          % ellipsoid
       'label',      [.5 .5 .5])));    %
 
 

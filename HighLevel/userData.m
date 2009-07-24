@@ -228,8 +228,8 @@ FigOpt = struct(...
       'othLin',     struct(...       % Plucker line colors
         'mean',     [.8 0 0],...      % mean line
         'ellip',    [1 .6 .6]),...    % ellipsoid
-      'simu',       'g',...          %   or 'r', 'b', etc.   
-      'est',        'b',...          % estimated robots and sensors
+      'simu',       'b',...          %   or 'r', 'b', etc.   
+      'est',        'g',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors
       'label',      [.0 .5 0])),...  % landmark ID labels
   'sensor',         struct(...      % sensor figures options

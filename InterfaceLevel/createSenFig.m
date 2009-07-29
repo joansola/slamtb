@@ -31,15 +31,17 @@ for sen = 1:numel(Sen)
 
     % Figure
     if ishandle(sen)
+        % redefine figure handle
         SenFig(sen).fig = figure(sen);
     else
+        % create new figure
         SenFig(sen).fig = figure(sen);
         figPos          = get(SenFig(sen).fig,'position');
         figSize         = FigOpt.sensor.size;
         newFigPos       = [figPos(1:2)  figSize];
         set(SenFig(sen).fig,'position',newFigPos);
     end
-    moreindatatip
+    moreindatatip   % this adds the data index in the figures data tips
     set(SenFig(sen).fig,...
         'numbertitle',  'off',...
         'name',         ['Robot ' num2str(Sen(sen).robot) '  --  Sensor ' num2str(sen) '  (' Sen(sen).type ')'],...

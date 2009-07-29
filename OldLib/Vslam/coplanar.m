@@ -11,12 +11,12 @@ for i=1:13
 end
 
 ipp = pinv(pp);
-pp1=ones(13,1);
-P=ipp*pp1;
-D=1/norm(P); % independent coefficient
-P=P*D; % normal vector to plane
+pp1 = ones(13,1);
+P   = ipp*pp1;
+D   = 1/norm(P); % independent coefficient
+P   = P*D; % normal vector to plane
 
-d=pp*P-D; % distances to opptimal plane
+d   = pp*P-D; % distances to opptimal plane
 
 d_mean = mean(d) % mean - should be zero
 d_std  = std(d)  % sigma - this is the co-planarity error

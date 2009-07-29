@@ -1,4 +1,4 @@
-% QUATERNION  Help on quaternions for the rotations/ toolbox.
+% QUATERNION  Help on quaternions for the Rotations/ toolbox.
 %   
 %   We specify a quaternion with a unit, column 4-vector
 %
@@ -31,12 +31,12 @@
 %
 %       5. Then, if q_FW = (q_WF)' = a - bi - cj - dk is the conjugate of
 %       q_WF, we have
-%           v_W = q_WF.v_F.q_FW
-%           v_F = q_FW.v_W.q_WF
+%           v_W = q_WF . v_F . q_FW
+%           v_F = q_FW . v_W . q_WF
 %
 %       6. This is equivalent to the linear, rotation matrix forms 
-%           V_W = R_WF*V_F
-%           V_F = R_FW*V_W , 
+%           V_W = R_WF * V_F
+%           V_F = R_FW * V_W , 
 %       with 
 %           V_W, V_F         : the same vectors in Euclidean 3d-space
 %           R_WF = q2R(q_WF) : the rotation matrix
@@ -48,7 +48,7 @@
 %       qProd   product of quaternions, q1.q2 = qProd(q1,q2)
 %       q2Q     quaternion matrix,      q1.q2 = q2Q(q1)*q2
 %       q2R     rotation matrix. We name R(q) = q2R(q), with the properties:
-%           R(q1.q2) = R(q1)*R(q2)
+%           R(q1.q2) = R(q1) * R(q2)
 %           R(q')    = R(q)'
 %           R(-q)    = R(q)
 %       q2e     quaternion to Euler angles conversion

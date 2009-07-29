@@ -1,4 +1,4 @@
-% EULERANGLES  Help on Euler angles for the rotations/ toolbox.
+% EULERANGLES  Help on Euler angles for the Rotations/ toolbox.
 %
 %   We specify the Euler angles as a column 3-vector
 %

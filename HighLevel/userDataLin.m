@@ -101,7 +101,7 @@ Sensor{1} = struct(...
 %   'name',               'Micropix',...      % sensor name
 %   'type',               'pinHole',...   % type of sensor
 %   'robot',              1,...           % robot where it is mounted
-%   'position',           [0;0;1.2],...     % position in robot
+%   'position',           [0.3;0;1.5],...     % position in robot
 %   'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
 %   'positionStd',        [0;0;0],...     % position error std
 %   'orientationStd',     [1;1;1],...     % orient. error std
@@ -116,7 +116,7 @@ Sensor{1} = struct(...
 %   'name',               'Micropix',...      % sensor name
 %   'type',               'pinHole',...   % type of sensor
 %   'robot',              1,...           % robot where it is mounted
-%   'position',           [0.3;0;1.5],...     % position in robot
+%   'position',           [0;0;1.2],...     % position in robot
 %   'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
 %   'positionStd',        [0;0;0],...     % position error std
 %   'orientationStd',     [1;1;1],...     % orient. error std
@@ -137,7 +137,7 @@ Opt = struct(...
     'lmkSize',        9),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       8,...         % max simultaneus updates per sensor
+    'nUpdates',       5,...         % max simultaneus updates per sensor
     'MD2th',          9,...          % Threshold on Mahalanobis distance
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -200,7 +200,7 @@ FigOpt = struct(...
     'orbit',        [0.25 0.05],... % AZ and EL orbit angle increments - [0.25 0.05]
     'size',         [320 240],...   % map figure size
     'showSimLmk',   false,...       % show simulated landmarks?
-    'showEllip',    true,...        % show ellipsoids?
+    'showEllip',    false,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      
       'axes',       [0 0 0],...      % with:
@@ -224,7 +224,7 @@ FigOpt = struct(...
       'label',      [.0 .5 0])),...  % landmark ID labels
   'sensor',         struct(...      % sensor figures options
     'size',         [320 240],...    % sensor figure size
-    'showEllip',    true,...        % show ellipses?
+    'showEllip',    false,...        % show ellipses?
     'colors',       struct(...       % Sensor figure colors:
       'border',     .8*[1 1 1],...    %    
       'axes',       [0 0 0],...       % 

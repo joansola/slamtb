@@ -25,9 +25,9 @@ if isempty(spheroid)
         zeros(1,NP+1) sin(alpha)];
 end
 
-% Rotation R and semi-diameters d, obtained from P
-[R,D] = svd(P);
-d     = sqrt(D);
+% Rotation R and semi-diameters d, obtained from P by SVD
+[R,D] = svd(P);  % rotation matrix R
+d     = sqrt(D); % semi-axes
 
 % spheroid -> aligned ellipsoid -> rotated ellipsoid -> ns-ellipsoid
 ellip = ns*R*d*spheroid;

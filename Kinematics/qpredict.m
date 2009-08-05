@@ -1,4 +1,4 @@
-function [q1,Uq,Uw] = qpredict(q,w,dt,met)
+function [q1,U_q,U_w] = qpredict(q,w,dt,met)
 
 % QPREDICT Time update function for quaternions.
 %   Qu = QPREDICT(Q,DV) is the updated quaternion Q after a rotation in body
@@ -47,9 +47,9 @@ switch lower(met)
 end
 
 if nargout > 1  % Jacobians always use Tustin method
-    W  = w2omega(w);
-    Uq = eye(4) + 0.5*dt*W;
-    Uw = 0.5*dt*q2Pi(q);
+    W   = w2omega(w);
+    U_q = eye(4) + 0.5*dt*W;
+    U_w = 0.5*dt*q2Pi(q);
 end
 
 

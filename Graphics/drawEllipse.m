@@ -4,17 +4,17 @@ function drawEllipse(h, x, P, c, ns, NP)
 %   DRAWELLIPSE(H,X,P) redraws ellipse or ellipsoid in handle H with mean X
 %   and covariance P.
 %
-%   DRAWELLIPSE(...,C) allows the specification of the ellipse color C.
+%   DRAWELLIPSE(...,C) allows the specification of the ellipse color C. If
+%   C is not given or is empty, the color is unchanged.
 %
-%   drawellipse(...,C,NS,NP) allows entering the number of sigmas NS and
-%   the number of points NP.
+%   DRAWELLIPSE(...,C,NS,NP) allows entering the number of sigmas NS and
+%   the number of points NP. The default values are NS=3 and NP=10. Use
+%   C=[] if you do not want to modify the ellipse color.
 
 %   Copyright 2009 Joan Sola @ LAAS-CNRS.
 
 if nargin < 6,         NP = 10;
     if nargin < 5,     ns = 3;
-        if nargin < 4, c = [];
-        end
     end
 end
 
@@ -32,7 +32,7 @@ else
     error('??? Size of vector ''x'' not correct.')
 end
 
-if ~isempty(c)
+if nargin > 3 && ~isempty(c)
     set(h,'color',c)
 end
 

@@ -1,4 +1,4 @@
-function c = camGraphics(csize)
+function c = camGraphics(csize,euler)
 
 %CAMGRAPHICS Create a camera graphics 3D object.
 %   CAMGRAPHICS creates a solid representing a camera. The objective is
@@ -16,12 +16,19 @@ function c = camGraphics(csize)
 %
 %   CAMGRAPHICS(SIZE) allows for choosing the camera size. Default is 0.1.
 %
+%   CAMGRAPHICS(SIZE,EULER) admits a different orientation to the default
+%   one. To make the camera look in the X-axis direction, use EULER =
+%   [-pi/2 0 -pi/2].
+%
 %   See also PATCH, SET, DRAWOBJECT.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-if nargin == 0
-    csize = 0.1;
+if nargin < 2
+    euler = zeros(3,1);
+    if nargin < 1
+        csize = 0.1;
+    end
 end
 
 
@@ -41,8 +48,11 @@ objective = [circle,zeros(na,1);circle,f*ones(na,1)];
 rect      = [1 1;-1 1;-1 -1;1 -1]*diag([w h])/2;
 body      = [rect,zeros(4,1);rect,-t*ones(4,1)];
 
+% rotation matrix
+R = e2R(euler);
+
 % vertices in camera frame
-vert0     = [body;objective];
+vert0     = [body;objective]*R';
 
 % graphics structure - vertices and faces
 c.vert0   = csize*vert0;

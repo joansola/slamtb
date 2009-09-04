@@ -137,15 +137,15 @@ Opt = struct(...
     'lmkSize',        9),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       5,...         % max simultaneus updates per sensor
+    'nUpdates',       8,...         % max simultaneus updates per sensor
     'MD2th',          9,...          % Threshold on Mahalanobis distance
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
       'innType',      'ortDst',...    % innovation type for lines
-      'extPolicy',    false,...       % line extending policy ?
-      'extSwitch',    10)),...        % extension policy switch point in pixels
+      'extPolicy',    true,...       % line extending policy ?
+      'extSwitch',    2)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'initType',       'idpLin',...   % Type of lmk to use for init
+    'initType',       'aplLin',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -200,7 +200,7 @@ FigOpt = struct(...
     'orbit',        [0.25 0.05],... % AZ and EL orbit angle increments - [0.25 0.05]
     'size',         [320 240],...   % map figure size
     'showSimLmk',   false,...       % show simulated landmarks?
-    'showEllip',    false,...        % show ellipsoids?
+    'showEllip',    true,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      
       'axes',       [0 0 0],...      % with:
@@ -224,7 +224,7 @@ FigOpt = struct(...
       'label',      [.0 .5 0])),...  % landmark ID labels
   'sensor',         struct(...      % sensor figures options
     'size',         [320 240],...    % sensor figure size
-    'showEllip',    false,...        % show ellipses?
+    'showEllip',    true,...        % show ellipses?
     'colors',       struct(...       % Sensor figure colors:
       'border',     .8*[1 1 1],...    %    
       'axes',       [0 0 0],...       % 

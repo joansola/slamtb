@@ -32,7 +32,7 @@ else
 end
 
 % draw ellipse and label
-drawEllipse(SenFig.ellipse(Obs.lmk), Obs.exp.e, Obs.exp.E, elliCol)
+drawEllipse(SenFig.ellipse(Obs.lmk), Obs.exp.e, Obs.exp.E + Obs.meas.R, elliCol)
 drawLabel(SenFig.label(Obs.lmk), Obs.exp.e + posOffset, num2str(Obs.lid))
 
 

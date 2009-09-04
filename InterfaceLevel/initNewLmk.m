@@ -23,6 +23,8 @@ Sen = map2sen(Sen);
 switch Opt.init.initType
     case {'hmgPnt'}
         lmkSize = 4;
+    case {'ahmPnt'}
+        lmkSize = 7;
     case {'idpPnt','plkLin'}
         lmkSize = 6;
     case {'idpLin','aplLin'}
@@ -115,7 +117,7 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP
     % Init off-filter landmark params
     [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk));
     
-    fprintf('Initialized landmark ''%d''.\n',Lmk(lmk).id)
+    %     fprintf('Initialized landmark ''%d''.\n',Lmk(lmk).id)
 
     
 end

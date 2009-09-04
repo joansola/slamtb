@@ -112,7 +112,7 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'numLmks',        73,...         % number of 3d landmarks
-    'lmkSize',        3),...         % Size of landmark
+    'lmkSize',        4),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
     'nUpdates',       8,...          % max simultaneus updates

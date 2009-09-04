@@ -33,7 +33,7 @@ syms u1 u2 u0 v0 au av real
 k = [u0;v0;au;av];
 u = [u1;u2];
 
-[L,L_u,L_k] = pix2PluckerRay(k,u)
+[L,L_u,L_k] = pix2PluckerRay(k,u);
 
 simplify(L_u - jacobian(L,u))
 simplify(L_k - jacobian(L,k))

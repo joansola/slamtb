@@ -46,8 +46,8 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.08;0;0],...     % position increment
   'daDegrees',          [0;0;.9],...     % angle increment, degrees
-  'dxStd',              0.006*[1;1;1],...  % odo linear error std
-  'daStd',              0.06*[1;1;1]);      % odo ang error std, degrees
+  'dxStd',              0.01*[1;1;1],...  % odo linear error std
+  'daStd',              0.1*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -112,7 +112,7 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'numLmks',        73,...         % number of 3d landmarks
-    'lmkSize',        4),...         % Size of landmark
+    'lmkSize',        6),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
     'nUpdates',       8,...          % max simultaneus updates

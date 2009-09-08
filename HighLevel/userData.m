@@ -210,7 +210,7 @@ FigOpt = struct(...
     'orbit',        [0 0],...       % AZ and EL orbit angle increments
     'size',         [320 240],...   % map figure size
     'showSimLmk',   true,...       % show simulated landmarks?
-    'showEllip',    true,...        % show ellipsoids?
+    'showEllip',    false,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      
       'axes',       [0 0 0],...      % with:

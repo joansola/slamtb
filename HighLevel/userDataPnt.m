@@ -45,9 +45,9 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.08;0;0],...     % position increment
-  'daDegrees',          [0;0;.9],...     % angle increment, degrees
-  'dxStd',              0.01*[1;1;1],...  % odo linear error std
-  'daStd',              0.1*[1;1;1]);      % odo ang error std, degrees
+  'daDegrees',          [0;0;0.9],...     % angle increment, degrees
+  'dxStd',              0.005*[1;1;1],...  % odo linear error std
+  'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -115,7 +115,7 @@ Opt = struct(...
     'lmkSize',        6),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       8,...          % max simultaneus updates
+    'nUpdates',       10,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -125,10 +125,10 @@ Opt = struct(...
   'init',             struct(...    % Options for initialization
     'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
-      'nonObsMean',   .1,...          % mean of non obs
+      'nonObsMean',   .01,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
     'hmgPnt',         struct(...     % opt. for Hom Pnt init
-      'nonObsMean',   .1,...          % mean of non obs
+      'nonObsMean',   .01,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
     'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
       'nonObsMean',   [.1;0],...     % mean of non obs

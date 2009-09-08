@@ -145,19 +145,13 @@ Opt = struct(...
       'extPolicy',    true,...       % line extending policy ?
       'extSwitch',    2)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'initType',       'aplLin',...   % Type of lmk to use for init
+    'initType',       'idpLin',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
-      'nonObsMean',   .1,...          % mean of non obs
-      'nonObsStd',    .5),...         % std of non obs
-    'hmgPnt',         struct(...     % opt. for Hom Pnt init
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
     'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
       'nonObsMean',   [.1;0],...     % mean of non obs
-      'nonObsStd',    [.25;1]),...   % std of non obs
-    'idpLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
-      'nonObsMean',   [.2;.2],...     % mean of non obs
-      'nonObsStd',    [.1;.1])),...   % std of non obs
+      'nonObsStd',    [.25;1])),...   % std of non obs
   'obs',              struct(...    % Observation options
     'lines',          struct(...     % lines options
       'minLength',    10)));          % minimum segment length

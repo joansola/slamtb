@@ -33,9 +33,9 @@ switch Sen.type
                     Sen.par.k, ...
                     Sen.par.d, ...
                     Obs.meas.y, ...
-                    Opt.init.hmgPnt.nonObsMean) ;
+                    Opt.init.idpPnt.nonObsMean) ;
 
-                N = Opt.init.hmgPnt.nonObsStd^2 ;
+                N = Opt.init.idpPnt.nonObsStd^2 ;
 
             case {'ahmPnt'}
                 % INIT LMK OF TYPE: Homogeneous point
@@ -46,9 +46,9 @@ switch Sen.type
                     Sen.par.k, ...
                     Sen.par.d, ...
                     Obs.meas.y, ...
-                    Opt.init.hmgPnt.nonObsMean) ;
+                    Opt.init.idpPnt.nonObsMean) ;
 
-                N = Opt.init.hmgPnt.nonObsStd^2 ;
+                N = Opt.init.idpPnt.nonObsStd^2 ;
 
             case {'plkLin'}
                 % INIT LMK OF TYPE: Plucker line
@@ -80,15 +80,18 @@ switch Sen.type
                 
             case 'idpLin'
                 % INIT LMK TYPE: Inverse-depth line.
+                nMean = Opt.init.idpPnt.nonObsMean*[1;1]; % non-measured prior
+                nStd  = Opt.init.idpPnt.nonObsStd*[1;1];
+                
                 [l, L_rf, L_sf, L_sk, L_obs, L_n] = ...
                     retroProjIdpLinFromPinHoleOnRob( ...
                     Rob.frame, ...
                     Sen.frame, ...
                     Sen.par.k, ...
                     Obs.meas.y, ...
-                    Opt.init.idpLin.nonObsMean) ;
+                    nMean) ;
 
-                N = diag(Opt.init.idpLin.nonObsStd.^2) ;
+                N = diag(nStd.^2);
 
             otherwise
                 error('??? Unknown landmark type ''%s'' for initialization.',Opt.init.initType)

@@ -40,7 +40,7 @@ function [u, s, U_p, U_k, U_d] = pinHole(p,k,d)
 %   [U,S,U_p,U_k,U_d] returns the Jacobians of U wrt P, K and D. It only
 %   works for single points P=[x;y;z].
 %
-%   See also PROJECT, DISTORT, PIXELLISE, INVPINHOLE, PINHOLEIDP.
+%   See also PROJECT, DISTORT, PIXELLISE, INVPINHOLE, PINHOLEIDP, INVDISTORTION.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 

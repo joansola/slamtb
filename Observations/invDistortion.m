@@ -15,7 +15,7 @@ function kc = invDistortion(kd,n,cal,draw)
 %   which can be of any length.
 %
 %   Kc = INVDISTORTION(Kd,n,cal) accepts the intrinsic parameters
-%   of the camera  cal = [a_u, a_v, u_0, v_0].
+%   of the camera  cal = [u_0, v_0, a_u, a_v].
 %
 %   The format of the distortion and correction vectors is
 %
@@ -26,6 +26,7 @@ function kc = invDistortion(kd,n,cal,draw)
 %   distortion and correction mappings r_d=d(r) and r=c(r_d)
 %   and the error (r - r_d).
 %
+%   See also PINHOLE, INVPINHOLE.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 

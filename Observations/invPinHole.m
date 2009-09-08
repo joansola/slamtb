@@ -38,7 +38,7 @@ function [p,P_u,P_s,P_k,P_c] = invPinHole(u,s,k,c)
 %   [P,P_u,P_s,P_k,P_c] returns the Jacobians of P wrt U, S, K and C. It
 %   only works for single pixels U=[u;v].
 %
-%   See also RETRO, UNDISTORT, DEPIXELLISE, PINHOLE.
+%   See also RETRO, UNDISTORT, DEPIXELLISE, PINHOLE, INVDISTORTION.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 

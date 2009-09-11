@@ -21,7 +21,7 @@ switch Sen.type
     case 'pinHole'
 
         switch Lmk.type
-            case {'eucPnt','idpPnt','hmgPnt'}
+            case {'eucPnt','idpPnt','hmgPnt','ahmPnt'}
                 % do nothing
 
             case 'plkLin'

@@ -8,7 +8,7 @@ global Map
 
 % Init internal state
 switch Lmk.type
-    case {'eucPnt','idpPnt','hmgPnt'}
+    case {'eucPnt','idpPnt','hmgPnt','ahmPnt'}
     case 'plkLin'
         l  = Map.x(Lmk.state.r);
         t1 = -8;

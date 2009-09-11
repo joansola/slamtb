@@ -36,6 +36,10 @@ switch (Lmk.type)
         colors = MapOpt.colors.othPnt;
         drawHmgPnt(MapFig, Lmk, colors);
         
+    case {'ahmPnt'}
+        colors = MapOpt.colors.othPnt;
+        drawAhmPnt(MapFig, Lmk, colors);
+        
     case {'plkLin'}
         colors = MapOpt.colors.othLin;
         drawPlkLin(MapFig, Lmk, colors, MapOpt);

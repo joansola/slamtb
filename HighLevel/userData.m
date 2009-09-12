@@ -131,7 +131,7 @@ Sensor{1} = struct(...
 %   'positionStd',        [0;0;0],...     % position error std
 %   'orientationStd',     [1.5;1.5;1.5],...     % orient. error std
 %   'imageSize',          [640;480],...   % image size
-%   'pixErrorStd',        2.0,...         % pixel error std
+%   'pixErrorStd',        1.0,...         % pixel error std
 %   'intrinsic',          [320;240;320;320],... % intrinsic params
 %   'distortion',         [],...          % distortion params
 %   'frameInMap',         false);         % add sensor frame in slam map?
@@ -143,12 +143,13 @@ Sensor{1} = struct(...
 % Estimation options 
 Opt = struct(...
   'map',              struct(...    % options for the map
-    'numLmks',        75,...         % number of 3d landmarks
-    'lmkSize',        4),...         % Size of landmark
+    'numLmks',        73,...         % number of 3d landmarks
+    'lmkSize',        7),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       8,...          % max simultaneus updates
-    'MD2th',          9,...          % Threshold on Mahalanobis distance
+    'reparametrize',  true,...       % reparametrize lmk?
+    'nUpdates',       10,...         % max simultaneus updates
+    'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
       'innType',      'ortDst',...    % innovation type for lines
@@ -157,10 +158,10 @@ Opt = struct(...
   'init',             struct(...    % Options for initialization
     'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
-      'nonObsMean',   .1,...          % mean of non obs
+      'nonObsMean',   .01,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
     'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
-      'nonObsMean',   [.1;0],...     % mean of non obs
+      'nonObsMean',   [.1;0],...      % mean of non obs
       'nonObsStd',    [.25;1])),...   % std of non obs
   'obs',              struct(...    % Observation options
     'lines',          struct(...     % lines options
@@ -171,7 +172,7 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'newSeed',        false,...         % select new random seed?
+    'newSeed',        true,...         % select new random seed?
     'fixedSeed',      211236,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
@@ -204,7 +205,7 @@ FigOpt = struct(...
     'orbit',        [0 0],...       % AZ and EL orbit angle increments
     'size',         [320 240],...   % map figure size
     'showSimLmk',   true,...       % show simulated landmarks?
-    'showEllip',    false,...        % show ellipsoids?
+    'showEllip',    true,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      
       'axes',       [0 0 0],...      % with:

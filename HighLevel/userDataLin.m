@@ -137,8 +137,9 @@ Opt = struct(...
     'lmkSize',        9),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       8,...         % max simultaneus updates per sensor
-    'MD2th',          9,...          % Threshold on Mahalanobis distance
+    'reparametrize',  true,...       % reparametrize lmk?
+    'nUpdates',       10,...         % max simultaneus updates
+    'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
       'innType',      'ortDst',...    % innovation type for lines

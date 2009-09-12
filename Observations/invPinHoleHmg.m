@@ -1,11 +1,11 @@
-function [p, Pk, Ppixhm, Pnob] = invPinHoleHmg(k,pixhm,nob)
+function [p, P_k, P_uin, P_nob] = invPinHoleHmg(k,uin,nob)
 
 % INVPINHOLEHMG Inverse pin-hole camera model for HMG.
-%   P = INVPINHOLEHMG(K,PIXHM,NOB) gives the retroprojected HMG point P of
-%   a hmg pixel pixhm at depth nob (NOB is actually the inverse depth), from a
-%   canonical pin-hole camera, that is, with calibration parameters K. [P,
-%   PK, PPIXHM, PNOB] = ... returns the Jacobians wrt RF.x, SF.x, SK, SC, U
-%   and N.
+%   P = INVPINHOLEHMG(K,U,NOB) gives the retroprojected HMG point P of a
+%   pixel U at inverse-depth NOB, from a pin-hole camera with calibration
+%   parameters K. Pixel U can be Euclidean or homogeneous.
+%
+%   [P, P_K, P_U, P_NOB] = ... returns the Jacobians wrt K, U and NOB.
 %
 %   See also INVINTRINSIC.
 
@@ -13,35 +13,64 @@ function [p, Pk, Ppixhm, Pnob] = invPinHoleHmg(k,pixhm,nob)
 
 iK = invIntrinsic(k);
 
-if numel(pixhm) == 2
-    pix = [pixhm(:);1];
-else
-    pix = pixhm;
-end
-
-p = [iK*pix;nob];
-
-if nargout > 1 % we want Jacobians
+if nargout == 1
     
-    [u0,v0,au,av] = split(k);
-    [u,v,w] = split(pix);
+    if numel(uin) == 2
+        uh = euc2hmg(uin);
+    else
+        uh = uin;
+    end
 
-    Pk = [...
+    p = [normvec(iK*uh);nob];
+
+else % we want Jacobians
+    
+    if numel(uin) == 2
+        [uh, UH_uin] = euc2hmg(uin);
+    else
+        uh = uin;
+        UH_uin = eye(3);
+    end
+
+    [u0,v0,au,av] = split(k);
+    [u,v,w] = split(uh);
+
+    vh = iK*uh;
+    VH_k = [...
         [        -1/au*w,              0, (-u+u0*w)/au^2,              0]
         [              0,        -1/av*w,              0, (-v+v0*w)/av^2]
-        [              0,              0,              0,              0]
         [              0,              0,              0,              0]];
-    Ppixhm = [iK;0 0 0];
-    Pnob = [0;0;0;1];
+    VH_uh = iK;
+    
+    [wh, WH_vh] = normvec(vh,1);
 
-    if numel(pixhm) == 2
-        Ppixhm = Ppixhm(:,1:2);
-    end
+    p   = [wh;nob];
+    P_wh = [eye(3);0 0 0];
+    
+    P_vh   = P_wh*WH_vh;
+    P_k   = P_vh*VH_k;
+    P_uin = P_vh*VH_uh*UH_uin;
+
+    P_nob = [0;0;0;1];
+
+%     if numel(u) == 2
+%         Pu = Pu(:,1:2);
+%     end
 end
 
 return
 
+%% jac
+syms u0 v0 au av u v w n real
+k = [u0 v0 au av]';
+uin = [u;v;w]; % try this Hmg. or the Euc. below
+% uin = [u;v]; % this is Euc.
 
+[p, P_k, P_uin, P_n] = invPinHoleHmg(k,uin,n);
+
+simplify(P_k   - jacobian(p,k))
+simplify(P_uin - jacobian(p,uin))
+simplify(P_n   - jacobian(p,n))
 
 
 % ========== End of function - Start GPL license ==========

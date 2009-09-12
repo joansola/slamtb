@@ -12,7 +12,9 @@ function [Rob,Sen,Lmk,Obs] = correctLmk(Rob,Sen,Lmk,Obs,Opt)
 [Rob,Sen,Lmk,Obs] = ekfCorrectLmk(Rob,Sen,Lmk,Obs);
 
 % Transform to cheaper parametrization if possible
-[Lmk,Obs] = reparametrizeLmk(Rob,Sen,Lmk,Obs,Opt);
+if Opt.correct.reparametrize
+    [Lmk,Obs] = reparametrizeLmk(Rob,Sen,Lmk,Obs,Opt);
+end
 
 % Update off-filter parameters
 Lmk = updateLmkParams(Rob,Sen,Lmk,Obs,Opt);

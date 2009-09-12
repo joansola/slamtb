@@ -112,10 +112,11 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'numLmks',        73,...         % number of 3d landmarks
-    'lmkSize',        6),...         % Size of landmark
+    'lmkSize',        7),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'nUpdates',       10,...          % max simultaneus updates
+    'reparametrize',  true,...       % reparametrize lmk?
+    'nUpdates',       10,...         % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -125,10 +126,10 @@ Opt = struct(...
   'init',             struct(...    % Options for initialization
     'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
-      'nonObsMean',   .01,...          % mean of non obs
+      'nonObsMean',   .01,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
     'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
-      'nonObsMean',   [.1;0],...     % mean of non obs
+      'nonObsMean',   [.1;0],...      % mean of non obs
       'nonObsStd',    [.25;1])),...   % std of non obs
   'obs',              struct(...    % Observation options
     'lines',          struct(...     % lines options
@@ -164,7 +165,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'rendPeriod',     1,...           % frames to skip for faster processing
+  'rendPeriod',     20,...           % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure

@@ -34,10 +34,11 @@ global Map          %#ok<NUSED>
 
 userDataPnt;        % user-defined data. SCRIPT.
 
-Opt.init.initType       = lmkType;
-SimOpt.random.newSeed   = false;
-SimOpt.random.fixedSeed = randSeeds(nRun);
-Tim.lastFrame = numFrames;
+Opt.init.initType         = lmkType;
+Time.lastFrame            = numFrames;
+SimOpt.random.newSeed     = false;
+SimOpt.random.fixedSeed   = randSeeds(nRun);
+Opt.correct.reparametrize = false;
 
 
 %% II. Initialize all data structures from user-defined data in userData.m
@@ -179,12 +180,16 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % TODO: do something here to collect data for post-processing or
     % plotting. Think about collecting data in files using fopen, fwrite,
     % etc., instead of creating large Matlab variables for data logging.
-    s = 1:3;
+    s = 1:7;
     r = Rob(1).frame.r(s);
     x = SimRob.frame.x(s);
-    e = Map.x(r);
+    m = Map.x(r);
     P = Map.P(r,r);
-    NEES = nees(x,e,P);
+    [m,P] = propagateUncertainty(m,P,@qpose2epose);
+    x = qpose2epose(x);
+    e = x-m;
+    e(4:6) = normAngle(e(4:6));
+    NEES = nees(e,0,P);
     writeLogData(logFile,[currentFrame,NEES]);
 end
 

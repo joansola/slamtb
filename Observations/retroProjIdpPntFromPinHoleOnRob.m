@@ -29,18 +29,19 @@ else
     [idps, IDPS_u, IDPS_invdepth, IDPS_sk, IDPS_sd] = invPinHoleIdp(u,n,Sk,Sd) ;
 end
 
+% Transform 2 frames at once is better in IDP
 [idp, IDP_idps, IDP_rf, IDP_sf] = idpS2idpW(idps, Rf, Sf) ;
 
+% chain rules
 IDP_sk = IDP_idps*IDPS_sk ;
-
+IDP_u = IDP_idps*IDPS_u ;
+IDP_invdepth = IDP_idps*IDPS_invdepth ;
 if(isempty(Sd))
     IDP_sd = [] ;
 else
     IDP_sd = IDP_idps*IDPS_sd ;
 end 
 
-IDP_u = IDP_idps*IDPS_u ;
-IDP_invdepth = IDP_idps*IDPS_invdepth ;
 
 end
 

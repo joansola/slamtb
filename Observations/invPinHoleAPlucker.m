@@ -1,6 +1,6 @@
 function [l,L_k,L_hm,L_beta] = invPinHoleAPlucker(Sk,hm,beta)
 
-% INVPINHOLEPALUCKER Retro-projects anchored plucker line
+% INVPINHOLEAPLUCKER Retro-projects anchored plucker line
 %   INVPINHOLEAPLUCKER(K,L,BETA) retro-projects the anchored Plucker line
 %   from the homogeneous 2D line HM and a pin hole camera K=[u0;v0;au;av]
 %   at the origin. BETA specifies the unobservable direction of the line.

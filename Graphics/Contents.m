@@ -15,7 +15,6 @@
 %   drawLabel            - Draw label in 2D or 3D plot.
 %   drawSeg              - Draw 2D or 3D segment with color.
 %   drawObject           - Draw 3D object graphics.
-%   drawLmk              - Draw 3D landmark.
 %   drawRaw              - Draw raw sensor data.
 %   drawEucPnt           - Draw Euclidean point landmark in MapFig.
 %   drawIdpPnt           - Draw inverse-depth point landmark in MapFig.
@@ -23,8 +22,6 @@
 %   drawPlkLin           - Draw Plucker line landmark in MapFig.
 %   drawAplLin           - Draw anchored Plucker line landmark in MapFig.
 %   drawIdpLin           - Draw inverse-depth line landmark in MapFig.
-%   drawRawLines         - Draw raw lines.
-%   drawRawPnts          - Draw raw points.
 %   drawSegmentsImage    - Draw segments 2D object.
 %   drawSegmentsObject   - Draw segments object.
 %
@@ -34,3 +31,4 @@
 %   satColor             - Saturate color.
 %   imgFrame             - Writes frame to image file.
 %   makeVideoFrame       - Export figure to image.
+%   drawAhmPnt           - Draw anchored Homogeneous point landmark in MapFig.

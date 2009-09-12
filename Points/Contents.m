@@ -10,8 +10,11 @@
 %   py2vec       - Pitch and yaw to 3D direction vector.
 %   vec2py       - 3D vector to pitch and yaw direction
 %   euc2hmg      - Euclidean to Homogeneous point transform.
-%   fromFrameHmg - FROMFRAMEHOMO  Fom-frame transformation for homogeneous coordinates
+%   fromFrameHmg - Fom-frame transformation for homogeneous coordinates
 %   hmg2euc      - Homogeneous to Euclidean point transform.
-%   homogeneous  - Builds homogeneous motion matrix from frame f.
+%   homogeneous  - Build motion matrix.
 %   idp2euc      - Inverse Depth to cartesian point conversion.
 %   xyzLinTest   - Linearity test of cartesian point given inverse depth point
+%   ahm2euc      - Inverse Depth to cartesian point conversion.
+%   fromFrameAhm - Transforms AHM from local frame to global frame.
+%   fromFrameVec - From frame function for vectors.

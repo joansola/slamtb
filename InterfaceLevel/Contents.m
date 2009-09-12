@@ -42,8 +42,12 @@
 %   updateLmkParams       - Update off-filter landmark parameters.
 %
 % Other
-%   testObs               - Update OBS information to simulate a SLAM observation.
 %   deleteLmk             - Delete landmark.
 %   drawObsLin            - Draw an observed line on the pinHole sensor figure.
 %   drawObsPnt            - Redraw a landmark on the pinHole sensor figure.
 %   pluckerSegment        - Segment from Plucker line and endpoint abscissas.
+%   createMapFig          - Create 3D map figure and handles.
+%   createSenFig          - Create sensors figures and handles.
+%   drawLmk               - Draw 3D landmark.
+%   drawRawLines          - Draw raw lines.
+%   drawRawPnts           - Draw raw points.

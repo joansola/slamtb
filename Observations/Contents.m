@@ -25,8 +25,9 @@
 %   invDistortion                   - Radial distortion correction calibration.
 %   invPinHoleHmg                   - Inverse pin-hole camera model for HMG.
 %   visibleSegment                  - Visible segment.
-%   invPinHoleAPlucker              - INVPINHOLEPALUCKER Retro-projects anchored plucker line
-%   invPinHoleIdpLin                - 
+%   invPinHoleAPlucker              - Retro-projects anchored plucker line
+%   invPinHoleIdpLin                - IDP line retro projection.
+%   invPinHoleAhm                   - Retro-project anchored homogeneous point AHP.
 %
 % Observation models, with 2 frame transforms
 %   projEucPntIntoPinHoleOnRob      - Project Euc pnt into pinhole on robot.
@@ -44,3 +45,5 @@
 %   retroProjAplLinFromPinHoleOnRob - Retro-project anchored Plucker line from pinhole on robot.
 %   retroProjAplEndPnts             - Retro project anchored Plucker endpoints.
 %   retroProjIdpLinFromPinHoleOnRob - retroprj Idp Line from pinhole on robot.
+%   projAhmPntIntoPinHoleOnRob      - Project Idp pnt into pinhole on robot.
+%   retroProjAhmPntFromPinHoleOnRob - Retro-project ahm from pinhole on robot.

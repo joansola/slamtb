@@ -1,7 +1,7 @@
 function [h,Hf,Hh] = fromFrameHmg(f,hf)
 
-% FROMFRAMEHOMO  Fom-frame transformation for homogeneous coordinates
-%   P = FROMFRAMEHOMO(F,PF) transforms homogeneous point PF from frame F to
+% FROMFRAMEHMG  Fom-frame transformation for homogeneous coordinates
+%   P = FROMFRAMEHMG(F,PF) transforms homogeneous point PF from frame F to
 %   the global frame.
 %
 %   [p,Pf,Ppf] = ... returns the Jacobians wrt F and PF.

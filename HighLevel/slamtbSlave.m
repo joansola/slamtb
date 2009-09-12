@@ -1,23 +1,10 @@
-% SLAMTB  An EKF-SLAM algorithm with simulator and graphics.
+% SLAMTBSLAVE  A slave version of SLAMTB.
 %
-%   This script performs multi-robot, multi-sensor, multi-landmark 6DOF
-%   EKF-SLAM with simulation and graphics capabilities.
+%   SLAMTBSLAVE is intended to be invoked by other scripts initializing
+%   some of the parameters. By now it is NEESANALYSIS the only one to do
+%   so.
 %
-%   Please read slamToolbox.pdf in the root directory thoroughly before
-%   using this toolbox.
-%
-%   - Beginners should not modify this file, just edit USERDATA.M and enter
-%   and/or modify the data you wish to simulate.
-%
-%   - More advanced users should be able to create new landmark models, new
-%   initialization methods, and possibly extensions to multi-map SLAM. Good
-%   luck!
-%
-%   - Expert users may want to add code for real-data experiments. 
-%
-%   See also USERDATA, USERDATAPNT, USERDATALIN.
-%
-%   Also consult slamToolbox.pdf in the root directory.
+%   See also NEESANALYSIS, NEESPLOTS.
 
 %   Created and maintained by
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.

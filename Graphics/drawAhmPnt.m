@@ -1,6 +1,6 @@
 function drawAhmPnt(MapFig, Lmk, color)
 
-% DRAWHMGPNT  Draw anchored Homogeneous point landmark in MapFig.
+% DRAWAHMPNT  Draw anchored Homogeneous point landmark in MapFig.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 

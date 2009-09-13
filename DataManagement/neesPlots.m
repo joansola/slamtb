@@ -16,13 +16,17 @@
 lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes = {'hmgPnt','ahmPnt'};
 
-numRuns   = 25;
-numFrames = 800;
+numRuns   = 10;
+numFrames = 100;
 
 dimX      = 6;
-logsDir   = '~/SLAM/logs/pose6d/oneHpDiverges/';
+logsDir   = '~/SLAM/logs/pose6d/';
+
+yLim      = [100 20 20];
 
 DOF       = dimX*numRuns;
+
+df = 2;
 
 switch DOF
     case 18
@@ -41,8 +45,6 @@ switch DOF
         error('??? Chi square DOF not defined.')
 end
 
-yLim = [300 100 20];
-
 for lt = 1:numel(lmkTypes)
     lmkType = lmkTypes{lt};
     neesData{lt}.data=zeros(numRuns,numFrames);
@@ -60,7 +62,7 @@ for lt = 1:numel(lmkTypes)
 
     figure(50)
     ax(lt) = subplot(3,1,lt);
-    plot(1:10:numFrames,neesData{lt}.data(:,1:10:numFrames)','linestyle','-','color',[.5 .5 .5])
+    plot(1:df:numFrames,neesData{lt}.data(:,1:df:numFrames)','linestyle','-','color',[.5 .5 .5])
     title(lmkType)
     hold on
     plot(neesData{lt}.mean,'linestyle','-','color','k','linewidth',2)

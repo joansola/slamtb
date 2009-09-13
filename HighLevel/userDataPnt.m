@@ -15,7 +15,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            800);           % last frame #
+  'lastFrame',            400);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -124,7 +124,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'initType',       'idpPnt',...   % Type of lmk to use for init
+    'initType',       'ahmPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .01,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -140,8 +140,8 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'newSeed',        true,...         % select new random seed?
-    'fixedSeed',      211236,...            % random seed for non-random runs
+    'newSeed',        false,...         % select new random seed?
+    'fixedSeed',      1,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 
@@ -165,7 +165,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'rendPeriod',     20,...           % frames to skip for faster processing
+  'rendPeriod',     1,...           % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
@@ -203,17 +203,17 @@ FigOpt = struct(...
       'axes',       [0 0 0],...       % 
       'bckgnd',     [1 1 1],...       %
       'raw',        .3*[1 1 1],...    % 
-      'defPnt',     struct(...       % euclidean point colors
+      'defPnt',     struct(...       % Default point colors
         'updated',  'c',...           % updated
         'predicted','b'),...          % predicted
       'othPnt',     struct(...       % other point colors
         'updated',  'r',...           % updated
         'predicted','m'),...          % predicted
-      'defLin',     struct(...       % Plucker line colors
+      'defLin',     struct(...       % Default line colors
         'meas',     'b',...           % measurement
         'mean',     'g',...           % mean line
         'ellip',    'y'),...          % ellipsoid
-      'othLin',     struct(...       % Plucker line colors
+      'othLin',     struct(...       % other line colors
         'meas',     'b',...           % measurement
         'mean',     'm',...           % mean line
         'ellip',    'r'),...          % ellipsoid

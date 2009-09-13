@@ -108,8 +108,8 @@ k=[u0;v0;au;av];
 c=[c2;c4;c6];
 
 % [i,I_u,I_s] = invPinHoleIdp(U,s);
-% [i,I_u,I_s,I_k] = invPinHoleIdp(U,s,k);
-[i,I_u,I_s,I_k,I_c] = invPinHoleIdp(U,s,k,c);
+[i,I_u,I_s,I_k] = invPinHoleIdp(U,s,k);
+% [i,I_u,I_s,I_k,I_c] = invPinHoleIdp(U,s,k,c);
 
 simplify(I_u - jacobian(i,U))
 simplify(I_s - jacobian(i,s))

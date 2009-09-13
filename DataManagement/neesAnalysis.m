@@ -14,17 +14,17 @@
 %
 %   See also SLAMTBSLAVE, NEESPLOTS.
 
-lmkTypes = {'hmgPnt','ahmPnt','idpPnt'};
+lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes = {'idpPnt'};
 
-numRuns   = 25;
-numFrames = 800;
+numRuns   = 10;
+numFrames = 100;
 logsDir = '~/SLAM/logs/pose6d/';
 
 % randSeeds = round(10000*rand(1,numRuns));
 
 randSeeds = [8687 8440 3999 2599 8001 4314 9106 1818 2638 1455 1361 8693 5797 5499 1450 8530 6221 3510 5132 4018 7600 2399 1233 1839 2400];
-
+rendPeriod = 20;
 % save [logsDir 'randSeeds.log'] randSeeds -ascii
 
 for l = 1:numel(lmkTypes)

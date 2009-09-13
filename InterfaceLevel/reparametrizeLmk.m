@@ -18,7 +18,7 @@ switch Lmk.type
         % we will convert from inverse-depth to euclidean.
         
         % Test for linearity:
-        Ld = xyzLinTest(Rob,Sen,Lmk);
+        Ld = idpLinTest(Rob,Sen,Lmk);
         
         if Ld < Opt.correct.linTestIdp
             
@@ -43,10 +43,37 @@ switch Lmk.type
             Lmk.state.r = er;    % new range
             Lmk.type  = 'eucPnt'; % new type
             Obs.ltype = 'eucPnt'; % new type
+        end
+        
+    case 'ahmPnt' 
+        % we will convert from anchored homogeneous to euclidean.
+        
+        % Test for linearity:
+        Ld = ahmLinTest(Rob,Sen,Lmk);
+        
+        if Ld < Opt.correct.linTestIdp
             
-            % fprintf('Reparametrized landmark ''%d'': ''idpPnt'' --> ''eucPnt''.\n', Lmk.id)
-
+            % ranges
+            ar  = Lmk.state.r;  % ahmPnt
+            er  = ar(1:3);      % euclidean
+            m   = Map.used;     % map
             
+            % point coordinates
+            ahm     = Map.x(ar);   % idp
+            [p,P_a] = ahm2euc(ahm);  % euclidean
+            
+            % map updates
+            Map.x(er)   = p;     % mean
+            
+            Map.P(er,m) = P_a * Map.P(ar,m); % co- and cross-variances
+            Map.P(m,er) = Map.P(m,ar) * P_a';
+            
+            Map.used(Lmk.state.r(4:7)) = false; % used positions
+            
+            % Lmk and Obs updates
+            Lmk.state.r = er;    % new range
+            Lmk.type  = 'eucPnt'; % new type
+            Obs.ltype = 'eucPnt'; % new type
         end
         
     case {'eucPnt'}

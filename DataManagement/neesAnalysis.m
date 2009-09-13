@@ -14,11 +14,11 @@
 %
 %   See also SLAMTBSLAVE, NEESPLOTS.
 
-lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
-% lmkTypes = {'idpPnt'};
+% lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
+lmkTypes = {'idpPnt','ahmPnt'};
 
-numRuns   = 10;
-numFrames = 100;
+numRuns   = 3;
+numFrames = 50;
 logsDir = '~/SLAM/logs/pose6d/';
 
 % randSeeds = round(10000*rand(1,numRuns));

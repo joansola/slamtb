@@ -21,12 +21,13 @@ global Map          %#ok<NUSED>
 
 userDataPnt;        % user-defined data. SCRIPT.
 
-Opt.init.initType         = lmkType;
+% These inputs come from neesAnalysis and overwrite some userData values:
 Time.lastFrame            = numFrames;
+Opt.init.initType         = lmkType;
+Opt.correct.reparametrize = false;
 SimOpt.random.newSeed     = false;
 SimOpt.random.fixedSeed   = randSeeds(nRun);
-Opt.correct.reparametrize = false;
-
+FigOpt.rendPeriod         = rendPeriod;
 
 %% II. Initialize all data structures from user-defined data in userData.m
 % SLAM data
@@ -167,17 +168,11 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % TODO: do something here to collect data for post-processing or
     % plotting. Think about collecting data in files using fopen, fwrite,
     % etc., instead of creating large Matlab variables for data logging.
-    s = 1:7;
-    r = Rob(1).frame.r(s);
-    x = SimRob.frame.x(s);
-    m = Map.x(r);
-    P = Map.P(r,r);
-    [m,P] = propagateUncertainty(m,P,@qpose2epose);
-    x = qpose2epose(x);
-    e = x-m;
-    e(4:6) = normAngle(e(4:6));
-    NEES = nees(e,0,P);
+    
+    % NEES for robot 1
+    NEES = robotNees(Rob(1),SimRob(1));
     writeLogData(logFile,[currentFrame,NEES]);
+
 end
 
 %% V. Post-processing

@@ -6,6 +6,8 @@ function MD = mahalanobis(x,m,P)
 %
 %   MD = sqrt((X-M)'*inv(P)*(X-M));
 %
+%   See also NEES.
+
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 MD = sqrt((x-m)'*inv(P)*(x-m));

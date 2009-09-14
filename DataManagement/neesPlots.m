@@ -13,16 +13,16 @@
 %
 %   See also SLAMTBSLAVE, NEESANALYSIS.
 
-% lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
-lmkTypes = {'idpPnt','ahmPnt'};
+lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
+% lmkTypes = {'idpPnt','ahmPnt'};
 
-numRuns   = 3;
-numFrames = 50;
+% numRuns   = 3;
+% numFrames = 80;
 
 dimX      = 6;
 logsDir   = '~/SLAM/logs/pose6d/';
 
-yLim      = [ 50 20];
+yLim      = [40 20];
 
 DOF       = dimX*numRuns;
 
@@ -59,6 +59,8 @@ for lt = 1:numel(lmkTypes)
         neesData{lt}.data(nRun,:) = data(2,:);
     end
     neesData{lt}.mean = mean(neesData{lt}.data);
+    
+    yLim = ceil(max(neesData{lt}.mean)/10)*10;
 
     figure(50)
     ax(lt) = subplot(numel(lmkTypes),1,lt);
@@ -68,7 +70,7 @@ for lt = 1:numel(lmkTypes)
     plot(neesData{lt}.mean,'linestyle','-','color','k','linewidth',2)
     plot([1 numFrames],Lnees*[1 1],'-r')
     plot([1 numFrames],Hnees*[1 1],'-r')
-    ylim([0 yLim(lt)])
+    ylim([0 yLim])
     hold off
     xlabel('Time (frames)')
     ylabel(['Avg. NEES, ' num2str(dimX) '-DOF, ' num2str(numRuns) ' runs'])

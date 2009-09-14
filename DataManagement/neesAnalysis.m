@@ -7,24 +7,29 @@
 %   Specify the number of runs for each lmk in:  numRuns.
 %   Specify the length of each run in         :  numFrames.
 %   Specify the destination of log files in   :  logsDir.
+%   Specify the rendering period in           :  rendPeriod.
+%   Specify lmk parametrization with the flag :  reparametrize.
 %   Specify N random seeds in                 :  randSeeds.
 %
-%   The result of this file is a set of log files. The contents of these
+%   The result of this process is a set of log files. The contents of these
 %   files can be plotted with NEESPLOTS.
 %
-%   See also SLAMTBSLAVE, NEESPLOTS.
+%   See also SLAMTBSLAVE, NEESPLOTS, NEES, ROBOTNEES.
 
-% lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
-lmkTypes = {'idpPnt','ahmPnt'};
+lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
+% lmkTypes   = {'hmgPnt'};
+% lmkTypes   = {'idpPnt','ahmPnt'};
 
-numRuns   = 3;
-numFrames = 50;
-logsDir = '~/SLAM/logs/pose6d/';
+numRuns    = 25;
+numFrames  = 200;
 
-% randSeeds = round(10000*rand(1,numRuns));
+logsDir    = '~/SLAM/logs/pose6d/';
+rendPeriod = 20;
+reparametrize = false;
+
+% randSeeds  = round(10000*rand(1,numRuns));
 
 randSeeds = [8687 8440 3999 2599 8001 4314 9106 1818 2638 1455 1361 8693 5797 5499 1450 8530 6221 3510 5132 4018 7600 2399 1233 1839 2400];
-rendPeriod = 20;
 % save [logsDir 'randSeeds.log'] randSeeds -ascii
 
 for l = 1:numel(lmkTypes)
@@ -40,6 +45,7 @@ for l = 1:numel(lmkTypes)
     end
 end
 
+neesPlots;
 
 
 % ========== End of function - Start GPL license ==========

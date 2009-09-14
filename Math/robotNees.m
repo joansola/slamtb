@@ -2,10 +2,10 @@ function NEES = robotNees(Rob,SimRob)
 
 % ROBOTNEES Robot's normalized estimation error squared.
 %   ROBOTNEES(ROB,SIMROB) computes the NEES of the estimated robot ROB wrt
-%   ground truth SIMROB. The result is the 6DOF NEES corresponding to the
+%   ground truth SIMROB. The result is the NEES corresponding to the 6-DOF
 %   robot frame expressed in Euler angles.
 %
-%   See also NEESANALYSIS, NEESPLOTS, SLAMTBSLAVE.
+%   See also NEES, NEESANALYSIS, NEESPLOTS, SLAMTBSLAVE.
 
 %   Copyright 2009 Joan Sola @ LAAS-CNRS.
 

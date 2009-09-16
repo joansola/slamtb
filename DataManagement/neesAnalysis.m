@@ -20,11 +20,11 @@ lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes   = {'hmgPnt'};
 % lmkTypes   = {'idpPnt','ahmPnt'};
 
-numRuns    = 25;
-numFrames  = 200;
+numRuns    = 3;
+numFrames  = 50;
 
 logsDir    = '~/SLAM/logs/pose6d/';
-rendPeriod = 20;
+rendPeriod = 10;
 reparametrize = false;
 
 % randSeeds  = round(10000*rand(1,numRuns));

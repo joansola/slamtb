@@ -115,10 +115,10 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                 Opt) ;
 
             % Initialize new landmarks
-            if currentFrame == 1
-                numInit = 10;
+            if currentFrame == Tim.firstFrame
+                numInit = Opt.init.nbrInits(1);
             else
-                numInit = 1;
+                numInit = Opt.init.nbrInits(2);
             end
             for ini = 1:numInit
                 [Lmk,Obs(sen,:)] = initNewLmk(...

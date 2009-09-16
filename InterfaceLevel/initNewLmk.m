@@ -35,6 +35,7 @@ switch Opt.init.initType
         error('??? Unknown landmark type ''%s''.', Opt.init.initType);
 end
 
+
 % get free space in the Map.
 r = newRange(lmkSize);
 % index to first free Idp lmk

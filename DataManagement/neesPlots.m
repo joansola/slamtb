@@ -16,8 +16,8 @@
 lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes = {'idpPnt','ahmPnt'};
 
-% numRuns   = 3;
-% numFrames = 80;
+% numRuns   = 25;
+% numFrames = 200;
 
 dimX      = 6;
 logsDir   = '~/SLAM/logs/pose6d/';
@@ -60,7 +60,7 @@ for lt = 1:numel(lmkTypes)
     end
     neesData{lt}.mean = mean(neesData{lt}.data);
     
-    yLim = ceil(max(neesData{lt}.mean)/10)*10;
+    yLim = max(20,ceil(max(neesData{lt}.mean)/10)*10);
 
     figure(50)
     ax(lt) = subplot(numel(lmkTypes),1,lt);

@@ -13,7 +13,7 @@
 %
 %   See also SLAMTBSLAVE, NEESANALYSIS.
 
-lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
+% lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes = {'idpPnt','ahmPnt'};
 
 % numRuns   = 25;
@@ -22,7 +22,7 @@ lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
 dimX      = 6;
 logsDir   = '~/SLAM/logs/pose6d/';
 
-yLim      = [40 20];
+% yLim      = [40 20];
 
 DOF       = dimX*numRuns;
 

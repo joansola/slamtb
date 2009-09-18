@@ -19,12 +19,13 @@
 lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes   = {'hmgPnt'};
 % lmkTypes   = {'idpPnt','ahmPnt'};
+% lmkTypes   = {'plkLin','aplLin','idpLin'};
 
 numRuns    = 3;
 numFrames  = 50;
 
 logsDir    = '~/SLAM/logs/pose6d/';
-rendPeriod = 10;
+rendPeriod = 20;
 reparametrize = false;
 
 % randSeeds  = round(10000*rand(1,numRuns));

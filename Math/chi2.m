@@ -2,7 +2,7 @@ function chi2 = chi2(n,p)
 
 % CHI2  Chi square distribution
 %   TH = CHI2(N,P) gives the critical values of the N-dimensional
-%   Chi-squared distribuiton funciton for a right-tail probability area P
+%   Chi-squared distribuiton function for a right-tail probability area P
 
 %   Copyright 2009 Joan Sola @ LAAS-CNRS.
 
@@ -26,7 +26,7 @@ if (n == floor(n))
     if (n > 1000)
         error('Chi2 Lookup table only up to N=1000 DOF')
     elseif (n > 250) && (mod(n,50)~=0)
-        warning('Value of N-DOF not found. Innacurate results. Use N in (1:250,300:50:1000)')
+        warning('Value of N-DOF not found. Innacurate results. Use N in [1:1:250,300:50:1000]')
     end
     
     % 2-D interpolation

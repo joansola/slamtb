@@ -236,17 +236,17 @@ FigOpt = struct(...
       'axes',       [0 0 0],...       % 
       'bckgnd',     [1 1 1],...       %
       'raw',        .3*[1 1 1],...    % 
-      'defPnt',     struct(...       % euclidean point colors
+      'defPnt',     struct(...       % Default point colors
         'updated',  'c',...           % updated
         'predicted','b'),...          % predicted
       'othPnt',     struct(...       % other point colors
         'updated',  'r',...           % updated
         'predicted','m'),...          % predicted
-      'defLin',     struct(...       % Plucker line colors
+      'defLin',     struct(...       % Default line colors
         'meas',     'b',...           % measurement
         'mean',     'g',...           % mean line
         'ellip',    'y'),...          % ellipsoid
-      'othLin',     struct(...       % Plucker line colors
+      'othLin',     struct(...       % other line colors
         'meas',     'b',...           % measurement
         'mean',     'm',...           % mean line
         'ellip',    'r'),...          % ellipsoid

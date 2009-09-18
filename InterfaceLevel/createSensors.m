@@ -43,7 +43,11 @@ for sen = 1:numel(Sensor)
             So.par.pixCov = Si.pixErrorStd^2*eye(2);
             So.par.k = Si.intrinsic; % intrinsic parameters
             So.par.d = Si.distortion; % radial distortion coefficients
-            So.par.c = invDistortion(So.par.d,numel(So.par.d),So.par.k); % distortion correction coefficients
+            So.par.c = invDistortion(...
+                So.par.d,...
+                numel(So.par.d)+1,...
+                So.par.k); % distortion correction coefficients
+            So.par.c = So.par.c(:);
 
         otherwise
             error('??? Unknown sensor type ''%s''.',Si.type)

@@ -30,7 +30,7 @@ function [u, s, U_r, U_s, U_k, U_d, U_l] = ...
 if nargout <= 2 % only pixel
     
     % landmark position in euclidian space:
-    leucl = hmg2p(l) ;
+    leucl = hmg2euc(l) ;
     
     % projection in euclidian space
     [u,s] = projEucPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, leucl) ;

@@ -1,5 +1,5 @@
-function [ahm, AHM_rf, AHM_sf, AHM_sk, AHM_sd, AHM_u, AHM_rho] = ...
-    retroProjAhmPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, u, n)
+function [ahm, AHM_rf, AHM_sf, AHM_sk, AHM_sc, AHM_u, AHM_rho] = ...
+    retroProjAhmPntFromPinHoleOnRob(Rf, Sf, Sk, Sc, u, n)
 
 % RETROPROJAHMPNTFROMPINHOLEONROB Retro-project ahm from pinhole on robot.
 %
@@ -26,7 +26,7 @@ if(isempty(Sd))
     [ahms, AHMS_u, AHMS_rho, AHMS_sk] = invPinHoleAhm(u,n,Sk) ;
 else
     % AHM in Sensor Frame
-    [ahms, AHMS_u, AHMS_rho, AHMS_sk, AHMS_sd] = invPinHoleAhm(u,n,Sk,Sd) ;
+    [ahms, AHMS_u, AHMS_rho, AHMS_sk, AHMS_sc] = invPinHoleAhm(u,n,Sk,Sc) ;
 end
 
 [ahmr, AHMR_sf, AHMR_ahms] = fromFrameAhm(Sf,ahms);
@@ -37,9 +37,9 @@ AHM_sk   = AHM_ahms*AHMS_sk ;
 AHM_sf   = AHM_ahmr*AHMR_sf;
 
 if(isempty(Sd))
-    AHM_sd = [] ;
+    AHM_sc = [] ;
 else
-    AHM_sd = AHM_ahms*AHMS_sd ;
+    AHM_sc = AHM_ahms*AHMS_sc ;
 end 
 
 AHM_u = AHM_ahms*AHMS_u ;

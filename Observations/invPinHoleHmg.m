@@ -1,76 +1,119 @@
-function [p, P_k, P_uin, P_nob] = invPinHoleHmg(k,uin,nob)
+function [hmg, HMG_u, HMG_s, HMG_k, HMG_c] = invPinHoleHmg(u,s,k,c)
 
-% INVPINHOLEHMG Inverse pin-hole camera model for HMG.
-%   P = INVPINHOLEHMG(K,U,NOB) gives the retroprojected HMG point P of a
-%   pixel U at inverse-depth NOB, from a pin-hole camera with calibration
-%   parameters K. Pixel U can be Euclidean or homogeneous.
+% INVPINHOLEHMG Retro-project anchored homogeneous point AHP.
+%   HMG = INVPINHOLEHMG(U,S) gives the retroprojected anchored homogeneous
+%   point (HMG) of a pixel U at inverse-depth S, from a canonical pin-hole
+%   camera, that is, with calibration parameters
+%     u0 = 0, v0 = 0, au = 1, av = 1
+%   It uses reference frames {RDF,RD} (right-down-front for the 3D world
+%   points and right-down for the pixel), according to this scheme:
 %
-%   [P, P_K, P_U, P_NOB] = ... returns the Jacobians wrt K, U and NOB.
+%         / z (forward)
+%        /
+%       +------- x                 +------- u
+%       |                          |
+%       |      3D : P=[x;y;z]      |     image : U=[u;v]
+%       | y                        | v
 %
-%   See also INVINTRINSIC.
+%   HMG = INVPINHOLEHMG(U,S,K) allows the introduction of the camera's
+%   calibration parameters:
+%     K = [u0 v0 au av]'
+%
+%   HMG = INVPINHOLEHMG(U,S,K,C) allows the introduction of the camera's radial
+%   distortion correction parameters:
+%     C = [c2 c4 c6 ...]'
+%   so that the new pixel is corrected following the distortion equation:
+%     U = U_D * (1 + K2*R^2 + K4*R^4 + ...)
+%   with R^2 = sum(U_D.^2), being U_D the distorted pixel in the image
+%   plane for a camera with unit focal length.
+%
+%   If U is a pixels matrix, INVPINHOLEHMG(U,...) returns a HMGS matrix HMG,
+%   with these matrices defined as
+%     U   = [U1 ... Un];       Ui   = [ui;vi]
+%     HMG = [HMG1 ... HMGn];   HMGi = [xi,yi,zi,ri]
+%   where xi, yi, zi are the non-homogeneous parts of HMG, defining the
+%   optical ray, and ri is the inverse of the distance (wrongly named
+%   "inverse depth")
+%
+%   [HMG,HMG_u,HMG_s,HMG_k,HMG_c] returns the Jacobians of HMG wrt U, S, K and C. It
+%   only works for single pixels U=[u;v], and for distortion correction
+%   vectors C of up to 3 parameters C=[c2;c4;c6]. See UNDISTORT for
+%   information on longer distortion vectors.
+%
+%   See also RETRO, UNDISTORT, DEPIXELLISE, PINHOLEHMG.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-iK = invIntrinsic(k);
+if nargout == 1 % only point
 
-if nargout == 1
-    
-    if numel(uin) == 2
-        uh = euc2hmg(uin);
+    switch nargin
+        case 2
+            v = retro(u,1);
+        case 3
+            v = retro(depixellise(u,k),1);
+        case 4
+            v = retro(undistort(depixellise(u,k),c),1);
+    end
+    n = normvec(v);
+    hmg  = [n;s];
+
+else % Jacobians
+
+    if size(u,2) > 1
+        error('Jacobians not available for multiple pixels')
     else
-        uh = uin;
+
+        switch nargin
+            case 2
+                [v, V_u] = invPinHole(u,1);
+                [n,N_v]  = normvec(v,1);
+                hmg      = [n;s];
+                HMG_v    = [N_v;zeros(1,3)];
+                HMG_s    = [0;0;0;1];
+                HMG_u    = HMG_v*V_u;
+
+            case 3
+                [v, V_u, V_1, V_k] = invPinHole(u,1,k);
+                [n,N_v]  = normvec(v,1);
+                hmg      = [n;s];
+                HMG_v    = [N_v;zeros(1,3)];
+                HMG_s    = [0;0;0;1];
+                HMG_u    = HMG_v*V_u;
+                HMG_k    = HMG_v*V_k;
+
+            case 4
+                [v, V_u, V_1, V_k, V_c] = invPinHole(u,1,k,c);
+                [n,N_v]  = normvec(v,1);
+                hmg      = [n;s];
+                HMG_v    = [N_v;zeros(1,3)];
+                HMG_s    = [0;0;0;1];
+                HMG_u    = HMG_v*V_u;
+                HMG_k    = HMG_v*V_k;
+                HMG_c    = HMG_v*V_c;
+
+        end
     end
 
-    p = [normvec(iK*uh);nob];
-
-else % we want Jacobians
-    
-    if numel(uin) == 2
-        [uh, UH_uin] = euc2hmg(uin);
-    else
-        uh = uin;
-        UH_uin = eye(3);
-    end
-
-    [u0,v0,au,av] = split(k);
-    [u,v,w] = split(uh);
-
-    vh = iK*uh;
-    VH_k = [...
-        [        -1/au*w,              0, (-u+u0*w)/au^2,              0]
-        [              0,        -1/av*w,              0, (-v+v0*w)/av^2]
-        [              0,              0,              0,              0]];
-    VH_uh = iK;
-    
-    [wh, WH_vh] = normvec(vh,1);
-
-    p   = [wh;nob];
-    P_wh = [eye(3);0 0 0];
-    
-    P_vh   = P_wh*WH_vh;
-    P_k   = P_vh*VH_k;
-    P_uin = P_vh*VH_uh*UH_uin;
-
-    P_nob = [0;0;0;1];
-
-%     if numel(u) == 2
-%         Pu = Pu(:,1:2);
-%     end
 end
 
 return
 
-%% jac
-syms u0 v0 au av u v w n real
-k = [u0 v0 au av]';
-uin = [u;v;w]; % try this Hmg. or the Euc. below
-% uin = [u;v]; % this is Euc.
+%% jacobians
+syms u v s u0 v0 au av c2 c4 c6 real
+U=[u;v];
+k=[u0;v0;au;av];
+c=[c2;c4;c6];
 
-[p, P_k, P_uin, P_n] = invPinHoleHmg(k,uin,n);
+% [hmg,HMG_u,HMG_s] = invPinHoleHmg(U,s);
+% [hmg,HMG_u,HMG_s,HMG_k] = invPinHoleHmg(U,s,k);
+[hmg,HMG_u,HMG_s,HMG_k,HMG_c] = invPinHoleHmg(U,s,k,c);
 
-simplify(P_k   - jacobian(p,k))
-simplify(P_uin - jacobian(p,uin))
-simplify(P_n   - jacobian(p,n))
+simplify(HMG_u - jacobian(hmg,U))
+simplify(HMG_s - jacobian(hmg,s))
+simplify(HMG_k - jacobian(hmg,k))
+% simplify(HMG_c - jacobian(hmg,c))
+
+
 
 
 % ========== End of function - Start GPL license ==========

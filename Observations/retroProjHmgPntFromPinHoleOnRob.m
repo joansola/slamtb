@@ -1,5 +1,5 @@
-function [hmg, HMG_rf, HMG_sf, HMG_sk, HMG_sd, HMG_u, HMG_n] = ...
-    retroProjHmgPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, u, n)
+function [hmg, HMG_rf, HMG_sf, HMG_sk, HMG_sc, HMG_u, HMG_n] = ...
+    retroProjHmgPntFromPinHoleOnRob(Rf, Sf, Sk, Sc, u, n)
 
 % RETROPROJHMGPNTFROMPINHOLEONROB Retro-proj. Hmg pnt from pinhole on rob.
 %
@@ -20,12 +20,12 @@ function [hmg, HMG_rf, HMG_sf, HMG_sk, HMG_sd, HMG_u, HMG_n] = ...
 % Frame World -> Robot  :  Rf
 % Frame Robot -> Sensor :  Sf
 
-if(isempty(Sd))
-    % In Sensor Frame:
-    [hmsen, HMSEN_sk, HMSEN_u, HMSEN_n] = invPinHoleHmg(Sk,u,n) ;
-else
-    error('??? NYI ''Sd'' for invPinHoleHmg')
-end
+% if(isempty(Sd))
+%     % In Sensor Frame:
+[hmsen, HMSEN_u, HMSEN_n, HMSEN_sk, HMSEN_sc] = invPinHoleHmg(u,n,Sk,Sc) ;
+% else
+%     error('??? NYI ''Sd'' for invPinHoleHmg')
+% end
 
 % In rob Frame
 [hmrob, HMROB_sf, HMROB_hmsen] = fromFrameHmg(Sf,hmsen) ;
@@ -37,17 +37,17 @@ end
 
 % Jacobians
 
+HMG_hmsen = HMG_hmrob*HMROB_hmsen;
+
 HMG_sf = HMG_hmrob*HMROB_sf ;
-HMG_sk = HMG_hmrob*HMROB_hmsen*HMSEN_sk ;
-
-if(isempty(Sd))
-    HMG_sd = Sd ;
-else
-    error('??? NYI ''Sd'' for invPinHoleHmg')
-end
-
-HMG_u = HMG_hmrob*HMROB_hmsen*HMSEN_u ;
-HMG_n = HMG_hmrob*HMROB_hmsen*HMSEN_n ;
+HMG_sk = HMG_hmsen*HMSEN_sk ;
+% if(isempty(Sd))
+HMG_sc = HMG_hmsen*HMSEN_sc ;
+% else
+%     error('??? NYI ''Sd'' for invPinHoleHmg')
+% end
+HMG_u  = HMG_hmsen*HMSEN_u ;
+HMG_n  = HMG_hmsen*HMSEN_n ;
 
 end
 

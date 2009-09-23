@@ -21,7 +21,7 @@ function [ahm, AHM_rf, AHM_sf, AHM_sk, AHM_sc, AHM_u, AHM_rho] = ...
 % Frame World -> Robot  :  Rf
 % Frame Robot -> Sensor :  Sf
 
-if(isempty(Sd))
+if(isempty(Sc))
     % AHM in Sensor Frame
     [ahms, AHMS_u, AHMS_rho, AHMS_sk] = invPinHoleAhm(u,n,Sk) ;
 else
@@ -36,7 +36,7 @@ AHM_ahms = AHM_ahmr*AHMR_ahms;
 AHM_sk   = AHM_ahms*AHMS_sk ;
 AHM_sf   = AHM_ahmr*AHMR_sf;
 
-if(isempty(Sd))
+if(isempty(Sc))
     AHM_sc = [] ;
 else
     AHM_sc = AHM_ahms*AHMS_sc ;

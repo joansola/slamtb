@@ -15,7 +15,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            400);           % last frame #
+  'lastFrame',            800);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -47,7 +47,7 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'dx',                 [.08;0;0],...     % position increment 8
   'daDegrees',          [0;0;0.9],...     % angle increment, degrees 9
   'dxStd',              0.005*[1;1;1],...  % odo linear error std
-  'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
+  'daStd',              0.05*[1;1;1]);     % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -86,7 +86,7 @@ Sensor{1} = struct(...
   'imageSize',          [640;480],...   % image size
   'pixErrorStd',        1.0,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
-  'distortion',         [0],...          % distortion params
+  'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
 
 % Sensor{2} = struct(...
@@ -115,7 +115,7 @@ Opt = struct(...
     'lmkSize',        7),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'reparametrize',  false,...       % reparametrize lmk?
+    'reparametrize',  true,...       % reparametrize lmk?
     'nUpdates',       10,...         % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
@@ -125,11 +125,11 @@ Opt = struct(...
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'hmgPnt',...   % Type of lmk to use for init
-    'idpPnt',         struct(...     % options for lmk initialization
+    'initType',       'ahmPnt',...   % Type of lmk to use for init
+    'idpPnt',         struct(...     % inverse-distance prior
       'nonObsMean',   .01,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
-    'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
+    'plkLin',         struct(...     % Plucker prior
       'nonObsMean',   [.1;0],...      % mean of non obs
       'nonObsStd',    [.25;1])),...   % std of non obs
   'obs',              struct(...    % Observation options
@@ -141,7 +141,7 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'newSeed',        false,...         % select new random seed?
+    'newSeed',        true,...         % select new random seed?
     'fixedSeed',      1,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options

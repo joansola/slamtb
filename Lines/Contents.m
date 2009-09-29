@@ -33,7 +33,7 @@
 %   idpLinSegment       - IDP line endpoints.
 %   app2idpLin          - APP2IDL Anchor and points to inverse depth line conversion.
 %
-% 3D segments
+% 3D segments (defined by two endpoints, stacked in one vector)
 %   toFrameSegment      - Express in local frame a set of segments from global frame
 %   segLength           - Segment length.
 %   seg2pvLin           - Segment to point-vector line transform.

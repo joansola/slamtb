@@ -32,6 +32,10 @@ d     = sqrt(D); % semi-axes
 % spheroid -> aligned ellipsoid -> rotated ellipsoid -> ns-ellipsoid
 ellip = ns*R*d*spheroid;
 
+% Choleski is not good here: ellipsoid cross not aligned w/ axis
+% C = chol(P)';
+% ellip = ns*C*spheroid;
+
 % output ready for plotting (X, Y and Z line vectors), offset by x
 X = x(1)+ellip(1,:);
 Y = x(2)+ellip(2,:);

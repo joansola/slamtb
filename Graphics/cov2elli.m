@@ -20,12 +20,15 @@ if isempty(circle)
     circle = [cos(alpha);sin(alpha)];
 end
 
+% SVD method, R*d*d*R' = P
+% [R,D]=svd(P);
+% d = sqrt(D);
+% % circle -> aligned ellipse -> rotated ellipse -> ns-ellipse
+% ellip = ns*R*d*circle;
 
-[R,D]=svd(P);
-d = sqrt(D);
-
-% circle -> aligned ellipse -> rotated ellipse -> ns-ellipse
-ellip = ns*R*d*circle;
+% Choleski method, C*C' = P
+C = chol(P)';
+ellip = ns*C*circle;
 
 % output ready for plotting (X and Y line vectors)
 X = x(1)+ellip(1,:);

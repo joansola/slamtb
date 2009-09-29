@@ -16,13 +16,14 @@
 %
 %   See also SLAMTBSLAVE, NEESPLOTS, NEES, ROBOTNEES.
 
-lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
+% lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes   = {'hmgPnt'};
 % lmkTypes   = {'idpPnt','ahmPnt'};
 % lmkTypes   = {'plkLin','aplLin','idpLin'};
+lmkTypes   = {'aplLin'};
 
-numRuns    = 3;
-numFrames  = 50;
+numRuns    = 5;
+numFrames  = 200;
 
 logsDir    = '~/SLAM/logs/pose6d/';
 rendPeriod = 20;

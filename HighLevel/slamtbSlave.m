@@ -97,7 +97,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
         % Robot motion
         % FIXME: see how to include noise in a clever way.
-        Rob(rob).con.u = SimRob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
+        Rob(rob).con.u = SimRob(rob).con.u + Rob(rob).con.uStd.*randn(6,1)*noiseFactor;
 
         Rob(rob) = motion(Rob(rob),Tim);
 

@@ -127,8 +127,8 @@ Opt = struct(...
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
     'initType',       'ahmPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % inverse-distance prior
-      'nonObsMean',   .01,...         % mean of non obs
-      'nonObsStd',    .5),...         % std of non obs
+      'nonObsMean',   1,...         % mean of non obs
+      'nonObsStd',    1),...         % std of non obs
     'plkLin',         struct(...     % Plucker prior
       'nonObsMean',   [.1;0],...      % mean of non obs
       'nonObsStd',    [.25;1])),...   % std of non obs

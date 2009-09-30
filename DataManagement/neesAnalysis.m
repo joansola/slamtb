@@ -22,12 +22,13 @@
 % lmkTypes   = {'plkLin','aplLin','idpLin'};
 lmkTypes   = {'aplLin'};
 
-numRuns    = 5;
-numFrames  = 200;
+numRuns    = 25;
+numFrames  = 150;
 
 logsDir    = '~/SLAM/logs/pose6d/';
 rendPeriod = 20;
 reparametrize = false;
+noiseFactor = 0.5;
 
 % randSeeds  = round(10000*rand(1,numRuns));
 

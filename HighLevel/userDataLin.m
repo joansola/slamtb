@@ -42,17 +42,31 @@ World = struct(...
 %       'constVel'    6D Constant velocity model
 %       'odometry'    6D Odometry model
 %   - See EULERANGLES for orientations specifications.
+% Robot{1} = struct(...                     % ODOMETRY EXAMPLE
+%   'id',                 1,...           % robot identifier
+%   'name',               'Dala',...      % robot name
+%   'type',               'atrv',...      % type of robot
+%   'motion',             'odometry',...  % motion model
+%   'position',           [-7;0;0],...     % robot position in map
+%   'orientationDegrees', [0;0;-90],...     % orientation, in degrees, roll pitch yaw.
+%   'positionStd',        [0;0;0],...     % position error, std
+%   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
+%   'dx',                 [.04;0;0],...     % position increment 8
+%   'daDegrees',          [0;0;0.45],...     % angle increment, degrees 9
+%   'dxStd',              0.002*[1;1;1],...  % odo linear error std
+%   'daStd',              0.02*[1;1;1]);     % odo ang error std, degrees
+
 Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'id',                 1,...           % robot identifier
   'name',               'Dala',...      % robot name
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
-  'position',           [-7;0;0],...     % robot position in map
-  'orientationDegrees', [0;0;-90],...     % orientation, in degrees, roll pitch yaw.
+  'position',           [-10;0;0],...     % robot position in map
+  'orientationDegrees', [0;0;-30],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.04;0;0],...     % position increment 8
-  'daDegrees',          [0;0;0.45],...     % angle increment, degrees 9
+  'daDegrees',          [0;0;0.35],...     % angle increment, degrees 9
   'dxStd',              0.002*[1;1;1],...  % odo linear error std
   'daStd',              0.02*[1;1;1]);     % odo ang error std, degrees
 
@@ -81,35 +95,35 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
 %   - Sensor types (add new type strings if you need more):
 %       'pinHole'   Pin-hole camera
 %   - See EULERANGLES for orientations specifications.
+% Sensor{1} = struct(...
+%   'id',                 1,...           % sensor identifier
+%   'name',               'Micropix',...  % sensor name
+%   'type',               'pinHole',...   % type of sensor
+%   'robot',              1,...           % robot where it is mounted
+%   'position',           [0;0;1.5],...    % position in robot
+%   'orientationDegrees', [-90;0;0],... % orientation in robot, roll pitch yaw
+%   'positionStd',        [0;0;0],...     % position error std
+%   'orientationStd',     [0;0;0],...     % orient. error std
+%   'imageSize',          [320;240],...   % image size
+%   'pixErrorStd',        0.2,...         % pixel error std
+%   'intrinsic',          [160;120;160;160],... % intrinsic params [u0 v0 au av]
+%   'distortion',         [],...          % distortion params
+%   'frameInMap',         false);         % add sensor frame in slam map?
+
 Sensor{1} = struct(...
   'id',                 1,...           % sensor identifier
-  'name',               'Micropix',...  % sensor name
+  'name',               'Micropix',...      % sensor name
   'type',               'pinHole',...   % type of sensor
   'robot',              1,...           % robot where it is mounted
-  'position',           [0;0;1.5],...    % position in robot
-  'orientationDegrees', [-90;0;0],... % orientation in robot, roll pitch yaw
+  'position',           [0;0;1.5],...     % position in robot
+  'orientationDegrees', [-90;0;-90],...      % orientation in robot, roll pitch yaw
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [320;240],...   % image size
   'pixErrorStd',        0.2,...         % pixel error std
-  'intrinsic',          [160;120;160;160],... % intrinsic params [u0 v0 au av]
+  'intrinsic',          [160;120;160;160],... % intrinsic params
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
-
-% Sensor{2} = struct(...
-%   'id',                 2,...           % sensor identifier
-%   'name',               'Micropix',...      % sensor name
-%   'type',               'pinHole',...   % type of sensor
-%   'robot',              1,...           % robot where it is mounted
-%   'position',           [0.3;0;1.5],...     % position in robot
-%   'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
-%   'positionStd',        [0;0;0],...     % position error std
-%   'orientationStd',     [1;1;1],...     % orient. error std
-%   'imageSize',          [320;240],...   % image size
-%   'pixErrorStd',        0.5,...         % pixel error std
-%   'intrinsic',          [160;120;160;160],... % intrinsic params
-%   'distortion',         [],...          % distortion params
-%   'frameInMap',         true);         % add sensor frame in slam map?
 
 % Sensor{3} = struct(...
 %   'id',                 3,...           % sensor identifier

@@ -26,7 +26,7 @@ logsDir   = '~/SLAM/logs/pose6d/';
 
 DOF       = dimX*numRuns;
 
-df = 5;
+df = 2;
 
 switch DOF
     case 18

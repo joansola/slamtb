@@ -42,33 +42,33 @@ World = struct(...
 %       'constVel'    6D Constant velocity model
 %       'odometry'    6D Odometry model
 %   - See EULERANGLES for orientations specifications.
-% Robot{1} = struct(...                     % ODOMETRY EXAMPLE
-%   'id',                 1,...           % robot identifier
-%   'name',               'Dala',...      % robot name
-%   'type',               'atrv',...      % type of robot
-%   'motion',             'odometry',...  % motion model
-%   'position',           [-7;0;0],...     % robot position in map
-%   'orientationDegrees', [0;0;-90],...     % orientation, in degrees, roll pitch yaw.
-%   'positionStd',        [0;0;0],...     % position error, std
-%   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-%   'dx',                 [.04;0;0],...     % position increment 8
-%   'daDegrees',          [0;0;0.45],...     % angle increment, degrees 9
-%   'dxStd',              0.002*[1;1;1],...  % odo linear error std
-%   'daStd',              0.02*[1;1;1]);     % odo ang error std, degrees
-
 Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'id',                 1,...           % robot identifier
   'name',               'Dala',...      % robot name
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
-  'position',           [-10;0;0],...     % robot position in map
-  'orientationDegrees', [0;0;-30],...     % orientation, in degrees, roll pitch yaw.
+  'position',           [-7;0;0],...     % robot position in map
+  'orientationDegrees', [0;0;-90],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-  'dx',                 [.04;0;0],...     % position increment 8
-  'daDegrees',          [0;0;0.35],...     % angle increment, degrees 9
+  'dx',                 [.1;0;0],...     % position increment 8
+  'daDegrees',          [0;0;1],...     % angle increment, degrees 9
   'dxStd',              0.002*[1;1;1],...  % odo linear error std
   'daStd',              0.02*[1;1;1]);     % odo ang error std, degrees
+
+% Robot{1} = struct(...                     % ODOMETRY EXAMPLE
+%   'id',                 1,...           % robot identifier
+%   'name',               'Dala',...      % robot name
+%   'type',               'atrv',...      % type of robot
+%   'motion',             'odometry',...  % motion model
+%   'position',           [-10;0;0],...     % robot position in map
+%   'orientationDegrees', [0;0;-30],...     % orientation, in degrees, roll pitch yaw.
+%   'positionStd',        [0;0;0],...     % position error, std
+%   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
+%   'dx',                 [.04;0;0],...     % position increment 8
+%   'daDegrees',          [0;0;0.35],...     % angle increment, degrees 9
+%   'dxStd',              0.002*[1;1;1],...  % odo linear error std
+%   'daStd',              0.02*[1;1;1]);     % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -116,12 +116,12 @@ Sensor{1} = struct(...
   'type',               'pinHole',...   % type of sensor
   'robot',              1,...           % robot where it is mounted
   'position',           [0;0;1.5],...     % position in robot
-  'orientationDegrees', [-90;0;-90],...      % orientation in robot, roll pitch yaw
+  'orientationDegrees', [-90;0;0],...      % orientation in robot, roll pitch yaw
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
-  'imageSize',          [320;240],...   % image size
+  'imageSize',          [640;480],...   % image size
   'pixErrorStd',        0.2,...         % pixel error std
-  'intrinsic',          [160;120;160;160],... % intrinsic params
+  'intrinsic',          [320;240;320;320],... % intrinsic params
   'distortion',         [],...          % distortion params
   'frameInMap',         false);         % add sensor frame in slam map?
 
@@ -161,7 +161,7 @@ Opt = struct(...
       'extSwitch',    2)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'idpLin',...   % Type of lmk to use for init
+    'initType',       'plkLin',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -208,8 +208,8 @@ FigOpt = struct(...
     'proj',         'persp',...     % projection of the 3d figure
     'view',         [-60 20 40 17],... % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0.25 0.05],... % AZ and EL orbit angle increments - [0.25 0.05]
-    'size',         [320 240],...   % map figure size
-    'showSimLmk',   false,...       % show simulated landmarks?
+    'size',         [480 360],...   % map figure size
+    'showSimLmk',   true,...       % show simulated landmarks?
     'showEllip',    true,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      
@@ -233,8 +233,8 @@ FigOpt = struct(...
       'ground',     [.8 .8 .8],...   % simulated robots and sensors
       'label',      [.0 .5 0])),...  % landmark ID labels
   'sensor',         struct(...      % sensor figures options
-    'size',         [320 240],...    % sensor figure size
-    'showEllip',    true,...        % show ellipses?
+    'size',         [480 360],...    % sensor figure size
+    'showEllip',    false,...        % show ellipses?
     'colors',       struct(...       % Sensor figure colors:
       'border',     .8*[1 1 1],...    %    
       'axes',       [0 0 0],...       % 

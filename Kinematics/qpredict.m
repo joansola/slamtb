@@ -7,9 +7,9 @@ function [q1,U_q,U_w] = qpredict(q,w,dt,met)
 %   Qu = QPREDICT(Q,W,DT) assumes a rotation speed W and a sampling time DT.
 %   It is equivalent to the previous case with DV = W*DT.
 %
-%   [Qu,Uq,Uw] = QPREDICT(Q,W,DT) returns Jacobians wrt Q and W.
+%   [Qu,QU_q,QU_w] = QPREDICT(Q,W,DT) returns Jacobians wrt Q and W.
 %
-%   [Qu,U] = QPREDICT(...) returns a unique Jacobian U = [Uq Uw].
+%   [Qu,QU] = QPREDICT(...) returns a unique Jacobian QU = [QU_q QU_w].
 %
 %   [...] = QPREDICT(...,MET) allows the specification of the method to
 %   update the quaternion:

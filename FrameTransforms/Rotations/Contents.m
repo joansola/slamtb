@@ -18,6 +18,7 @@
 %   R2q         - rotation matrix to quaternion conversion.
 %   v2au        - Rotation vector to rotation axis and angle conversion.
 %   v2q         - Rotaiton vector to quaternion conversion.
+%   v2R         - Rotation vector to rotation matrix conversion
 %
 % Other
 %   flu2rdf     - Camera body to camera sensor rotation matrix.

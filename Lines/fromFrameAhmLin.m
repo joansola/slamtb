@@ -27,9 +27,9 @@ else
     l  = [p1;p2(4:7)];
     
     % Jacobians
-    L_f  = [P1_f;P2_f(4:7,:)];
-    P2_lf=P2_p2f*P2f_lf;
-    L_lf = [P1_p1f*P1f_lf;P2_lf(4:7,:)];
+    L_f   = [P1_f;P2_f(4:7,:)];
+    P2_lf = P2_p2f*P2f_lf;
+    L_lf  = [P1_p1f*P1f_lf;P2_lf(4:7,:)];
 
     
 end

@@ -1,6 +1,6 @@
 function [a,u,Av,Uv] = v2au(v)
 
-% R2AU  Rotation vector to rotation axis and angle conversion
+%V2AU Rotation vector to rotation axis and angle conversion.
 %   [ALPHA,U] = R2AU(V) converts the rotation vector V into its
 %   equivalent axis unity vector U and the rotated angle ALPHA
 %

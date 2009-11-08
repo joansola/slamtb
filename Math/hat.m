@@ -21,8 +21,8 @@ function [SQ,SQw] = hat(W)
 
 if numel(W) == 3;
     SQ = [...
-        0    -W(3)  W(2)
-        W(3)  0    -W(1)
+        0     -W(3)  W(2)
+        W(3)   0    -W(1)
         -W(2)  W(1)  0   ];
 
     if nargout > 1

@@ -225,7 +225,7 @@ switch Sen.type
                 % segment visibility
                 [s,vis] = visibleSegment(s,d,Sen.par.imSize,0,Opt.obs.lines.minLength);
 
-           case 'ahmLin'
+            case 'ahmLin'
                 
                 % HMG line --> homogeneous line (value and Jacs)
                 [s, v, S_rf, S_sf, S_k, S_l] = ...

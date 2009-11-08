@@ -18,7 +18,7 @@ switch Lmk.type
         % we will convert from inverse-depth to euclidean.
         
         % Test for linearity:
-        Ld = idpLinTest(Rob,Sen,Lmk);
+        Ld = idpLinearTest(Rob,Sen,Lmk);
         
         if Ld < Opt.correct.linTestIdp
             
@@ -49,7 +49,7 @@ switch Lmk.type
         % we will convert from anchored homogeneous to euclidean.
         
         % Test for linearity:
-        Ld = ahmLinTest(Rob,Sen,Lmk);
+        Ld = ahmLinearTest(Rob,Sen,Lmk);
         
         if Ld < Opt.correct.linTestIdp
             

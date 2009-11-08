@@ -65,7 +65,30 @@ switch Lmk.type
         Obs.par.endp(1).E = Obs.meas.R(1:2,1:2);
         Obs.par.endp(2).E = Obs.meas.R(3:4,3:4);
         
-        
+
+   case 'hmgLin'
+        l  = Map.x(Lmk.state.r);
+        Lmk.par.endp(1).t = 0;
+        Lmk.par.endp(2).t = 1;
+        seg = hmgLin2seg(l);
+        Lmk.par.endp(1).e = seg(1:3);
+        Lmk.par.endp(2).e = seg(4:6);
+        Obs.par.endp(1).e = Obs.meas.y(1:2);
+        Obs.par.endp(2).e = Obs.meas.y(3:4);
+        Obs.par.endp(1).E = Obs.meas.R(1:2,1:2);
+        Obs.par.endp(2).E = Obs.meas.R(3:4,3:4);
+
+   case 'ahmLin'
+        l  = Map.x(Lmk.state.r);
+        Lmk.par.endp(1).t = 0;
+        Lmk.par.endp(2).t = 1;
+        seg = ahmLin2seg(l);
+        Lmk.par.endp(1).e = seg(1:3);
+        Lmk.par.endp(2).e = seg(4:6);
+        Obs.par.endp(1).e = Obs.meas.y(1:2);
+        Obs.par.endp(2).e = Obs.meas.y(3:4);
+        Obs.par.endp(1).E = Obs.meas.R(1:2,1:2);
+        Obs.par.endp(2).E = Obs.meas.R(3:4,3:4);
 
     otherwise
         error('??? Unknown landmark type ''%s''.',Lmk.type);

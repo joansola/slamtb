@@ -35,6 +35,12 @@ switch Sen.type
             case 'idpLin'
                 Lmk = updateIdpLinEndPnts(Rob,Sen,Lmk,Obs,Opt);
                 
+            case 'hmgLin'
+                Lmk = updateHmgLinEndPnts(Rob,Sen,Lmk,Obs,Opt);
+
+            case 'ahmLin'
+                Lmk = updateAhmLinEndPnts(Rob,Sen,Lmk,Obs,Opt);
+
             otherwise
                 error('??? Unknown landmark type ''%s''.',Lmk.type)
         end

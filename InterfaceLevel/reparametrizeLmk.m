@@ -79,7 +79,7 @@ switch Lmk.type
     case {'eucPnt'}
         % do nothing
         
-    case {'hmgPnt','ahmPnt','plkLin','aplLin','idpLin','ahmLin'}
+    case {'hmgPnt','ahmPnt','plkLin','aplLin','idpLin','ahmLin','hmgLin'}
         % do nothing, by now <- probably add here something to do
         % Points should go to euclidean
         % Lines should go to some minimal representation (polar? 'plrLin')

@@ -52,6 +52,14 @@ switch (Lmk.type)
         colors = MapOpt.colors.othLin;
         drawIdpLin(MapFig, Lmk, colors, MapOpt);
 
+    case {'hmgLin'}
+        colors = MapOpt.colors.othLin;
+        drawHmgLin(MapFig, Lmk, colors, MapOpt);
+
+    case {'ahmLin'}
+        colors = MapOpt.colors.othLin;
+        drawAhmLin(MapFig, Lmk, colors, MapOpt);
+        
     otherwise
         % TODO : print an error and go out
         error('??? Unknown landmark type ''%s''.',Lmk.type);

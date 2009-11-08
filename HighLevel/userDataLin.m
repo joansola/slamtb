@@ -5,6 +5,8 @@
 %       'plkLin'   Plucker lines
 %       'aplLin'   Anchored Plucker lines
 %       'idpLin'   Inverse depth lines
+%       'hmgLin'    Homogeneous lines
+%       'ahmLin'   Anchored Homogeneous lines
 %
 %   An inverse-depth line is a 9-vector: L = [xyz pyr1 pyr2] with xyz an
 %   anchor point and pyr a pitch-yaw-rho inverse-depth point anchored at
@@ -161,7 +163,7 @@ Opt = struct(...
       'extSwitch',    2)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'plkLin',...   % Type of lmk to use for init
+    'initType',       'ahmLin',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs

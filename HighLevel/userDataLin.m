@@ -150,7 +150,7 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'numLmks',        25,...         % number of 3d landmarks
-    'lmkSize',        9),...         % Size of landmark
+    'lmkSize',        11),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
@@ -205,12 +205,12 @@ SimOpt = struct(...
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
   'rendPeriod',     1,...           % frames to skip for faster processing
-  'createVideo',    false,...       % create video sequences?
+  'createVideo',    true,...       % create video sequences?
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
     'view',         [-60 20 40 17],... % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0.25 0.05],... % AZ and EL orbit angle increments - [0.25 0.05]
-    'size',         [480 360],...   % map figure size
+    'size',         [320 240],...   % map figure size
     'showSimLmk',   true,...       % show simulated landmarks?
     'showEllip',    true,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
@@ -235,7 +235,7 @@ FigOpt = struct(...
       'ground',     [.8 .8 .8],...   % simulated robots and sensors
       'label',      [.0 .5 0])),...  % landmark ID labels
   'sensor',         struct(...      % sensor figures options
-    'size',         [480 360],...    % sensor figure size
+    'size',         [320 240],...    % sensor figure size
     'showEllip',    false,...        % show ellipses?
     'colors',       struct(...       % Sensor figure colors:
       'border',     .8*[1 1 1],...    %    

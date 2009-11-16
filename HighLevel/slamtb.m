@@ -21,8 +21,10 @@
 
 %   Created and maintained by
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
-%   Programmers:
+%   Programmers (for the whole toolbox):
 %   Copyright David Marquez and Jean-Marie Codol @ LAAS-CNRS
+%   Copyright Teresa Vidal-Calleja @ ACFR.
+%   See COPYING.TXT for wull copyright license.
 
 %% OK we start here
 
@@ -34,7 +36,7 @@ global Map          %#ok<NUSED>
 
 
 %userDataPnt;        % user-defined data. SCRIPT.
-userDataLin;        % user-defined data. SCRIPT.
+userData;        % user-defined data. SCRIPT.
 
 
 %% II. Initialize all data structures from user-defined data in userData.m

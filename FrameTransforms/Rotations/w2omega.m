@@ -14,11 +14,7 @@ function Omega=w2omega(w)
 
  
 
-if (size(w) == [3 1])
-%     Omega=[  0   -w(1) -w(2) -w(3)
-%             w(1)   0   -w(3)  w(2)
-%             w(2)  w(3)   0   -w(1)
-%             w(3) -w(2)  w(1)   0  ];
+if all(size(w) == [3 1])
     Omega=[  0   -w(1) -w(2) -w(3)
             w(1)   0    w(3) -w(2)
             w(2) -w(3)   0    w(1)

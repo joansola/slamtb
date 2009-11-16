@@ -4,9 +4,9 @@
 %   types in Opt.init.initType:
 %       'plkLin'   Plucker lines
 %       'aplLin'   Anchored Plucker lines
-%       'idpLin'   Inverse depth lines
-%       'hmgLin'    Homogeneous lines
-%       'ahmLin'   Anchored Homogeneous lines
+%       'idpLin'   Inverse depth endpoints lines
+%       'hmgLin'   Homogeneous endpoints lines
+%       'ahmLin'   Anchored Homogeneous endpoints lines
 %
 %   An inverse-depth line is a 9-vector: L = [xyz pyr1 pyr2] with xyz an
 %   anchor point and pyr a pitch-yaw-rho inverse-depth point anchored at

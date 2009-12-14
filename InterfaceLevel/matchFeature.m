@@ -36,6 +36,7 @@ switch Raw.type
             Obs.measured = false;
             Obs.matched  = false;
         end
+        
         % case 'real'
         % TODO: the real case
 

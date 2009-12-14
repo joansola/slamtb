@@ -157,7 +157,7 @@ Opt = struct(...
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'idpPnt',...   % Type of lmk to use for init
+    'initType',       'ahmPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .01,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -173,8 +173,8 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'newSeed',        true,...         % select new random seed?
-    'fixedSeed',      211236,...            % random seed for non-random runs
+    'newSeed',        false,...         % select new random seed?
+    'fixedSeed',      213028,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 

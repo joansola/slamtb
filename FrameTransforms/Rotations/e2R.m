@@ -1,13 +1,13 @@
 function [R,Re] = e2R(e)
 
 % E2R Euler angles to rotation matrix.
-%   E2R(EU) gives the rotation matrix body to world
-%   corresponding to the body orientation given
-%   by the euler angles vector EU (roll, pitch, yaw).
+%   E2R(E) gives the rotation matrix body-to-world corresponding to the
+%   body orientation given by the Euler angles vector E = [roll; pitch;
+%   yaw]. The result is such that E2R(R2E(R)) = R and R2E(E2R(E)) = E.
 %
-%   [R,R_e] = E2R(EU) returns the Jacobian wrt EU.
+%   [R,R_e] = E2R(E) returns the Jacobian wrt E.
 %
-%   See also R2E.
+%   See also R2E, FRAME.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 

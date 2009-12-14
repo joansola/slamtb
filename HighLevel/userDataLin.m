@@ -205,7 +205,7 @@ SimOpt = struct(...
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
   'rendPeriod',     1,...           % frames to skip for faster processing
-  'createVideo',    true,...       % create video sequences?
+  'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
     'view',         [-60 20 40 17],... % viewpoint of the 3d figure [30 45 40 20]

@@ -11,6 +11,9 @@ function [Rob,Sen,Lmk,Obs] = correctLmk(Rob,Sen,Lmk,Obs,Opt)
 % EKF correction
 [Rob,Sen,Lmk,Obs] = ekfCorrectLmk(Rob,Sen,Lmk,Obs);
 
+% Negative inverse distance correction
+Lmk = correctNegIdp(Lmk);
+
 % Transform to cheaper parametrization if possible
 if Opt.correct.reparametrize
     [Lmk,Obs] = reparametrizeLmk(Rob,Sen,Lmk,Obs,Opt);

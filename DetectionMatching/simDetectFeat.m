@@ -7,7 +7,7 @@ function [newId, app, meas, exp, inn] = simDetectFeat(lmkType, lmkIds, raw, pixC
 %   RAW.segments.app for entries not existing in LIDS, so appearances are
 %   confounded with (compared against) landmark identifiers.
 %
-%   The imput parameters are:
+%   The input parameters are:
 %       LTYPE  the landmark type: '???Pnt' or '???Lin'.
 %       LIDS   the existing landmark IDs in Lmk().
 %       RAW    the raw data, RAW.points or RAW.segments.

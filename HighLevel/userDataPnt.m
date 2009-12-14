@@ -125,7 +125,7 @@ Opt = struct(...
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'idpPnt',...   % Type of lmk to use for init
+    'initType',       'ahmPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % inverse-distance prior
       'nonObsMean',   1,...         % mean of non obs
       'nonObsStd',    1),...         % std of non obs

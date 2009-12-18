@@ -12,7 +12,8 @@ function [Rob,Sen,Lmk,Obs] = correctLmk(Rob,Sen,Lmk,Obs,Opt)
 [Rob,Sen,Lmk,Obs] = ekfCorrectLmk(Rob,Sen,Lmk,Obs);
 
 % Negative inverse distance correction
-Lmk = correctNegIdp(Lmk);
+% Lmk = correctNegIdp(Lmk); % I DON'T LIKE THIS SOLUTION. Rather use a
+% better isVisible() function.
 
 % Transform to cheaper parametrization if possible
 if Opt.correct.reparametrize

@@ -13,7 +13,7 @@
 %
 %   See also SLAMTBSLAVE, NEESANALYSIS.
 
-lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
+% lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes = {'idpPnt','ahmPnt'};
 % lmkTypes = {'hmgPnt'};
 % lmkTypes = {'plkLin','aplLin','hmgLin','ahmLin','idpLin'};
@@ -24,7 +24,7 @@ lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
 % numFrames = 200;
 
 dimX      = 6;
-logsDir   = '~/SLAM/logs/pose6d/pointsLong/';
+% logsDir   = '~/SLAM/logs/pose6d/lin-2.0/';
 
 % yLim      = [40 20];
 

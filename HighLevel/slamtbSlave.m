@@ -19,7 +19,7 @@ global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 
-userDataPnt;        % user-defined data. SCRIPT.
+userDataLin;        % user-defined data. SCRIPT.
 
 % These inputs come from neesAnalysis and overwrite some userData values:
 Time.lastFrame            = numFrames;
@@ -28,6 +28,7 @@ Opt.correct.reparametrize = reparametrize;
 SimOpt.random.newSeed     = false;
 SimOpt.random.fixedSeed   = randSeeds(nRun);
 FigOpt.rendPeriod         = rendPeriod;
+Sensor{1}.pixErrorStd     = pixelNoise;
 
 %% II. Initialize all data structures from user-defined data in userData.m
 % SLAM data

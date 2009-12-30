@@ -6,7 +6,7 @@ function [s, d, S_rf, S_sf, S_k, S_l] = projAhmLinIntoPinHoleOnRob(Rf, Sf, Sk, l
 %   Sk mounted on a robot. The robot frame is Rf and the sensor frame in
 %   the robot is Sf.
 %
-%   The results are a 2D segment S and a depths vector D.
+%   The results are a 2D segment S and a distances vector D.
 %
 %   [s, d, S_rf, S_sf, S_k, S_l] = (...) returns the Jacobians wrt all
 %   input parameters.

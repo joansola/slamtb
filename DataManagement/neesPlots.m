@@ -13,20 +13,26 @@
 %
 %   See also SLAMTBSLAVE, NEESANALYSIS.
 
-% lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
+lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes = {'idpPnt','ahmPnt'};
+% lmkTypes = {'hmgPnt'};
+% lmkTypes = {'plkLin','aplLin','hmgLin','ahmLin','idpLin'};
+% lmkTypes = {'idpLin','ahmLin','aplLin'};
+% lmkTypes = {'aplLin'};
 
 % numRuns   = 25;
 % numFrames = 200;
 
 dimX      = 6;
-logsDir   = '~/SLAM/logs/pose6d/';
+logsDir   = '~/SLAM/logs/pose6d/pointsLong/';
 
 % yLim      = [40 20];
 
 DOF       = dimX*numRuns;
 
 df = 2;
+figure(51)
+clf(51);
 
 switch DOF
     case 18
@@ -59,22 +65,34 @@ for lt = 1:numel(lmkTypes)
         neesData{lt}.data(nRun,:) = data(2,:);
     end
     neesData{lt}.mean = mean(neesData{lt}.data);
-    
-    yLim = max(20,ceil(max(neesData{lt}.mean)/10)*10);
 
-    figure(50)
-    ax(lt) = subplot(numel(lmkTypes),1,lt);
-    plot(1:df:numFrames,neesData{lt}.data(:,1:df:numFrames)','linestyle','-','color',[.5 .5 .5])
-    title(lmkType)
-    hold on
-    plot(neesData{lt}.mean,'linestyle','-','color','k','linewidth',2)
-    plot([1 numFrames],Lnees*[1 1],'-r')
-    plot([1 numFrames],Hnees*[1 1],'-r')
-    ylim([0 yLim])
-    hold off
-    xlabel('Time (frames)')
-    ylabel(['Avg. NEES, ' num2str(dimX) '-DOF, ' num2str(numRuns) ' runs'])
+    % This draws linear plots in separate axes
+    %     yLim = max(20,ceil(max(neesData{lt}.mean)/10)*10);
+    %     figlin = figure(50)
+    %     ax(lt) = subplot(numel(lmkTypes),1,lt);
+    %     plot(1:df:numFrames,neesData{lt}.data(:,1:df:numFrames)','linestyle','-','color',[.5 .5 .5])
+    %     title(lmkType)
+    %     hold on
+    %     plot(neesData{lt}.mean,'linestyle','-','color','k','linewidth',2)
+    %     ylim([0 yLim])
+    %     hold off
+    %     xlabel('Time (frames)')
+    %     ylabel(['Avg. NEES, ' num2str(dimX) '-DOF, ' num2str(numRuns) ' runs'])
+
+    % This draws logarithmic plots in one single axis
+    yLim(lt) = 10^(max(2,ceil(log10(max(max([neesData{lt}.mean])))))); % next power of 10
+    figlog = figure(51);
+    colors = 'rgbmc'
+    logs = line('xdata',[1:numFrames], 'ydata',neesData{lt}.mean,'linestyle','-','color',colors(lt),'linewidth',1)
+
 end
+
+box on
+set(gca,'yscale','log','ylim',[2 max(yLim)])
+set(gca,'ygrid','on','yminorgrid','off','ytick',[1 10 100 1000])
+line('xdata',[1 numFrames],'ydata',Lnees*[1 1],'linestyle','--','color','r')
+line('xdata',[1 numFrames],'ydata',Hnees*[1 1],'linestyle','--','color','r')    
+legend(lmkTypes,'location','northwest')
 
 
 

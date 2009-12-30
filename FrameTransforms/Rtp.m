@@ -1,4 +1,4 @@
-function [rtp,RTPq,RTPp] = Rtp(q,p)
+function [rtp,RTP_q,RTP_p] = Rtp(q,p)
 
 % RTP  Transposed rotation matrix (from quaternion) times vector.
 %   RTP(Q,P) evaluates the product
@@ -20,22 +20,27 @@ Rt  = q2R(q)'; % Transposed rotation matrix
 rtp = Rt*p;
 
 if nargout > 1 % we want Jacobians
-    
-    [a,b,c,d] = split(q);
-    [x,y,z]   = split(p);
-    
-    axdycz = 2*(a*x + d*y - c*z);
-    bxcydz = 2*(b*x + c*y + d*z);
-    cxbyaz = 2*(c*x - b*y + a*z);
-    dxaybz = 2*(d*x - a*y - b*z);
-    
-    RTPq = [...
-        [  axdycz,  bxcydz, -cxbyaz, -dxaybz]
-        [ -dxaybz,  cxbyaz,  bxcydz, -axdycz]
-        [  cxbyaz,  dxaybz,  axdycz,  bxcydz]];
 
-    RTPp = Rt;
-    
+    if size(p,2) == 1
+
+        [a,b,c,d] = split(q);
+        [x,y,z]   = split(p);
+
+        axdycz = 2*(a*x + d*y - c*z);
+        bxcydz = 2*(b*x + c*y + d*z);
+        cxbyaz = 2*(c*x - b*y + a*z);
+        dxaybz = 2*(d*x - a*y - b*z);
+
+        RTP_q = [...
+            [  axdycz,  bxcydz, -cxbyaz, -dxaybz]
+            [ -dxaybz,  cxbyaz,  bxcydz, -axdycz]
+            [  cxbyaz,  dxaybz,  axdycz,  bxcydz]];
+
+        RTP_p = Rt;
+
+    else
+        error('??? Jacobians not defined for multiple points.');
+    end
 end
 
 
@@ -84,7 +89,7 @@ ETRPp = simplify(RTPp-RTPp1)
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

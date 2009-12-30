@@ -1,4 +1,4 @@
-function [u,s,U_r,U_s,U_pk,U_pd,U_l]  = projIdpPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, l)
+function [u,s,U_r,U_s,U_k,U_d,U_idp]  = projIdpPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, idp)
 
 % PROJIDPPNTINTOPINHOLEONROB Project Idp pnt into pinhole on robot.
 %    [U,S] = PROJIDPPNTINTOPINHOLEONROB(RF, SF, SPK, SPD, L) projects 3D
@@ -28,19 +28,20 @@ function [u,s,U_r,U_s,U_pk,U_pd,U_l]  = projIdpPntIntoPinHoleOnRob(Rf, Sf, Spk, 
 
 if nargout <= 2  % No Jacobians requested
 
-    p     = idp2euc(l);
-    [u,s] = projEucPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, p);
+    idpr  = toFrameIdp(Rf,idp);
+    [u,s] = projIdpPntIntoPinHole(Sf, Spk, Spd, idpr);
 
 else            % Jacobians requested
 
-    if size(l,2) == 1
+    if size(idp,2) == 1
         
         % function calls
-        [p,P_l]                     = idp2euc(l);
-        [u,s,U_r,U_s,U_pk,U_pd,U_p] = projEucPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, p);
+        [idpr, IDPR_r, IDPR_idp]  = toFrameIdp(Rf,idp);
+        [u,s, U_s, U_k, U_d, U_idpr] = projIdpPntIntoPinHole(Sf, Spk, Spd, idpr);
 
         % chain rule
-        U_l = U_p*P_l;
+        U_r   = U_idpr*IDPR_r;
+        U_idp = U_idpr*IDPR_idp;
 
     else
         error('??? Jacobians not available for multiple IDP points.')

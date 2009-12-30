@@ -2,7 +2,7 @@ function [p,P_ahm] = ahm2euc(ahm)
 
 % AHM2EUC  Inverse Depth to cartesian point conversion.
 %   AHM2EUC(AHM) returns the cartesian 3D representation of the point coded
-%   in Inverse depth.
+%   in Anchored Homogeneous (AHP).
 %
 %   AHM is a t-vector : AHM = [x0 y0 z0 u v w rho]' where
 %       x0, z0, y0: anchor: the 3D point P0 where where distance is referred to.
@@ -10,14 +10,12 @@ function [p,P_ahm] = ahm2euc(ahm)
 %       rho: inverse of the distance from point P to P0.
 %
 %   [P,P_ahm] = AHM2EUC(...) returns the Jacobian of the conversion wrt AHM.
-%
-%   See also p2ahm.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 x0 = ahm(1:3,:);   % origin
-v  = ahm(4:6,:);   % pitch and roll
-r  = ahm(7,:);     % inverse depth
+v  = ahm(4:6,:);   % vector
+r  = ahm(7,:);     % inverse distance
 
 if size(ahm,2) == 1 % one only Idp
 

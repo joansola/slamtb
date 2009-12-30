@@ -1,6 +1,6 @@
 % NEESANALYSIS  NEES analysis for slamtb.
 %   NEESANALYSIS is a script for evaluating average NEES performance of
-%   slamtb. It used a slave version of SLAMTB, called SLAMTBSLAVE, and runs
+%   slamtb. It uses a slave version of SLAMTB, called SLAMTBSLAVE, and runs
 %   it for N times with different kinds of landmarks.
 %
 %   Specify the types of landmarks in variable:  lmkTypes.
@@ -18,15 +18,18 @@
 
 % lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes   = {'hmgPnt'};
-% lmkTypes   = {'idpPnt','ahmPnt'};
-lmkTypes   = {'plkLin','aplLin','idpLin','ahmLin','hmgLin'};
+lmkTypes   = {'idpPnt','ahmPnt'};
+% lmkTypes   = {'plkLin','aplLin','hmgLin','idpLin','ahmLin'};
+% lmkTypes   = {'aplLin','idpLin','ahmLin'};
+% lmkTypes   = {'idpLin','ahmLin'};
 % lmkTypes   = {'aplLin'};
+% lmkTypes   = {'plkLin'};
 
 numRuns    = 25;
-numFrames  = 400;
+numFrames  = 800;
 
 logsDir    = '~/SLAM/logs/pose6d/';
-rendPeriod = 20;
+rendPeriod = 25;
 reparametrize = false;
 noiseFactor = 1;
 

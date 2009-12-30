@@ -44,10 +44,10 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'orientationDegrees', [0;0;0],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-  'dx',                 [.04;0;0],...     % position increment 8
-  'daDegrees',          [0;0;0.45],...     % angle increment, degrees 9
-  'dxStd',              0.002*[1;1;1],...  % odo linear error std
-  'daStd',              0.02*[1;1;1]);     % odo ang error std, degrees
+  'dx',                 [.08;0;0],...     % position increment 8
+  'daDegrees',          [0;0;0.9],...     % angle increment, degrees 9
+  'dxStd',              0.005*[1;1;1],...  % odo linear error std
+  'daStd',              0.05*[1;1;1]);     % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -125,10 +125,10 @@ Opt = struct(...
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'ahmPnt',...   % Type of lmk to use for init
+    'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % inverse-distance prior
-      'nonObsMean',   1,...         % mean of non obs
-      'nonObsStd',    1),...         % std of non obs
+      'nonObsMean',   .01,...         % mean of non obs
+      'nonObsStd',    .5),...         % std of non obs
     'plkLin',         struct(...     % Plucker prior
       'nonObsMean',   [.1;0],...      % mean of non obs
       'nonObsStd',    [.25;1])),...   % std of non obs

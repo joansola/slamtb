@@ -1,14 +1,14 @@
-function [u,s,U_r,U_s,U_pk,U_pd,U_l]  = projIdpPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, l)
+function [u,s,U_r,U_s,U_pk,U_pd,U_l]  = projAhmPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, l)
 
-% PROJAHMPNTINTOPINHOLEONROB Project Idp pnt into pinhole on robot.
+% PROJAHMPNTINTOPINHOLEONROB Project Ahm pnt into pinhole on robot.
 %    [U,S] = PROJAHMPNTINTOPINHOLEONROB(RF, SF, SPK, SPD, L) projects 3D
-%    Inverse Depth points into a pin-hole camera mounted on a robot,
+%    anchored homogeneous points into a pin-hole camera mounted on a robot,
 %    providing also the non-measurable depth. The input parameters are:
 %       RF : robot frame
 %       SF : pin-hole sensor frame in robot
 %       SPK: pin-hole intrinsic parameters [u0 v0 au av]'
 %       SPD: radial distortion parameters [K2 K4 K6 ...]'
-%       L  : 3D inverse depth point [x y z pitch yaw rho]'
+%       L  : 3D anchored homog. point [x y z vx vy vz rho]'
 %    The output parameters are:
 %       U  : 2D pixel [u v]'
 %       S  : non-measurable depth

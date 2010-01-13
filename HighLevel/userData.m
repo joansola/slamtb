@@ -119,7 +119,10 @@ Sensor{1} = struct(...
   'pixErrorStd',        1.0,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [0.1;0.1],...          % distortion params
-  'frameInMap',         false);         % add sensor frame in slam map?
+  'frameInMap',         false,...       % add sensor frame in slam map?
+  'imGrid',               struct(...      % grid for Active Search
+    'numCells',         [8;6],...         % number of H and V grid cells
+    'skipOuter',        true));           % skip outer cells for initialization?
 
 % Sensor{2} = struct(...
 %   'id',                 2,...           % sensor identifier

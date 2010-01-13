@@ -103,7 +103,9 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     for rob = [Rob.rob]
 
         % Robot motion
-        % FIXME: see how to include noise in a clever way.
+        % FIXME: see how to include noise in a clever way (in a regular,
+        % non-simulated SLAM, this line is not here and noise just comes
+        % from the real world).
         Rob(rob).con.u = SimRob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
 
         Rob(rob) = motion(Rob(rob),Tim);

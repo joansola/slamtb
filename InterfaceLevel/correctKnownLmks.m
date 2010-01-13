@@ -31,12 +31,15 @@ Rob = map2rob(Rob);
 Sen = map2sen(Sen);
 
 % 1. PROJECT ALL LMKS - get all expectations
+Sen.imGrid.usedCell(:) = false;
 for lmk = find([Lmk.used])
 
     Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
+    
+    % Prepare for active initialization
+    Sen = prepareForActiveInit(Sen,Obs(lmk));
 
 end ; % --- all landmarks are now projected.
-
 
 vis = [Obs.vis];
 

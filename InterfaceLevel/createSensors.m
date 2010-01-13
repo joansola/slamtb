@@ -49,6 +49,14 @@ for sen = 1:numel(Sensor)
                 So.par.k); % distortion correction coefficients
             So.par.c = So.par.c(:);
 
+            % Active search imGrid
+            So.imGrid.imSize    = So.par.imSize;       % image size
+            So.imGrid.numCells  = Si.imGrid.numCells;  % number of cells
+            So.imGrid.skipOuter = Si.imGrid.skipOuter; % Skip outer cells for initialization?
+            So.imGrid.usedCell  = false(So.imGrid.numCells([2;1])'); % used cells
+            So.imGrid.xticks    = [1 floor(So.par.imSize(1)*(1:So.imGrid.numCells(1))/So.imGrid.numCells(1))];
+            So.imGrid.yticks    = [1 floor(So.par.imSize(2)*(1:So.imGrid.numCells(2))/So.imGrid.numCells(2))];
+
         otherwise
             error('??? Unknown sensor type ''%s''.',Si.type)
 
@@ -68,7 +76,7 @@ for sen = 1:numel(Sensor)
     So.state.r     = [];  % robot is not yet in the Map.
 
     Sen(sen) = So; % output sensor structure
-    
+
     % Create empty Raw structure
     Raw(sen).type = '';
     Raw(sen).data = struct([]);
@@ -102,7 +110,7 @@ end
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

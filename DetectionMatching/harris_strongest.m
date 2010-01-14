@@ -1,25 +1,35 @@
 function [point,sc] = harris_strongest(im,sigma,mrg,edgerej)
-% Extract strongest keypoint using Harris algorithm (with an improvement
-% version)
+% HARRIS_STRONGEST Extract strongest Harris point.
+%   HARRIS_STRONGEST(IM) extracts the strongest harris point in image IM.
 %
+%   HARRIS_TRONGEST(IM, SG, MRG, EDGEREJ) accepts additional inputs as
+%   follows:
+%
+%   INPUT
+%   =====
+%   im     : the graylevel image
+%   sigma  : STD of the smoothing mask in pixels
+%   mrg    : inner margin to be ignored
+%   edgerej: maximum ratio allowed between largest and smallest eigenvalues
+%
+%   [P,SC] = (...) returns also the point's strength as a scalar score
+%   (non-normalized).
+%
+%   OUTPUT
+%   ======
+%   point  : the interest point extracted
+%   sc     : strength of corner point
+%
+%   EXAMPLE
+%   =======
+%   [point,sc] = harris_strongest(im)
+
 % Author :: Vincent Garcia - multiple point detector
 % Date   :: 05/12/2007
 %
 % Author :: Joan Sola - strongest point detector, margin ignoring, edge
 % rejection
 % Date   :: 01/08/2008
-%
-% INPUT
-% =====
-% im     : the graylevel image
-% sigma  : STD of the smoothing mask in pixels
-% mrg    : inner margin to be ignored
-% edgerej: maximum ratio allowed between largest and smallest eigenvalues
-%
-% OUTPUT
-% ======
-% point  : the interest point extracted
-% sc     : strength of corner point
 %
 % REFERENCES
 % ==========
@@ -33,9 +43,6 @@ function [point,sc] = harris_strongest(im,sigma,mrg,edgerej)
 % C. Schmid, R. Mohrand and C. Bauckhage, "Evaluation of Interest Point Detectors",
 % Int. Journal of Computer Vision, 37(2), 151-172, 2000.
 %
-% EXAMPLE
-% =======
-% [point,sc] = kp_harris(im)
 
 persistent x dx dy ex g; % gaussian filter
 
@@ -54,7 +61,7 @@ switch nargin
 end
 
 % only luminance value
-im = double(im(:,:,1));
+im = single(im(:,:,1));
 
 % image size
 [sx,sy] = size(im);
@@ -91,18 +98,18 @@ cim([1:mrg sx-mrg:sx],:) = -9e9;
 cim(:,[1:mrg sy-mrg:sy]) = -9e9;
 
 % Find strongest corner
-[scr,r] = max(cim);
-[sc,c]  = max(scr);
-r       = r(c);
+[scv,v] = max(cim);
+[sc,u]  = max(scv);
+v       = v(u);
 
 % reject edges
 l = sc;              % smallest eigenvalue
-L = a(r,c) + b(r,c); %  biggest eigenvalue
+L = a(v,u) + b(v,u); %  biggest eigenvalue
 if L/l > edgerej
     sc = 0;
 end
 
-point = [c;r];
+point = [u;v];
 
 % comment out this part for displaying purposes
 % figure(98)
@@ -110,10 +117,10 @@ point = [c;r];
 % axis on
 % hold on;
 % sz = 3;
-% rectangle('Position',[c-sz,r-sz,2*sz,2*sz],'Curvature',[0 0],'EdgeColor','b','LineWidth',1);
+% rectangle('Position',[u-sz,v-sz,2*sz,2*sz],'Curvature',[0 0],'EdgeColor','b','LineWidth',1);
 % figure(99)
 % imshow(cim,[0 max(max(cim))]); axis on;colormap(gray(255))
-% rectangle('Position',[c-sz,r-sz,2*sz,2*sz],'Curvature',[0 0],'EdgeColor','b','LineWidth',1);
+% rectangle('Position',[u-sz,v-sz,2*sz,2*sz],'Curvature',[0 0],'EdgeColor','b','LineWidth',1);
 % point;
 % sc;
 

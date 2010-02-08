@@ -87,7 +87,10 @@ Sensor{1} = struct(...
   'pixErrorStd',        1.0,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
-  'frameInMap',         false);         % add sensor frame in slam map?
+  'frameInMap',         false,...       % add sensor frame in slam map?
+  'imGrid',             struct(...      % grid for Active Search
+    'numCells',         [8;6],...         % number of H and V grid cells
+    'skipOuter',        true));           % skip outer cells for initialization?
 
 % Sensor{2} = struct(...
 %   'id',                 2,...           % sensor identifier
@@ -173,7 +176,7 @@ FigOpt = struct(...
     'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0 0],...       % AZ and EL orbit angle increments
     'size',         [320 240],...   % map figure size
-    'showSimLmk',   true,...       % show simulated landmarks?
+    'showSimLmk',   false,...       % show simulated landmarks?
     'showEllip',    true,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      

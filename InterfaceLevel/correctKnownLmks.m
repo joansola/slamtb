@@ -36,8 +36,8 @@ for lmk = find([Lmk.used])
 
     Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
     
-    % Prepare for active initialization
-    Sen = prepareForActiveInit(Sen,Obs(lmk));
+    % Prepare for active initialization - use tesselated image
+%     Sen = prepareForActiveInit(Sen,Obs(lmk));
 
 end ; % --- all landmarks are now projected.
 

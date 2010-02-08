@@ -66,9 +66,18 @@ switch Raw.type
             Sen.par.imSize);
 
     case {'real'}
+        existingProj = getExistingProj(Obs);
+        [app, meas, exp, inn] = detectFeat(...
+            Opt.init.initType,    ...
+            Raw.data,             ...
+            Sen.par.pixCov,       ...
+            existingProj,         ...
+            Sen.imGrid);
+        
+        newId = getNewId();
         % NYI : Not Yet Implemented
         %[newId, app, meas, exp, inn] = detectFeat([Lmk(usedLmks).id],Raw.data,Sen.par);
-        error('??? Unknown Raw type. ''real'': NYI.');
+%         error('??? Unknown Raw type. ''real'': NYI.');
 end
 
 if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP

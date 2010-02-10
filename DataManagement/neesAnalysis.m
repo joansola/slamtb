@@ -16,6 +16,7 @@
 %
 %   See also SLAMTBSLAVE, NEESPLOTS, NEES, ROBOTNEES.
 
+lmkTypes   = {'ahmPnt'};
 % lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes   = {'hmgPnt'};
 % lmkTypes   = {'idpPnt','ahmPnt'};
@@ -23,15 +24,15 @@
 % lmkTypes   = {'aplLin','idpLin','ahmLin'};
 % lmkTypes   = {'idpLin','ahmLin'};
 % lmkTypes   = {'aplLin'};
-lmkTypes   = {'plkLin','aplLin'};
+% lmkTypes   = {'plkLin','aplLin'};
 
 numRuns    = 25;
-numFrames  = 200;
+numFrames  = 10;
 
 logsDir    = '~/SLAM/logs/pose6d/';
-rendPeriod = 25;
+rendPeriod = 10;
 reparametrize = false;
-pixelNoise = 0.2;
+pixelNoise = 1;
 noiseFactor = 1;
 
 % randSeeds  = round(10000*rand(1,numRuns));
@@ -46,7 +47,7 @@ for l = 1:numel(lmkTypes)
         disp('==============================')
         fprintf('Lmk type: %s -- Run #: %d\n',lmkType, nRun);
         disp('==============================')
-        logFileName = [logsDir lmkType '-' num2str(nRun,'%02d') '.log']
+        logFileName = [logsDir lmkType '-' num2str(nRun,'%02d') '.log'];
 %         logFileName = [lmkType '-' num2str(nRun,'%02d') '.log']
         slamtbSlave;
     end

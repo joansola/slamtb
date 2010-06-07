@@ -1,8 +1,10 @@
 function f = cloister(xmin,xmax,ymin,ymax,n)
 
 % CLOISTER  Generates features in a 2D cloister shape.
-%   CLOISTER(XMIN,XMAX,YMIN,YMAX) generates a 2D cloister
-%   in the limits indicated as parameters.
+%   CLOISTER(XMIN,XMAX,YMIN,YMAX,N) generates a 2D cloister in the limits
+%   indicated as parameters. 
+%
+%   N is the number of rows and columns; it defaults to N = 9.
 %
 %   See also THICKCLOISTER.
 
@@ -41,11 +43,8 @@ westint  = [zint-int;cint];
 westext  = [zext-ext;cext];
 
 
-
-
-% f = [northint northext southint southext eastint eastext westint westext centh centv];
 f = [northint northext southint southext eastint eastext westint westext];
-% f = f-n/2-1;
+
 f = tsize*f/(n-1);
 
 f(1,:) = f(1,:) + x0;

@@ -1,5 +1,5 @@
-% NEESANALYSIS  NEES analysis for slamtb.
-%   NEESANALYSIS is a script for evaluating average NEES performance of
+% RMSEANALYSIS  RMSE analysis for slamtb.
+%   RMSEANALYSIS is a script for evaluating average RMSE performance of
 %   slamtb. It uses a slave version of SLAMTB, called SLAMTBSLAVE, and runs
 %   it for N times with different kinds of landmarks.
 %
@@ -16,26 +16,26 @@
 %
 %   See also SLAMTBSLAVE, NEESPLOTS, NEES, ROBOTNEES.
 
-errorAnalysisFunction = @robotNees;
-logsDir    = '~/SLAM/logs/pose6d/';
-logFileHeader = 'frame NEES';
+errorAnalysisFunction = @robotRmse;
+logsDir    = '~/SLAM/logs/pose6d/RMSE/';
+logFileHeader = 'frame, err: x y z r p y, std: x y z r p y';
 
-lmkTypes   = {'ahmPnt'};
+% lmkTypes   = {'ahmPnt'};
 % lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes   = {'hmgPnt'};
 % lmkTypes   = {'idpPnt','ahmPnt'};
-% lmkTypes   = {'plkLin','aplLin','hmgLin','idpLin','ahmLin'};
+lmkTypes   = {'plkLin','aplLin','hmgLin','ahmLin','idpLin'};
 % lmkTypes   = {'aplLin','idpLin','ahmLin'};
 % lmkTypes   = {'idpLin','ahmLin'};
 % lmkTypes   = {'aplLin'};
 % lmkTypes   = {'plkLin','aplLin'};
 
 numRuns    = 25;
-numFrames  = 10;
+numFrames  = 400;
 
 rendPeriod = 10;
 reparametrize = false;
-pixelNoise = 1;
+pixelNoise = 0.2;
 noiseFactor = 1;
 
 % randSeeds  = round(10000*rand(1,numRuns));
@@ -50,13 +50,13 @@ for l = 1:numel(lmkTypes)
         disp('==============================')
         fprintf('Lmk type: %s -- Run #: %d\n',lmkType, nRun);
         disp('==============================')
-        logFileName = [logsDir lmkType '-' num2str(nRun,'%02d') '.log'];
+        logFileName = [logsDir lmkType '-rmse-' num2str(nRun,'%02d') '.log'];
 %         logFileName = [lmkType '-' num2str(nRun,'%02d') '.log']
         slamtbSlave;
     end
 end
 
-neesPlots;
+rmsePlots;
 
 
 % ========== End of function - Start GPL license ==========

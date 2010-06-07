@@ -19,7 +19,8 @@ global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 
-userDataPnt;        % user-defined data. SCRIPT.
+% userDataPnt;        % user-defined data. SCRIPT.
+userDataLin;        % user-defined data. SCRIPT.
 
 % These inputs come from neesAnalysis and overwrite some userData values:
 Time.lastFrame            = numFrames;
@@ -60,7 +61,7 @@ Sensor{1}.pixErrorStd     = pixelNoise;
 % etc., instead of creating large Matlab variables for data logging.
 
 logFile = openLogFile(logFileName,'w');
-writeLogHeader(logFile,'frame NEES');
+writeLogHeader(logFile,logFileHeader);
 
 % Clear user data - not needed anymore
 clear Robot Sensor World Time   % clear all user data
@@ -178,8 +179,9 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % etc., instead of creating large Matlab variables for data logging.
     
     % NEES for robot 1
-    NEES = robotNees(Rob(1),SimRob(1));
-    writeLogData(logFile,[currentFrame,NEES]);
+    logData = errorAnalysis(Rob(1), SimRob(1), errorAnalysisFunction);
+%     logData = robotNees(Rob(1),SimRob(1));
+    writeLogData(logFile,[currentFrame,logData]);
 
 end
 

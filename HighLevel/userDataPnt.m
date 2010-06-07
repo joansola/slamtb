@@ -3,6 +3,7 @@
 %   demonstration of the SLAM toolbox with points. Try the following point
 %   types in Opt.init.initType:
 %       'idpPnt'    Inverse depth points
+%       'ahmPnt'    Anchored homogeneous points
 %       'hmgPnt'    Homogeneous points
 %
 %   See also USERDATA.

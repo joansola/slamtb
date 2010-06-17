@@ -9,9 +9,11 @@ x = randn(2,1); % avoid singularity of fun() at x1 = 0.
 S = s*randn(2); P=S*S';
 % P=[.01 0;0 .1];
 
-% Linearity matrix
-Q = linMat(@f21,x,P);
-L = linIdx(Q)
+% Linearity measures
+q = linVec(@f21,x,P); % propagation error mean
+Lv = norm(q)
+Q = linMat(@f21,x,P); % quadratic Jacobian error
+Lm = linIdx(Q)
 
 % plots
 %=======
@@ -19,7 +21,7 @@ L = linIdx(Q)
 ii = -3:.4:3;
 jj = ii;
 N = length(ii);
-Z=zeros(N);
+Z = zeros(N);
 for i = 1:N
     for j = 1:N
         Z(j,i) = f21([ii(i);jj(j)]);

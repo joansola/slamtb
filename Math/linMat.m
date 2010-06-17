@@ -1,5 +1,7 @@
 function Q = linMat(f,x,P)
 
+% LINMAT  Linearity measure based on the quadratic Jacobian error.
+
 [z,J,H] = f(x);
 m = length(z);
 n = length(x);

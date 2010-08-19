@@ -14,15 +14,16 @@
 
 % Copyright 2010 Joan Sola @ LAAS-CNRS
 
-lmkTypes = {'hmgPnt','ahmPnt','idpPnt'};
+% lmkTypes = {'hmgPnt','ahmPnt','idpPnt'};
+lmkTypes = {'idpPnt'};
 % lmkTypes = {'plkLin','aplLin','hmgLin','ahmLin','idpLin'};
 % lmkTypes = {'plkLin','aplLin'};
 % lmkTypes = {'hmgLin','ahmLin','idpLin'};
 
-% numRuns   = 25;
-% numFrames = 400;
+numRuns   = 25;
+numFrames = 400;
 
-logsDir   = '~/SLAM/logs/pose6d/RMSE/';
+logsDir   = '~/SLAM/logs/pose6d/RMSE/test/';
 
 df = 1;
 titles = 'xyzrpy';

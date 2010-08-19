@@ -1,5 +1,5 @@
-function [idp, IDP_rf, IDP_sf, IDP_sk, IDP_sd, IDP_u, IDP_invdepth] = ...
-    retroProjIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sd, u, n)
+function [idp, IDP_rf, IDP_sf, IDP_sk, IDP_sc, IDP_u, IDP_rho] = ...
+    retroProjIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sc, u, n)
 
 % RETROPROJIDPPNTFROMPINHOLEONROB Retro-project idp from pinhole on robot.
 %
@@ -21,26 +21,27 @@ function [idp, IDP_rf, IDP_sf, IDP_sk, IDP_sd, IDP_u, IDP_invdepth] = ...
 % Frame World -> Robot  :  Rf
 % Frame Robot -> Sensor :  Sf
 
-if(isempty(Sd))
-    % IDP in Sensor Frame
-    [idps, IDPS_u, IDPS_invdepth, IDPS_sk] = invPinHoleIdp(u,n,Sk) ;
+if nargout == 1
+    
+    idp = ahp2idp(retroProjIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sc, u, n));
+    
 else
-    % IDP in Sensor Frame
-    [idps, IDPS_u, IDPS_invdepth, IDPS_sk, IDPS_sd] = invPinHoleIdp(u,n,Sk,Sd) ;
+    
+    [ahp, AHP_rf, AHP_sf, AHP_sk, AHP_sc, AHP_u, AHP_rho] = retroProjAhmPntFromPinHoleOnRob(Rf, Sf, Sk, Sc, u, n);
+    [idp, IDP_ahp] = ahp2idp(ahp);
+    
+    IDP_rf  = IDP_ahp*AHP_rf;
+    IDP_sf  = IDP_ahp*AHP_sf;
+    IDP_sk  = IDP_ahp*AHP_sk;
+    if ~isempty(Sc)
+        IDP_sc  = IDP_ahp*AHP_sc;
+    else
+        IDP_sc = [];
+    end
+    IDP_u   = IDP_ahp*AHP_u;
+    IDP_rho = IDP_ahp*AHP_rho;
+    
 end
-
-% Transform 2 frames at once is better in IDP
-[idp, IDP_idps, IDP_rf, IDP_sf] = idpS2idpW(idps, Rf, Sf) ;
-
-% chain rules
-IDP_sk = IDP_idps*IDPS_sk ;
-IDP_u = IDP_idps*IDPS_u ;
-IDP_invdepth = IDP_idps*IDPS_invdepth ;
-if(isempty(Sd))
-    IDP_sd = [] ;
-else
-    IDP_sd = IDP_idps*IDPS_sd ;
-end 
 
 
 end
@@ -73,7 +74,7 @@ end
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

@@ -26,7 +26,8 @@ hw        = xi-rwc;  % ahm point to camera center
 sigma_rho = sqrt(RHO);
 sigma_d   = sigma_rho/rho^2; % depth sigma
 d1        = norm(hw);
-cos_a     = m'*hw/d1;
+d2        = norm(m);
+cos_a     = m'*hw/d1/d2;
 
 Ld = 4*sigma_d/d1*abs(cos_a);
 

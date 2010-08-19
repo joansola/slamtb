@@ -67,19 +67,19 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'dxStd',              0.003*[1;1;1],...  % odo linear error std
   'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
 
-Robot{2} = struct(...                     % ODOMETRY EXAMPLE
-  'id',                 2,...           % robot identifier
-  'name',               'Dala',...      % robot name
-  'type',               'atrv',...      % type of robot
-  'motion',             'odometry',...  % motion model
-  'position',           [0;-6;0],...     % robot position in map
-  'orientationDegrees', [0;0;0],...     % orientation, in degrees, roll pitch yaw.
-  'positionStd',        [0;0;0],...     % position error, std
-  'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-  'dx',                 [.04;0;0],...     % position increment
-  'daDegrees',          [0;0;.45],...     % angle increment, degrees
-  'dxStd',              0.003*[1;1;1],...  % odo linear error std
-  'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
+% Robot{2} = struct(...                     % ODOMETRY EXAMPLE
+%   'id',                 2,...           % robot identifier
+%   'name',               'Dala',...      % robot name
+%   'type',               'atrv',...      % type of robot
+%   'motion',             'odometry',...  % motion model
+%   'position',           [0;-6;0],...     % robot position in map
+%   'orientationDegrees', [0;0;0],...     % orientation, in degrees, roll pitch yaw.
+%   'positionStd',        [0;0;0],...     % position error, std
+%   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
+%   'dx',                 [.04;0;0],...     % position increment
+%   'daDegrees',          [0;0;.45],...     % angle increment, degrees
+%   'dxStd',              0.003*[1;1;1],...  % odo linear error std
+%   'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{3} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -124,23 +124,23 @@ Sensor{1} = struct(...
     'numCells',         [8;6],...         % number of H and V grid cells
     'skipOuter',        true));           % skip outer cells for initialization?
 
-Sensor{2} = struct(...
-  'id',                 2,...           % sensor identifier
-  'name',               'Micropix',...      % sensor name
-  'type',               'pinHole',...   % type of sensor
-  'robot',              2,...           % robot where it is mounted
-  'position',           [0;-0.15;.6],...     % position in robot
-  'orientationDegrees', [-90;0;-90],...      % orientation in robot, roll pitch yaw
-  'positionStd',        [0;0;0],...     % position error std
-  'orientationStd',     [1.5;1.5;1.5],...     % orient. error std
-  'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        1.0,...         % pixel error std
-  'intrinsic',          [320;240;320;320],... % intrinsic params
-  'distortion',         [],...          % distortion params
-  'frameInMap',         false,...         % add sensor frame in slam map?
-  'imGrid',               struct(...      % grid for Active Search
-    'numCells',         [8;6],...         % number of H and V grid cells
-    'skipOuter',        true));           % skip outer cells for initialization?
+% Sensor{2} = struct(...
+%   'id',                 2,...           % sensor identifier
+%   'name',               'Micropix',...      % sensor name
+%   'type',               'pinHole',...   % type of sensor
+%   'robot',              2,...           % robot where it is mounted
+%   'position',           [0;-0.15;.6],...     % position in robot
+%   'orientationDegrees', [-90;0;-90],...      % orientation in robot, roll pitch yaw
+%   'positionStd',        [0;0;0],...     % position error std
+%   'orientationStd',     [1.5;1.5;1.5],...     % orient. error std
+%   'imageSize',          [640;480],...   % image size
+%   'pixErrorStd',        1.0,...         % pixel error std
+%   'intrinsic',          [320;240;320;320],... % intrinsic params
+%   'distortion',         [],...          % distortion params
+%   'frameInMap',         false,...         % add sensor frame in slam map?
+%   'imGrid',               struct(...      % grid for Active Search
+%     'numCells',         [8;6],...         % number of H and V grid cells
+%     'skipOuter',        true));           % skip outer cells for initialization?
 
 
 

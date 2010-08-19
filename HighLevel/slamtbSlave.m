@@ -19,8 +19,8 @@ global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 
-% userDataPnt;        % user-defined data. SCRIPT.
-userDataLin;        % user-defined data. SCRIPT.
+userDataPnt;        % user-defined data. SCRIPT.
+% userDataLin;        % user-defined data. SCRIPT.
 
 % These inputs come from neesAnalysis and overwrite some userData values:
 Time.lastFrame            = numFrames;

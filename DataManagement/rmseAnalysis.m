@@ -17,14 +17,15 @@
 %   See also SLAMTBSLAVE, NEESPLOTS, NEES, ROBOTNEES.
 
 errorAnalysisFunction = @robotRmse;
-logsDir    = '~/SLAM/logs/pose6d/RMSE/';
+logsDir    = '~/SLAM/logs/pose6d/RMSE/test/';
 logFileHeader = 'frame, err: x y z r p y, std: x y z r p y';
 
 % lmkTypes   = {'ahmPnt'};
 % lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes   = {'hmgPnt'};
+lmkTypes   = {'idpPnt'};
 % lmkTypes   = {'idpPnt','ahmPnt'};
-lmkTypes   = {'plkLin','aplLin','hmgLin','ahmLin','idpLin'};
+% lmkTypes   = {'plkLin','aplLin','hmgLin','ahmLin','idpLin'};
 % lmkTypes   = {'aplLin','idpLin','ahmLin'};
 % lmkTypes   = {'idpLin','ahmLin'};
 % lmkTypes   = {'aplLin'};
@@ -33,9 +34,9 @@ lmkTypes   = {'plkLin','aplLin','hmgLin','ahmLin','idpLin'};
 numRuns    = 25;
 numFrames  = 400;
 
-rendPeriod = 10;
+rendPeriod = 40;
 reparametrize = false;
-pixelNoise = 0.2;
+pixelNoise = 1;
 noiseFactor = 1;
 
 % randSeeds  = round(10000*rand(1,numRuns));

@@ -11,6 +11,23 @@ function [Lmk,Obs] = smartDeleteLmk(Lmk,Obs)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
+global Map
+
+switch Lmk.type
+    case {'idpPnt','ahmPnt'}
+        if Map.x(Lmk.state.r(end)) < 0
+            [Lmk,Obs] = deleteLmk(Lmk,Obs);
+        end
+    case {'idpLin'}
+        if any(Map.x(Lmk.state.r([6,9])) < 0)
+            [Lmk,Obs] = deleteLmk(Lmk,Obs);
+        end
+    case {'ahmLin'}
+        if any(Map.x(Lmk.state.r([7,11])) < 0)
+            [Lmk,Obs] = deleteLmk(Lmk,Obs);
+        end
+end
+
 if Lmk.nSearch >= 10
 
     matchRatio       = Lmk.nMatch  / Lmk.nSearch;

@@ -16,6 +16,7 @@
 % lmkTypes = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes = {'idpPnt','ahmPnt'};
 % lmkTypes = {'hmgPnt'};
+% lmkTypes = {'idpPnt'};
 % lmkTypes = {'plkLin','aplLin','hmgLin','ahmLin','idpLin'};
 % lmkTypes = {'idpLin','ahmLin','aplLin'};
 % lmkTypes = {'aplLin'};
@@ -24,7 +25,7 @@
 % numFrames = 200;
 
 dimX      = 6;
-% logsDir   = '~/SLAM/logs/pose6d/points400f/';
+% logsDir   = '~/SLAM/logs/pose6d/pointsSlowInit10/';
 
 % yLim      = [40 20];
 
@@ -62,6 +63,7 @@ for lt = 1:numel(lmkTypes)
         fid = fopen(logFileName,'r');
         fgetl(fid);
         data = fscanf(fid,'%d %f\n',[2 inf]);
+        fclose(fid);
         % Uncoment next two lines to cut the data down to a given number of frames
         % fcut = 400;
         % data(:,fcut + 1:end) = []; 
@@ -85,8 +87,8 @@ for lt = 1:numel(lmkTypes)
     % This draws logarithmic plots in one single axis
     yLim(lt) = 10^(max(2,ceil(log10(max(max([neesData{lt}.mean])))))); % next power of 10
     figlog = figure(51);
-    colors = 'rgbmc'
-    logs = line('xdata',[1:numFrames], 'ydata',neesData{lt}.mean,'linestyle','-','color',colors(lt),'linewidth',1)
+    colors = 'rgbmc';
+    logs = line('xdata',[1:numFrames], 'ydata',neesData{lt}.mean,'linestyle','-','color',colors(lt),'linewidth',1);
     
 end
 

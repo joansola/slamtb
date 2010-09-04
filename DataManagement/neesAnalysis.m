@@ -20,11 +20,11 @@ errorAnalysisFunction = @robotNees;
 logsDir    = '~/SLAM/logs/pose6d/';
 logFileHeader = 'frame NEES';
 
-% lmkTypes   = {'ahmPnt'};
-% lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
+% lmkTypes   = {'ahmPnt','hmgPnt'};
+lmkTypes   = {'hmgPnt','idpPnt','ahmPnt'};
 % lmkTypes   = {'hmgPnt'};
 % lmkTypes   = {'idpPnt','ahmPnt'};
-lmkTypes   = {'idpPnt'};
+% lmkTypes   = {'idpPnt'};
 % lmkTypes   = {'plkLin','aplLin','hmgLin','idpLin','ahmLin'};
 % lmkTypes   = {'aplLin','idpLin','ahmLin'};
 % lmkTypes   = {'idpLin','ahmLin'};
@@ -32,9 +32,9 @@ lmkTypes   = {'idpPnt'};
 % lmkTypes   = {'plkLin','aplLin'};
 
 numRuns    = 25;
-numFrames  = 800;
+numFrames  = 200;
 
-rendPeriod = 11;
+rendPeriod = 25;
 reparametrize = false;
 pixelNoise = 1;
 noiseFactor = 1;

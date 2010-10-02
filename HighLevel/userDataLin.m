@@ -53,8 +53,8 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'orientationDegrees', [0;0;-90],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-  'dx',                 [.1;0;0],...     % position increment 8
-  'daDegrees',          [0;0;1],...     % angle increment, degrees 9
+  'dx',                 [.09;0;0],...     % position increment 8
+  'daDegrees',          [0;0;0.9],...     % angle increment, degrees 9
   'dxStd',              0.002*[1;1;1],...  % odo linear error std
   'daStd',              0.02*[1;1;1]);     % odo ang error std, degrees
 
@@ -166,7 +166,7 @@ Opt = struct(...
       'extSwitch',    2)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'ahmLin',...   % Type of lmk to use for init
+    'initType',       'aplLin',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs

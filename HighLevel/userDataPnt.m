@@ -16,7 +16,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            800);           % last frame #
+  'lastFrame',            400);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -47,8 +47,8 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.08;0;0],...     % position increment 8
   'daDegrees',          [0;0;0.9],...     % angle increment, degrees 9
-  'dxStd',              0.0025*[1;1;1],...  % odo linear error std
-  'daStd',              0.025*[1;1;1]);     % odo ang error std, degrees
+  'dxStd',              0.005*[1;1;1],...  % odo linear error std
+  'daStd',              0.05*[1;1;1]);     % odo ang error std, degrees
 
 % Robot{2} = struct(...                     % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -119,7 +119,7 @@ Opt = struct(...
     'lmkSize',        7),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
-    'reparametrize',  true,...       % reparametrize lmk?
+    'reparametrize',  false,...       % reparametrize lmk?
     'nUpdates',       10,...         % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
@@ -129,7 +129,7 @@ Opt = struct(...
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [10 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'idpPnt',...   % Type of lmk to use for init
+    'initType',       'ahmPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % inverse-distance prior
       'nonObsMean',   0.01,...         % mean of non obs
       'nonObsStd',    0.5),...         % std of non obs

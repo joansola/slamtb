@@ -9,7 +9,7 @@ q = zeros(m,1);
 for i = 1:m
     for j = 1:n
         for k = 1:n
-            q(i) = q(i) + H(:,j,k)*P(j,k);
+            q(i) = q(i) + H(i,j,k)*P(j,k);
         end
     end
 end

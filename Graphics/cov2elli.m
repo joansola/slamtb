@@ -15,20 +15,28 @@ function [X,Y] = cov2elli(x,P,ns,NP)
 
 persistent circle
 
+if nargin < 4
+    NP = 16;
+    if nargin < 3
+        ns = 1;
+    end
+end
+
 if isempty(circle)
+    
     alpha = 2*pi/NP*(0:NP);
     circle = [cos(alpha);sin(alpha)];
 end
 
 % SVD method, R*d*d*R' = P
-% [R,D]=svd(P);
-% d = sqrt(D);
-% % circle -> aligned ellipse -> rotated ellipse -> ns-ellipse
-% ellip = ns*R*d*circle;
+[R,D]=svd(P);
+d = sqrt(D);
+% circle -> aligned ellipse -> rotated ellipse -> ns-ellipse
+ellip = ns*R*d*circle;
 
 % Choleski method, C*C' = P
-C = chol(P)';
-ellip = ns*C*circle;
+% C = chol(P)';
+% ellip = ns*C*circle;
 
 % output ready for plotting (X and Y line vectors)
 X = x(1)+ellip(1,:);
@@ -60,7 +68,7 @@ Y = x(2)+ellip(2,:);
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

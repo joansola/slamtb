@@ -13,7 +13,7 @@ S = s*randn(2); P=S*S';
 q = linVec(@f21,x,P); % propagation error mean
 Lv = norm(q)
 Q = linMat(@f21,x,P); % quadratic Jacobian error
-Lm = linIdx(Q)
+Lm = norm(Q)
 
 % plots
 %=======

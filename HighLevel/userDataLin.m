@@ -36,7 +36,8 @@ World = struct(...
   'zMin',             -10,...
   'zMax',             10,...
   'points',           [],... % 3d point landmarks - see THICKCLOISTER. 
-  'segments',         house(-2,-2,0));  % 3D segments - see HOUSE. 
+ 'segments',         house(-2,-2,0));  % 3D segments - see HOUSE. 
+%  'segments',         lineCloister(-6,6,-6,6,1,7));  % 3D segments - see HOUSE. 
     
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
@@ -49,11 +50,11 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'name',               'Dala',...      % robot name
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
-  'position',           [-7;0;0],...     % robot position in map
+  'position',           [-5;0;0],...     % robot position in map
   'orientationDegrees', [0;0;-90],...     % orientation, in degrees, roll pitch yaw.
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-  'dx',                 [.09;0;0],...     % position increment 8
+  'dx',                 [.08;0;0],...     % position increment 8
   'daDegrees',          [0;0;0.9],...     % angle increment, degrees 9
   'dxStd',              0.002*[1;1;1],...  % odo linear error std
   'daStd',              0.02*[1;1;1]);     % odo ang error std, degrees
@@ -122,7 +123,7 @@ Sensor{1} = struct(...
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        0.2,...         % pixel error std
+  'pixErrorStd',        1.0,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params
   'distortion',         [],...          % distortion params
   'frameInMap',         false,...       % add sensor frame in slam map?
@@ -152,7 +153,7 @@ Sensor{1} = struct(...
 % Estimation options 
 Opt = struct(...
   'map',              struct(...    % options for the map
-    'numLmks',        25,...         % number of 3d landmarks
+    'numLmks',        27,...         % number of 3d landmarks
     'lmkSize',        11),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
@@ -166,7 +167,7 @@ Opt = struct(...
       'extSwitch',    2)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'aplLin',...   % Type of lmk to use for init
+    'initType',       'idpLin',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...          % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -214,7 +215,7 @@ FigOpt = struct(...
     'view',         [-60 20 40 17],... % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0.25 0.05],... % AZ and EL orbit angle increments - [0.25 0.05]
     'size',         [320 240],...   % map figure size
-    'showSimLmk',   false,...       % show simulated landmarks?
+    'showSimLmk',   true,...       % show simulated landmarks?
     'showEllip',    true,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      

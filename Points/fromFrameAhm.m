@@ -24,7 +24,7 @@ if nargout == 1
     x  = fromFrame(F,xf);
     m  = R*mf;
 
-    ahm  = [x;m;s];
+    ahm  = [x;m;sf];
 
 else
 
@@ -67,6 +67,7 @@ simplify(AHM_ahmf - jacobian(ahm,ahmf))
 
 
 
+
 % ========== End of function - Start GPL license ==========
 
 
@@ -91,7 +92,9 @@ simplify(AHM_ahmf - jacobian(ahm,ahmf))
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007, 2008, 2009, 2010 
+%   by Joan Sola @ LAAS-CNRS.
+%   SLAMTB is Copyright 2009 
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

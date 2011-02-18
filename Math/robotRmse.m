@@ -27,7 +27,7 @@ x = qpose2epose(x);
 [m,P] = propagateUncertainty(m,P,@qpose2epose);
 
 % estimation error
-e = m - x;
+e      = m - x;
 e(4:6) = normAngle(e(4:6));
 std    = sqrt(diag(P));
 rmse   = [e' std'];

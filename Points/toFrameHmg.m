@@ -6,7 +6,7 @@ function [hf,HF_f,HF_h] = toFrameHmg(f,h)
 %
 %   [p,Pf,Ppf] = ... returns the Jacobians wrt F and PF.
 
-%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2011 Joan Sola @ LAAS-CNRS.
 
 
 

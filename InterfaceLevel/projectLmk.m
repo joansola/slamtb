@@ -92,6 +92,19 @@ switch Sen.type
 
                 vis = isVisible(e,depth,Sen.par.imSize);
 
+            case {'fhmPnt'}
+
+                % Point3D --> pixel -(value and Jacobians)-
+                [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
+                    projFhmPntIntoPinHoleOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.d, ...
+                    l);
+
+                vis = isVisible(e,depth,Sen.par.imSize);
+
             case {'plkLin'}
 
                 % Plucker line --> homogeneous line (value and Jacs)
@@ -188,7 +201,7 @@ switch Sen.type
                     si); 
                 
                 % segment visibility
-                [s,vis] = visibleSegment(s,d,Sen.par.imSize,0,Opt.obs.lines.minLength);
+                [s,vis] = visibleSegment(s,d,Sen.par.imSize,[0 0]',Opt.obs.lines.minLength);
 
             case 'hmgLin'
                 
@@ -266,6 +279,42 @@ switch Sen.type
 
         end
 
+    case {'omniCam'} % Omnidirectional camera 
+
+        switch Lmk.type
+
+            case {'eucPnt'} % euclidean point
+
+                % Point3D --> pixel -(value and Jacobians)-
+                [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
+                    projEucPntIntoOmniCamOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.d, ...
+                    l) ;
+
+                vis = isVisible(e,depth,Sen.par.imSize);
+                
+            case {'ahmPnt'}
+
+                % Point3D --> pixel -(value and Jacobians)-
+                [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
+                    projAhmPntIntoOmniCamOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.d, ...
+                    l);
+
+                vis = isVisible(e,depth,Sen.par.imSize);
+                
+            otherwise % unknown landmark type for pin hole sensor
+                error('??? Unknown landmark type ''%s'' for sensor ''%s''.',Lmk.type,Sen.type);
+                
+        end
+        
+        
     otherwise % unknown Sensor type
         error('??? Unknown sensor type ''%s''.',Sen.type);
 

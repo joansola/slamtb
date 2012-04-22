@@ -21,7 +21,7 @@ switch Sen.type
     case 'pinHole'
 
         switch Lmk.type
-            case {'eucPnt','idpPnt','hmgPnt','ahmPnt'}
+            case {'eucPnt','idpPnt','hmgPnt','ahmPnt','fhmPnt'}
                 % do nothing
 
             case 'plkLin'
@@ -41,6 +41,15 @@ switch Sen.type
             case 'ahmLin'
                 Lmk = updateAhmLinEndPnts(Rob,Sen,Lmk,Obs,Opt);
 
+            otherwise
+                error('??? Unknown landmark type ''%s''.',Lmk.type)
+        end
+
+    case 'omniCam'
+        switch Lmk.type
+            case {'eucPnt','idpPnt','hmgPnt','ahmPnt','fhmPnt'}
+                % do nothing
+              
             otherwise
                 error('??? Unknown landmark type ''%s''.',Lmk.type)
         end

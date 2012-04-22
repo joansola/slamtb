@@ -38,9 +38,22 @@ switch Sen.type
                 N = Opt.init.idpPnt.nonObsStd^2 ;
 
             case {'ahmPnt'}
-                % INIT LMK OF TYPE: Homogeneous point
+                % INIT LMK OF TYPE: Anchored Homogeneous point
                 [l, L_rf, L_sf, L_sk, L_sd, L_obs, L_n] = ...
                     retroProjAhmPntFromPinHoleOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.c, ...
+                    Obs.meas.y, ...
+                    Opt.init.idpPnt.nonObsMean) ;
+
+                N = Opt.init.idpPnt.nonObsStd^2 ;
+
+            case {'fhmPnt'}
+                % INIT LMK OF TYPE: Framed Homogeneous point
+                [l, L_rf, L_sf, L_sk, L_sd, L_obs, L_n] = ...
+                    retroProjFhmPntFromPinHoleOnRob( ...
                     Rob.frame, ...
                     Sen.frame, ...
                     Sen.par.k, ...
@@ -94,7 +107,7 @@ switch Sen.type
                 N = diag(nStd.^2);
 
             case 'hmgLin'
-                % INIT LMK TYPE: Homogenous line.
+                % INIT LMK TYPE: Homogenous points line.
                 nMean = Opt.init.idpPnt.nonObsMean*[1;1]; % non-measured prior
                 nStd  = Opt.init.idpPnt.nonObsStd*[1;1];
                 
@@ -109,7 +122,7 @@ switch Sen.type
                 N = diag(nStd.^2);
 
             case 'ahmLin'
-                % INIT LMK TYPE: Homogenous line.
+                % INIT LMK TYPE: Anchored Homogenous points line.
                 nMean = Opt.init.idpPnt.nonObsMean*[1;1]; % non-measured prior
                 nStd  = Opt.init.idpPnt.nonObsStd*[1;1];
                 
@@ -124,6 +137,27 @@ switch Sen.type
                 N = diag(nStd.^2);
 
                 
+            otherwise
+                error('??? Unknown landmark type ''%s'' for initialization.',Opt.init.initType)
+        end
+        
+        
+    % Omnidirectional camera 
+    case {'omniCam'}
+        % type of lmk to init
+        switch Opt.init.initType
+            case {'ahmPnt'}
+                % INIT LMK OF TYPE: Anchored Homogeneous point
+                [l, L_rf, L_sf, L_sk, L_sd, L_obs, L_n] = ...
+                    retroProjAhmPntFromOmniCamOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.c, ...
+                    Obs.meas.y, ...
+                    Opt.init.idpPnt.nonObsMean) ;
+
+                N = Opt.init.idpPnt.nonObsStd^2 ;
             otherwise
                 error('??? Unknown landmark type ''%s'' for initialization.',Opt.init.initType)
         end

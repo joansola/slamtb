@@ -23,7 +23,8 @@ switch Sen.type
             drawRawPnts(SenFig, Raw);
             drawRawLines(SenFig, Raw);
         else
-            %             drawRawImage(SenFig, Raw);
+            %drawRawImage(SenFig, Raw);
+            imshow(Raw.img,'InitialMagnification', 'fit', 'Parent', SenFig.axes);
         end
 
         % 2. Process only visible landmarks:
@@ -52,7 +53,7 @@ switch Sen.type
                     colors = FigOpt.sensor.colors.defPnt;
                     drawObsPnt(SenFig, Obs(lmk), colors);
 
-                case {'idpPnt','hmgPnt','ahmPnt'}  % IDP and HMG points
+                case {'idpPnt','hmgPnt','ahmPnt','fhmPnt'}  % IDP and HMG points
                     colors = FigOpt.sensor.colors.othPnt;
                     drawObsPnt(SenFig, Obs(lmk), colors);
 
@@ -73,7 +74,66 @@ switch Sen.type
 
         end
 
+    
+    % --------------
+    case {'omniCam'}
 
+        % 1. Raw data visualisation
+        if strcmp(Raw.type,'simu')
+            drawRawPnts(SenFig, Raw);
+        else
+            %drawRawImage(SenFig, Raw);
+            imshow(Raw.img,'InitialMagnification', 'fit', 'Parent', SenFig.axes);
+        end
+        
+        % 2. Process only visible landmarks:
+        % a - first erase lmks that were drawn but are no longer visible
+        vis   = [Obs(:).vis];
+        drawn = SenFig.drawn;
+        erase = drawn & ~vis;
+        if any(erase)
+            set(SenFig.measure(erase),   'vis', 'off');
+            set(SenFig.mean(erase),      'vis', 'off');
+            set(SenFig.ellipse(erase,:), 'vis', 'off');
+            set(SenFig.label(erase),     'vis', 'off');
+            SenFig.drawn(erase) = false;
+        end
+        % b - now draw only visible landmarks
+        for lmk = find(vis)
+
+            SenFig.drawn(lmk) = true;
+
+            % Landmark type:
+            % --------------
+            switch Obs(lmk).ltype
+                
+                case {'eucPnt'}  % Euclidean point
+                    colors = FigOpt.sensor.colors.defPnt;
+                    drawObsPnt(SenFig, Obs(lmk), colors);
+
+                case {'idpPnt','hmgPnt','ahmPnt','fhmPnt'}  % IDP and HMG points
+                    colors = FigOpt.sensor.colors.othPnt;
+                    drawObsPnt(SenFig, Obs(lmk), colors);
+
+                case {'plkLin','aplLin','idpLin','hmgLin', 'ahmLin'}  % Plucker line
+                    colors = FigOpt.sensor.colors.othLin; 
+                    drawObsLin(SenFig, Obs(lmk), colors, FigOpt.sensor.showEllip);
+
+                    % ADD HERE FOR NEW LANDMARK TYPE
+                case {'newLandmark'}
+                    % do something
+
+
+                otherwise
+                    % Print an error and exit
+                    error('??? Unable to display landmark ''%s'' with sensor ''%s''.',Obs(lmk).ltype,Sen.type);
+
+            end % and of the "switch" on sensor type
+
+        end
+        
+        
+        
 
         % ADD HERE FOR INITIALIZATION OF NEW SENSORS's FIGURES
         % case {'newSensor'}

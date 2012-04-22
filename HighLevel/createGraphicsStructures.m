@@ -9,7 +9,7 @@ function [MapFig,SenFig] = createGraphicsStructures(...
 %   a 3D figure MapFig and one figure for each sensor in Sen(). It returns
 %   a structure MAPFIG with handles to objects in the map figure, and a
 %   structure array SENFIG with handles to graphics objects in each sensor
-%   figure. To do so, it need information from the following sources:
+%   figure. To do so, its need information from the following sources:
 %
 %       ROB:      Structure array of robots.
 %       SEN:      Structure array of sensors.

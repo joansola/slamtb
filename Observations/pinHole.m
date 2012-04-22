@@ -51,14 +51,14 @@ if nargout <= 2 % only pixel
 
     switch nargin
         case 1
-            u = project(p);
+            u = persp_project(p);
         case 2
-            u = pixellise(project(p),k);
+            u = pixellise(persp_project(p),k);
         case 3
             if ~isempty(d)
-                u = pixellise(distort(project(p),d),k);
+                u = pixellise(distort(persp_project(p),d),k);
             else
-                u = pixellise(project(p),k);
+                u = pixellise(persp_project(p),k);
             end
     end
 
@@ -71,22 +71,22 @@ else % Jacobians
 
         switch nargin
             case 1
-                [u, U_p] = project(p);
+                [u, U_p] = persp_project(p);
 
             case 2
-                [u1, U1_p]     = project(p);
+                [u1, U1_p]     = persp_project(p);
                 [u, U_u1, U_k] = pixellise(u1,k);
                 U_p            = U_u1*U1_p;
 
             case 3
                 if ~isempty(d)
-                    [u1, U1_p]        = project(p);
+                    [u1, U1_p]        = persp_project(p);
                     [u2, U2_u1, U2_d] = distort(u1,d);
                     [u, U_u2, U_k]    = pixellise(u2,k);
                     U_d               = U_u2*U2_d;
                     U_p               = U_u2*U2_u1*U1_p;
                 else
-                    [u1, U1_p]     = project(p);
+                    [u1, U1_p]     = persp_project(p);
                     [u, U_u1, U_k] = pixellise(u1,k);
                     U_p            = U_u1*U1_p;
                     U_d            = zeros(2,0);

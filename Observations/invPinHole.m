@@ -47,11 +47,11 @@ if nargout == 1 % only point
 
     switch nargin
         case 2
-            p = retro(u,s);
+            p = persp_retro(u,s);
         case 3
-            p = retro(depixellise(u,k),s);
+            p = persp_retro(depixellise(u,k),s);
         case 4
-            p = retro(undistort(depixellise(u,k),c),s);
+            p = persp_retro(undistort(depixellise(u,k),c),s);
     end
 
 
@@ -63,18 +63,18 @@ else % Jacobians
 
         switch nargin
             case 2
-                [p, P_u, P_s] = retro(u,s);
+                [p, P_u, P_s] = persp_retro(u,s);
                 
             case 3
                 [u1, U1_u, U1_k] = depixellise(u,k);
-                [p, P_u1, P_s]   = retro(u1,s);
+                [p, P_u1, P_s]   = persp_retro(u1,s);
                 P_u              = P_u1*U1_u;
                 P_k              = P_u1*U1_k;
                 
             case 4
                 [u1, U1_u, U1_k]  = depixellise(u,k);
                 [u2, U2_u1, U2_c] = undistort(u1,c);
-                [p, P_u2, P_s]    = retro(u2,s);
+                [p, P_u2, P_s]    = persp_retro(u2,s);
                 P_c               = P_u2*U2_c;
                 P_k               = P_u2*U2_u1*U1_k;
                 P_u               = P_u2*U2_u1*U1_u;

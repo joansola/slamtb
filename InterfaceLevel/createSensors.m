@@ -57,6 +57,22 @@ for sen = 1:numel(Sensor)
             So.imGrid.xticks    = [1 floor(So.par.imSize(1)*(1:So.imGrid.numCells(1))/So.imGrid.numCells(1))];
             So.imGrid.yticks    = [1 floor(So.par.imSize(2)*(1:So.imGrid.numCells(2))/So.imGrid.numCells(2))];
 
+        case {'omniCam'}
+            So.par.imSize = Si.imageSize;
+            So.par.pixErr = Si.pixErrorStd;
+            So.par.pixCov = Si.pixErrorStd^2*eye(2);
+            So.par.k  = Si.intrinsic;     % intrinsic parameters
+            So.par.d  = Si.distortion;    % distortion polynom coefficients
+            So.par.c  = Si.invDistortion; % distortion polynom coefficients
+
+            % Active search imGrid
+            So.imGrid.imSize    = So.par.imSize;       % image size
+            So.imGrid.numCells  = Si.imGrid.numCells;  % number of cells
+            So.imGrid.skipOuter = Si.imGrid.skipOuter; % Skip outer cells for initialization?
+            So.imGrid.usedCell  = false(So.imGrid.numCells([2;1])'); % used cells
+            So.imGrid.xticks    = [1 floor(So.par.imSize(1)*(1:So.imGrid.numCells(1))/So.imGrid.numCells(1))];
+            So.imGrid.yticks    = [1 floor(So.par.imSize(2)*(1:So.imGrid.numCells(2))/So.imGrid.numCells(2))];
+            
         otherwise
             error('??? Unknown sensor type ''%s''.',Si.type)
 

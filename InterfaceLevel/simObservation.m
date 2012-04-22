@@ -54,10 +54,30 @@ switch SimSen.type
             Raw.data.segments.coord,...
             s,...
             SimSen.par.imSize,...
-            0,...                      % N pixels margin
+            [0 0]',...                 % N pixels margin
             Opt.obs.lines.minLength);  % min segment length
         Raw.data.segments.coord(:, ~vis)  = [];
         Raw.data.segments.app(~vis) = [];
+
+    case {'omniCam'}      % Omnidirectional camera 
+
+        % Project virtual world's points
+        [Raw.data.points.coord, s] = projEucPntIntoOmniCamOnRob(...
+            SimRob.frame, ...
+            SimSen.frame, ...
+            SimSen.par.k, ...
+            SimSen.par.d, ...
+            SimLmk.points.coord);
+        Raw.data.points.app  = SimLmk.points.id;
+        
+        % Add sensor noise
+        Raw.data.points.coord = Raw.data.points.coord + ...
+            SimSen.par.pixErr*randn(size(Raw.data.points.coord));
+
+        % Remove non visible
+        vis = isVisible(Raw.data.points.coord,s,SimSen.par.imSize);        
+        Raw.data.points.coord(:, ~vis)  = [];
+        Raw.data.points.app(~vis) = [];
         
     otherwise
         % Print an error and exit

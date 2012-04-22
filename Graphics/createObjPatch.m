@@ -23,7 +23,7 @@ end
 switch Obj.type
     case 'atrv'
         graph = thickVehicle(0.8);
-    case 'pinHole'
+    case {'pinHole','omniCam'}
         % graph = camSimpleGraphics(0.1);
         graph = camGraphics(0.1);
     otherwise

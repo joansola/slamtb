@@ -38,7 +38,7 @@ for sen = 1:numel(Sen)
         SenFig(sen).fig = figure(sen);
         figPos          = get(SenFig(sen).fig,'position');
         figSize         = FigOpt.sensor.size;
-        newFigPos       = [figPos(1:2)  figSize];
+        newFigPos       = [figPos(1:2)+[figSize(1) 0]  figSize];
         set(SenFig(sen).fig,'position',newFigPos);
     end
     moreindatatip   % this adds the data index in the figures data tips

@@ -10,7 +10,7 @@ function N = nees(x,m,P)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-N = (x-m)'*inv(P)*(x-m);
+N = (x-m)'/P*(x-m);
 
 
 

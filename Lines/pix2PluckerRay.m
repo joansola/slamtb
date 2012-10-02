@@ -18,7 +18,7 @@ if nargout == 1
 else
 
     n = [0;0;0];
-    [v,V_u,V_s,V_k] = invPinHole(u,1,k);
+    [v,V_u,~,V_k] = invPinHole(u,1,k);
 
     L = [n;v];
     L_u = [zeros(3,2);V_u];

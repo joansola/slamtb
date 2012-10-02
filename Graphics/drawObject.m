@@ -17,7 +17,7 @@ end
 
 objGraph = get(handle,'userdata');
 
-[te,Re,Ret]       = getTR(F);
+[te,~,Ret]       = getTR(F);
 Te                = repmat(te,1,size(objGraph.vert,1));
 objGraph.vert     = objGraph.vert0*Ret+Te'; 
 

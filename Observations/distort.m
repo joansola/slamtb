@@ -56,7 +56,7 @@ else       % Distortion
             dr2n   = r2.^(0:n-1);
             dratio = (dnn.*dr2n)*dist;
 
-            UD_up = ratio*eye(2) + dratio*up*up';
+            UD_up = ratio*eye(2) + dratio*(up*up');
 
             UD_dist = kron(up,r2n);
         end

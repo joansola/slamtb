@@ -45,7 +45,7 @@ end
 
 % compute extra outputs
 if nargout >= 3
-    iZ = inv(Z);
+    iZ = 1/Z;
     if nargout >= 4
         MD2 = z'*iZ*z;
     end

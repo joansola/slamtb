@@ -51,7 +51,7 @@ else            % Jacobians requested
         V_t      = -r; % -r*eye(3);
         V_r      = p0-t;
         [w, W_q, W_v] = Rtp(q,v);
-        [u, tmp, U_w, U_pk, U_pd] = pinHole(w, Spk, Spd); % pixel
+        [u, ~, U_w, U_pk, U_pd] = pinHole(w, Spk, Spd); % pixel
         
         e = w/r;   % euclidean
         s = e(3);  % depth of point

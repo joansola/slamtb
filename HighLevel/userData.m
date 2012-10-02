@@ -33,7 +33,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            800);           % last frame #
+  'lastFrame',            400);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -204,7 +204,7 @@ Opt = struct(...
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
     'newSeed',        true,...         % select new random seed?
-    'fixedSeed',      213028,...            % random seed for non-random runs
+    'fixedSeed',      209086,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 

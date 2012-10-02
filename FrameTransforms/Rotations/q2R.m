@@ -4,10 +4,10 @@ function [R,Rq] = q2R(q)
 %   R = Q2R(Q) builds the rotation matrix corresponding to the unit
 %   quaternion Q. The obtained matrix R is such that the product:
 %
-%        re = R * rb 
+%        rg = R * rb 
 %
 %   converts the body referenced vector  rb 
-%      into the earth referenced vector  re
+%     into the global referenced vector  rg
 %
 %   [R,Rq] = (...) returns the Jacobian wrt q.
 %

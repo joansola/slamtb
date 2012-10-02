@@ -45,7 +45,7 @@ end
 
 % compute extra outputs
 if nargout >= 3
-    iZ = 1/Z;
+    iZ = eye(size(Z,1))/Z;  % better than inv(Z) -- ask Matlab!
     if nargout >= 4
         MD2 = z'*iZ*z;
     end

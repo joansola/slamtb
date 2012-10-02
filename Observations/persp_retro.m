@@ -1,7 +1,7 @@
-function [p,Pup,Ps] = retro(up,s)
+function [p,Pup,Ps] = persp_retro(up,s)
 
-% RETRO  Retroproject pixel into 3D space.
-%   P = RETRO(UP,S) retro-projects the point UP of the image
+% PERSP_RETRO  Retroproject pixel into 3D space.
+%   P = PERSP_RETRO(UP,S) retro-projects the point UP of the image
 %   plane into the point P at depth S in 3D space using a
 %   normalized camera.
 %

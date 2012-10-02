@@ -1,12 +1,12 @@
-function [u,Up] = project(p)
+function [u,Up] = persp_project(p)
 
-% PROJECT  Project point into plane using pin-hole camera model
-%   U = PROJECT(P) projects the point P into the image plane
+% PERSP_PROJECT  Project point into plane using pin-hole camera model
+%   U = PERSP_PROJECT(P) projects the point P into the image plane
 %   situated at a focal distance of 1m. It also works for sets of points if
 %   they are defined by the matrix P = [P1 ... Pn], with Pi = [xi;yi;zi].
 %
-%   [U,Up] = PROJECT(P) returns the Jacobian wrt P. This only works for
-%   single points, not for sets of points.
+%   [U,Up] = PERSP_PROJECT(P) returns the Jacobian wrt P. This only works
+%   for single points, not for sets of points.
 %
 %   See also PINHOLE.
 

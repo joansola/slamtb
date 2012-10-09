@@ -61,7 +61,7 @@ userData;           % user-defined data. SCRIPT.
     FigOpt);                    % User-defined graphic options
 
 
-%% III. Init data logging
+%% III. Initialize data logging
 % TODO: Create source and/or destination files and paths for data input and
 % logs.
 % TODO: do something here to collect data for post-processing or

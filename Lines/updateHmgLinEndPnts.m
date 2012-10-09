@@ -1,6 +1,6 @@
 function Lmk = updateHmgLinEndPnts(Rob,Sen,Lmk,Obs,Opt)
 
-% UPDATEHMGLINENDPNTS  Update IDP line endpoints.
+% UPDATEHMGLINENDPNTS  Update HMG line endpoints.
 
 %   Copyright 2009 Teresa Vidal.
 

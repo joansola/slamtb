@@ -1,7 +1,7 @@
 function [z,J,H] = f21(x)
 
-% F32, 2-input , 1-output MIMO function for linearity test purposes.
-%   [z, J, H] = F32(x) with x=[x1;x2] returns z, the Jacobian
+% F21, 2-input , 1-output MIMO function for linearity test purposes.
+%   [z, J, H] = F321(x) with x=[x1;x2] returns z, the Jacobian
 %   J(1-by-2) and the Hessian H(1-by-2-by-2).
 %
 %   See also F32, LINVEC, LINMAT, LINIDX.

@@ -1,6 +1,6 @@
 function [u U_p U_pol] = omni_project(p, pol)
 % 
-% OMNI_PROJECT() - gives projected pixel u of 3D point p for Omnidirectional Camera model
+% OMNI_PROJECT Gives projected pixel u of 3D point p for Omnidirectional Camera model
 %
 %   based on WORLD2CAM_FAST from DAVIDE SCARAMUZZA "Omnidirectional camera
 %   calibration toolbox" m=WORLD2CAM_FAST(M, ocam_model) projects a 3D

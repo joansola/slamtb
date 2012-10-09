@@ -1,6 +1,6 @@
 function [p P_u P_pol] = omni_retro(u, pol)
 % 
-%   OMNI_RETRO - Retroproject pixel into 3D space.
+% OMNI_RETRO  Retroproject pixel into 3D space.
 %   P = OMNI_RETRO(UP, pol) retro-projects the point UP of the image
 %   plane into the point P at depth S in 3D space
 %

@@ -1,6 +1,6 @@
 function drawAhmLin(MapFig,Lmk,color,MapOpt)
 
-% DRAWIDPLIN  Draw anchored homogenous line landmark in MapFig.
+% DRAWAHMLIN  Draw anchored homogenous line landmark in MapFig.
 
 %   Copyright 2009 Teresa Vidal.
 

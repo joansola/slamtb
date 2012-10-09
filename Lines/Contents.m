@@ -54,6 +54,18 @@
 %   seg2hmgLin          - Segment to homogeneous line conversion.
 %   lp2d                - Line-point signed distance, in 2D.
 %   hms2hh              - Orthogonal endpoints innovation for homogeneous line and segment.
-%   hms2rti             - Rho-theta innovation for homogeneous line and segment.
 %   seg2rt              - Segment to rho-theta conversion.
-%   vecsAngle           - Angle between two vectors.
+%
+% Other line types
+%   ahmLin2ahmPnts      - AHM line to two AHM points conversion.
+%   ahmLin2seg          - HMG line to segment conversion
+%   ahmLinEndpoints     - AHM line endpoints.
+%   ahmLinSegment       - AHM line endpoints.
+%   fromFrameAhmLin     - Transforms AHM line from local frame to global frame.
+%   fromFrameHmgLin     - Transforms HMG line from local frame to global frame.
+%   hmgLin2hmgPnts      - HMG line to two IDP points conversion.
+%   hmgLin2seg          - HMG line to segment conversion
+%   hmgLinEndpoints     - HMG line endpoints.
+%   hmgLinSegment       - HMG line endpoints.
+%   updateAhmLinEndPnts - Update AHM line endpoints.
+%   updateHmgLinEndPnts - Update HMG line endpoints.

@@ -1,8 +1,8 @@
 function [s, S_l] = ahmLin2seg(l)
 
-%   HMGLIN2SEG HMG line to segment conversion
-%   HMGLIN2SEG  returns a 3d segment with the two suppor points of the HMG
-%   line L.
+% AHMLIN2SEG HMG line to segment conversion
+%   AHMLIN2SEG(L)  returns a 3d segment with the two support points of the
+%   HMG line L.
 %
 %   [s, S_l] = IDPLIN2SEG(L) returns the Jacobian wrt L.
 

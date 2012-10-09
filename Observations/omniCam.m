@@ -1,6 +1,6 @@
 function [u s U_p U_k U_pol] = omniCam(p, k, pol)
 % 
-% OMNICAM() - gives projected pixel u of 3D point p for Omnidirectional Camera model
+% OMNICAM Gives projected pixel u of 3D point p for Omnidirectional Camera model
 %
 %   based on WORLD2CAM() from DAVIDE SCARAMUZZA "Omnidirectional camera
 %   calibration toolbox" m=WORLD2CAM_FAST(M, ocam_model) projects a 3D

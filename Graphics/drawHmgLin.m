@@ -1,6 +1,6 @@
 function drawHmgLin(MapFig,Lmk,color,MapOpt)
 
-% DRAWIDPLIN  Draw homogenous line landmark in MapFig.
+% DRAWHMGLIN  Draw homogenous line landmark in MapFig.
 
 %   Copyright 2009 Teresa Vidal.
 

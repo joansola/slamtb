@@ -51,3 +51,4 @@
 %   drawLmk               - Draw 3D landmark.
 %   drawRawLines          - Draw raw lines.
 %   drawRawPnts           - Draw raw points.
+%   prepareForActiveInit  - 

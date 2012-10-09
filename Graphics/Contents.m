@@ -18,10 +18,13 @@
 %   drawRaw              - Draw raw sensor data.
 %   drawEucPnt           - Draw Euclidean point landmark in MapFig.
 %   drawIdpPnt           - Draw inverse-depth point landmark in MapFig.
+%   drawAhmPnt           - Draw anchored Homogeneous point landmark in MapFig.
 %   drawHmgPnt           - Draw Homogeneous point landmark in MapFig.
 %   drawPlkLin           - Draw Plucker line landmark in MapFig.
 %   drawAplLin           - Draw anchored Plucker line landmark in MapFig.
 %   drawIdpLin           - Draw inverse-depth line landmark in MapFig.
+%   drawAhmLin           - Draw anchored homogenous line landmark in MapFig.
+%   drawHmgLin           - Draw homogenous line landmark in MapFig.
 %   drawSegmentsImage    - Draw segments 2D object.
 %   drawSegmentsObject   - Draw segments object.
 %
@@ -29,6 +32,5 @@
 %   mapObserver          - Define observer camera for map plots.
 %   moreindatatip        - Display index information in the data tip.
 %   satColor             - Saturate color.
-%   imgFrame             - Writes frame to image file.
+%   imgFrame             - Exports figure graphics to image file.
 %   makeVideoFrame       - Export figure to image.
-%   drawAhmPnt           - Draw anchored Homogeneous point landmark in MapFig.

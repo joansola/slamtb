@@ -1,7 +1,7 @@
 function [ahm, AHM_rf, AHM_sf, AHM_sk, AHM_sc, AHM_u, AHM_rho] = ...
     retroProjAhmPntFromOmniCamOnRob(Rf, Sf, Sk, Sc, u, n)
 
-% RETROPROJAHMPNTINTOOMNICAMONROB Retro-project ahm from omnicam on robot.
+% RETROPROJAHMPNTFROMOMNICAMONROB Retro-project ahm from omnicam on robot.
 %
 %   AHM = RETROPROJAHMPNTINTOOMNICAMONROB(RF, SF, SK, SC, U, N) gives the
 %   retroprojected AHM in World Frame from an observed pixel U. RF and SF

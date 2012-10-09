@@ -1,6 +1,6 @@
 function [p, P_u, P_k, P_pol] = invOmniCam(u, k, pol)
 %
-% INVOMNICAM() Inverse omnidirectional camera model
+% INVOMNICAM Inverse omnidirectional camera model
 %   P = INVOMNICAM(U,S) gives the retroprojected point P of a pixel U at
 %   depth S, from a omnidirectional camera
 %   k   -> [xc yc c d e]    - "calibration" -> affine distortion in plane of pixels

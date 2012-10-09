@@ -1,3 +1,5 @@
+% MAXPARAB Get the maximum point of a parabole defined by 3 points.
+
 function xm = maxParab(yc,yl,yr)
 
 a = (yl+yr)/2-yc;

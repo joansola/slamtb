@@ -1,6 +1,6 @@
 function [pix,PIXu,PIXk] = pixelliseOmniCam(u,k)
 
-% PIXELLISEOMNICAM  - omnicam Affine correction step
+% PIXELLISEOMNICAM Omnicam Affine correction step
 %   PIXELLISEOMNICAM(U,K) maps the projected point U to the pixels matrix defined
 %   by the camera calibration parameters k   = [xc yc c d e]; It works with
 %   sets of pixels if they are defined by a matrix U = [U1 U2 ... Un] ,

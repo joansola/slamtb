@@ -38,12 +38,12 @@ end
 return
 
 %%
-syms r p y real
-e = [r;p;y];
+syms r p y real             % Declare symbolic real variables
+e = [r;p;y];                % build Euler vector
 
-[q,Qe] = e2q(e);
+[q,Qe] = e2q(e);            % Call function to test with symbolic input
 
-simplify(Qe-jacobian(q,e))
+simplify(Qe-jacobian(q,e))  % Verify that jacobian() returns the same as our Jacobian.
 
 
 

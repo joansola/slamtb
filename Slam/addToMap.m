@@ -1,4 +1,4 @@
-function r = addToMap(x, P_LL, P_LX, r)
+function r = addToMap(L, P_LL, P_LX, r)
 
 % ADDTOMAP  Add Gaussian to Map.
 %   ADDTOMAP(L,P_LL) adds the Gaussian N(L,P_LL) to the global EKF-map Map,
@@ -29,7 +29,7 @@ function r = addToMap(x, P_LL, P_LX, r)
 %       P = |               |
 %           | P_LX    P_LL  |
 %   
-%   ADDTOMAP(L,P_LL,P_LX,R) or ADDTOMAP(x,P_LL,[],R) permits indicating the
+%   ADDTOMAP(L,P_LL,P_LX,R) or ADDTOMAP(L,P_LL,[],R) permits forcing the
 %   range R as input.
 %
 %   See also NEWRANGE, USEDRANGE.
@@ -43,11 +43,11 @@ if nargin == 2
     P_LX = [] ;
 end
 if nargin <= 3
-    r = newRange(numel(x));
+    r = newRange(numel(L));
 end
 
 % add to map
-Map.x(r)    = x;
+Map.x(r)    = L;
 Map.P(r,r)  = P_LL;
 if(size(P_LX)~=0)
     mr = usedRange();

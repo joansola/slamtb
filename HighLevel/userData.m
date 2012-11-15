@@ -233,9 +233,9 @@ FigOpt = struct(...
   'map',            struct(...      % map figure options
     'proj',         'persp',...     % projection of the 3d figure
     'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
-    'orbit',        [0 0],...       % AZ and EL orbit angle increments
+    'orbit',        [0 0],...       % Azimuth and Elevation orbit angle increments - use to animate figure
     'size',         [320 240],...   % map figure size
-    'showSimLmk',   true,...       % show simulated landmarks?
+    'showSimLmk',   true,...        % show simulated landmarks?
     'showEllip',    true,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      

@@ -16,6 +16,7 @@ function Map = createMap(Rob,Sen,Opt)
 R = [Rob.state];
 S = [Sen.state];
 
+% overall number of states needed to allocate robots, sensors and landmarks
 n = sum([R.size S.size Opt.map.lmkSize*Opt.map.numLmks]);
 
 Map.used = false(n,1);

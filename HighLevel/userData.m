@@ -13,7 +13,7 @@
 %   number of landmarks that the SLAM map must support.
 %   * Use Opt.init.initType to select the type of landmarks to use. Try
 %   with one in this list:
-%       'idpPnt', 'hmgPnt', 'plkLin', 'aplLin'.
+%       'idpPnt', 'hmgPnt', 'ahmPnt', 'plkLin', 'ahmLin'.
 %   * Use World.points and World.segments to create artificial worlds of
 %   points or segments. Check functions THICKCLOISTER and HOUSE.
 %
@@ -53,13 +53,13 @@ World = struct(...
 %       'constVel'    6D Constant velocity model
 %       'odometry'    6D Odometry model
 %   - See EULERANGLES for orientations specifications.
-Robot{1} = struct(...                     % ODOMETRY EXAMPLE
+Robot{1} = struct(...                  % ODOMETRY EXAMPLE
   'id',                 1,...           % robot identifier
   'name',               'Dala',...      % robot name
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
   'position',           [0;-5;0],...     % robot position in map
-  'orientationDegrees', [0;0;0],...     % orientation, in degrees, roll pitch yaw.
+  'orientationDegrees', [0;0;0],...     % orientation, in degrees, [roll; pitch; yaw].
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.08;0;0],...     % position increment
@@ -67,13 +67,13 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
   'dxStd',              0.005*[1;1;1],...  % odo linear error std
   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
-% Robot{2} = struct(...                     % ODOMETRY EXAMPLE
+% Robot{2} = struct(...                  % ODOMETRY EXAMPLE
 %   'id',                 2,...           % robot identifier
 %   'name',               'Dala',...      % robot name
 %   'type',               'atrv',...      % type of robot
 %   'motion',             'odometry',...  % motion model
 %   'position',           [0;-6;0],...     % robot position in map
-%   'orientationDegrees', [0;0;0],...     % orientation, in degrees, roll pitch yaw.
+%   'orientationDegrees', [0;0;0],...     % orientation, in degrees, [roll; pitch; yaw].
 %   'positionStd',        [0;0;0],...     % position error, std
 %   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
 %   'dx',                 [.04;0;0],...     % position increment
@@ -81,13 +81,13 @@ Robot{1} = struct(...                     % ODOMETRY EXAMPLE
 %   'dxStd',              0.003*[1;1;1],...  % odo linear error std
 %   'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
 
-% Robot{3} = struct(...                     % CONSTANT VELOCITY EXAMPLE
+% Robot{3} = struct(...                  % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
 %   'name',               'Dala',...      % robot name
 %   'type',               'atrv',...      % type of robot
 %   'motion',             'constVel',...  % motion model
 %   'position',           [1;0;0],...     % robot position in map
-%   'orientationDegrees', [0;0;45],...    % orientation, in degrees, roll pitch yaw.
+%   'orientationDegrees', [0;0;45],...    % orientation, in degrees, [roll; pitch; yaw].
 %   'positionStd',        [0;0;0],...     % position error, std
 %   'orientationStd',     [0;0;0],...     % orient. error, std, degrees
 %   'velocity',           [1;0;0],...     % lin. velocity
@@ -112,7 +112,7 @@ Sensor{1} = struct(...
   'type',               'pinHole',...   % type of sensor
   'robot',              1,...           % robot where it is mounted
   'position',           [0;0;.6],...    % position in robot
-  'orientationDegrees', [-90;0;-90],... % orientation in robot, roll pitch yaw
+  'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
@@ -130,7 +130,7 @@ Sensor{1} = struct(...
 %   'type',               'pinHole',...   % type of sensor
 %   'robot',              2,...           % robot where it is mounted
 %   'position',           [0;-0.15;.6],...     % position in robot
-%   'orientationDegrees', [-90;0;-90],...      % orientation in robot, roll pitch yaw
+%   'orientationDegrees', [-90;0;-90],...      % orientation in robot, [roll; pitch; yaw]
 %   'positionStd',        [0;0;0],...     % position error std
 %   'orientationStd',     [1.5;1.5;1.5],...     % orient. error std
 %   'imageSize',          [640;480],...   % image size
@@ -152,7 +152,7 @@ Sensor{1} = struct(...
 %   'type',               'omniCam',...   % type of sensor
 %   'robot',              1,...           % robot where it is mounted
 %   'position',           [0.2;0;1.2],... % position in robot
-%   'orientationDegrees', [-120;0;-90],...% orientation in robot, roll pitch yaw.  
+%   'orientationDegrees', [-120;0;-90],...% orientation in robot, [roll; pitch; yaw].  
 %   'positionStd',        [0;0;0],...     % position error std
 %   'orientationStd',     [0;0;0],...     % orient. error std
 %   'imageSize',          [1280;800],...  % image size

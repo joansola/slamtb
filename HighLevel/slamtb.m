@@ -20,7 +20,7 @@
 %   Also consult slamToolbox.pdf in the root directory.
 
 %   Created and maintained by
-%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008, 2009, 2010, 2011, 2012 Joan Sola @ LAAS-CNRS.
 %   Programmers (for the whole toolbox):
 %   Copyright David Marquez and Jean-Marie Codol @ LAAS-CNRS
 %   Copyright Teresa Vidal-Calleja @ ACFR.
@@ -103,17 +103,18 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     for rob = [Rob.rob]
 
         % Robot motion
-        % FIXME: see how to include noise in a clever way (in a regular,
-        % non-simulated SLAM, this line is not here and noise just comes
-        % from the real world).
-        Rob(rob).con.u = SimRob(rob).con.u + Rob(rob).con.uStd.*randn(6,1);
+        % NOTE: in a regular, non-simulated SLAM, this line is not here and
+        % noise just comes from the real world. Here, the estimated robot
+        % is noised so that the simulated trajectory can be made perfect
+        % and act as a clear reference. The noise is additive to the
+        % control input 'u'.
+        Rob(rob).con.u = SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
 
         Rob(rob) = motion(Rob(rob),Tim);
 
         % Process sensor observations
         for sen = Rob(rob).sensors
 
-            %TODO: see how to pass only used Lmks and Obs.
             % Observe knowm landmarks
             [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = correctKnownLmks( ...
                 Rob(rob),   ...
@@ -150,20 +151,24 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             SimRob, SimSen, ...
             FigOpt);
         
-        makeVideoFrame(MapFig, ...
-            sprintf('map-%04d.png',currentFrame), ...
-            FigOpt, ExpOpt);
-
+        if FigOpt.createVideo
+            makeVideoFrame(MapFig, ...
+                sprintf('map-%04d.png',currentFrame), ...
+                FigOpt, ExpOpt);
+        end
+        
         % Figures for all sensors
         for sen = [Sen.sen]
             SenFig(sen) = drawSenFig(SenFig(sen), ...
                 Sen(sen), Raw(sen), Obs(sen,:), ...
                 FigOpt);
             
-            makeVideoFrame(SenFig(sen), ...
-                sprintf('sen%02d-%04d.png', sen, currentFrame),...
-                FigOpt, ExpOpt);
-
+            if FigOpt.createVideo
+                makeVideoFrame(SenFig(sen), ...
+                    sprintf('sen%02d-%04d.png', sen, currentFrame),...
+                    FigOpt, ExpOpt);
+            end
+            
         end
 
         % Do draw all objects
@@ -177,6 +182,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % TODO: do something here to collect data for post-processing or
     % plotting. Think about collecting data in files using fopen, fwrite,
     % etc., instead of creating large Matlab variables for data logging.
+    
 
 end
 

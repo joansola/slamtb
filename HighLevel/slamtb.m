@@ -187,7 +187,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 end
 
 %% V. Post-processing
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Enter post-processing code here
 
 
 

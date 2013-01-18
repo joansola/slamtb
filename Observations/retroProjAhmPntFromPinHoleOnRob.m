@@ -40,7 +40,7 @@ if(isempty(Sc))
     AHM_sc = [] ;
 else
     AHM_sc = AHM_ahms*AHMS_sc ;
-end 
+end
 
 AHM_u = AHM_ahms*AHMS_u ;
 AHM_rho = AHM_ahms*AHMS_rho ;
@@ -75,7 +75,7 @@ end
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

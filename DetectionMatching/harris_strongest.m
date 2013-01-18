@@ -86,9 +86,13 @@ Iy2 = conv2(Iy.^2, g, 'same');
 Ixy = conv2(Ix.*Iy, g, 'same');
 
 % interest point response
-% cim = (Ix2.*Iy2 - Ixy.^2)./(Ix2 + Iy2 + eps);				% Alison Noble measure.
-% k = 0.06; cim = (Ix2.*Iy2 - Ixy.^2) - k*(Ix2 + Iy2).^2;	% Original Harris measure.
+% Original Harris measure.
+% k = 0.06; cim = (Ix2.*Iy2 - Ixy.^2) - k*(Ix2 + Iy2).^2;	
 
+% Alison Noble measure.
+% cim = (Ix2.*Iy2 - Ixy.^2)./(Ix2 + Iy2 + eps);
+
+% Shi and Tomasi -- smallest eigenvalue
 a = Ix2+Iy2;
 b = sqrt((Ix2-Iy2).^2+4*Ixy.^2);
 cim = a-b;  % Smallest eigenvalue.
@@ -97,16 +101,16 @@ cim = a-b;  % Smallest eigenvalue.
 cim([1:mrg sx-mrg:sx],:) = -9e9;
 cim(:,[1:mrg sy-mrg:sy]) = -9e9;
 
-% Find strongest corner
+% Find strongest corner [u;v] and score
 [scv,v] = max(cim);
-[sc,u]  = max(scv);
-v       = v(u);
+[sc,u]  = max(scv);     % score and u-coordinate
+v       = v(u);         % v-coordinate
 
 % reject edges
-l = sc;              % smallest eigenvalue
-L = a(v,u) + b(v,u); %  biggest eigenvalue
-if L/l > edgerej
-    sc = 0;
+l = sc;                 % smallest eigenvalue is the score
+L = a(v,u) + b(v,u);    %  largest eigenvalue
+if L/l > edgerej        % reject edge detections
+    sc = 0;             % return nothing if winner is an edge
 end
 
 point = [u;v];

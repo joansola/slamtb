@@ -80,7 +80,7 @@ switch Raw.type
 %         error('??? Unknown Raw type. ''real'': NYI.');
 end
 
-if ~isempty(meas.y)  % a feature was detected --> initialize it in IDP
+if ~isempty(meas.y)  % a feature was detected --> initialize it
 
     % fill Obs struct before continuing
     Obs(lmk).sen      = Sen.sen;

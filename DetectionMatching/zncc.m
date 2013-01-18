@@ -3,7 +3,9 @@ function sc = zncc(I,J,SI,SII,SJ,SJJ)
 % ZNCC  Zero mean, Normalized Correlation Coefficient
 %   ZNCC(I,J) computes the zncc score of matrices I and J:
 %
-%     ZNCC = 1/N*sum((I-mean(I))*(J-mean(J)))/(std(I)*std(J))
+%               1     sum( sum ( (I-mean(I)) * (J-mean(J)) ) )
+%       ZNCC = --- * ------------------------------------------
+%               N               std(I) * std(J)
 %
 %   where N = prod(size(I))
 %   and   size(I) = size(J)
@@ -43,7 +45,7 @@ end
 
 N = numel(I);
 
-% This is the eqquivalent, faster formula than that given
+% This is the equivalent, faster formula than that given
 % in the help section:
 %
 %   sc = (N*SIJ - SI*SJ)/sqrt((N*SII - SI^2)*(N*SJJ - SJ^2)+eps);

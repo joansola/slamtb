@@ -2,7 +2,7 @@ function [point,sc] = harris_strongest(im,sigma,mrg,edgerej)
 % HARRIS_STRONGEST Extract strongest Harris point.
 %   HARRIS_STRONGEST(IM) extracts the strongest harris point in image IM.
 %
-%   HARRIS_TRONGEST(IM, SG, MRG, EDGEREJ) accepts additional inputs as
+%   HARRIS_STRONGEST(IM, SG, MRG, EDGEREJ) accepts additional inputs as
 %   follows:
 %
 %   INPUT
@@ -12,8 +12,8 @@ function [point,sc] = harris_strongest(im,sigma,mrg,edgerej)
 %   mrg    : inner margin to be ignored
 %   edgerej: maximum ratio allowed between largest and smallest eigenvalues
 %
-%   [P,SC] = (...) returns also the point's strength as a scalar score
-%   (non-normalized).
+%   [P,SC] = HARRIS_STRONGEST(...) returns also the point's strength as a
+%   scalar score (non-normalized).
 %
 %   OUTPUT
 %   ======

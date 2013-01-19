@@ -201,7 +201,7 @@ switch Sen.type
                     si); 
                 
                 % segment visibility
-                [s,vis] = visibleSegment(s,d,Sen.par.imSize,[0 0]',Opt.obs.lines.minLength);
+                [s,vis] = visibleSegment(s,d,Sen.par.imSize,0,Opt.obs.lines.minLength);
 
             case 'hmgLin'
                 

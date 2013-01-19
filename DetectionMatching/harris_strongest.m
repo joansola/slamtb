@@ -98,8 +98,8 @@ b = sqrt((Ix2-Iy2).^2+4*Ixy.^2);
 cim = a-b;  % Smallest eigenvalue.
 
 % supress corner measures close to margin
-cim([1:mrg sx-mrg:sx],:) = -9e9;
-cim(:,[1:mrg sy-mrg:sy]) = -9e9;
+cim([1:mrg sx-mrg+1:sx],:) = -9e9;
+cim(:,[1:mrg sy-mrg+1:sy]) = -9e9;
 
 % Find strongest corner [u;v] and score
 [scv,v] = max(cim);

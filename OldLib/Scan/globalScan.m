@@ -4,7 +4,6 @@ global scanPix
 
 dir = [2;0];
 pix = xm;
-pix = xm;
 sc = 0;
 dist = 0;
 maxDist = 0;

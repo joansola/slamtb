@@ -8,8 +8,11 @@ function [s,d,S_k,S_si] = pinHoleSegment(k,si)
 %   SI is a 6-vector containing the two endpoints of the 3D segment.
 %   S is a 4-vector conteining the two endpoints of the 2D segment.
 %
+%   SI can also be a 6-by-N matrix with N segments. In such case S is a
+%   4-by-N matrix with N projected segments.
+%
 %   [S,D,S_k,S_si] = POINHOLESEGMENT(...) returns the Jacobians of S wrt K
-%   and SI.
+%   and SI. It only works for single segments.
 %
 %   See also PINHOLE.
 

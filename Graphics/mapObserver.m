@@ -66,7 +66,7 @@ else % custom view vector
     if numel(mapView) == 4
         rd = mapView(4);
     else
-        rd = max([world.l,world.w,world.h]);
+        rd = max([world.dims.l,world.dims.w,world.dims.h]);
     end
 
 end

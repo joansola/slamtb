@@ -56,8 +56,17 @@ set(MapFig.fig,...
 cameratoolbar('show');
 cameratoolbar('setmode','orbit');
 
+% World dimensions
+world.lims = FigOpt.map.lims;
+world.dims.l = FigOpt.map.lims.xMax - FigOpt.map.lims.xMin;
+world.dims.w = FigOpt.map.lims.yMax - FigOpt.map.lims.yMin;
+world.dims.h = FigOpt.map.lims.zMax - FigOpt.map.lims.zMin;
+world.center.xMean = (FigOpt.map.lims.xMax + FigOpt.map.lims.xMin)/2;
+world.center.yMean = (FigOpt.map.lims.yMax + FigOpt.map.lims.yMin)/2;
+world.center.zMean = (FigOpt.map.lims.zMax + FigOpt.map.lims.zMin)/2;
+
 % Map viewpoint
-viewPnt = mapObserver(SimLmk,FigOpt.map.view);
+viewPnt = mapObserver(world,FigOpt.map.view);
 
 % Axes
 axis equal
@@ -76,21 +85,24 @@ set(MapFig.axes,...
     'CameraViewAngleMode', 'manual',...
     'CameraTarget',        viewPnt.tgt,...
     'CameraTargetMode',    'manual',...
-    'xlim',                [SimLmk.lims.xMin SimLmk.lims.xMax],...
-    'ylim',                [SimLmk.lims.yMin SimLmk.lims.yMax],...
-    'zlim',                [SimLmk.lims.zMin SimLmk.lims.zMax],...
+    'xlim',                [FigOpt.map.lims.xMin FigOpt.map.lims.xMax],...
+    'ylim',                [FigOpt.map.lims.yMin FigOpt.map.lims.yMax],...
+    'zlim',                [FigOpt.map.lims.zMin FigOpt.map.lims.zMax],...
     'alimmode',            'manual',...
     'climmode',            'manual',...
     'vis',                 'off');%,...
 
-% landmarks - do not loop, draw all at once
-MapFig.simLmk = createSimLmkGraphics(SimLmk,FigOpt.map.colors.simLmk,MapFig.axes,FigOpt.map.showSimLmk);
 
+
+% OBJECTS COMMON TO SIMULATION AND ESTIMATION
+% Ground
+MapFig.ground = createGround(FigOpt.map,MapFig.axes,FigOpt.map.colors.ground);
+    
 
 % ESTIMATED OBJECTS
 % robots
 for rob = 1:numel(Rob)
-
+    
     % create and draw robot - with ellipse
     MapFig.Rob(rob).patch = createObjPatch(Rob(rob),FigOpt.map.colors.est,MapFig.axes);
     MapFig.Rob(rob).ellipse = line(...
@@ -100,51 +112,53 @@ for rob = 1:numel(Rob)
         'zdata',  [],    ...
         'color',  'r',   ...
         'marker', 'none');
-
+    
     % sensors
     for sen = Rob(rob).sensors
-
+        
         % create and draw sensor
         MapFig.Sen(sen) = createObjPatch(Sen(sen),FigOpt.map.colors.est,MapFig.axes);
         
         % redraw sensor in robot frame
         F = composeFrames(Rob(rob).frame,Sen(sen).frame);
         drawObject(MapFig.Sen(sen),Sen(sen),F);
-
+        
     end
 end
 
 
 % landmarks
 for lmk = 1:numel(Lmk)
-
+    
     MapFig.Lmk(lmk) = createLmkGraphics(Lmk(lmk),FigOpt.map.colors.label,MapFig.axes);
-
+    
 end
 
 
 % SIMULATED OBJECTS
-% Ground
-MapFig.ground = createGround(SimLmk,MapFig.axes,FigOpt.map.colors.ground);
+if ~isempty(SimRob) && ~isempty(SimSen) && ~isempty(SimLmk)
 
-% Robots
-for rob = 1:numel(SimRob)
-
-    % create and draw robot
-    MapFig.simRob(rob) = createObjPatch(SimRob(rob),FigOpt.map.colors.simu,MapFig.axes);
-
-    % Sensors
-    for sen = SimRob(rob).sensors
-
-        % create and draw sensor
-        MapFig.simSen(sen) = createObjPatch(SimSen(sen),FigOpt.map.colors.simu,MapFig.axes);
+    % Landmarks - do not loop, draw all at once
+    MapFig.simLmk = createSimLmkGraphics(SimLmk,FigOpt.map.colors.simLmk,MapFig.axes,FigOpt.map.showSimLmk);
+    
+    % Robots
+    for rob = 1:numel(SimRob)
         
-        % redraw sensor in robot frame
-        F = composeFrames(SimRob(rob).frame,SimSen(sen).frame);
-        drawObject(MapFig.simSen(sen),SimSen(sen),F);
+        % create and draw robot
+        MapFig.simRob(rob) = createObjPatch(SimRob(rob),FigOpt.map.colors.simu,MapFig.axes);
+        
+        % Sensors
+        for sen = SimRob(rob).sensors
+            
+            % create and draw sensor
+            MapFig.simSen(sen) = createObjPatch(SimSen(sen),FigOpt.map.colors.simu,MapFig.axes);
+            
+            % redraw sensor in robot frame
+            F = composeFrames(SimRob(rob).frame,SimSen(sen).frame);
+            drawObject(MapFig.simSen(sen),SimSen(sen),F);
+        end
     end
 end
-
 
 
 
@@ -173,7 +187,7 @@ end
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

@@ -9,7 +9,7 @@ function predictBlockEkf(r,F_r,U,F_u)
 
 global Map
 
-m = Map.used;
+m = Map.used; % caution: the range 'm' includes the range 'r'
 
 Map.P(r,m) = F_r * Map.P(r,m);
 Map.P(m,r) = Map.P(m,r) * F_r';

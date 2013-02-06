@@ -20,8 +20,9 @@
 %   Also consult slamToolbox.pdf in the root directory.
 
 %   Created and maintained by
-%   Copyright 2008, 2009, 2010, 2011, 2012 Joan Sola @ LAAS-CNRS.
-%   Programmers (for the whole toolbox):
+%   Copyright 2008, 2009, 2010 Joan Sola @ LAAS-CNRS.
+%   Copyright 2011, 2012, 2013 Joan Sola.
+%   Programmers (for parts of the toolbox):
 %   Copyright David Marquez and Jean-Marie Codol @ LAAS-CNRS
 %   Copyright Teresa Vidal-Calleja @ ACFR.
 %   See COPYING.TXT for wull copyright license.

@@ -1,9 +1,10 @@
 function Raw = readProcessedImg(rob,sen,frm)
 
 % READPROCESSEDIMG  Read processed image data from file.
-%   R = READPROCESSEDIMG(R,S,F) reads the processed image for sensor S in
-%   robot R corresponding to frame F. R and S are Rob and Sen structures in
-%   SLAMTB. F is an integer corresponding to the frame number.
+%   Raw = READPROCESSEDIMG(R,S,F) reads the processed image for sensor S in
+%   robot R corresponding to frame F, and store it in structure Raw. R and
+%   S are Rob and Sen structures in SLAMTB. F is an integer corresponding
+%   to the frame number.
 %
 %   The processed image contains simply the coordinates of all the features
 %   detected, with an identifier. See below for the file format.
@@ -19,6 +20,8 @@ function Raw = readProcessedImg(rob,sen,frm)
 %           id2  U2  V2
 %           ...
 %           idn  Un  Vn
+%
+%   See also WRITEPROCESSEDIMG, READCONTROLSIGNAL, WRITECONTROLSIGNAL.
 
 %   Copyright 2013 Joan Sola
 

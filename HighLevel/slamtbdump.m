@@ -4,8 +4,8 @@
 %   EKF-SLAM with simulation and graphics capabilities.
 %
 %   It is intended for demonstration of the SLAM toolbox with points on
-%   real images, but skipping the image processing part of the algorithm. 
-%   
+%   real images, but skipping the image processing part of the algorithm.
+%
 %   Use this file together with userDataDump.m. In userDataDump, you have
 %   at the end the data field ExpOpt.dump, with the following options:
 %       > 'simu': dumps, for each frame, a file of the robot's control
@@ -17,7 +17,7 @@
 %   Please read slamToolbox.pdf in the root directory thoroughly before
 %   using this toolbox.
 %
-%   DUMPED FILE FORMATS: 
+%   DUMPED FILE FORMATS:
 %   For a robot R and sensor S at time T we have:
 %       img-RR-SS-TTTTTT.txt with one observed landmark per line:
 %           id1  U1  V1
@@ -57,32 +57,36 @@ userDataDump;           % user-defined data. SCRIPT.
     Time,...
     Opt);
 
-if strcmp(ExpOpt.dump, 'simu') 
-    % We will simulate and dump data into files
-    
-    % Simulation data
-    [SimRob,SimSen,SimLmk,SimOpt] = createSimStructures(...
-        Robot,...
-        Sensor,...      % all user data
-        World,...
-        SimOpt);
-
-    % Graphics handles
-    [MapFig,SenFig]               = createGraphicsStructures(...
-        Rob, Sen, Lmk, Obs,...      % SLAM data
-        SimRob, SimSen, SimLmk,...  % Simulator data
-        FigOpt);                    % User-defined options
-    
-else
-    % We will read data from previously dumped files, and fully skip
-    % simulations, similar to the "real raw data" case but without raw data
-    % preprocessing
-    
-    % Graphics handles
-    [MapFig,SenFig]               = createGraphicsStructures(...
-        Rob, Sen, Lmk, Obs,...      % SLAM data
-        [], [], [],...              % Simulator data
-        FigOpt);                    % User-defined options
+switch lower(ExpOpt.dump)
+    case 'write'
+        % We will simulate and dump data into files
+        
+        % Simulation data
+        [SimRob,SimSen,SimLmk,SimOpt] = createSimStructures(...
+            Robot,...
+            Sensor,...      % all user data
+            World,...
+            SimOpt);
+        
+        % Graphics handles
+        [MapFig,SenFig]               = createGraphicsStructures(...
+            Rob, Sen, Lmk, Obs,...      % SLAM data
+            SimRob, SimSen, SimLmk,...  % Simulator data
+            FigOpt);                    % User-defined options
+        
+    case 'read'
+        % We will read data from previously dumped files, and fully skip
+        % simulations, similar to the "real raw data" case but without raw data
+        % preprocessing
+        
+        % Graphics handles
+        [MapFig,SenFig]               = createGraphicsStructures(...
+            Rob, Sen, Lmk, Obs,...      % SLAM data
+            [], [], [],...              % Simulator data
+            FigOpt);                    % User-defined options
+        
+    otherwise
+        error('Unknown dump method');
 end
 
 %% III. Initialize data logging
@@ -99,90 +103,85 @@ clear Robot Sensor World Time   % clear all user data
 %% IV. Main loop
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     
-
+    
     % 1. SIMULATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    if strcmp(ExpOpt.dump, 'simu') % only if dumping for simulated inputs
-        
-        % Simulate robots
-        for rob = [SimRob.rob]
+    switch lower(ExpOpt.dump)
+        case 'write'  % simulate only if dumping simulated inputs
             
-            % Robot motion
-            SimRob(rob) = simMotion(SimRob(rob),Tim);
-            
-            writeControlSignal(SimRob(rob),currentFrame);
-            
-            % Simulate sensor observations
-            for sen = SimRob(rob).sensors
+            % Simulate robots
+            for rob = [SimRob.rob]
                 
-                % Observe simulated landmarks
-                Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk, SimOpt) ;
+                % Robot motion
+                SimRob(rob) = simMotion(SimRob(rob),Tim);
                 
-                % write img data to file
-                writeProcessedImg(rob,sen,currentFrame,Raw(sen));
+                writeControlSignal(SimRob(rob),currentFrame);
                 
-            end % end process sensors
-            
-        end % end process robots
-        
-        
-    else % we are not simulating, then we must be estimating
-        
-        % 2. ESTIMATION
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
-        % Process robots
-        for rob = [Rob.rob]
-            
-            % Robot motion
-            % NOTE: in a regular, non-simulated SLAM, this line is not here and
-            % noise just comes from the real world. Here, the estimated robot
-            % is noised so that the simulated trajectory can be made perfect
-            % and act as a clear reference. The noise is additive to the
-            % control input 'u'.
-            Rob(rob) = readControlSignal(Rob(rob), currentFrame);
-%             Rob(rob).con.u = SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
-            
-            Rob(rob) = motion(Rob(rob),Tim);
-            
-            
-            % Process sensor observations
-            for sen = Rob(rob).sensors
+                % Simulate sensor observations
+                for sen = SimRob(rob).sensors
+                    
+                    % Observe simulated landmarks
+                    Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk, SimOpt) ;
+                    
+                    % write img data to file
+                    writeProcessedImg(rob,sen,currentFrame,Raw(sen));
+                    
+                end % end process sensors
                 
-                % Obtain raw data
-                Raw(sen) = readProcessedImg(rob,sen,currentFrame);
+            end % end process robots
+            
+            
+        case 'read' % we are not simulating, then we must be estimating
+            
+            % 2. ESTIMATION
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
+            % Process robots
+            for rob = [Rob.rob]
                 
-                % Observe knowm landmarks
-                [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = correctKnownLmks( ...
-                    Rob(rob),   ...
-                    Sen(sen),   ...
-                    Raw(sen),   ...
-                    Lmk,        ...
-                    Obs(sen,:), ...
-                    Opt) ;
+                % Robot motion
+                Rob(rob) = readControlSignal(Rob(rob), currentFrame);
+                
+                Rob(rob) = motion(Rob(rob),Tim);
                 
                 
-                % Initialize new landmarks
-                if currentFrame == Tim.firstFrame
-                    ninit = Opt.init.nbrInits(1);
-                else
-                    ninit = Opt.init.nbrInits(2);
-                end
-                for i = 1:ninit
-                    [Lmk,Obs(sen,:)] = initNewLmk(...
+                % Process sensor observations
+                for sen = Rob(rob).sensors
+                    
+                    % Obtain raw data
+                    Raw(sen) = readProcessedImg(rob,sen,currentFrame);
+                    
+                    % Observe knowm landmarks
+                    [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = correctKnownLmks( ...
                         Rob(rob),   ...
                         Sen(sen),   ...
                         Raw(sen),   ...
                         Lmk,        ...
                         Obs(sen,:), ...
                         Opt) ;
-                end
+                    
+                    
+                    % Initialize new landmarks
+                    if currentFrame == Tim.firstFrame
+                        ninit = Opt.init.nbrInits(1);
+                    else
+                        ninit = Opt.init.nbrInits(2);
+                    end
+                    for i = 1:ninit
+                        [Lmk,Obs(sen,:)] = initNewLmk(...
+                            Rob(rob),   ...
+                            Sen(sen),   ...
+                            Raw(sen),   ...
+                            Lmk,        ...
+                            Obs(sen,:), ...
+                            Opt) ;
+                    end
+                    
+                end % end process sensors
                 
-            end % end process sensors
+            end % end process robots
             
-        end % end process robots
-        
     end
     
     
@@ -194,18 +193,20 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             || mod(currentFrame,FigOpt.rendPeriod) == 0
         
         % Figure of the Map:
-        if strcmp(ExpOpt.dump, 'simu') 
+        switch lower(ExpOpt.dump)
 
-            MapFig = drawMapFig(MapFig,  ...
-                Rob, Sen, Lmk,  ...
-                SimRob, SimSen, ...
-                FigOpt);
-        else
-            MapFig = drawMapFig(MapFig,  ...
-                Rob, Sen, Lmk,  ...
-                [], [], ...
-                FigOpt);
-            
+            case 'write' % render all
+                MapFig = drawMapFig(MapFig,  ...
+                    Rob, Sen, Lmk,  ...
+                    SimRob, SimSen, ...
+                    FigOpt);
+                
+            case 'read' % skip simulated objects
+                MapFig = drawMapFig(MapFig,  ...
+                    Rob, Sen, Lmk,  ...
+                    [], [], ...
+                    FigOpt);
+                
         end
         
         if FigOpt.createVideo

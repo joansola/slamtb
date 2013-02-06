@@ -5,16 +5,11 @@
 %   
 %   Use this file together with userDataDump.m. In userDataDump, you have
 %   at the end the data field ExpOpt.dump, with the following options:
-%       > 'simu': dumps, for each frame, a file of the robot's control
+%     > 'write': dumps, for each frame, a file of the robot's control
 %       signal and one file for each sensor containing identifiers and
 %       extracted pixels from images.
-%       > 'none': not dump. Use dumped files instead to simulate the case
+%     > 'read': not dump. Read dumped files instead to simulate the case
 %       of working with real images. See below for file naming and formats.
-%
-%   Try the following point types in Opt.init.initType:
-%       'idpPnt'    Inverse depth points
-%       'ahmPnt'    Anchored homogeneous points
-%       'hmgPnt'    Homogeneous points
 %
 %   DUMPED FILE FORMATS: 
 %   For a robot R and sensor S at time T we have:
@@ -26,7 +21,7 @@
 %           u1 u2 u3 ... un
 %           U11 U12 ... U1n U21 U22 ... Unn
 %
-%   See also USERDATA, SLAMTBDUMP.
+%   See also USERDATA, SLAMTBDUMP, WRITECONTROLSIGNAL, WRITEPROCESSEDIMG.
 
 %   Copyright 2009-2010 Joan Sola @ LAAS-CNRS.
 %   Copyright 2013 Joan Sola
@@ -81,7 +76,7 @@ Robot{1} = struct(...                     % CONSTANT VELOCITY EXAMPLE
   'dv',                 [0;0;0],...     % veolcity increment
   'dwDegrees',          [0;0;0],...     % ang. vel. increment, degrees
   'dvStd',              [.1;.1;.1],...  % vel perturbation std
-  'dwStd',              [.21;.21;.21]);    % ang vel pert. std, degrees
+  'dwStd',              [.2;.2;.2]);    % ang vel pert. std, degrees
 
 
 
@@ -186,7 +181,7 @@ FigOpt = struct(...
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'size',         [320 240],...   % map figure size
-    'lims',        struct(...       % playground limits
+    'lims',        struct(...       % 3D playground limits
       'xMin',            -10,...             
       'xMax',             10,...
       'yMin',            -10,...
@@ -254,8 +249,7 @@ ExpOpt = struct(...
   'lmkTypes',     Opt.init.initType,... % types of landmarks used
   'sensingType',  'mono',...            % sensing mode
   'mappingType',  'single',...          % mapping mode
-  'dump',         'none');              % 'none', 'simu'> data files from simulation, 'imgs'> output images with overlaid info
-
+  'dump',         'read');              % 'read', 'write'> read/write data files from simulation
 
 
 

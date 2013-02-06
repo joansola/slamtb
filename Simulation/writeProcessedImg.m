@@ -1,9 +1,10 @@
 function writeProcessedImg(rob,sen,frm,Raw)
 
 % WRITEPROCESSEDIMG  Write processed image data to file.
-%   R = WRITEPROCESSEDIMG(R,S,F) writes the processed image for sensor S in
-%   robot R corresponding to frame F. R and S are Rob and Sen structures in
-%   SLAMTB. F is an integer corresponding to the frame number.
+%   WRITEPROCESSEDIMG(R,S,F,Raw) writes the processed image in Raw for
+%   sensor S in robot R corresponding to frame F. R and S are Rob and Sen
+%   structures in SLAMTB. F is an integer corresponding to the frame
+%   number.
 %
 %   The processed image contains simply the coordinates of all the features
 %   detected, with an identifier. See below for the file format.
@@ -19,6 +20,8 @@ function writeProcessedImg(rob,sen,frm,Raw)
 %           id2  U2  V2
 %           ...
 %           idn  Un  Vn
+%
+%   See also READPROCESSEDIMG, WRITECONTROLSIGNAL, READCONTROLSIGNAL.
 
 %   Copyright 2013 Joan Sola
 

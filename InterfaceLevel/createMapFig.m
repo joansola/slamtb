@@ -57,10 +57,10 @@ cameratoolbar('show');
 cameratoolbar('setmode','orbit');
 
 % World dimensions
-world.lims = FigOpt.map.lims;
-world.dims.l = FigOpt.map.lims.xMax - FigOpt.map.lims.xMin;
-world.dims.w = FigOpt.map.lims.yMax - FigOpt.map.lims.yMin;
-world.dims.h = FigOpt.map.lims.zMax - FigOpt.map.lims.zMin;
+world.lims         = FigOpt.map.lims;
+world.dims.l       = FigOpt.map.lims.xMax - FigOpt.map.lims.xMin;
+world.dims.w       = FigOpt.map.lims.yMax - FigOpt.map.lims.yMin;
+world.dims.h       = FigOpt.map.lims.zMax - FigOpt.map.lims.zMin;
 world.center.xMean = (FigOpt.map.lims.xMax + FigOpt.map.lims.xMin)/2;
 world.center.yMean = (FigOpt.map.lims.yMax + FigOpt.map.lims.yMin)/2;
 world.center.zMean = (FigOpt.map.lims.zMax + FigOpt.map.lims.zMin)/2;

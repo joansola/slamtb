@@ -14,6 +14,8 @@ function writeControlSignal(Rob,frm)
 %           u1 u2 u3 ... un
 %           U11 U12 ... U1n U21 U22 ... Unn
 %   where n is the dimension of the control vector.
+%
+%   See also READCONTROLSIGNAL, READPROCESSEDIMG, WRITEPROCESSEDIMG.
 
 %   Copyright 2013 Joan Sola
 

@@ -122,40 +122,40 @@ Sensor{1} = struct(...
 % Estimation options 
 Opt = struct(...
   'map',              struct(...    % options for the map
-    'numLmks',        100,...        % number of 3d landmarks
-    'lmkSize',        6),...         % Size of landmark
+    'numLmks',        100,...           % number of 3d landmarks
+    'lmkSize',        6),...            % Size of landmark
   'correct',          struct(...    % options for lmk correction
-    'reprojectLmks',  true,...       % reproject lmks after active search?
-    'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       20,...         % max simultaneus updates
-    'MD2th',          9,...          % Threshold on Mahalanobis distance squared
-    'linTestIdp',     0.1,...        % threshold on IDP linearity test
-    'lines',          struct(...     % options for line corrections
-      'innType',      'ortDst',...    % innovation type for lines
-      'extPolicy',    false,...       % line extending policy ?
-      'extSwitch',    10)),...        % extension policy switch point in pixels
+    'reprojectLmks',  true,...          % reproject lmks after active search?
+    'reparametrize',  true,...          % reparametrize lmk?
+    'nUpdates',       20,...            % max simultaneus updates
+    'MD2th',          9,...             % Threshold on Mahalanobis distance squared
+    'linTestIdp',     0.1,...           % threshold on IDP linearity test
+    'lines',          struct(...        % options for line corrections
+      'innType',      'ortDst',...          % innovation type for lines
+      'extPolicy',    false,...             % line extending policy ?
+      'extSwitch',    10)),...              % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [10 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'idpPnt',...   % Type of lmk to use for init
-    'idpPnt',         struct(...     % inverse-distance prior
-      'nonObsMean',   0.01,...         % mean of non obs
-      'nonObsStd',    0.5),...         % std of non obs
-    'plkLin',         struct(...     % Plucker prior
-      'nonObsMean',   [.1;0],...      % mean of non obs
-      'nonObsStd',    [.25;1])),...   % std of non obs
+    'nbrInits',       [10 1],...        % number of inits [firstFrame, otherFrames]
+    'initType',       'idpPnt',...      % Type of lmk to use for init
+    'idpPnt',         struct(...        % inverse-distance prior
+      'nonObsMean',   0.01,...              % mean of non obs
+      'nonObsStd',    0.5),...              % std of non obs
+    'plkLin',         struct(...        % Plucker prior
+      'nonObsMean',   [.1;0],...            % mean of non obs
+      'nonObsStd',    [.25;1])),...         % std of non obs
   'obs',              struct(...    % Observation options
-    'lines',          struct(...     % lines options
-      'minLength',    20)));          % minimum segment length
+    'lines',          struct(...        % lines options
+      'minLength',    20)));                % minimum segment length
         
 
 % Simulation options
 %   - random
 SimOpt = struct(...                    
-  'random',           struct(...      % random generator options
-    'newSeed',        true,...         % select new random seed?
-    'fixedSeed',      1,...            % random seed for non-random runs
-    'seed',           []),...          % current seed
-  'obs',              Opt.obs);       % Observation options
+  'random',           struct(...    % random generator options
+    'newSeed',        true,...          % select new random seed?
+    'fixedSeed',      1,...             % random seed for non-random runs
+    'seed',           []),...           % current seed
+  'obs',              Opt.obs);     % Observation options
 
 
 
@@ -177,66 +177,66 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'rendPeriod',     25,...           % frames to skip for faster processing
+  'rendPeriod',     25,...          % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
-    'size',         [320 240],...   % map figure size
-    'lims',        struct(...       % 3D playground limits
+    'size',         [320 240],...       % map figure size
+    'lims',        struct(...           % 3D playground limits
       'xMin',            -10,...             
       'xMax',             10,...
       'yMin',            -10,...
       'yMax',             10,...
       'zMin',            -10,...
       'zMax',             10),...
-    'proj',         'persp',...     % projection of the 3d figure
-    'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
-    'orbit',        [0 0],...       % AZ and EL orbit angle increments
-    'showSimLmk',   true,...       % show simulated landmarks?
-    'showEllip',    true,...        % show ellipsoids?
-    'colors',       struct(...      % map figure colors
-      'border',     [1 1 1],...      %   [r g b]      
-      'axes',       [0 0 0],...      % with:
-      'bckgnd',     [1 1 1],...      %   [0 0 0] black
-      'simLmk',     .3*[1 1 1],...   %   [1 1 1] white
-      'defPnt',     struct(...       % euclidean point colors
-        'mean',     'b',...           % mean dot
-        'ellip',    [.7 .7 1]),...    % ellipsoid
-      'othPnt',     struct(...       % other point colors
-        'mean',     'r',...           % mean dot
-        'ellip',    [1 .7 .7]),...    % ellipsoid
-      'defLin',     struct(...       % Plucker line colors
-        'mean',     [0 .8 0],...      % mean line
-        'ellip',    [.6 1 .6]),...    % ellipsoid
-      'othLin',     struct(...       % Plucker line colors
-        'mean',     [.8 0 0],...      % mean line
-        'ellip',    [1 .6 .6]),...    % ellipsoid
-      'simu',       'b',...          %   or 'r', 'b', etc.   
-      'est',        'g',...          % estimated robots and sensors
-      'ground',     [.8 .8 .8],...   % simulated robots and sensors
-      'label',      [.0 .5 0])),...  % landmark ID labels
+    'proj',         'persp',...         % projection of the 3d figure
+    'view',         'view',...          % viewpoint of the 3d figure [30 45 40 20]
+    'orbit',        [0 0],...           % AZ and EL orbit angle increments
+    'showSimLmk',   true,...            % show simulated landmarks?
+    'showEllip',    true,...            % show ellipsoids?
+    'colors',       struct(...          % map figure colors
+      'border',     [1 1 1],...             %   [r g b]      
+      'axes',       [0 0 0],...             % with:
+      'bckgnd',     [1 1 1],...             %   [0 0 0] black
+      'simLmk',     .3*[1 1 1],...          %   [1 1 1] white
+      'defPnt',     struct(...              % euclidean point colors
+        'mean',     'b',...                     % mean dot
+        'ellip',    [.7 .7 1]),...              % ellipsoid
+      'othPnt',     struct(...              % other point colors
+        'mean',     'r',...                     % mean dot
+        'ellip',    [1 .7 .7]),...              % ellipsoid
+      'defLin',     struct(...              % Plucker line colors
+        'mean',     [0 .8 0],...                % mean line
+        'ellip',    [.6 1 .6]),...              % ellipsoid
+      'othLin',     struct(...              % Plucker line colors
+        'mean',     [.8 0 0],...                % mean line
+        'ellip',    [1 .6 .6]),...              % ellipsoid
+      'simu',       'b',...                 %   or 'r', 'b', etc.   
+      'est',        'g',...                 % estimated robots and sensors
+      'ground',     [.8 .8 .8],...          % simulated robots and sensors
+      'label',      [.0 .5 0])),...         % landmark ID labels
   'sensor',         struct(...      % sensor figures options
-    'size',         [320 240],...    % sensor figure size
-    'showEllip',    false,...        % show ellipses?
-    'colors',       struct(...       % Sensor figure colors:
-      'border',     .8*[1 1 1],...    %    
-      'axes',       [0 0 0],...       % 
-      'bckgnd',     [1 1 1],...       %
-      'raw',        .3*[1 1 1],...    % 
-      'defPnt',     struct(...       % Default point colors
-        'updated',  'c',...           % updated
-        'predicted','b'),...          % predicted
-      'othPnt',     struct(...       % other point colors
-        'updated',  'r',...           % updated
-        'predicted','m'),...          % predicted
-      'defLin',     struct(...       % Default line colors
-        'meas',     'b',...           % measurement
-        'mean',     'g',...           % mean line
-        'ellip',    'y'),...          % ellipsoid
-      'othLin',     struct(...       % other line colors
-        'meas',     'b',...           % measurement
-        'mean',     'm',...           % mean line
-        'ellip',    'r'),...          % ellipsoid
-      'label',      [.5 .5 .5])));    %
+    'size',         [320 240],...       % sensor figure size
+    'showEllip',    false,...           % show ellipses?
+    'colors',       struct(...          % Sensor figure colors:
+      'border',     .8*[1 1 1],...          %    
+      'axes',       [0 0 0],...             % 
+      'bckgnd',     [1 1 1],...             %
+      'raw',        .3*[1 1 1],...          % 
+      'defPnt',     struct(...              % Default point colors
+        'updated',  'c',...                     % updated
+        'predicted','b'),...                    % predicted
+      'othPnt',     struct(...              % other point colors
+        'updated',  'r',...                     % updated
+        'predicted','m'),...                    % predicted
+      'defLin',     struct(...              % Default line colors
+        'meas',     'b',...                     % measurement
+        'mean',     'g',...                     % mean line
+        'ellip',    'y'),...                    % ellipsoid
+      'othLin',     struct(...              % other line colors
+        'meas',     'b',...                     % measurement
+        'mean',     'm',...                     % mean line
+        'ellip',    'r'),...                    % ellipsoid
+      'label',      [.5 .5 .5])));          %
 
 
 % Experiment options 

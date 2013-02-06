@@ -1,4 +1,4 @@
-function Raw = readProcessedImg(rob,sen,frm)
+function Raw = readProcessedImg(rob,sen,frm,ExpOpt)
 
 % READPROCESSEDIMG  Read processed image data from file.
 %   Raw = READPROCESSEDIMG(R,S,F) reads the processed image for sensor S in
@@ -27,8 +27,11 @@ function Raw = readProcessedImg(rob,sen,frm)
 
 Raw.type = 'simu'; % Pre-processed images
 
-filename = sprintf('./data/img-r%02d-s%02d-i%06d.txt',rob,sen,frm);
-fid      = fopen(filename,'r');
+dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
+filename = sprintf('img-r%02d-s%02d-i%06d.txt',rob,sen,frm);
+filepath = [dir filename];
+
+fid      = fopen(filepath,'r');
 
 M        = fscanf(fid,'%f',[3, inf]);
 

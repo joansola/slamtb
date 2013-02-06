@@ -116,7 +116,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                 % Robot motion
                 SimRob(rob) = simMotion(SimRob(rob),Tim);
                 
-                writeControlSignal(SimRob(rob),currentFrame);
+                writeControlSignal(SimRob(rob),currentFrame,ExpOpt);
                 
                 % Simulate sensor observations
                 for sen = SimRob(rob).sensors
@@ -125,7 +125,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                     Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk, SimOpt) ;
                     
                     % write img data to file
-                    writeProcessedImg(rob,sen,currentFrame,Raw(sen));
+                    writeProcessedImg(rob,sen,currentFrame,Raw(sen),ExpOpt);
                     
                 end % end process sensors
                 
@@ -141,7 +141,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             for rob = [Rob.rob]
                 
                 % Robot motion
-                Rob(rob) = readControlSignal(Rob(rob), currentFrame);
+                Rob(rob) = readControlSignal(Rob(rob), currentFrame, ExpOpt);
                 
                 Rob(rob) = motion(Rob(rob),Tim);
                 
@@ -150,7 +150,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                 for sen = Rob(rob).sensors
                     
                     % Obtain raw data
-                    Raw(sen) = readProcessedImg(rob,sen,currentFrame);
+                    Raw(sen) = readProcessedImg(rob,sen,currentFrame,ExpOpt);
                     
                     % Observe knowm landmarks
                     [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = correctKnownLmks( ...

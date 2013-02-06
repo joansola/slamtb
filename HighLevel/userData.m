@@ -287,7 +287,7 @@ FigOpt = struct(...
 % Experiment options 
 %   - site name, series gathered, estimation run number 
 ExpOpt = struct(...
-  'root',         '~/SLAM/figures/',... % root directory
+  'root',         '~/SLAM/',...         % root directory
   'site',         'simu',...            % Name of the site
   'dataRun',      1,...                 % Run # on this site
   'estimateRun',  1,...                 % slam run for data and site

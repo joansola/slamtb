@@ -32,7 +32,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            400);           % last frame #
+  'lastFrame',            800);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -75,8 +75,8 @@ Robot{1} = struct(...                     % CONSTANT VELOCITY EXAMPLE
   'angVelStd',          [0;0;1],...     % ang. vel. error, std, degrees
   'dv',                 [0;0;0],...     % veolcity increment
   'dwDegrees',          [0;0;0],...     % ang. vel. increment, degrees
-  'dvStd',              [.1;.1;.1],...  % vel perturbation std
-  'dwStd',              [.2;.2;.2]);    % ang vel pert. std, degrees
+  'dvStd',              [.01;.01;.01],...  % vel perturbation std
+  'dwStd',              [.1;.1;.1]);    % ang vel pert. std, degrees
 
 
 
@@ -127,7 +127,7 @@ Opt = struct(...
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       15,...         % max simultaneus updates
+    'nUpdates',       20,...         % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -177,7 +177,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'rendPeriod',     10,...           % frames to skip for faster processing
+  'rendPeriod',     25,...           % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'size',         [320 240],...   % map figure size
@@ -242,7 +242,7 @@ FigOpt = struct(...
 % Experiment options 
 %   - site name, series gathered, estimation run number 
 ExpOpt = struct(...
-  'root',         '~/SLAM/figures/',... % root directory
+  'root',         '~/SLAM/',...         % root directory
   'site',         'img',...             % Name of the site
   'dataRun',      1,...                 % Run # on this site
   'estimateRun',  1,...                 % slam run for data and site

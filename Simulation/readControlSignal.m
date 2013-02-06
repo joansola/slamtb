@@ -1,4 +1,4 @@
-function Rob = readControlSignal(Rob,frm)
+function Rob = readControlSignal(Rob,frm,ExpOpt)
 
 % READCONTROLSIGNAL  Read robot-s control signal from file.
 %   R = READCONTROLSIGNAL(R,F) reads the control signal for robot R
@@ -22,8 +22,11 @@ function Rob = readControlSignal(Rob,frm)
 
 if strcmp(Rob.motion, 'odometry')
     
-    filename = sprintf('./data/control-r%02d-i%06d.txt', Rob.rob, frm);
-    fid      = fopen(filename,'r');
+    dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
+    filename = sprintf('control-r%02d-i%06d.txt', Rob.rob, frm);
+    filepath = [dir filename];
+
+    fid      = fopen(filepath,'r');
     
     u = str2num(fgetl(fid))';
     n = numel(u);

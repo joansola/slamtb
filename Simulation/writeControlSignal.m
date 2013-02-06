@@ -1,4 +1,4 @@
-function writeControlSignal(Rob,frm)
+function writeControlSignal(Rob,frm,ExpOpt)
 
 % WRITECONTROLSIGNAL  Write robot's control signal to file.
 %   WRITECONTROLSIGNAL(R,F) writes a file with the the control signal for
@@ -19,8 +19,14 @@ function writeControlSignal(Rob,frm)
 
 %   Copyright 2013 Joan Sola
 
-filename = sprintf('./data/control-r%02d-i%06d.txt', Rob.rob, frm);
-fid = fopen(filename,'w');
+dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
+if ~isdir(dir)
+    mkdir(dir);
+end
+filename = sprintf('control-r%02d-i%06d.txt', Rob.rob, frm);
+filepath = [dir filename];
+
+fid = fopen(filepath,'w');
 
 u = Rob.con.u + Rob.con.uStd.*randn(size(Rob.con.uStd));
 U = Rob.con.U;

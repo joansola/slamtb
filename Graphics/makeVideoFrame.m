@@ -6,7 +6,7 @@ function  makeVideoFrame(Fig,filename,FigOpt,ExpOpt)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-dir = [ExpOpt.root ExpOpt.lmkTypes '/' ExpOpt.sensingType '/images/'];
+dir = [ExpOpt.root 'figures/' ExpOpt.lmkTypes '/' ExpOpt.sensingType '/images/'];
 if ~isdir(dir)
     mkdir(dir);
 end

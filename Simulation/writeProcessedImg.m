@@ -1,4 +1,4 @@
-function writeProcessedImg(rob,sen,frm,Raw)
+function writeProcessedImg(rob,sen,frm,Raw,ExpOpt)
 
 % WRITEPROCESSEDIMG  Write processed image data to file.
 %   WRITEPROCESSEDIMG(R,S,F,Raw) writes the processed image in Raw for
@@ -25,8 +25,14 @@ function writeProcessedImg(rob,sen,frm,Raw)
 
 %   Copyright 2013 Joan Sola
 
-filename = sprintf('./data/img-r%02d-s%02d-i%06d.txt',rob,sen,frm);
-fid = fopen(filename,'w');
+dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
+if ~isdir(dir)
+    mkdir(dir);
+end
+filename = sprintf('img-r%02d-s%02d-i%06d.txt',rob,sen,frm);
+filepath = [dir filename];
+
+fid = fopen(filepath,'w');
 ids = Raw.data.points.app;
 coord = Raw.data.points.coord;
 for i = 1:numel(ids)

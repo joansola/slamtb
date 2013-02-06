@@ -17,7 +17,7 @@
 %   See also SLAMTBSLAVE, NEESPLOTS, NEES, ROBOTNEES.
 
 errorAnalysisFunction = @robotNees;
-logsDir    = '~/SLAM/logs/pose6d/';
+logsDir       = '~/SLAM/logs/pose6d/';
 logFileHeader = 'frame NEES';
 
 % lmkTypes   = {'ahmPnt','hmgPnt'};

@@ -21,6 +21,9 @@ K = Map.P(Map.used,r) * H' * Inn.iZ;   % K = PH'Z^-1
 Map.x(Map.used)          = Map.x(Map.used) + K*Inn.z;
 Map.P(Map.used,Map.used) = Map.P(Map.used,Map.used) - K*Inn.Z*K';
 
+% force symmetry
+Map.P(Map.used,Map.used) = (Map.P(Map.used,Map.used) + Map.P(Map.used,Map.used)')/2;
+
 
 
 % ========== End of function - Start GPL license ==========

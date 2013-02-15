@@ -25,10 +25,10 @@ function Raw = readProcessedImg(rob,sen,frm,ExpOpt)
 
 %   Copyright 2013 Joan Sola
 
-Raw.type = 'simu'; % Pre-processed images
+Raw.type = 'dump'; % Pre-processed images
 
 dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
-filename = sprintf('img-r%02d-s%02d-i%06d.txt',rob,sen,frm);
+filename = sprintf('procImg-r%02d-s%02d-i%06d.txt',rob,sen,frm);
 filepath = [dir filename];
 
 fid      = fopen(filepath,'r');
@@ -42,6 +42,21 @@ Raw.data.segments.app   = [];
 Raw.data.segments.coord = [];
 
 fclose(fid);
+
+imgname = sprintf('img-r%02d-s%02d-i%06d.jpg',rob,sen,frm); % Let imread below guess file format
+imgpath = [dir imgname];
+
+if exist(imgpath,'file')
+    % there is an image file
+    Raw.data.img = imread(imgpath);
+    if size(Raw.data.img,3) > 1
+        Raw.data.img = rgb2gray(Raw.data.img);
+    end
+    
+else
+        Raw.data.img = [];
+
+end
 
 
 

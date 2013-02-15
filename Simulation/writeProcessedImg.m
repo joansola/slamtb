@@ -29,7 +29,7 @@ dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
 if ~isdir(dir)
     mkdir(dir);
 end
-filename = sprintf('img-r%02d-s%02d-i%06d.txt',rob,sen,frm);
+filename = sprintf('procImg-r%02d-s%02d-i%06d.txt',rob,sen,frm);
 filepath = [dir filename];
 
 fid = fopen(filepath,'w');

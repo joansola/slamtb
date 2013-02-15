@@ -19,12 +19,15 @@ switch Sen.type
     case {'pinHole'}
 
         % 1. Raw data visualisation
-        if strcmp(Raw.type,'simu')
-            drawRawPnts(SenFig, Raw);
-            drawRawLines(SenFig, Raw);
-        else
-            %drawRawImage(SenFig, Raw);
-            imshow(Raw.img,'InitialMagnification', 'fit', 'Parent', SenFig.axes);
+        switch Raw.type
+            case 'simu'
+                drawRawPnts(SenFig, Raw);
+                drawRawLines(SenFig, Raw);
+            case 'dump'
+                set(SenFig.img,'cdata',Raw.data.img);
+                drawRawPnts(SenFig, Raw);
+                drawRawLines(SenFig, Raw);
+            otherwise
         end
 
         % 2. Process only visible landmarks:

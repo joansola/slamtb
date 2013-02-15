@@ -8,7 +8,7 @@ function Obs = matchFeature(Sen,Raw,Obs)
 
 switch Raw.type
 
-    case 'simu'
+    case {'simu','dump'}
 
         switch Obs.ltype(4:6)
             case 'Pnt'

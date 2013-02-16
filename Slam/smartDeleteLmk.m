@@ -42,6 +42,12 @@ if Lmk.nSearch >= 10
         fprintf('Deleted inconsistent landmark ''%d''.\n',Lmk.id)
         [Lmk,Obs] = deleteLmk(Lmk,Obs);
     end
+    
+    if Obs.exp.um > 10000
+        fprintf('Deleted old landmark ''%d''.\n',Lmk.id)
+        [Lmk,Obs] = deleteLmk(Lmk,Obs);
+    end
+    
 end
 
 

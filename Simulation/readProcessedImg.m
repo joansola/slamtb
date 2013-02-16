@@ -11,15 +11,18 @@ function Raw = readProcessedImg(rob,sen,frm,ExpOpt)
 %
 %   The file read has the following name format
 %       Directory: ./data/
-%       Name: img-RR-SS-FFFFFF.txt 
-%   where RR and SS are the robot and sensor numbers (2 digits each) and
-%   FFFFFF is the frame number (6 digits).
-%   The file contains one line per feature, containing identifier and UV
-%   coordinates separated by tabs:
+%       Name: ExpOpt.procImgName , e.g. 'procImg-r%02d-s%02d-i%06d.txt'
+%   where the first two indices are the robot and sensor numbers (2 digits
+%   each) and the third is the frame number (6 digits). The file contains
+%   one line per feature, containing identifier and UV coordinates
+%   separated by tabs:
 %           id1  U1  V1
 %           id2  U2  V2
 %           ...
 %           idn  Un  Vn
+%
+%   An image file is also read and set to Raw structure if it exists in the
+%   data path ./data/. Its name format is stored in ExpOpt.imgName.
 %
 %   See also WRITEPROCESSEDIMG, READCONTROLSIGNAL, WRITECONTROLSIGNAL.
 
@@ -28,7 +31,7 @@ function Raw = readProcessedImg(rob,sen,frm,ExpOpt)
 Raw.type = 'dump'; % Pre-processed images
 
 dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
-filename = sprintf('procImg-r%02d-s%02d-i%06d.txt',rob,sen,frm);
+filename = sprintf(ExpOpt.procImgName,rob,sen,frm);
 filepath = [dir filename];
 
 fid      = fopen(filepath,'r');
@@ -43,7 +46,7 @@ Raw.data.segments.coord = [];
 
 fclose(fid);
 
-imgname = sprintf('img-r%02d-s%02d-i%06d.jpg',rob,sen,frm); % Let imread below guess file format
+imgname = sprintf(ExpOpt.imgName,rob,sen,frm); % Let imread below guess file format
 imgpath = [dir imgname];
 
 if exist(imgpath,'file')

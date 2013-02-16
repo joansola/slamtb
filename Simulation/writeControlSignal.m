@@ -7,9 +7,9 @@ function writeControlSignal(Rob,frm,ExpOpt)
 %
 %   The file written has the following name format
 %       Directory: ./data/
-%       Name: control-RR-FFFFFF.txt
-%   where RR is the robot number (2 digits) and FFFFFF is the frame number
-%   (6 digits).
+%       Name: ExpOpt.controlName , e.g. 'control-r%02d-i%06d.txt'
+%   where the first index is the robot number (2 digits) and the second is
+%   the frame number (6 digits). 
 %   The file contains two lines: the control vector and covariances matrix:
 %           u1 u2 u3 ... un
 %           U11 U12 ... U1n U21 U22 ... Unn
@@ -23,7 +23,7 @@ dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
 if ~isdir(dir)
     mkdir(dir);
 end
-filename = sprintf('control-r%02d-i%06d.txt', Rob.rob, frm);
+filename = sprintf(ExpOpt.controlName, Rob.rob, frm);
 filepath = [dir filename];
 
 fid = fopen(filepath,'w');

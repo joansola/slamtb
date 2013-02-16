@@ -11,11 +11,11 @@ function writeProcessedImg(rob,sen,frm,Raw,ExpOpt)
 %
 %   The file written has the following name format
 %       Directory: ./data/
-%       Name: img-RR-SS-FFFFFF.txt 
-%   where RR and SS are the robot and sensor numbers (2 digits each) and
-%   FFFFFF is the frame number (6 digits).
-%   The file contains one line per feature, containing identifier and UV
-%   coordinates separated by tabs:
+%       Name: ExpOpt.procImgName , e.g. 'procImg-r%02d-s%02d-i%06d.txt'
+%   where the first two indices are the robot and sensor numbers (2 digits
+%   each) and the third is the frame number (6 digits). The file contains
+%   one line per feature, containing identifier and UV coordinates
+%   separated by tabs:
 %           id1  U1  V1
 %           id2  U2  V2
 %           ...
@@ -29,7 +29,7 @@ dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
 if ~isdir(dir)
     mkdir(dir);
 end
-filename = sprintf('procImg-r%02d-s%02d-i%06d.txt',rob,sen,frm);
+filename = sprintf(ExpOpt.procImgName,rob,sen,frm);
 filepath = [dir filename];
 
 fid = fopen(filepath,'w');

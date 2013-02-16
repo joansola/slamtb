@@ -11,15 +11,8 @@
 %     > 'read': not dump. Read dumped files instead to simulate the case
 %       of working with real images. See below for file naming and formats.
 %
-%   DUMPED FILE FORMATS: 
-%   For a robot R and sensor S at time T we have:
-%       img-RR-SS-TTTTTT.txt with one observed landmark per line:
-%           id1  U1  V1
-%           id2  U2  V2
-%           ...
-%       control-RR-TTTTTT.txt with two lines: control vector and covariances matrix:
-%           u1 u2 u3 ... un
-%           U11 U12 ... U1n U21 U22 ... Unn
+%   DUMPED FILE FORMATS: see readProcessedImg.m and readControlSignal.m for
+%   details
 %
 %   See also USERDATA, SLAMTBDUMP, WRITECONTROLSIGNAL, WRITEPROCESSEDIMG.
 
@@ -31,7 +24,7 @@
 %   - sampling time, first and last frames
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
-  'firstFrame',           1,...           % first frame #
+  'firstFrame',           35,...           % first frame #
   'lastFrame',            800);           % last frame #
 
 % Simulated world
@@ -95,7 +88,7 @@ Sensor{1} = struct(...
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        2.0,...         % pixel error std
+  'pixErrorStd',        1.5,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params
   'frameInMap',         false,...       % add sensor frame in slam map?
@@ -135,7 +128,7 @@ Opt = struct(...
       'extPolicy',    false,...             % line extending policy ?
       'extSwitch',    10)),...              % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [10 1],...        % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [1 1],...        % number of inits [firstFrame, otherFrames]
     'initType',       'idpPnt',...      % Type of lmk to use for init
     'idpPnt',         struct(...        % inverse-distance prior
       'nonObsMean',   0.01,...              % mean of non obs
@@ -177,7 +170,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'opengl',...    % renderer
-  'rendPeriod',     25,...          % frames to skip for faster processing
+  'rendPeriod',     1,...          % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'size',         [320 240],...       % map figure size
@@ -249,7 +242,11 @@ ExpOpt = struct(...
   'lmkTypes',     Opt.init.initType,... % types of landmarks used
   'sensingType',  'mono',...            % sensing mode
   'mappingType',  'single',...          % mapping mode
-  'dump',         'read');              % 'read', 'write'> read/write data files from simulation
+  'dump',         'read',...            % 'read', 'write'> read/write data files from simulation
+  'procImgName',  'procImg-r%02d-s%02d-i%06d.txt',...   % Name format of processed image
+  'imgName',      'img-r%02d-s%02d-i%06d.jpg',...       % Name format of image
+  'controlName',  'control-r%02d-i%06d.txt');           % Name format of control file
+
 
 
 

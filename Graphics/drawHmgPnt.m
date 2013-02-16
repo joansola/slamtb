@@ -1,4 +1,4 @@
-function drawHmgPnt(MapFig, Lmk, color)
+function drawHmgPnt(MapFig, Lmk, color, MapOpt)
 
 % DRAWHMGPNT  Draw Homogeneous point landmark in MapFig.
 
@@ -16,7 +16,9 @@ posOffset = [0;0;.2];
 
 % draw
 drawPnt    (MapFig.Lmk(Lmk.lmk).mean,    x,    color.mean)
-drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
+if MapOpt.showEllip
+    drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
+end
 drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
 
 
@@ -45,7 +47,7 @@ drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007,2008,2009 
+%   SLAMTB is Copyright 2007,2008,2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

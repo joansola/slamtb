@@ -26,19 +26,19 @@ switch (Lmk.type)
     % --------------
     case {'idpPnt'}
         colors = MapOpt.colors.othPnt;
-        drawIdpPnt(MapFig, Lmk, colors);
+        drawIdpPnt(MapFig, Lmk, colors, MapOpt);
 
     case {'eucPnt'}
         colors = MapOpt.colors.defPnt;
-        drawEucPnt(MapFig, Lmk, colors);
+        drawEucPnt(MapFig, Lmk, colors, MapOpt);
 
     case {'hmgPnt'}
         colors = MapOpt.colors.othPnt;
-        drawHmgPnt(MapFig, Lmk, colors);
+        drawHmgPnt(MapFig, Lmk, colors, MapOpt);
         
     case {'ahmPnt'}
         colors = MapOpt.colors.othPnt;
-        drawAhmPnt(MapFig, Lmk, colors);
+        drawAhmPnt(MapFig, Lmk, colors, MapOpt);
         
     case {'plkLin'}
         colors = MapOpt.colors.othLin;

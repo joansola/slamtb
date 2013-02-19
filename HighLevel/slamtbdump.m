@@ -17,15 +17,8 @@
 %   Please read slamToolbox.pdf in the root directory thoroughly before
 %   using this toolbox.
 %
-%   DUMPED FILE FORMATS:
-%   For a robot R and sensor S at time T we have:
-%       img-RR-SS-TTTTTT.txt with one observed landmark per line:
-%           id1  U1  V1
-%           id2  U2  V2
-%           ...
-%       control-RR-TTTTTT.txt with two lines: control vector and covariances matrix:
-%           u1 u2 u3 ... un
-%           U11 U12 ... U1n U21 U22 ... Unn
+%   DUMPED FILE FORMATS: see readProcessedImg.m and readControlSignal.m for
+%   details
 %
 %   See also USERDATADUMP, SLAMTB, USERDATA.
 %
@@ -46,7 +39,8 @@ global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userDataImg.m
 
-userDataDump;           % user-defined data. SCRIPT.
+% userDataDump;           % user-defined data. SCRIPT.
+userDataDumpCyril;           % user-defined data. SCRIPT.
 
 
 %% II. Initialize all data structures from user-defined data in userData.m
@@ -101,6 +95,8 @@ clear Robot Sensor World Time   % clear all user data
 
 
 %% IV. Main loop
+tic;
+elapsedTime=zeros(Tim.lastFrame-Tim.firstFrame+1);
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     
     
@@ -232,6 +228,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % Do draw all objects
         drawnow;
     end
+        elapsedTime(currentFrame)=toc;
+        tic;
     
     
     
@@ -248,7 +246,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Enter post-processing code here
 
-
+% figure(10)
+% plot(Tim.firstFrame:Tim.lastFrame,elapsedTime)
 
 % ========== End of function - Start GPL license ==========
 

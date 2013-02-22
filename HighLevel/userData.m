@@ -66,14 +66,14 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %   'name',               'Dala',...      % robot name
 %   'type',               'atrv',...      % type of robot
 %   'motion',             'odometry',...  % motion model
-%   'position',           [0;-6;0],...     % robot position in map
-%   'orientationDegrees', [0;0;0],...     % orientation, in degrees, [roll; pitch; yaw].
+%   'position',           [0;5;0],...     % robot position in map
+%   'orientationDegrees', [0;0;180],...     % orientation, in degrees, [roll; pitch; yaw].
 %   'positionStd',        [0;0;0],...     % position error, std
 %   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-%   'dx',                 [.04;0;0],...     % position increment
-%   'daDegrees',          [0;0;.45],...     % angle increment, degrees
-%   'dxStd',              0.003*[1;1;1],...  % odo linear error std
-%   'daStd',              0.03*[1;1;1]);      % odo ang error std, degrees
+%   'dx',                 [.08;0;0],...     % position increment
+%   'daDegrees',          [0;0;.9],...     % angle increment, degrees
+%   'dxStd',              0.005*[1;1;1],...  % odo linear error std
+%   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{3} = struct(...                  % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -112,7 +112,7 @@ Sensor{1} = struct(...
   'imageSize',          [640;480],...   % image size
   'pixErrorStd',        1.0,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
-  'distortion',         [0.1;0.1],...          % distortion params
+  'distortion',         [-0.3;0.1],...          % distortion params
   'frameInMap',         false,...       % add sensor frame in slam map?
   'imGrid',               struct(...      % grid for Active Search
     'numCells',         [8;6],...         % number of H and V grid cells
@@ -123,7 +123,7 @@ Sensor{1} = struct(...
 %   'name',               'Micropix',...      % sensor name
 %   'type',               'pinHole',...   % type of sensor
 %   'robot',              2,...           % robot where it is mounted
-%   'position',           [0;-0.15;.6],...     % position in robot
+%   'position',           [0;-0.25;.6],...     % position in robot
 %   'orientationDegrees', [-90;0;-90],...      % orientation in robot, [roll; pitch; yaw]
 %   'positionStd',        [0;0;0],...     % position error std
 %   'orientationStd',     [1.5;1.5;1.5],...     % orient. error std
@@ -131,10 +131,29 @@ Sensor{1} = struct(...
 %   'pixErrorStd',        1.0,...         % pixel error std
 %   'intrinsic',          [320;240;320;320],... % intrinsic params
 %   'distortion',         [],...          % distortion params
-%   'frameInMap',         false,...         % add sensor frame in slam map?
+%   'frameInMap',         true,...         % add sensor frame in slam map?
 %   'imGrid',               struct(...      % grid for Active Search
 %     'numCells',         [8;6],...         % number of H and V grid cells
 %     'skipOuter',        true));           % skip outer cells for initialization?
+% 
+% Sensor{3} = struct(...
+%   'id',                 1,...           % sensor identifier
+%   'name',               'Micropix',...  % sensor name
+%   'type',               'pinHole',...   % type of sensor
+%   'robot',              2,...           % robot where it is mounted
+%   'position',           [0;.25;.6],...    % position in robot
+%   'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
+%   'positionStd',        [0;0;0],...     % position error std
+%   'orientationStd',     [0;0;0],...     % orient. error std
+%   'imageSize',          [640;480],...   % image size
+%   'pixErrorStd',        1.0,...         % pixel error std
+%   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
+%   'distortion',         [-0.3;0.1],...          % distortion params
+%   'frameInMap',         false,...       % add sensor frame in slam map?
+%   'imGrid',               struct(...      % grid for Active Search
+%     'numCells',         [8;6],...         % number of H and V grid cells
+%     'skipOuter',        true));           % skip outer cells for initialization?
+
 
 % Omnidirectional camera model -> MegaPixel Fish Eye lens as example (FoV is ~190 deg )
 % k           = [668 438 1 0 0]'; 
@@ -168,7 +187,7 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'numLmks',        73,...         % number of 3d landmarks
-    'lmkSize',        7),...         % Size of landmark
+    'lmkSize',        6),...         % Size of landmark
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
@@ -181,7 +200,7 @@ Opt = struct(...
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'ahmPnt',...   % Type of lmk to use for init
+    'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .01,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -197,8 +216,8 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'newSeed',        true,...         % select new random seed?
-    'fixedSeed',      209086,...            % random seed for non-random runs
+    'newSeed',        false,...         % select new random seed?
+    'fixedSeed',      208948,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 
@@ -226,7 +245,7 @@ FigOpt = struct(...
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'size',         [320 240],...   % map figure size
-    'lims',        struct(...       % playground limits
+    'lims',         struct(...      % playground limits
       'xMin',            -10,...             
       'xMax',             10,...
       'yMin',            -10,...

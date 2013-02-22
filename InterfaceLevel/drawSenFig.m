@@ -27,6 +27,8 @@ switch Sen.type
                 set(SenFig.img,'cdata',Raw.data.img);
                 drawRawPnts(SenFig, Raw);
                 drawRawLines(SenFig, Raw);
+            case 'img'
+                set(SenFig.img,'cdata',Raw.data.img);
             otherwise
         end
 

@@ -46,6 +46,7 @@ World = struct(...
 %   - motion models (add new model strings if you need more):
 %       'constVel'    6D Constant velocity model
 %       'odometry'    6D Odometry model
+%       'inertial'    6D IMU-based model
 %   - See EULERANGLES for orientations specifications.
 Robot{1} = struct(...                  % ODOMETRY EXAMPLE
   'id',                 1,...           % robot identifier
@@ -180,9 +181,6 @@ Sensor{1} = struct(...
 
 
 
-
-
-
 % Estimation options 
 Opt = struct(...
   'map',              struct(...    % options for the map
@@ -240,7 +238,7 @@ SimOpt = struct(...
 %       'rgbcmykw'  1-char predifined Matlab colors
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
-  'renderer',       'opengl',...    % renderer
+  'renderer',       'zbuffer',...    % renderer
   'rendPeriod',     1,...           % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
@@ -316,11 +314,35 @@ ExpOpt = struct(...
 
 
 
+% ========== End of function - Start GPL license ==========
 
 
+%   # START GPL LICENSE
 
+%---------------------------------------------------------------------
+%
+%   This file is part of SLAMTB, a SLAM toolbox for Matlab.
+%
+%   SLAMTB is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   SLAMTB is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with SLAMTB.  If not, see <http://www.gnu.org/licenses/>.
+%
+%---------------------------------------------------------------------
 
+%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012 
+%   by Joan Sola @ LAAS-CNRS.
+%   SLAMTB is Copyright 2009 
+%   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
+%   See on top of this file for its particular copyright.
 
-
-
+%   # END GPL LICENSE
 

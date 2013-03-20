@@ -25,8 +25,8 @@ r = Rob.state.r;
 
 switch Rob.motion
     
-    % const velocity
-    case  {'constVel'}
+    
+    case  {'constVel'} % constant velocity
         
         % motion model of the robot: mean and Jacobians
         [Map.x(r), F_x, F_u] = constVel(Map.x(r),Rob.con.u,Tim.dt);
@@ -34,8 +34,11 @@ switch Rob.motion
         % update Rob and Map structures - mean only
         Rob = map2rob(Rob);
         
-        % 3D odometry:
-    case  {'odometry'}
+        % Covariances matrix update
+        predictBlockEkf(r, F_x, Rob.con.U, F_u);
+        
+       
+    case  {'odometry'}  % 3D odometry
         
         % motion model of the robot: mean and Jacobians
         [Rob.frame, F_x, F_u]   = odo3(Rob.frame,Rob.con.u);
@@ -43,17 +46,14 @@ switch Rob.motion
         % update Rob and Map structures - mean only
         Map.x(Rob.frame.r) = Rob.frame.x;
         
-        % New motion model
-    % case {'myModel'} <-- uncomment
-        % YOU: enter your model code here.
-        
+        % Covariances matrix update
+        predictBlockEkf(r, F_x, Rob.con.U, F_u);
+                
     otherwise
         
         error('??? Unknown motion model ''%s''.',Rob.motion);
 end
 
-% Covariances matrix update - this is common to all models
-predictBlockEkf(r,F_x,Rob.con.U,F_u);
 
 
 
@@ -81,9 +81,9 @@ predictBlockEkf(r,F_x,Rob.con.U,F_u);
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012 
+%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012
 %   by Joan Sola @ LAAS-CNRS.
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

@@ -159,12 +159,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                     
                     
                     % Initialize new landmarks
-                    if currentFrame == Tim.firstFrame
-                        ninit = Opt.init.nbrInits(1);
-                    else
-                        ninit = Opt.init.nbrInits(2);
-                    end
-                    for i = 1:ninit
+                    ninits = Opt.init.nbrInits(1 + (currentFrame ~= Tim.firstFrame));
+                    for i = 1:ninits
                         [Lmk,Obs(sen,:)] = initNewLmk(...
                             Rob(rob),   ...
                             Sen(sen),   ...

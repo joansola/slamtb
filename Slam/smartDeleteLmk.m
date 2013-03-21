@@ -16,18 +16,21 @@ global Map
 switch Lmk.type
     case {'idpPnt','ahmPnt'}
         if Map.x(Lmk.state.r(end)) < 0
-            fprintf('Deleted negative-depth landmark ''%d''.\n',Lmk.id)
-            [Lmk,Obs] = deleteLmk(Lmk,Obs);
+            Map.x(Lmk.state.r(end)) = 0.001;
+%             fprintf('Deleted negative-depth landmark ''%d''.\n',Lmk.id)
+%             [Lmk,Obs] = deleteLmk(Lmk,Obs);
         end
     case {'idpLin'}
         if any(Map.x(Lmk.state.r([6,9])) < 0)
-            fprintf('Deleted negative-depth landmark ''%d''.\n',Lmk.id)
-            [Lmk,Obs] = deleteLmk(Lmk,Obs);
+            Map.x(Lmk.state.r([6,9])) = 0.001;
+%             fprintf('Deleted negative-depth landmark ''%d''.\n',Lmk.id)
+%             [Lmk,Obs] = deleteLmk(Lmk,Obs);
         end
     case {'ahmLin'}
         if any(Map.x(Lmk.state.r([7,11])) < 0)
-            fprintf('Deleted negative-depth landmark ''%d''.\n',Lmk.id)
-            [Lmk,Obs] = deleteLmk(Lmk,Obs);
+            Map.x(Lmk.state.r([7,11])) = 0.001;
+%             fprintf('Deleted negative-depth landmark ''%d''.\n',Lmk.id)
+%             [Lmk,Obs] = deleteLmk(Lmk,Obs);
         end
 end
 

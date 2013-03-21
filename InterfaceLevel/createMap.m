@@ -8,7 +8,7 @@ function Map = createMap(Rob,Sen,Opt)
 %       .used   flags vector to used states in the map
 %       .x      state vector
 %       .P      covariances matrix
-%       .size   size of the map
+%       .t      current time - used to control time updates
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
@@ -24,7 +24,8 @@ Map.used = false(n,1);
 Map.x = zeros(n,1);
 Map.P = zeros(n,n);
 
-% Map.size = n;
+Map.t = 0; % Current Map's time
+
 
 
 

@@ -12,8 +12,6 @@ function Tim = createTime(Time)
 
 Tim = Time;
 
-
-
 % ========== End of function - Start GPL license ==========
 
 

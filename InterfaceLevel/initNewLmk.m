@@ -40,17 +40,16 @@ switch Opt.init.initType
 end
 
 
-% get free space in the Map.
-r = newRange(lmkSize);
-% index to first free Idp lmk
-lmk = newLmk(Lmk);
-
-if (numel(r) < lmkSize) 
-%     disp('!!! Map full. Unable to initialize landmark.')
+% % check for free space in the Map.
+if (freeSpace() < lmkSize) 
+    % Map full. Unable to initialize landmark.
     return
 end
+
+% index to first free Idp lmk
+lmk = newLmk(Lmk);
 if isempty(lmk)
-%     disp('!!! Lmk structure array full. Unable to initialize new landmark.')
+    % Lmk structure array full. Unable to initialize new landmark.
     return;
 end
 

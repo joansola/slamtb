@@ -55,7 +55,7 @@ for rob = 1:numel(Robot)
             Ro.state.P    = QP;
                         
         otherwise
-            error('Unknown motion model %s from robot %d.',Robot.motion,Robot.id);
+            error('Unknown motion model ''%s'' for robot %d.',Robot{rob}.motion,Robot{rob}.id);
     end
     
     Ro.state.size = numel(Ro.state.x);   % state size

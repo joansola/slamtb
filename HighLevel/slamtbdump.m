@@ -39,8 +39,8 @@ global Map          %#ok<NUSED>
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userDataImg.m
 
-% userDataDump;           % user-defined data. SCRIPT.
-userDataDumpCyril;           % user-defined data. SCRIPT.
+userDataDump;           % user-defined data. SCRIPT.
+% userDataDumpCyril;           % user-defined data. SCRIPT.
 
 
 %% II. Initialize all data structures from user-defined data in userData.m

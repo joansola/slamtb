@@ -111,6 +111,10 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % control input 'u'.
         Rob(rob).con.u = SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
         Rob(rob) = motion(Rob(rob),Tim);
+        
+        Map.t = Map.t + Tim.dt;
+                
+
 
         % Process sensor observations
         for sen = Rob(rob).sensors
@@ -178,7 +182,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         drawnow;
     end
     
-
 
     % 4. DATA LOGGING
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

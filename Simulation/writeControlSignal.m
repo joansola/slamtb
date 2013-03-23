@@ -6,7 +6,7 @@ function writeControlSignal(Rob,frm,ExpOpt)
 %   an integer corresponding to the frame number.
 %
 %   The file written has the following name format
-%       Directory: ./data/
+%       Directory: ./data/ <ExpOpt.site> /
 %       Name: ExpOpt.controlName , e.g. 'control-r%02d-i%06d.txt'
 %   where the first index is the robot number (2 digits) and the second is
 %   the frame number (6 digits). 
@@ -19,7 +19,7 @@ function writeControlSignal(Rob,frm,ExpOpt)
 
 %   Copyright 2013 Joan Sola
 
-dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
+dir = [ExpOpt.root  'data/' ExpOpt.site '/'];
 if ~isdir(dir)
     mkdir(dir);
 end
@@ -28,13 +28,13 @@ filepath = [dir filename];
 
 fid = fopen(filepath,'w');
 
-u = Rob.con.u + Rob.con.uStd.*randn(size(Rob.con.uStd));
+u = Rob.con.u; % + Rob.con.uStd.*randn(size(Rob.con.u));
 U = Rob.con.U;
 
-count = fprintf(fid,'%f\t',u);
-count = fprintf(fid,'\n');
-count = fprintf(fid,'%f\t',U);
-count = fprintf(fid,'\n');
+fprintf(fid,'%f\t',u);
+fprintf(fid,'\n');
+fprintf(fid,'%f\t',U);
+fprintf(fid,'\n');
 
 fclose(fid);
 

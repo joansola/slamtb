@@ -10,7 +10,7 @@ function Raw = readProcessedImg(rob,sen,frm,ExpOpt)
 %   detected, with an identifier. See below for the file format.
 %
 %   The file read has the following name format
-%       Directory: ./data/
+%       Directory: ./data/ <ExpOpt.site> /
 %       Name: ExpOpt.procImgName , e.g. 'procImg-r%02d-s%02d-i%06d.txt'
 %   where the first two indices are the robot and sensor numbers (2 digits
 %   each) and the third is the frame number (6 digits). The file contains
@@ -30,7 +30,7 @@ function Raw = readProcessedImg(rob,sen,frm,ExpOpt)
 
 Raw.type = 'dump'; % Pre-processed images
 
-dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
+dir = [ExpOpt.root  'data/' ExpOpt.site '/'];
 filename = sprintf(ExpOpt.procImgName,rob,sen,frm);
 filepath = [dir filename];
 

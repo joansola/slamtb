@@ -6,7 +6,7 @@ function Rob = readControlSignal(Rob,frm,ExpOpt)
 %   integer corresponding to the frame number.
 %
 %   The file read has the following name format
-%       Directory: ./data/
+%       Directory: ./data/ <ExpOpt.site> /
 %       Name: ExpOpt.controlName , e.g. 'control-r%02d-i%06d.txt'
 %   where the first index is the robot number (2 digits) and the second is
 %   the frame number (6 digits). 
@@ -22,7 +22,7 @@ function Rob = readControlSignal(Rob,frm,ExpOpt)
 
 if strcmp(Rob.motion, 'odometry')
     
-    dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
+dir = [ExpOpt.root  'data/' ExpOpt.site '/'];
     filename = sprintf(ExpOpt.controlName, Rob.rob, frm);
     filepath = [dir filename];
 

@@ -10,7 +10,7 @@ function writeProcessedImg(rob,sen,frm,Raw,ExpOpt)
 %   detected, with an identifier. See below for the file format.
 %
 %   The file written has the following name format
-%       Directory: ./data/
+%       Directory: ./data/ <ExpOpt.site> /
 %       Name: ExpOpt.procImgName , e.g. 'procImg-r%02d-s%02d-i%06d.txt'
 %   where the first two indices are the robot and sensor numbers (2 digits
 %   each) and the third is the frame number (6 digits). The file contains
@@ -25,7 +25,7 @@ function writeProcessedImg(rob,sen,frm,Raw,ExpOpt)
 
 %   Copyright 2013 Joan Sola
 
-dir = [ExpOpt.root  'data/' ExpOpt.sensingType '/'];
+dir = [ExpOpt.root  'data/' ExpOpt.site '/'];
 if ~isdir(dir)
     mkdir(dir);
 end

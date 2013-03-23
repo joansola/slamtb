@@ -31,7 +31,6 @@ Rob = map2rob(Rob);
 Sen = map2sen(Sen);
 
 % 1. PROJECT ALL LMKS - get all expectations
-Sen.imGrid.usedCell(:) = false;
 for lmk = find([Lmk.used])
 
     Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);

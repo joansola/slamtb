@@ -28,9 +28,9 @@ else
     Z_rsl = [Obs.Jac.Z_r Obs.Jac.Z_l];
 end
 
-% correct map. See that Jac of innovation is changed sign, as corresponds
-% to the jacobian Z_x of z=y-h(x) wrt x in comparison of the Jacobian
-% H_x of y=h(x) wrt x: it happens that H_x = -Z_x.
+% correct map. See that Jac of innovation has its sign changed, as
+% corresponds to the jacobian Z_x of z=y-h(x) wrt x in comparison of the
+% Jacobian H_x of y=h(x) wrt x: it happens that H_x = -Z_x.
 correctBlockEkf(rslr,-Z_rsl,Obs.inn);
 
 % % Rob and Sen synchronized with Map

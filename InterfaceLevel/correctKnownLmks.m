@@ -1,19 +1,25 @@
 function [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 
-%  CORRECTKNOWNLMKS  Correct known landmarks.
-%    [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt) returns the new
-%    robot, and the modified observation after some updates with landmark
-%    observations OBS.
+% CORRECTKNOWNLMKS  Correct known landmarks.
+%   [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
+%   performs EKF corrections to a selection of observations, updating Map,
+%   Rob, Sen, Lmk and Obs structures. 
+%
+%   Input/output structures:
 %       Rob:  the robot
 %       Sen:  the sensor
-%       Raw:  the raw datas issues from SEN
+%       Raw:  the raw datas issues from Sen
 %       Lmk:  the set of landmarks
-%       Obs:  the observation structure for the sensor SEN
+%       Obs:  the observation structure for the sensor Sen
 %       Opt:  the algorithm options
 %
-%    TODO: help.
+%   The selection of the landmarks to observe is based on active-search
+%   procedures and individual compatibility tests to reject outliers.
 %
-%    See also PROJECTLMK, PROJEUCPNTINTOPINHOLEONROB, IDP2P.
+%   The algorithm is configurable through a number of options in structure
+%   Opt.correct. Edit USERDATA to access and modify these options.
+%
+%   See also PROJECTLMK, PROJEUCPNTINTOPINHOLEONROB, IDP2P.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 

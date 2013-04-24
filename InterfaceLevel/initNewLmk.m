@@ -1,17 +1,21 @@
 function [Lmk,Obs] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 
 %INITNEWLMK  Initialise one landmark.
-%   [LMK, OBS] = INITNEWLMK(ROB, SEN, RAW, LMK, OBS) returns the new
-%   set of landmarks.
+%   [LMK, OBS] = INITNEWLMK(ROB, SEN, RAW, LMK, OBS) initializes one new
+%   landmark. The landmark is selected by an active-search analysis of the
+%   Raw data belonging to the current sensor Sen in robot Rob. After
+%   successful initialization, structures Map, Lmk and Obs are updated. 
 %
-%   This "new set" contains the "old set" plus new elements. These new
-%   elements are extracted from the recent observations (RAW), from the
-%   current state estimated (ROB for robot and SEN for the sensor).
+%   Input/output structures:
+%       Rob:  the robot
+%       Sen:  the sensor
+%       Raw:  the raw datas issues from Sen
+%       Lmk:  the set of landmarks
+%       Obs:  the observation structure for the sensor Sen
+%       Opt:  the algorithm options
 %
-%   Finally, we can have a mean and a variance-covariance estimation for
-%   the new landmark state.
-%
-%   See also GETNEWLMKCOVS
+%   The algorithm can be configured through numerous options stored in
+%   structure Opt.init. Edit USERDATA to access and modify these options.
 
 %   Copyright 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
 

@@ -25,7 +25,7 @@
 %   Programmers (for parts of the toolbox):
 %   Copyright David Marquez and Jean-Marie Codol @ LAAS-CNRS
 %   Copyright Teresa Vidal-Calleja @ ACFR.
-%   See COPYING.TXT for wull copyright license.
+%   See COPYING.TXT for full copyright license.
 
 %% OK we start here
 

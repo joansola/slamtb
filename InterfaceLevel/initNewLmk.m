@@ -69,18 +69,11 @@ switch Raw.type
             Sen.par.imSize);
 
     case {'real'}
-        existingProj = getExistingProj(Obs);
-        [app, meas, exp, inn] = detectFeat(...
-            Opt.init.initType,    ...
-            Raw.data,             ...
-            Sen.par.pixCov,       ...
-            existingProj,         ...
-            Sen.imGrid);
-        
-        newId = getNewId();
         % NYI : Not Yet Implemented
-        %[newId, app, meas, exp, inn] = detectFeat([Lmk(usedLmks).id],Raw.data,Sen.par);
-%         error('??? Unknown Raw type. ''real'': NYI.');
+        error('??? Raw type %s not yet implemented.', Raw.type);
+        
+    otherwise
+        error('??? Unknown raw type %s.', Raw.type);
 end
 
 if ~isempty(meas.y)  % a feature was detected --> initialize it

@@ -68,7 +68,7 @@ switch Raw.type
             Sen.par.pixCov,       ...
             Sen.par.imSize);
 
-    case {'real'}
+    case {'image'}
         % NYI : Not Yet Implemented
         error('??? Raw type %s not yet implemented.', Raw.type);
         

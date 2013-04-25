@@ -29,9 +29,7 @@ else
         V = I > i;
         W = J > j;
 
-        N = prod(size(I));
-
         SC = ~xor(V,W);
-        sc = sum(sum(SC))/N;
+        sc = sum(sum(SC))/numel(I);
     end
 end

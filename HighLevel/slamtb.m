@@ -31,7 +31,7 @@
 
 % clear workspace and declare globals
 clear
-global Map          %#ok<NUSED>
+global Map    
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 

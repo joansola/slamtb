@@ -38,10 +38,12 @@ if ishandle(99)
     MapFig.fig = figure(99);
 else
     MapFig.fig = figure(99);
-    figPos     = get(MapFig.fig,'position');
-    figSize    = FigOpt.map.size;
-    newFigPos  = [figPos(1:2)  figSize];
-    set(MapFig.fig,'position',newFigPos);
+    if ~strcmp( get(0, 'DefaultFigureWindowStyle'), 'docked')
+        figPos     = get(MapFig.fig,'position');
+        figSize    = FigOpt.map.size;
+        newFigPos  = [figPos(1:2)  figSize];
+        set(MapFig.fig,'position',newFigPos);
+    end
 end
 clf
 moreindatatip

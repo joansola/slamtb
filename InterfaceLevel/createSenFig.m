@@ -28,7 +28,7 @@ function SenFig = createSenFig(Sen,Obs,SimLmk,FigOpt)
 
 % loop all sensors
 for sen = 1:numel(Sen)
-
+    
     % Figure
     if ishandle(sen)
         % redefine figure handle
@@ -36,10 +36,12 @@ for sen = 1:numel(Sen)
     else
         % create new figure
         SenFig(sen).fig = figure(sen);
-        figPos          = get(SenFig(sen).fig,'position');
-        figSize         = FigOpt.sensor.size;
-        newFigPos       = [figPos(1:2)+[figSize(1) 0]  figSize];
-        set(SenFig(sen).fig,'position',newFigPos);
+        if ~strcmp( get(0, 'DefaultFigureWindowStyle'), 'docked')
+            figPos          = get(SenFig(sen).fig,'position');
+            figSize         = FigOpt.sensor.size;
+            newFigPos       = [figPos(1:2)+sen*[figSize(1) 0]  figSize];
+            set(SenFig(sen).fig,'position',newFigPos);
+        end
     end
     moreindatatip   % this adds the data index in the figures data tips
     set(SenFig(sen).fig,...
@@ -49,12 +51,12 @@ for sen = 1:numel(Sen)
         'color',        FigOpt.sensor.colors.border,...
         'renderer',     FigOpt.renderer);
     clf
-
-
+    
+    
     % Sensor type:
     % ------------
     switch Sen(sen).type
-
+        
         % camera pinhole
         % --------------
         case {'pinHole'}
@@ -88,7 +90,7 @@ for sen = 1:numel(Sen)
             colormap(gray(256));
             
             
-
+            
             % raw points
             SenFig(sen).raw.points = line(...
                 'parent',        SenFig(sen).axes,...
@@ -101,18 +103,18 @@ for sen = 1:numel(Sen)
             
             % raw segments
             if ~isempty(SimLmk)
-              S = pinHoleSegment(Sen(sen).par.k,SimLmk.segments.coord);
-              X = S([1 3],:);
-              Y = S([2,4],:); % Take all segments to create a number of lines. There will be as many handles as segments.
-              SenFig(sen).raw.segments = line(...
-                  X,...
-                  Y,...
-                  'parent',        SenFig(sen).axes,...
-                  'color',         FigOpt.sensor.colors.raw,...
-                  'linestyle',     '-',...
-                  'linewidth',     2, ...
-                  'marker',        'none',...
-                  'visible',       'off');
+                S = pinHoleSegment(Sen(sen).par.k,SimLmk.segments.coord);
+                X = S([1 3],:);
+                Y = S([2,4],:); % Take all segments to create a number of lines. There will be as many handles as segments.
+                SenFig(sen).raw.segments = line(...
+                    X,...
+                    Y,...
+                    'parent',        SenFig(sen).axes,...
+                    'color',         FigOpt.sensor.colors.raw,...
+                    'linestyle',     '-',...
+                    'linewidth',     2, ...
+                    'marker',        'none',...
+                    'visible',       'off');
             end
             
             % observations
@@ -151,9 +153,9 @@ for sen = 1:numel(Sen)
                     'horizontalalignment','center',...
                     'vis',                'off');
             end
-
-        % camera pinhole
-        % --------------
+            
+            % camera pinhole
+            % --------------
         case {'omniCam'}
             % axes
             axis equal
@@ -174,7 +176,7 @@ for sen = 1:numel(Sen)
                 'ycolor',        FigOpt.sensor.colors.axes,...
                 'zcolor',        FigOpt.sensor.colors.axes);
             
-
+            
             % raw points
             SenFig(sen).raw.points = line(...
                 'parent',        SenFig(sen).axes,...
@@ -184,7 +186,7 @@ for sen = 1:numel(Sen)
                 'linestyle',     'none',...
                 'marker',        '+',...
                 'markersize',    4);
-                
+            
             % observations
             for lmk = 1:size(Obs,2)
                 SenFig(sen).drawn(lmk)   = false;
@@ -221,20 +223,20 @@ for sen = 1:numel(Sen)
                     'horizontalalignment','center',...
                     'vis',                'off');
             end
-              
-              
+            
+            
             % ADD HERE FOR INITIALIZATION OF NEW SENSORS's FIGURES
             % case {'newSensor'}
             % do something
-
-
+            
+            
             % unknown
             % -------
         otherwise
             % Print an error and exit
             error('??? Unknown sensor type ''%s''.',Sen(sen).type);
     end
-
+    
 end
 
 
@@ -263,9 +265,9 @@ end
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012 
+%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012
 %   by Joan Sola @ LAAS-CNRS.
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

@@ -123,7 +123,7 @@ Sensor{1} = struct(...
 %   'id',                 2,...           % sensor identifier
 %   'name',               'Micropix',...      % sensor name
 %   'type',               'pinHole',...   % type of sensor
-%   'robot',              2,...           % robot where it is mounted
+%   'robot',              1,...           % robot where it is mounted
 %   'position',           [0;-0.25;.6],...     % position in robot
 %   'orientationDegrees', [-90;0;-90],...      % orientation in robot, [roll; pitch; yaw]
 %   'positionStd',        [0;0;0],...     % position error std

@@ -69,8 +69,9 @@ switch Raw.type
             Sen.par.imSize);
 
     case {'image'}
-        % NYI : Not Yet Implemented
-        error('??? Raw type %s not yet implemented.', Raw.type);
+        % NYI : Not Yet Implemented. Create detectFeature.m and call:
+        % [newId, app, meas, exp, inn] = detectFeat(...);
+        error('??? Raw type ''%s'' not yet implemented.', Raw.type);
         
     otherwise
         error('??? Unknown raw type %s.', Raw.type);

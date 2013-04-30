@@ -8,18 +8,26 @@ function [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 %   Input/output structures:
 %       Rob:  the robot
 %       Sen:  the sensor
-%       Raw:  the raw datas issues from Sen
+%       Raw:  the raw data issued from Sen
 %       Lmk:  the set of landmarks
-%       Obs:  the observation structure for the sensor Sen
+%       Obs:  the set of observations for the sensor Sen
 %       Opt:  the algorithm options
 %
 %   The selection of the landmarks to observe is based on active-search
 %   procedures and individual compatibility tests to reject outliers.
 %
+%   This function takes care of:
+%       1. Selection of observations to correct
+%       2. Feature matching
+%       3. EKF correction
+%       4. Correction of landmark parameters out of the EKF
+%       5. Landmark re-parametrization
+%       6. Landmark deletion in case of corruption
+%
 %   The algorithm is configurable through a number of options in structure
 %   Opt.correct. Edit USERDATA to access and modify these options.
 %
-%   See also PROJECTLMK, PROJEUCPNTINTOPINHOLEONROB, IDP2P.
+%   See also PROJECTLMK, PROJEUCPNTINTOPINHOLEONROB, SMARTDELETELMK.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
@@ -31,6 +39,8 @@ function [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 % 4- compute innovation.
 % 5- perform consistency test. If it is OK:
 % 6- do correction
+% 7- eventually reparametrize landmark
+% 8- eventually delete corrupted landmarks
 
 % 0. UPDATE ROB AND SEN INFO FROM MAP
 Rob = map2rob(Rob);
@@ -85,7 +95,7 @@ if any(vis) % Consider only visible observations
                 % Update Lmk inlier counter
                 Lmk(lmk).nInlier = Lmk(lmk).nInlier + 1;
 
-                % 6. LANDMARK CORRECTION
+                % 6. LANDMARK CORRECTION AND 7. REPARAMETRIZATION
                 % fully correct landmark - EKF, reparam. and off-filter
                 [Rob,Sen,Lmk(lmk),Obs(lmk)] = correctLmk(...
                     Rob,      ...
@@ -107,7 +117,7 @@ if any(vis) % Consider only visible observations
 
     end % for lmk = lmkList
 
-    % Landmark deletion -- loop all visible
+    % 8. LANDMARK DELETION -- loop all visible
     for lmk = find([Obs.vis])
         
         [Lmk(lmk),Obs(lmk)] = smartDeleteLmk(Lmk(lmk),Obs(lmk));

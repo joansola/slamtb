@@ -2,8 +2,10 @@ function [Lmk,Obs] = smartDeleteLmk(Lmk,Obs)
 
 % SMARTDELETELMK  Smart deletion of landmarks.
 %   [Lmk,Obs] = SMARTDELETELMK(Lmk,Obs) detetes landmark Lmk if:
+%       * the ratio between matches and searches is smaller than 0.1, or
 %       * the ratio between inliers and searches is smaller than 0.5, and
 %       * the number of searches is at least 10.
+%
 %   Structure Obs, which must refer to the same landmark, is updated
 %   accordingly.
 %
@@ -13,38 +15,18 @@ function [Lmk,Obs] = smartDeleteLmk(Lmk,Obs)
 
 global Map
 
-switch Lmk.type
-    case {'idpPnt','ahmPnt'}
-        if Map.x(Lmk.state.r(end)) < 0
-            Map.x(Lmk.state.r(end)) = 0.001; % Fix lmk
-%             fprintf('Deleted negative-depth landmark ''%d''.\n',Lmk.id)
-%             [Lmk,Obs] = deleteLmk(Lmk,Obs);
-        end
-    case {'idpLin'}
-        if any(Map.x(Lmk.state.r([6,9])) < 0)
-            Map.x(Lmk.state.r([6,9])) = 0.001; % Fix lmk
-%             fprintf('Deleted negative-depth landmark ''%d''.\n',Lmk.id)
-%             [Lmk,Obs] = deleteLmk(Lmk,Obs);
-        end
-    case {'ahmLin'}
-        if any(Map.x(Lmk.state.r([7,11])) < 0)
-            Map.x(Lmk.state.r([7,11])) = 0.001; % Fix lmk
-%             fprintf('Deleted negative-depth landmark ''%d''.\n',Lmk.id)
-%             [Lmk,Obs] = deleteLmk(Lmk,Obs);
-        end
-end
 
 if Lmk.nSearch >= 10
 
-    matchRatio       = Lmk.nMatch  / Lmk.nSearch;
-    consistencyRatio = Lmk.nInlier / Lmk.nMatch;
+    matchRatio  = Lmk.nMatch  / Lmk.nSearch;
+    inlierRatio = Lmk.nInlier / Lmk.nMatch;
 
     if matchRatio < 0.1 
         fprintf('Deleted unstable landmark ''%d''.\n',Lmk.id)
         [Lmk,Obs] = deleteLmk(Lmk,Obs);
     end
 
-    if consistencyRatio < 0.5
+    if inlierRatio < 0.5
         fprintf('Deleted inconsistent landmark ''%d''.\n',Lmk.id)
         [Lmk,Obs] = deleteLmk(Lmk,Obs);
     end

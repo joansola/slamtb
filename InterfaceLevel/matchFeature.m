@@ -6,25 +6,24 @@ function Obs = matchFeature(Sen,Raw,Obs)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
+switch Obs.ltype(4:6)
+    case 'Pnt'
+        rawDataLmks = Raw.data.points;
+        R = Sen.par.pixCov;
+    case 'Lin'
+        rawDataLmks = Raw.data.segments;
+        R = blkdiag(Sen.par.pixCov,Sen.par.pixCov);
+    otherwise
+        error('??? Unknown landmark type ''%s''.',Obs.ltype);
+end
+
 switch Raw.type
-
+    
     case {'simu','dump'}
-
-        switch Obs.ltype(4:6)
-            case 'Pnt'
-                rawDataLmks = Raw.data.points;
-                R = Sen.par.pixCov;
-            case 'Lin'
-                rawDataLmks = Raw.data.segments;
-                R = blkdiag(Sen.par.pixCov,Sen.par.pixCov);
-            otherwise
-                error('??? Unknown landmark type ''%s''.',Obs.ltype);
-        end
-
-
+        
         id  = Obs.lid;
         idx = find(rawDataLmks.app==id);
-
+        
         if ~isempty(idx)
             Obs.meas.y   = rawDataLmks.coord(:,idx);
             Obs.meas.R   = R;
@@ -37,13 +36,14 @@ switch Raw.type
             Obs.matched  = false;
         end
         
-        % case 'real'
-        % TODO: the real case
-
+    case 'image'
+        error('??? Feature matching for Raw data type ''%s'' not implemented yet.', Raw.type)
+        % TODO: the 'image' case
+        
     otherwise
-
+        
         error('??? Unknown Raw data type ''%s''.',Raw.type)
-
+        
 end
 
 
@@ -72,9 +72,9 @@ end
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012 
+%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012
 %   by Joan Sola @ LAAS-CNRS.
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

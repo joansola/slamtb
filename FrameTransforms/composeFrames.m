@@ -25,14 +25,14 @@ if nargout == 1
     
 else
     
-    [H.t, T_f, T_tg] = fromFrame(F,G.t);
+    [H.t, T_f, T_tg]  = fromFrame(F,G.t);
     [H.q, Q_qf, Q_qg] = qProd(F.q,G.q);
     
     H.x = [H.t;H.q];
     H   = updateFrame(H);
     
-    H_f = zeros(7);
-    H_g = zeros(7);
+%     H_f = zeros(7);
+%     H_g = zeros(7);
     
     H_f(1:3,:)   = T_f;
     H_f(4:7,4:7) = Q_qf;
@@ -41,6 +41,17 @@ else
     
 end
 
+%%
+function f()
+%%
+syms x y z a b c d X Y Z A B C D real
+F.x = [x y z a b c d]';
+G.x = [X Y Z A B C D]';
+F = updateFrame(F);
+G = updateFrame(G);
+[H, H_f, H_g] = composeFrames(F,G);
+simplify(H_f-jacobian(H.x,F.x))
+simplify(H_g-jacobian(H.x,G.x))
 
 
 % ========== End of function - Start GPL license ==========

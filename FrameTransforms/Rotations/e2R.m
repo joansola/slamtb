@@ -31,15 +31,15 @@ R= [cp*cy -cr*sy+sr*sp*cy  sr*sy+cr*sp*cy
 if nargout > 1
 
     Re = [...
-        [                                   0,                      -sin(p)*cos(y),                      -cos(p)*sin(y)]
-        [                                   0,                      -sin(p)*sin(y),                       cos(p)*cos(y)]
-        [                                   0,                             -cos(p),                                   0]
-        [  sin(r)*sin(y)+cos(r)*sin(p)*cos(y),                sin(r)*cos(p)*cos(y), -cos(r)*cos(y)-sin(r)*sin(p)*sin(y)]
-        [ -sin(r)*cos(y)+cos(r)*sin(p)*sin(y),                sin(r)*cos(p)*sin(y), -cos(r)*sin(y)+sin(r)*sin(p)*cos(y)]
-        [                       cos(r)*cos(p),                      -sin(r)*sin(p),                                   0]
-        [  cos(r)*sin(y)-sin(r)*sin(p)*cos(y),                cos(r)*cos(p)*cos(y),  sin(r)*cos(y)-cos(r)*sin(p)*sin(y)]
-        [ -cos(r)*cos(y)-sin(r)*sin(p)*sin(y),                cos(r)*cos(p)*sin(y),  sin(r)*sin(y)+cos(r)*sin(p)*cos(y)]
-        [                      -sin(r)*cos(p),                      -cos(r)*sin(p),                                   0]];
+        [               0,    -sp*cy,          -cp*sy]
+        [               0,    -sp*sy,           cp*cy]
+        [               0,       -cp,               0]
+        [  sr*sy+cr*sp*cy,  sr*cp*cy, -cr*cy-sr*sp*sy]
+        [ -sr*cy+cr*sp*sy,  sr*cp*sy, -cr*sy+sr*sp*cy]
+        [           cr*cp,    -sr*sp,               0]
+        [  cr*sy-sr*sp*cy,  cr*cp*cy,  sr*cy-cr*sp*sy]
+        [ -cr*cy-sr*sp*sy,  cr*cp*sy,  sr*sy+cr*sp*cy]
+        [          -sr*cp,    -cr*sp,               0]];
 
 end
 

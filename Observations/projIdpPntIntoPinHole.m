@@ -86,17 +86,18 @@ syms au av u0 v0 real
 syms d1 d2 d3 real
 syms x0 y0 z0 p y r real
 
-Sf = [x;y;z;a;b;c;d];
-Spk = [u0;v0;au;av];
-Spd = [d1;d2;d3];
-idp = [x0;y0;z0;p;y;r];
+Sf.x = [x;y;z;a;b;c;d];
+Sf   = updateFrame(Sf);
+Spk  = [u0;v0;au;av];
+Spd  = [d1;d2;d3];
+idp  = [x0;y0;z0;p;y;r];
 
 [u,s,U_s,U_pk,U_pd,U_idp]  = projIdpPntIntoPinHole(Sf, Spk, Spd, idp);
 u,s  = projIdpPntIntoPinHole(Sf, Spk, Spd, idp);
 
 simplify(U_pk  - jacobian(u,Spk))
 simplify(U_pd  - jacobian(u,Spd))
-simplify(U_idp - jacobian(u,idp))
+% simplify(U_idp - jacobian(u,idp))
 
 
 

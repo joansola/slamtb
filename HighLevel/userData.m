@@ -113,7 +113,7 @@ Sensor{1} = struct(...
   'imageSize',          [640;480],...   % image size
   'pixErrorStd',        1.0,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
-  'distortion',         [-0.3;0.1],...          % distortion params
+  'distortion',         [],...%[-0.3;0.1],...          % distortion params
   'frameInMap',         false,...       % add sensor frame in slam map?
   'imGrid',               struct(...      % grid for Active Search
     'numCells',         [8;6],...         % number of H and V grid cells
@@ -123,7 +123,7 @@ Sensor{1} = struct(...
 %   'id',                 2,...           % sensor identifier
 %   'name',               'Micropix',...      % sensor name
 %   'type',               'pinHole',...   % type of sensor
-%   'robot',              1,...           % robot where it is mounted
+%   'robot',              2,...           % robot where it is mounted
 %   'position',           [0;-0.25;.6],...     % position in robot
 %   'orientationDegrees', [-90;0;-90],...      % orientation in robot, [roll; pitch; yaw]
 %   'positionStd',        [0;0;0],...     % position error std

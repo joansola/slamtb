@@ -56,7 +56,6 @@ end
 
 
 
-
 % ========== End of function - Start GPL license ==========
 
 
@@ -81,9 +80,9 @@ end
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012
+%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012 
 %   by Joan Sola @ LAAS-CNRS.
-%   SLAMTB is Copyright 2009
+%   SLAMTB is Copyright 2009 
 %   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 

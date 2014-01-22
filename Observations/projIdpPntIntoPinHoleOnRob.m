@@ -1,4 +1,4 @@
-function [u,s,U_r,U_s,U_k,U_d,U_idp]  = projIdpPntIntoPinHoleOnRob(Rf, Sf, Spk, Spd, idp)
+function [u,s,U_rf,U_sf,U_k,U_d,U_idp]  = projIdpPntIntoPinHoleOnRob(Rf, Sf, k, d, idp)
 
 % PROJIDPPNTINTOPINHOLEONROB Project Idp pnt into pinhole on robot.
 %    [U,S] = PROJIDPPNTINTOPINHOLEONROB(RF, SF, SPK, SPD, L) projects 3D
@@ -25,22 +25,24 @@ function [u,s,U_r,U_s,U_k,U_d,U_idp]  = projIdpPntIntoPinHoleOnRob(Rf, Sf, Spk, 
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
+% Rf = updateFrame(Rf);
+% Sf = updateFrame(Sf);
 
 if nargout <= 2  % No Jacobians requested
 
     idpr  = toFrameIdp(Rf,idp);
-    [u,s] = projIdpPntIntoPinHole(Sf, Spk, Spd, idpr);
+    [u,s] = projIdpPntIntoPinHole(Sf, k, d, idpr);
 
 else            % Jacobians requested
 
     if size(idp,2) == 1
         
         % function calls
-        [idpr, IDPR_r, IDPR_idp]  = toFrameIdp(Rf,idp);
-        [u,s, U_s, U_k, U_d, U_idpr] = projIdpPntIntoPinHole(Sf, Spk, Spd, idpr);
+        [idpr, IDPR_r, IDPR_idp]      = toFrameIdp(Rf,idp);
+        [u,s, U_sf, U_k, U_d, U_idpr] = projIdpPntIntoPinHole(Sf, k, d, idpr);
 
         % chain rule
-        U_r   = U_idpr*IDPR_r;
+        U_rf  = U_idpr*IDPR_r;
         U_idp = U_idpr*IDPR_idp;
 
     else

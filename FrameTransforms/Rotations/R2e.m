@@ -2,7 +2,7 @@ function e = R2e(R)
 
 % R2E  Rotation matrix to Euler angles conversion.
 %   R2E(R) returns the euler angles vector [roll;pitch;yaw] corresponding
-%   to the orientation of hte rotation matrix R. The result is such that
+%   to the orientation of the rotation matrix R. The result is such that
 %   E2R(R2E(R)) = R and R2E(E2R(E)) = E.
 %
 %   See also E2R, FRAME.

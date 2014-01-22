@@ -113,7 +113,7 @@ Sensor{1} = struct(...
   'imageSize',          [640;480],...   % image size
   'pixErrorStd',        1.0,...         % pixel error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
-  'distortion',         [],...%[-0.3;0.1],...          % distortion params
+  'distortion',         [-0.3;0.1],...          % distortion params
   'frameInMap',         false,...       % add sensor frame in slam map?
   'imGrid',               struct(...      % grid for Active Search
     'numCells',         [8;6],...         % number of H and V grid cells

@@ -1,4 +1,4 @@
-function vr = qRot(v,q)
+function [vr, VR_v, VR_q] = qRot(v,q)
 
 % QROT Vector rotation via quaternion algebra.
 %   PR = QROT(V,Q) performs to vector V the rotation specified by
@@ -8,11 +8,53 @@ function vr = qRot(v,q)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-v = [0;v];
+v0 = [0;v];
 
-vr = qProd(qProd(q,v),q2qc(q));
+vr = qProd(qProd(q,v0),q2qc(q));
 
 vr = vr(2:end);
+
+if nargout > 1 % we want Jacobians
+
+    if size(v,2) == 1
+
+        [a,b,c,d] = split(q);
+        [x,y,z]   = split(v);
+
+        axdycz = 2*(a*x - d*y + c*z);
+        bxcydz = 2*(b*x + c*y + d*z);
+        cxbyaz = 2*(c*x - b*y - a*z);
+        dxaybz = 2*(d*x + a*y - b*z);
+
+        VR_q = [...
+            [  axdycz,  bxcydz, -cxbyaz, -dxaybz]
+            [  dxaybz,  cxbyaz,  bxcydz,  axdycz]
+            [ -cxbyaz,  dxaybz, -axdycz,  bxcydz]];
+
+        VR_v = q2R(q);
+        
+    else
+        error('Jacobians only available for single points')
+    end
+end
+
+%%
+return
+%% BUILD AND TEST JACOBIANS
+
+syms a b c d x y z real
+
+q = [a;b;c;d];
+p = [x;y;z];
+
+[rp1,RPq1,RPp1] = Rp(q,p);
+[rp,RPp,RPq] = qRot(p,q);
+
+RPq1 = simple(jacobian(rp,q));
+RPp1 = simple(jacobian(rp,p));
+
+ERPq = simplify(RPq-RPq1)
+ERPp = simplify(RPp-RPp1)
 
 
 

@@ -4,7 +4,13 @@ function [vr, VR_v, VR_q] = qRot(v,q)
 %   PR = QROT(V,Q) performs to vector V the rotation specified by
 %   quaternion Q.
 %
-%   See also QUATERNION, Q2Q, QPROD.
+%   [pr,PR_v, PR_q] = QROT(V,Q) returns Jacobians wrt V and Q. Note that
+%   this only works with single points V = [x;y;z].
+%
+%   QROT is equivalent to Rp, with the exception that the arguments come in
+%   different order.
+%
+%   See also QUATERNION, Q2Q, QPROD, RP, RTP.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
@@ -16,7 +22,7 @@ vr = vr(2:end);
 
 if nargout > 1 % we want Jacobians
 
-    if size(v,2) == 1
+    if size(v,2) == 1 % Jacobians are computed exactly as in function Rp.m.
 
         [a,b,c,d] = split(q);
         [x,y,z]   = split(v);

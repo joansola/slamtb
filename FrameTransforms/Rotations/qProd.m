@@ -5,7 +5,7 @@ function [q,Qq1,Qq2] = qProd(q1,q2)
 %
 %   [Q,Qq1,Qq2] = QPROD(...) gives the Jacobians wrt Q1 and Q2.
 %
-%   See also QUATERNION, R2Q, Q2E, Q2V.
+%   See also QUATERNION, QROT, R2Q, Q2E, Q2V.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 

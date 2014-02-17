@@ -136,7 +136,7 @@ Sensor{1} = struct(...
 %   'imGrid',               struct(...      % grid for Active Search
 %     'numCells',         [8;6],...         % number of H and V grid cells
 %     'skipOuter',        true));           % skip outer cells for initialization?
-% 
+
 % Sensor{3} = struct(...
 %   'id',                 1,...           % sensor identifier
 %   'name',               'Micropix',...  % sensor name

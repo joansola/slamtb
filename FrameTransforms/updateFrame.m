@@ -1,4 +1,4 @@
-function F = updateFrame(F)
+function F = updateFrame(F, norm)
 
 % UPDATEFRAME Update frame structure.
 %   F = UPDATEFRAME(F)  updates the matrices R, Pi and Pc and the
@@ -9,6 +9,8 @@ function F = updateFrame(F)
 %       F.x = [t;q] = [x y z a b c d]'
 %
 %   where q = [a b c d]' must already be a unit vector.
+%
+%   F = UPDATEFRAME(F, true) forces quaternion normalization.
 %
 %   As a result, the following fields are created/updated as follows:
 %
@@ -25,11 +27,12 @@ function F = updateFrame(F)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-% F.X(4:7) = F.X(4:7)/norm(F.X(4:7)); % normalize quaternion
+if (nargin > 1) && (norm ~= false)
+    F.x(4:7)  = normvec(F.x(4:7)); % normalize quaternion
+end
+
 F.t  = F.x(1:3);
 F.q  = F.x(4:7);
-% F.q  = normvec(F.x(4:7));
-% F.x  = [F.t ; F.q];
 F.R  = q2R(F.q);
 F.Rt = F.R';
 F.Pi = q2Pi(F.q);
@@ -63,10 +66,13 @@ F.Pc = pi2pc(F.Pi);
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012 
-%   by Joan Sola @ LAAS-CNRS.
+%   SLAMTB is Copyright:
+%   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
+%   Copyright (c) 2010-2013, Joan Sola,
+%   Copyright (c) 2014-    , Joan Sola @ IRI-UPC-CSIC,
 %   SLAMTB is Copyright 2009 
-%   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
+%   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
+%   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 
 %   # END GPL LICENSE

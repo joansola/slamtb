@@ -75,10 +75,13 @@ end
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012 
-%   by Joan Sola @ LAAS-CNRS.
+%   SLAMTB is Copyright:
+%   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
+%   Copyright (c) 2010-2013, Joan Sola,
+%   Copyright (c) 2014-    , Joan Sola @ IRI-UPC-CSIC,
 %   SLAMTB is Copyright 2009 
-%   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
+%   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
+%   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 
 %   # END GPL LICENSE

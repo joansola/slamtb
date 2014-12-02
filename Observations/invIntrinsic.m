@@ -2,14 +2,20 @@ function iK = invIntrinsic(k)
 
 % INVINTRINSIC Build inverse intrinsic matrix
 
-%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008-2014 Joan Sola @ LAAS-CNRS.
 
 [u0, v0, au, av] = split(k);
 
+% iK = [...
+%     [   av,      0, -u0*av]
+%     [    0,     au, -v0*au]
+%     [    0,      0,  au*av]];
+
 iK = [...
-    [   1/au,      0, -u0/au]
-    [      0,   1/av, -v0/av]
-    [      0,      0,      1]];
+    [   1/au,        0, -u0/au]
+    [      0,     1/av, -v0/av]
+    [      0,        0,      1]];
+
 
 return
 
@@ -45,10 +51,13 @@ iK = K^-1
 %
 %---------------------------------------------------------------------
 
-%   SLAMTB is Copyright 2007, 2008, 2009, 2010, 2011, 2012 
-%   by Joan Sola @ LAAS-CNRS.
+%   SLAMTB is Copyright:
+%   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
+%   Copyright (c) 2010-2013, Joan Sola,
+%   Copyright (c) 2014-    , Joan Sola @ IRI-UPC-CSIC,
 %   SLAMTB is Copyright 2009 
-%   by Joan Sola, David Marquez and Jean Marie Codol @ LAAS-CNRS.
+%   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
+%   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.
 
 %   # END GPL LICENSE

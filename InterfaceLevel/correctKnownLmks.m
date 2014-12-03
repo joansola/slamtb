@@ -41,6 +41,9 @@ function [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
 % 6- do correction
 % 7- eventually reparametrize landmark
 % 8- eventually delete corrupted landmarks
+% 9- force covariance symmetry
+
+global Map
 
 % 0. UPDATE ROB AND SEN INFO FROM MAP
 Rob = map2rob(Rob);
@@ -123,6 +126,10 @@ if any(vis) % Consider only visible observations
         [Lmk(lmk),Obs(lmk)] = smartDeleteLmk(Lmk(lmk),Obs(lmk));
         
     end
+
+    % 9. FORCE COVARIANCE SYMMETRY
+    Map.P(Map.used,Map.used) = (Map.P(Map.used,Map.used) + Map.P(Map.used,Map.used)')/2;
+
 
 end % if any(vis)
 

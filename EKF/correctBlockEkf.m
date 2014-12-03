@@ -21,8 +21,13 @@ K = Map.P(Map.used,r) * H' * Inn.iZ;   % K = PH'Z^-1
 Map.x(Map.used)          = Map.x(Map.used)          + K*Inn.z;
 Map.P(Map.used,Map.used) = Map.P(Map.used,Map.used) - K*Inn.Z*K';
 
-% force symmetry
-Map.P(Map.used,Map.used) = (Map.P(Map.used,Map.used) + Map.P(Map.used,Map.used)')/2;
+% Force symmetry
+%
+% NOTE: this line of code has been moved to correctKnownLmks so that it is
+% performed once per SLAM iteration, and not once per landmark correction.
+% This is so done for speed reasons.
+%
+% Map.P(Map.used,Map.used) = (Map.P(Map.used,Map.used) + Map.P(Map.used,Map.used)')/2;
 
 
 

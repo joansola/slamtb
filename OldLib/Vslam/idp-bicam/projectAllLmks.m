@@ -1,2 +1,0 @@
-projectAllPnts
-projectAllIdps

@@ -1,9 +1,0 @@
-function dispMap = displayMap(dispMap)
-
-global Map WDIM PDIM
-
-    xi = PDIM+Map.used(Map.used~=0)*WDIM-2;
-    set(dispMap,...
-        'xdata',Map.X(xi),...
-        'ydata',Map.X(xi+1),...
-        'zdata',Map.X(xi+2));

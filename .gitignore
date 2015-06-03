@@ -1,0 +1,8 @@
+# Temporaries
+*~
+
+# Non sourses
+*.fig
+*.png
+*.mat
+

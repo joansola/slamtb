@@ -17,7 +17,7 @@ Published under GPL license. See COPYING.txt.
 
 In addition to the GPL license, users are suggested to consider citing in their 
 scientific communications one of the papers of the authors: 
-  - SOLA-ETAL-IJCV-11 "Impace of landmark parametrization on monocular EKF-SLAM with points and lines"
+  - SOLA-ETAL-IJCV-11 "Impact of landmark parametrization on monocular EKF-SLAM with points and lines"
   - SOLA-ETAL-IROS-09 "Undelayed initialization of line segments in monocular SLAM"
   - SOLA-ETAL-TRO-08  "Fusing monocular information in multi-camera SLAM"
   - SOLA-ETAL-IROS-05 "Undelayed initialization in bearing only SLAM" 

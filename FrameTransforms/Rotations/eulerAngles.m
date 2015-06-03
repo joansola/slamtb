@@ -4,7 +4,7 @@
 %
 %       e = [roll pitch yaw]',
 %
-%   where 
+%   where the 3D space is considered right-handed, and
 %       roll   is a positive rotation around the X-axis, 
 %       pitch  is a positive rotation around the Y-axis, and 
 %       yaw    is a positive rotation around the Z-axis. 

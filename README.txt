@@ -28,9 +28,11 @@ II. Installation and quick usage.
 =================================
 To make it work, start Matlab and follow these steps:
 
-1. Let us call the toolbox path %SLAM. From the Matlab prompt, > cd  %SLAM/
+1. Let us call the toolbox path %SLAMTB. 
+    From the Matlab prompt,  >> cd  %SLAMTB/
 
-2. Add all subdirectories in %SLAM/ to your Matlab path.
+2. Add all subdirectories in %SLAMTB/ to your Matlab path using the provided script: 
+    From the Matlab prompt,  >> slamrc
 
 3. Edit file userData.m and enter the data of your experiment.
 

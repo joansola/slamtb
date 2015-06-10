@@ -11,18 +11,64 @@ function Map = createMap(Rob,Sen,Opt)
 %       .t      current time - used to control time updates
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
 
-
-R = [Rob.state];
-S = [Sen.state];
-
-% overall number of states needed to allocate robots, sensors and landmarks
-n = sum([R.size S.size Opt.map.lmkSize*Opt.map.numLmks]);
-
-Map.used = false(n,1);
-
-Map.x = zeros(n,1);
-Map.P = zeros(n,n);
+switch lower(Opt.map.type)
+    case 'ekf'
+        % Help: Map has state and covariances matrix. 
+        % The state has:
+        % - state of each robot
+        % - state of each sensor being estimated
+        % - state of each landmark
+        % The covariances matrix has all cross-variances of the above.
+        
+        Map.type = 'ekf';
+        
+        R = [Rob.state];
+        S = [Sen.state];
+        
+        % overall number of states needed to allocate robots, sensors and landmarks
+        n = sum([R.size S.size Opt.map.lmkSize*Opt.map.numLmks]);
+        
+        Map.used = false(n,1);
+        
+        Map.x = zeros(n,1);
+        Map.P = zeros(n,n);
+        
+    case 'graph'
+        % Help: Map has nominal and manifold states. 
+        % The state has:
+        % - state of each pose of the trajectory of each robot
+        % - state of each landmark
+        % The manifold state has the same, but manifold states.
+        % The true state is not stored, but obtained by composing nominal
+        % and manifold states.
+        
+        % TODO: sensor in map not supported yet.
+        
+        Map.type = 'graph';
+        
+        Rx = [Rob.state];
+        Rm = [Rob.manifold];
+        
+        % overall number of states needed to allocate robots and landmarks
+        nx = sum([Rx.size Sx.size Opt.map.lmkSize*Opt.map.numLmks]);
+        nm = sum([Rm.size*Opt.map.numFrames Opt.map.lmkErrSize*Opt.map.numLmks]);
+        
+        Map.used.x = false(nx,1);
+        Map.used.e = false(nm,1);
+        
+        Map.x = zeros(nx,1);
+        Map.e = zeros(nm,1);
+        
+        % Hessian matrix in the manifold
+        Map.H = sparse([],[],[],nm,nm,ceil(nm*nm/4)); % 25% sparse. 
+        
+    otherwise
+        
+        error('??? Unknown Map type. Please use ''ekf'' or ''graph''.')
+        
+end
 
 Map.t = 0; % Current Map's time
 
@@ -55,8 +101,8 @@ Map.t = 0; % Current Map's time
 %   SLAMTB is Copyright:
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
-%   Copyright (c) 2014-    , Joan Sola @ IRI-UPC-CSIC,
-%   SLAMTB is Copyright 2009 
+%   Copyright (c) 2014-2015, Joan Sola @ IRI-UPC-CSIC,
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.

@@ -44,6 +44,10 @@ for rob = 1:numel(Robot)
             Ro.state.x    = [qp;v]; % state
             Ro.state.P    = blkdiag(QP,V);
             
+            % manifold state
+            Ro.manifold.active = true; % Flag for activating estimation on manifold
+            Ro.manifold.x    = zeros(12,1);
+            
         case {'odometry'}
             % control
             Ro.con.u    = [Ri.dx;deg2rad(Ri.daDegrees)];
@@ -53,6 +57,10 @@ for rob = 1:numel(Robot)
             % state
             Ro.state.x    = qp; % state
             Ro.state.P    = QP;
+
+            % manifold state
+            Ro.manifold.active = true; % Flag for activating estimation on manifold
+            Ro.manifold.x    = zeros(6,1);
                         
         otherwise
             error('Unknown motion model ''%s'' for robot %d.',Robot{rob}.motion,Robot{rob}.id);
@@ -60,6 +68,9 @@ for rob = 1:numel(Robot)
     
     Ro.state.size = numel(Ro.state.x);   % state size
     Ro.state.r  = [];
+    
+    Ro.manifold.size = numel(Ro.manifold.x);
+    Ro.manifold.r  = [];
 
     Ro.frame.x = qp;
     Ro.frame.P = QP;

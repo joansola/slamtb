@@ -1,4 +1,4 @@
-function drawObsPnt(SenFig, Obs, colors)
+function drawObsPnt(SenFig, Obs, colors, drawEllip)
 
 % DRAWOBSPNT  Redraw a landmark on the pinHole sensor figure.
 %   DRAWOBSPNT(SENFIG, OBS, COLORS)  (re)draw a landmark on the pinHole
@@ -25,17 +25,19 @@ else
 end
 
 % the ellipse
-if Obs.updated
-    elliCol = colors.updated;
-else
-    elliCol = colors.predicted;
+if nargin <= 3 || drawEllip
+    
+    if Obs.updated
+        elliCol = colors.updated;
+    else
+        elliCol = colors.predicted;
+    end
+    
+    % draw ellipse and label
+    drawEllipse(SenFig.ellipse(Obs.lmk), Obs.exp.e, Obs.exp.E + Obs.meas.R, elliCol)
+    drawLabel(SenFig.label(Obs.lmk), Obs.exp.e + posOffset, num2str(Obs.lid))
+    
 end
-
-% draw ellipse and label
-drawEllipse(SenFig.ellipse(Obs.lmk), Obs.exp.e, Obs.exp.E + Obs.meas.R, elliCol)
-drawLabel(SenFig.label(Obs.lmk), Obs.exp.e + posOffset, num2str(Obs.lid))
-
-
 
 % ========== End of function - Start GPL license ==========
 

@@ -10,9 +10,15 @@ function Rob = map2rob(Rob)
 global Map
 
 % normalize quaternion - mean and cov
-[Map.x(Rob.frame.r(4:7)), NQ_q] = normvec(Map.x(Rob.frame.r(4:7)),1);
-Map.P(Rob.frame.r(4:7),Map.used) = NQ_q*Map.P(Rob.frame.r(4:7),Map.used);
-Map.P(Map.used,Rob.frame.r(4:7)) = Map.P(Map.used,Rob.frame.r(4:7))*NQ_q';
+switch Map.type 
+    case 'ekf'
+        [Map.x(Rob.frame.r(4:7)), NQ_q] = normvec(Map.x(Rob.frame.r(4:7)),1);
+        Map.P(Rob.frame.r(4:7),Map.used) = NQ_q*Map.P(Rob.frame.r(4:7),Map.used);
+        Map.P(Map.used,Rob.frame.r(4:7)) = Map.P(Map.used,Rob.frame.r(4:7))*NQ_q';
+        
+    case 'graph'
+        Map.x(Rob.frame.x(4:7)) = normvec(Map.x(Rob.frame.r(4:7)),1);
+end
 
 % means
 Rob.state.x = Map.x(Rob.state.r);

@@ -35,6 +35,7 @@ for rob = 1:numel(Robot)
             Ro.con.u    = [Ri.dv;deg2rad(Ri.dwDegrees)];
             Ro.con.uStd = [Ri.dvStd;deg2rad(Ri.dwStd)];
             Ro.con.U    = diag(Ro.con.uStd.^2);
+            Ro.com.W    = 1/Ro.con.U;  % Information matrix
             
             % velocity states
             v = [Ri.velocity;deg2rad(Ri.angularVelDegrees)];
@@ -53,6 +54,7 @@ for rob = 1:numel(Robot)
             Ro.con.u    = [Ri.dx;deg2rad(Ri.daDegrees)];
             Ro.con.uStd = [Ri.dxStd;deg2rad(Ri.daStd)];
             Ro.con.U    = diag(Ro.con.uStd.^2);
+            Ro.com.W    = Ro.con.U^-1;  % Information matrix
             
             % state
             Ro.state.x    = qp; % state

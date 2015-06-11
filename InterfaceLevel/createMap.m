@@ -52,8 +52,8 @@ switch lower(Opt.map.type)
         Rm = [Rob.manifold];
         
         % overall number of states needed to allocate robots and landmarks
-        nx = sum([Rx.size Sx.size Opt.map.lmkSize*Opt.map.numLmks]);
-        nm = sum([Rm.size*Opt.map.numFrames Opt.map.lmkErrSize*Opt.map.numLmks]);
+        nx = sum([Rx.size Opt.map.lmkSize*Opt.map.numLmks]);
+        nm = sum([Rm.size*Opt.map.numFrames Opt.map.lmkManiSize*Opt.map.numLmks]);
         
         Map.used.x = false(nx,1);
         Map.used.e = false(nm,1);

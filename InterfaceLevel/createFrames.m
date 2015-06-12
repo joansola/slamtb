@@ -21,6 +21,9 @@ for frm = 1:Opt.map.numFrames
     Frm(frm).id = [];
     Frm(frm).used = false;
     Frm(frm).rob = [];
+
+    Frm(frm).factorIds = [];
+    
     Frm(frm).state.x = [];
     Frm(frm).state.r = (1 + (frm-1)*stateSize : frm*stateSize);
     Frm(frm).state.size = stateSize;

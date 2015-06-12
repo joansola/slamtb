@@ -56,10 +56,10 @@ switch lower(Opt.map.type)
         nm = sum([Rm.size*Opt.map.numFrames Opt.map.lmkManiSize*Opt.map.numLmks]);
         
         Map.used.x = false(nx,1);
-        Map.used.e = false(nm,1);
+        Map.used.m = false(nm,1);
         
         Map.x = zeros(nx,1);
-        Map.e = zeros(nm,1);
+        Map.m = zeros(nm,1);
         
         % Hessian matrix in the manifold
         Map.H = sparse([],[],[],nm,nm,ceil(nm*nm/4)); % 25% sparse. 

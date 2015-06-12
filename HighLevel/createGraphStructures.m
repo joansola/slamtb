@@ -1,4 +1,4 @@
-function [Rob,Sen,Raw,Frm,Lmk,Fac,Obs,Tim] = createGraphStructures(Robot,Sensor,Time,Opt)
+function [Rob,Sen,Raw,Trj,Frm,Lmk,Fac,Obs,Tim] = createGraphStructures(Robot,Sensor,Time,Opt)
 
 % CREATEGRAPHSTRUCTURES  Initialize graphSLAM data structures from user data.
 
@@ -6,8 +6,14 @@ function [Rob,Sen,Raw,Frm,Lmk,Fac,Obs,Tim] = createGraphStructures(Robot,Sensor,
 
 global Map
 
+% Clear ID factory
+clear newId; 
+
 % Create robots and controls
 Rob = createRobots(Robot);
+
+% Create robot trajectories
+Trj = createTrajectory(Rob, Opt);
 
 % Create frames
 Frm = createFrames(Rob,Opt);
@@ -23,6 +29,9 @@ Lmk = createLandmarks(Opt);
 
 % Create Map - empty
 Map = createMap(Rob,Sen,Opt);
+
+% Initialize robots in Map
+Rob = initRobots(Rob);
 
 % Create factors
 Fac = createFactors(Opt);

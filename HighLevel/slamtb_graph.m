@@ -35,7 +35,7 @@ global Map
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 
-userData;           % user-defined data. SCRIPT.
+userData_graph;           % user-defined data. SCRIPT.
 % userDataPnt;        % user-defined data for points. SCRIPT.
 % userDataLin;        % user-defined data for lines. SCRIPT.
 
@@ -48,7 +48,7 @@ userData;           % user-defined data. SCRIPT.
 %     Time,...
 %     Opt);
 
-[Rob,Sen,Raw,Frm,Lmk,Fac,Obs,Tim] = createGraphStructures(Robot,Sensor,Time,Opt);
+[Rob,Sen,Raw,Trj,Frm,Lmk,Fac,Obs,Tim] = createGraphStructures(Robot,Sensor,Time,Opt);
 
 % Simulation data
 [SimRob,SimSen,SimLmk,SimOpt] = createSimStructures(...
@@ -74,8 +74,22 @@ userData;           % user-defined data. SCRIPT.
 % Clear user data - not needed anymore
 clear Robot Sensor World Time   % clear all user data
 
-factorRob = resetMotion(Rob);
+for rob = [Rob.rob]
+    
+    % Reset motion robot
+    factorRob(rob) = resetMotion(Rob(rob));
+    
+    % Add first frame
+    [Trj,Frm,Fac] = addFrmToTrj(Trj,Frm,Fac);
+    
+    % Update new frame with Rob info
+    Frm(Trj.head) = rob2frm(Rob(rob),Frm(Trj.head));
+    
+    % Create absolute factor for the first frame
+    fac = find([Fac.used] == false, 1, 'first');
+    Fac(fac) = makeAbsFactor(Frm(Trj.head), Fac(fac), factorRob(rob));
 
+end
 
 %% IV. Main loop
 for currentFrame = Tim.firstFrame : Tim.lastFrame
@@ -101,7 +115,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
     
 
-    % 2. ESTIMATION
+    % 2. MOTION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % Process robots
@@ -120,37 +134,62 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         
         factorRob(rob) = integrateMotion(factorRob(rob),Tim);
         
-        Map.t = Map.t + Tim.dt;
+    end
+    
+    % Advance time
+    Map.t = Map.t + Tim.dt;
+
+    
+    % 2. ESTIMATION
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    if mod(currentFrame - Tim.firstFrame + 1, Opt.map.kfrmPeriod) == 0
+    
+        % Process robots
+        for rob = [Rob.rob]
+            
+            % Add frame
+            [Trj,Frm,Fac] = addFrmToTrj(Trj,Frm,Fac);
+            
+            % Update new frame with Rob info
+            Frm(Trj.head) = rob2frm(Rob(rob),Frm(Trj.head));
+            
+            % Create motion factor
+            fac = find([Fac.used] == false, 1, 'first');
+            head_old = mod(Trj.head - 2, Trj.maxLength) + 1;
+            Fac(fac) = makeMotionFactor(Frm(head_old), Frm(Trj.head), Fac(fac), factorRob);
+            
+            
+            
+            % Process sensor observations
+            for sen = Rob(rob).sensors
                 
-
-
-        % Process sensor observations
-        for sen = Rob(rob).sensors
-
-            % Observe knowm landmarks
-            [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = correctKnownLmks( ...
-                Rob(rob),   ...
-                Sen(sen),   ...
-                Raw(sen),   ...
-                Lmk,        ...   
-                Obs(sen,:), ...
-                Opt) ;
-
-            % Initialize new landmarks
-            ninits = Opt.init.nbrInits(1 + (currentFrame ~= Tim.firstFrame));
-            for i = 1:ninits
-                [Lmk,Obs(sen,:)] = initNewLmk(...
+                % Observe knowm landmarks
+                [Rob(rob),Sen(sen),Lmk,Obs(sen,:)] = correctKnownLmks( ...
                     Rob(rob),   ...
                     Sen(sen),   ...
                     Raw(sen),   ...
                     Lmk,        ...
                     Obs(sen,:), ...
                     Opt) ;
-            end
-
-        end % end process sensors
-
-    end % end process robots
+                
+                % Initialize new landmarks
+                ninits = Opt.init.nbrInits(1 + (currentFrame ~= Tim.firstFrame));
+                for i = 1:ninits
+                    [Lmk,Obs(sen,:)] = initNewLmk(...
+                        Rob(rob),   ...
+                        Sen(sen),   ...
+                        Raw(sen),   ...
+                        Lmk,        ...
+                        Obs(sen,:), ...
+                        Opt) ;
+                end
+                
+            end % end process sensors
+            
+        end % end process robots
+    
+    end
 
 
     % 3. VISUALIZATION

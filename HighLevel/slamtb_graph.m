@@ -140,7 +140,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     Map.t = Map.t + Tim.dt;
 
     
-    % 2. ESTIMATION
+    % 3. ESTIMATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     if mod(currentFrame - Tim.firstFrame + 1, Opt.map.kfrmPeriod) == 0
@@ -188,7 +188,19 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             end % end process sensors
             
         end % end process robots
-    
+        
+        % Solve graph
+        
+        
+        
+        % Update Rob
+        for rob = [Rob.rob]
+            
+            % Reset motion robot
+            % Rob(rob) = frm2rob(Frm(Trj.head));
+            factorRob(rob) = resetMotion(Rob(rob));
+        end
+        
     end
 
 

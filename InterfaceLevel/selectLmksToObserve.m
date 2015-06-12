@@ -10,20 +10,37 @@ function [lmksToObs,lmksToSkip] = selectLmksToObserve(Obs,N)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-Oexp = [Obs.exp];   % expectations structure array
-um   = [Oexp.um];   % uncertainty measures
+global Map
 
-% sort from highest to lowest uncertainty measures
-[sortedUm,sortedIdx] = sort(um,2,'descend');
+switch Map.type
+    case 'ekf'
+        
+        % Use the sizes of the projected ellipses
 
-% landmark indices, sorted
-lmkList = [Obs(sortedIdx).lmk];
+        Oexp = [Obs.exp];   % expectations structure array
+        um   = [Oexp.um];   % uncertainty measures
+        
+        % sort from highest to lowest uncertainty measures
+        [sortedUm,sortedIdx] = sort(um,2,'descend');
+        
+        % landmark indices, sorted
+        lmkList = [Obs(sortedIdx).lmk];
+        
+
+    case 'graph'
+        
+        % Use random set
+        lmkList = randperm([Obs.lmk]);
+        
+    otherwise
+   
+        error('??? Unknown Map type ''%s''.', Map.type);
+end
 
 % limit to N elements
 n          = min(N,numel(lmkList));
 lmksToObs  = lmkList(1:n);     % these are selected for update
 lmksToSkip = lmkList(n+1:end); % these are to be skipped
-
 
 
 % ========== End of function - Start GPL license ==========

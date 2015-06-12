@@ -74,6 +74,8 @@ userData;           % user-defined data. SCRIPT.
 % Clear user data - not needed anymore
 clear Robot Sensor World Time   % clear all user data
 
+factorRob = resetMotion(Rob);
+
 
 %% IV. Main loop
 for currentFrame = Tim.firstFrame : Tim.lastFrame
@@ -106,13 +108,17 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     for rob = [Rob.rob]
 
         % Robot motion
+
         % NOTE: in a regular, non-simulated SLAM, this line is not here and
         % noise just comes from the real world. Here, the estimated robot
         % is noised so that the simulated trajectory can be made perfect
         % and act as a clear reference. The noise is additive to the
         % control input 'u'.
         Rob(rob).con.u = SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
-        Rob(rob) = motion(Rob(rob),Tim);
+        
+        Rob(rob) = simMotion(Rob(rob),Tim);
+        
+        factorRob(rob) = integrateMotion(factorRob(rob),Tim);
         
         Map.t = Map.t + Tim.dt;
                 

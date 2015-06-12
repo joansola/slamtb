@@ -56,7 +56,7 @@ vis = inSquare(pix,[0 imSize(1) 0 imSize(2)],mrg) & (depth > 0);
 %   SLAMTB is Copyright:
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
-%   Copyright (c) 2014-    , Joan Sola @ IRI-UPC-CSIC,
+%   Copyright (c) 2014-2015, Joan Sola @ IRI-UPC-CSIC,
 %   SLAMTB is Copyright 2009 
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.

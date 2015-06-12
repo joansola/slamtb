@@ -115,9 +115,6 @@ if any(vis) % Consider only visible observations
 
         end % if matched
 
-        % Conditional landmark deletion
-%         [Lmk(lmk),Obs(lmk)] = smartDeleteLmk(Lmk(lmk),Obs(lmk));
-
     end % for lmk = lmkList
 
     % 8. LANDMARK DELETION -- loop all visible

@@ -34,7 +34,7 @@ switch Rob.motion
 end
 
 % Covariances matrix update
-Rob.state.P = Rob.state.P + F_u * con.U * F_u';
+Rob.state.P = Rob.state.P + F_u * Rob.con.U * F_u';
 
 
 

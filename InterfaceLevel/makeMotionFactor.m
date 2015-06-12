@@ -1,4 +1,4 @@
-function Fac = makeMotionFactor(Frm1, Frm2, Fac, RobMotion)
+function Fac = makeMotionFactor(Frm1, Frm2, Fac, factorRob)
 
 
 Fac.used = true; % Factor is being used ?
@@ -12,18 +12,26 @@ Fac.frmId = [Frm1.id Frm2.id]; % frame ids
 %     Fac.id1 = []; % id of block 1
 %     Fac.id2 = []; % id of block 2
 
-Fac.meas.y = RobMotion.state.x;
-Fac.meas.R = RobMotion.state.P;
-Fac.meas.W = 1/RobMotion.state.P; % measurement information matrix
+% Project into manifold, 7DoF --> 6DoF
+[e, E_x] = qpose2epose(factorRob.state.x);
+E = E_x * factorRob.state.P * E_x';
 
+% Measurement is the straight data
+Fac.meas.y = e;
+Fac.meas.R = E;
+Fac.meas.W = E^-1; % measurement information matrix
+
+% Expectation has zero covariance -- and info in not defined
 Fac.exp.e = Fac.meas.y; % expectation
-Fac.exp.E = zeros(size(con.U)); % expectation cov
+Fac.exp.E = zeros(size(E)); % expectation cov
 %     Fac.exp.W = Fac.meas.W; % expectation information matrix
 
-Fac.err.z = zeros(size(con.u)); % error or innovation (we call it error because we are on graph SLAM)
+% Error is zero at this stage, and takes covariance and info from measurement
+Fac.err.z = zeros(size(e)); % error or innovation (we call it error because we are on graph SLAM)
 Fac.err.Z = Fac.meas.R; % error cov matrix
 Fac.err.W = Fac.meas.W; % error information matrix
 
-Fac.err.E_node1 = zeros(7,length(con.u)); % Jac. of error wrt. node 1
-Fac.err.E_node2 = zeros(7,length(con.u)); % Jac. of error wrt. node 2
+% Jacobians are zero at this stage. Just make size correct.
+Fac.err.E_node1 = zeros(6,length(con.u)); % Jac. of error wrt. node 1
+Fac.err.E_node2 = zeros(6,length(con.u)); % Jac. of error wrt. node 2
 

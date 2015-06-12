@@ -1,11 +1,11 @@
-function Fac = makeMotionFactor(Frm_old, Frm_new, Fac, factorRob)
+function Fac = makeAbsFactor(Frm, Fac, factorRob)
 
 
 Fac.used = true; % Factor is being used ?
 %     Fac.fac = fac; % index in Fac array
 Fac.id = newId; % Factor unique ID
 
-Fac.type = 'motion'; % {'motion','measurement','absolute'}
+Fac.type = 'absolute'; % {'motion','measurement','absolute'}
 %     Fac.sen = []; % sen index
 %     Fac.lmk = []; % lmk index
 %     Fac.id1 = []; % id of block 1
@@ -18,9 +18,9 @@ E = E_x * factorRob.state.P * E_x';
 % Measurement is the straight data
 Fac.meas.y = e;
 Fac.meas.R = E;
-Fac.meas.W = E^-1; % measurement information matrix
+Fac.meas.W = (E + 1e-10 * eye(numel(e) ) )^-1; % measurement information matrix
 
-% Expectation has zero covariance -- and info in not defined
+% Expectation has zero covariance -- and info is not defined
 Fac.exp.e = Fac.meas.y; % expectation
 Fac.exp.E = zeros(size(E)); % expectation cov
 %     Fac.exp.W = Fac.meas.W; % expectation information matrix
@@ -32,12 +32,10 @@ Fac.err.W = Fac.meas.W; % error information matrix
 
 % Jacobians are zero at this stage. Just make size correct.
 Fac.err.E_node1 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 1
-Fac.err.E_node2 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 2
 
 % Cross link factor with frames
-% Fac.frmId = [Frm_old.id Frm_new.id]; % frame ids
-Fac.frm = [Frm_old.frm Frm_new.frm];
+% Fac.frmId = Frm.id; % frame ids
+Fac.frm = Frm.frm;
 
 % Append factor ID to factors list.
-Frm_old.factorIds = [Frm_old.factorIds Fac.id]; 
-Frm_new.factorIds = [Frm_new.factorIds Fac.id]; 
+Frm.factorIds = [Frm.factorIds Fac.id]; 

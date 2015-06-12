@@ -17,8 +17,16 @@ function r = newRange(vecSize)
 
 global Map
 
-if vecSize > 0
-    r = find(~Map.used,vecSize,'first');
+if all(vecSize > 0)
+    switch Map.type
+        case 'ekf'
+            r = find(~Map.used,vecSize,'first');
+        case 'graph'
+            r(1) = find(~Map.used.x,vecSize(1),'first');
+            r(2) = find(~Map.used.m,vecSize(2),'first');
+        otherwise
+            error('??? Unknown Map type ''%s''.', Map.type)
+    end
 else
     r = [];
 end

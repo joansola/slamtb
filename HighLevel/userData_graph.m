@@ -184,11 +184,12 @@ Sensor{1} = struct(...
 % Estimation options 
 Opt = struct(...
   'map',              struct(...    % options for the map
-    'type',           'ekf',...      % type of map {'ekf','graph'}
+    'type',           'graph',...      % type of map {'ekf','graph'}
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        6,...          % Size of landmark state
     'lmkManiSize',    3,...          % Size of lmk manifold state
-    'numFrames',      30),...        % number of frames in graph
+    'numFrames',      30,...         % number of frames in graph
+    'kfrmPeriod',     10),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  true,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?

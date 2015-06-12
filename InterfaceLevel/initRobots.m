@@ -12,24 +12,53 @@ function Rob = initRobots(Rob)
 %   Copyright 2013 Joan Sola
 
 
+global Map
+
+
 for rob = 1:numel(Rob)
     
-    % add to map and set state range
-    sr = addToMap(Rob(rob).state.x, Rob(rob).state.P); % state range in map
-    
-    Rob(rob).state.r = sr;
-    
-    % set frame range - model dependent
-    switch Rob(rob).motion
-        
-        case {'constVel', 'odometry'}
+    switch Map.type
+        case 'ekf'
             
-            % frame is 7 first states
-            Rob(rob).frame.r = sr(1:7);
+            % add to map and set state range
+            sr = addToMap(Rob(rob).state.x, Rob(rob).state.P); % state range in map
+            
+            Rob(rob).state.r = sr;
+            
+            % set frame range - model dependent
+            switch Rob(rob).motion
+                
+                case {'constVel', 'odometry'}
+                    
+                    % frame is 7 first states
+                    Rob(rob).frame.r = sr(1:7);
+                    
+                otherwise
+                    
+                    error('??? Unknown motion model %s', Rob(rob).motion);
+                    
+            end
+            
+        case 'graph'
+            
+            % Obtain ranges
+            xr = find(~Map.used.x, Rob(rob).state.size, 'first');
+            mr = find(~Map.used.m, Rob(rob).manifold.size, 'first');
+            
+            % Set ranges
+            Rob(rob).state.r = xr;
+            Rob(rob).manifold.r = mr;
+            
+            % Set values
+            Map.x(xr) = Rob(rob).state.x;
+            Map.m(mr) = 0;
+            
+            % Block Map positions
+            Map.used.x(xr) = true;
+            Map.used.m(mr) = true;
             
         otherwise
-            
-            error('??? Unknown motion model %s', Rob(rob).motion);
+            error('??? Unknown Map type ''%s''.', Map.type)
 
     end
     
@@ -65,7 +94,7 @@ end
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
 %   Copyright (c) 2014-    , Joan Sola @ IRI-UPC-CSIC,
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.

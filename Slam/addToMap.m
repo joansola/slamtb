@@ -4,7 +4,7 @@ function r = addToMap(L, P_LL, P_LX, r)
 %   ADDTOMAP(L,P_LL) adds the Gaussian N(L,P_LL) to the global EKF-map Map,
 %   at positions that are empty, and returns the range of positions where
 %   it has been added. ADDTOMAP adds mean L in Map.x and covariances P_LL
-%   in the block-diagonal of Map.P. 
+%   in the block-diagonal of Map.P.
 %
 %   For example, in the case of a map which has all used states contiguous,
 %   the new state and covariance are appended at the end of the existing
@@ -16,9 +16,9 @@ function r = addToMap(L, P_LL, P_LX, r)
 %
 %
 %   Map is a global structure, containing:
-%       .used   a vector of logicals indicating used positions 
-%       .x      the state vector 
-%       .P      the covariances matrix 
+%       .used   a vector of logicals indicating used positions
+%       .x      the state vector
+%       .P      the covariances matrix
 %       .size   the Map's maximum size, numel(Map.x)
 %
 %   ADDTOMAP(L,P_LL,P_LX) accepts the cross variance matrix between L and the
@@ -28,7 +28,7 @@ function r = addToMap(L, P_LL, P_LX, r)
 %           |   P     P_LX' |
 %       P = |               |
 %           | P_LX    P_LL  |
-%   
+%
 %   ADDTOMAP(L,P_LL,P_LX,R) or ADDTOMAP(L,P_LL,[],R) permits forcing the
 %   range R as input.
 %
@@ -48,14 +48,16 @@ end
 
 % add to map
 Map.x(r)    = L;
+
 Map.P(r,r)  = P_LL;
 if(size(P_LX)~=0)
     mr = usedRange();
     Map.P(r,mr) =  P_LX ;
     Map.P(mr,r) =  P_LX' ;
-end ;
+    Map.used(r) = true;
+end
+        
 
-Map.used(r) = true;
 
 
 
@@ -87,7 +89,7 @@ Map.used(r) = true;
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
 %   Copyright (c) 2014-    , Joan Sola @ IRI-UPC-CSIC,
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.

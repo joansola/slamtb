@@ -1,4 +1,4 @@
-function [Rob,Sen,Raw,Trj,Frm,Lmk,Fac,Obs,Tim] = createGraphStructures(Robot,Sensor,Time,Opt)
+function [Rob,Sen,Raw,Lmk,Obs,Trj,Frm,Fac,Tim] = createGraphStructures(Robot,Sensor,Time,Opt)
 
 % CREATEGRAPHSTRUCTURES  Initialize graphSLAM data structures from user data.
 

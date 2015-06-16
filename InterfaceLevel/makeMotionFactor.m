@@ -1,4 +1,4 @@
-function [Fac, Frm_old, Frm_new] = makeMotionFactor(Fac, Frm_old, Frm_new, factorRob)
+function [Frm_old, Frm_new, Fac] = makeMotionFactor(Frm_old, Frm_new, Fac, factorRob)
 
 
 Fac.used = true; % Factor is being used ?

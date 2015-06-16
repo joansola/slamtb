@@ -1,4 +1,4 @@
-function Rob = initRobots(Rob)
+function Rob = initRobots(Rob,Frm)
 
 % INITROBOTS Initialize robots in Map.
 %   Rob = INITROBOTS(Rob) initializes all robots in Rob() in the global map
@@ -39,11 +39,13 @@ for rob = 1:numel(Rob)
                     
             end
             
-        case 'graph'
+        case 'graph' 
+            % Associate to first frame of robot's trajectory, which is
+            % frame # 1.
             
             % Obtain ranges
-            xr = find(~Map.used.x, Rob(rob).state.size, 'first');
-            mr = find(~Map.used.m, Rob(rob).manifold.size, 'first');
+            xr = Frm(rob,1).state.r;
+            mr = Frm(rob,1).manifold.r;
             
             % Set ranges
             Rob(rob).state.r = xr;
@@ -52,10 +54,6 @@ for rob = 1:numel(Rob)
             % Set values
             Map.x(xr) = Rob(rob).state.x;
             Map.m(mr) = 0;
-            
-            % Block Map positions
-            Map.used.x(xr) = true;
-            Map.used.m(mr) = true;
             
         otherwise
             error('??? Unknown Map type ''%s''.', Map.type)

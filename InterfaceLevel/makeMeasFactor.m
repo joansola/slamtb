@@ -1,4 +1,4 @@
-function [Fac, Frm, Lmk] = makeMeasFactor(Fac, Frm, Lmk, Obs)
+function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac)
 
 % TODO: WIP
 

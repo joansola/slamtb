@@ -1,4 +1,4 @@
-function Frm = rob2frm(Rob, Frm)
+function [Rob, Frm] = rob2frm(Rob, Frm)
 
 % Creates a frame Frm from information in Rob.
 
@@ -17,7 +17,13 @@ Frm.manifold.active = true;
 % Copy data to Map storage
 Map.x(Frm.state.r) = Frm.state.x;
 % Manifolds are zero until soving:
-% Map.m(Frm.manifold.r) = Frm.manifold.x; 
+Map.m(Frm.manifold.r) = 0; 
+
+% Sync rob ranges to those in Frm
+Rob.state.r = Frm.state.r;
+Rob.manifold.r = Frm.manifold.r;
+
+
 
 % ========== End of function - Start GPL license ==========
 

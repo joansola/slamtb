@@ -40,8 +40,8 @@ end
 % Complete the new frame before appending it to structure array Frm
 id = newId;
 
-% Update Trj
-Trj.frmIds(Trj.head) = id;
+% % Update Trj
+% Trj.frmIds(Trj.head) = id;
 
 Frm(Trj.head).id = id;
 

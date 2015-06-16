@@ -1,10 +1,9 @@
 function Fac = createFactors(Opt)
 
 % CREATEFACTORS  Create Fac structure array.
-%   Fac = CREATEFACTORS(Factor) creates the structure array Fac() to be
-%   used as SLAM data. The input Factor{}  is a cell array of structures
-%   as specified by the user in userData.m. There must be one Factor{}
-%   per each factor type considered. See userData.m for details.
+%   Fac = CREATEFACTORS(Opt) creates the structure array Fac() to be
+%   used as SLAM data. All data is obtained from options structure Opt. See
+%   userData for details.
 
 %   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
 
@@ -14,16 +13,14 @@ Opt.map.numFactors = Opt.map.numFrames*(Opt.correct.nUpdates + Opt.init.nbrInits
 % Create all factor structures
 for fac = 1:Opt.map.numFactors
 
-    Fac(fac).used = false; % Factor is being used ?
     Fac(fac).fac = fac; % index in Fac array
     Fac(fac).id = []; % Factor unique ID
+    Fac(fac).used = false; % Factor is being used ?
     Fac(fac).type = ''; % {'motion','measurement','absolute'}
-    Fac(fac).frm = []; % Frame indices (one or more)
-%    Fac(fac).frmId = []; % frame ids (one or more)
+    Fac(fac).rob = []; % rob index
     Fac(fac).sen = []; % sen index
     Fac(fac).lmk = []; % lmk index
-    Fac(fac).id1 = []; % id of block 1
-    Fac(fac).id2 = []; % id of block 2
+    Fac(fac).frames = []; % Frames (one or more)
     Fac(fac).meas.y = [];
     Fac(fac).meas.R = [];
     Fac(fac).meas.W = []; % measurement information matrix

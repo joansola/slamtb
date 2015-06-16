@@ -1,10 +1,8 @@
-function [Frm] = createFrames(Rob, Opt)
+function Frm = createFrames(Rob, Trj)
 
 % CREATEFRAMES  Create Frm structure array.
-%   Frm = CREATEFRAMES(Frame) creates the structure array Frm() to be
-%   used as SLAM data. The input Frame{}  is a cell array of structures
-%   as specified by the user in userData.m. There must be one Frame{}
-%   per each frame type considered. See userData.m for details.
+%   Frm = CREATEFRAMES(Rob,Trj) creates the structure array Frm() to be
+%   used as SLAM data. 
 %
 %   State and manifold data allocations are fixed for each position in the
 %   window. Range information for the storage of this data is defined here
@@ -12,27 +10,34 @@ function [Frm] = createFrames(Rob, Opt)
 
 %   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
 
-stateSize = Rob.state.size;
-maniSize = Rob.manifold.size;
-
-for frm = 1:Opt.map.numFrames
-
-    Frm(frm).frm = frm;
-    Frm(frm).id = [];
-    Frm(frm).used = false;
-    Frm(frm).rob = [];
-
-    Frm(frm).factorIds = [];
+for rob = [Rob.rob]
     
-    Frm(frm).state.x = [];
-    Frm(frm).state.r = (1 + (frm-1)*stateSize : frm*stateSize);
-    Frm(frm).state.size = stateSize;
+    stateSize = Rob(rob).state.size;
+    maniSize = Rob(rob).manifold.size;
     
-    Frm(frm).manifold.x = [];
-    Frm(frm).manifold.active = false;
-    Frm(frm).manifold.r = (1 + (frm-1)*maniSize : frm*maniSize);
-    Frm(frm).manifold.size = maniSize;
-    
+    for frm = 1:Trj(rob).maxLength
+        
+        Frm(rob,frm).frm = frm;
+        Frm(rob,frm).id = [];
+        Frm(rob,frm).used = false;
+        
+        Frm(rob,frm).rob = rob;
+        Frm(rob,frm).factors = [];
+        
+        % State and manifold ranges -- query and block
+        [xr,mr] = newRange([stateSize,maniSize]);
+        blockRange(xr,mr);
+        
+        Frm(rob,frm).state.x = [];
+        Frm(rob,frm).state.r = xr;
+        Frm(rob,frm).state.size = stateSize;
+        
+        Frm(rob,frm).manifold.x = [];
+        Frm(rob,frm).manifold.active = false;
+        Frm(rob,frm).manifold.r = mr;
+        Frm(rob,frm).manifold.size = maniSize;
+        
+    end
 end
 
 % ========== End of function - Start GPL license ==========
@@ -63,7 +68,7 @@ end
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
 %   Copyright (c) 2014-2015, Joan Sola @ IRI-UPC-CSIC,
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.

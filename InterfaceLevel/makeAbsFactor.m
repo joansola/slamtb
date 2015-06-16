@@ -1,15 +1,14 @@
-function Fac = makeAbsFactor(Frm, Fac, factorRob)
+function [Frm, Fac] = makeAbsFactor(Frm, Fac, factorRob)
 
 
 Fac.used = true; % Factor is being used ?
-%     Fac.fac = fac; % index in Fac array
 Fac.id = newId; % Factor unique ID
 
 Fac.type = 'absolute'; % {'motion','measurement','absolute'}
-%     Fac.sen = []; % sen index
-%     Fac.lmk = []; % lmk index
-%     Fac.id1 = []; % id of block 1
-%     Fac.id2 = []; % id of block 2
+Fac.rob = factorRob.rob;
+Fac.sen = []; % sen index
+Fac.lmk = []; % lmk index
+Fac.frames = Frm.frm;
 
 % Project into manifold, 7DoF --> 6DoF
 [e, E_x] = qpose2epose(factorRob.state.x);
@@ -33,12 +32,12 @@ Fac.err.W = Fac.meas.W; % error information matrix
 % Jacobians are zero at this stage. Just make size correct.
 Fac.err.E_node1 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 1
 
-% Cross link factor with frames
-% Fac.frmId = Frm.id; % frame ids
-Fac.frm = Frm.frm;
+% Append factor to Frame's factors list.
+Frm.factors = [Frm.factors Fac.fac]; 
 
-% Append factor ID to factors list.
-Frm.factorIds = [Frm.factorIds Fac.id]; 
+
+
+
 % ========== End of function - Start GPL license ==========
 
 

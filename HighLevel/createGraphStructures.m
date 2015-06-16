@@ -9,14 +9,9 @@ global Map
 % Clear ID factory
 clear newId; 
 
+% HARDWARE
 % Create robots and controls
 Rob = createRobots(Robot);
-
-% Create robot trajectories
-Trj = createTrajectory(Rob, Opt);
-
-% Create frames
-Frm = createFrames(Rob,Opt);
 
 % Create sensors
 [Sen,Raw] = createSensors(Sensor);
@@ -27,17 +22,24 @@ Frm = createFrames(Rob,Opt);
 % Create Landmarks and non-observables
 Lmk = createLandmarks(Opt);
 
+% ESTIMATION
 % Create Map - empty
 Map = createMap(Rob,Sen,Opt);
 
-% Initialize robots in Map
-Rob = initRobots(Rob);
+% Create robot trajectories
+Trj = createTrajectory(Rob, Opt);
+
+% Create frames
+Frm = createFrames(Rob,Trj);
 
 % Create factors
 Fac = createFactors(Opt);
 
 % Create Observations (matrix: [ line=sensor , colums=landmark ])
 Obs = createObservations(Sen,Opt);
+
+% Initialize robots in Map
+Rob = initRobots(Rob,Frm);
 
 % Create time variables
 Tim = createTime(Time);

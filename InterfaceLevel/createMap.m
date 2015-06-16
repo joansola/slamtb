@@ -52,17 +52,19 @@ switch lower(Opt.map.type)
         Rm = [Rob.manifold];
         
         % overall number of states needed to allocate robots and landmarks
-        nx = sum([Rx.size Opt.map.lmkSize*Opt.map.numLmks]);
-        nm = sum([Rm.size*Opt.map.numFrames Opt.map.lmkManiSize*Opt.map.numLmks]);
+        nx = sum([[Rx.size].*Opt.map.numFrames Opt.map.lmkSize*Opt.map.numLmks]);
+        nm = sum([[Rm.size].*Opt.map.numFrames Opt.map.lmkManiSize*Opt.map.numLmks]);
         
+        % Map occupancy
         Map.used.x = false(nx,1);
         Map.used.m = false(nm,1);
         
+        % State and manifold
         Map.x = zeros(nx,1);
         Map.m = zeros(nm,1);
         
         % Hessian matrix in the manifold
-        Map.H = sparse([],[],[],nm,nm,ceil(nm*nm/4)); % 25% sparse. 
+%        Map.H = sparse([],[],[],nm,nm,ceil(nm*nm/4)); % 25% sparse. 
         
     otherwise
         

@@ -1,15 +1,14 @@
-function Fac = makeMotionFactor(Frm_old, Frm_new, Fac, factorRob)
+function [Fac, Frm_old, Frm_new] = makeMotionFactor(Fac, Frm_old, Frm_new, factorRob)
 
 
 Fac.used = true; % Factor is being used ?
-%     Fac.fac = fac; % index in Fac array
 Fac.id = newId; % Factor unique ID
 
 Fac.type = 'motion'; % {'motion','measurement','absolute'}
-%     Fac.sen = []; % sen index
-%     Fac.lmk = []; % lmk index
-%     Fac.id1 = []; % id of block 1
-%     Fac.id2 = []; % id of block 2
+Fac.rob = factorRob.rob;
+Fac.sen = [];
+Fac.lmk = [];
+Fac.frames = [Frm_old.frm Frm_new.frm];
 
 % Project into manifold, 7DoF --> 6DoF
 [e, E_x] = qpose2epose(factorRob.state.x);
@@ -34,13 +33,12 @@ Fac.err.W = Fac.meas.W; % error information matrix
 Fac.err.E_node1 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 1
 Fac.err.E_node2 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 2
 
-% Cross link factor with frames
-% Fac.frmId = [Frm_old.id Frm_new.id]; % frame ids
-Fac.frm = [Frm_old.frm Frm_new.frm];
+% Append factor to Frames' factors lists.
+Frm_old.factors = [Frm_old.factors Fac.fac]; 
+Frm_new.factors = [Frm_new.factors Fac.fac]; 
 
-% Append factor ID to factors list.
-Frm_old.factorIds = [Frm_old.factorIds Fac.id]; 
-Frm_new.factorIds = [Frm_new.factorIds Fac.id]; 
+
+
 % ========== End of function - Start GPL license ==========
 
 

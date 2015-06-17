@@ -321,7 +321,7 @@ end % sensor type
 
 
 % COVARIANCES
-if strcom(Map.type,'ekf')
+if strcmp(Map.type,'ekf')
 
     % Rob-Sen-Lmk range and Jacobian
     if Sen.frameInMap

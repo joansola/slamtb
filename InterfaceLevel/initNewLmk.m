@@ -1,4 +1,4 @@
-function [Lmk,Obs] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
+function [Lmk,Obs,Frm,lmk] = initNewLmk(Rob, Sen, Raw, Lmk, Obs,Frm, Opt)
 
 %INITNEWLMK  Initialise one landmark.
 %   [LMK, OBS] = INITNEWLMK(ROB, SEN, RAW, LMK, OBS) initializes one new
@@ -19,9 +19,16 @@ function [Lmk,Obs] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Opt)
 
 %   Copyright 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
 
+global Map
+
 % 0. UPDATE ROB AND SEN INFO FROM MAP
-Rob = map2rob(Rob);
-Sen = map2sen(Sen);
+switch Map.type
+    case 'ekf'
+        Rob = map2rob(Rob);
+        Sen = map2sen(Sen);
+    case 'graph'
+        Rob = frm2rob(Rob,Frm);
+end
 
 % Type of the lmk to initialize - with error check.
 switch Opt.init.initType
@@ -101,25 +108,41 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     [l, L_rf, L_sf, L_obs, L_n, N] = retroProjLmk(Rob,Sen,Obs(lmk),Opt);
 
     % get new Lmk, covariance and cross-variance.
-    [P_LL,P_LX] = getNewLmkCovs( ...
-        Sen.frameInMap, ...
-        Rob.frame.r, ...
-        Sen.frame.r, ...
-        L_rf, ...
-        L_sf, ...
-        L_obs, ...
-        L_n, ...
-        meas.R, ...
-        N) ;
+    if strcmp(Map.type, 'ekf')
+        [P_LL,P_LX] = getNewLmkCovs( ...
+            Sen.frameInMap, ...
+            Rob.frame.r, ...
+            Sen.frame.r, ...
+            L_rf, ...
+            L_sf, ...
+            L_obs, ...
+            L_n, ...
+            meas.R, ...
+            N) ;
 
-    % add to Map and get lmk range in Map
-    Lmk(lmk).state.r = addToMap(l,P_LL,P_LX);
+        % add to Map and get lmk range in Map
+        Lmk(lmk).state.r = addToMap(l,P_LL,P_LX);
+
+    else
+        % get lmk ranges in Map
+        [lxr,lmr] = newRange([Lmk(lmk).state.size, Lmk(lmk).manifold.size]);
+        
+        % Update ranges
+        Lmk(lmk).state.r = lxr;
+        Lmk(lmk).manifold.r = lmr;
+        
+        % Update states
+        Map.x(lxr) = l;
+        Map.m(lmr) = zeros(Lmk(lmk).manifold.size,1); % landmark manifold vector
+        
+    end
 
     % Fill Lmk structure
     Lmk(lmk).lmk     = lmk;
     Lmk(lmk).id      = newId;
     Lmk(lmk).type    = Opt.init.initType ;
     Lmk(lmk).used    = true;
+    Lmk(lmk).factors = [];
     Lmk(lmk).sig     = app;
     Lmk(lmk).nSearch = 1;
     Lmk(lmk).nMatch  = 1;

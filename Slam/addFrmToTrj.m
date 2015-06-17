@@ -23,12 +23,17 @@ if Trj.length < Trj.maxLength
     Trj.length = Trj.length + 1;
 
 else
-    % Trj was full. Oldest frame is overwritten !!
+    % Trj was full. Tail frame will be overwritten !!
+    
+    % Delete factors from tail before advancing
+    [Fac(Frm(Trj.tail).factors).used] = deal(false);
+    [Fac(Frm(Trj.tail).factors).frames] = deal([]);
+    % TODO delete landmarks linked only by the tail frame
     
     % Advance TAIL
     Trj.tail = mod(Trj.tail, Trj.maxLength) + 1;
     
-    % Clear motion factors at tail relating to older frames that have
+    % Clear motion factors at new tail relating to older frames that have
     % disappeared
     Frm(Trj.tail).factors = Frm(Trj.tail).factors(end);
     
@@ -37,8 +42,6 @@ end
 
 % Complete the new frame
 Frm(Trj.head).id = newId;
-[Fac(Frm(Trj.head).factors).used] = deal(false);
-[Fac(Frm(Trj.head).factors).frames] = deal([]);
 Frm(Trj.head).factors = [];
 
 

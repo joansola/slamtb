@@ -62,19 +62,19 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
   'dxStd',              0.005*[1;1;1],...  % odo linear error std
   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
-Robot{2} = struct(...                  % ODOMETRY EXAMPLE
-  'id',                 2,...           % robot identifier
-  'name',               'Dala',...      % robot name
-  'type',               'atrv',...      % type of robot
-  'motion',             'odometry',...  % motion model
-  'position',           [0;5;0],...     % robot position in map
-  'orientationDegrees', [0;0;180],...     % orientation, in degrees, [roll; pitch; yaw].
-  'positionStd',        [0;0;0],...     % position error, std
-  'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-  'dx',                 [.08;0;0],...     % position increment
-  'daDegrees',          [0;0;.9],...     % angle increment, degrees
-  'dxStd',              0.005*[1;1;1],...  % odo linear error std
-  'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
+% Robot{2} = struct(...                  % ODOMETRY EXAMPLE
+%   'id',                 2,...           % robot identifier
+%   'name',               'Dala',...      % robot name
+%   'type',               'atrv',...      % type of robot
+%   'motion',             'odometry',...  % motion model
+%   'position',           [0;5;0],...     % robot position in map
+%   'orientationDegrees', [0;0;180],...     % orientation, in degrees, [roll; pitch; yaw].
+%   'positionStd',        [0;0;0],...     % position error, std
+%   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
+%   'dx',                 [.08;0;0],...     % position increment
+%   'daDegrees',          [0;0;.9],...     % angle increment, degrees
+%   'dxStd',              0.005*[1;1;1],...  % odo linear error std
+%   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{3} = struct(...                  % CONSTANT VELOCITY EXAMPLE
 %   'id',                 3,...           % robot identifier
@@ -191,7 +191,7 @@ Opt = struct(...
     'numFrames',      4,...         % number of frames in graph
     'kfrmPeriod',     4),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
-    'reprojectLmks',  true,...       % reproject lmks after active search?
+    'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
     'nUpdates',       10,...         % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared

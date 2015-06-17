@@ -54,7 +54,7 @@ for lmk = find([Lmk.used])
 
     Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
     
-end ; % --- all landmarks are now projected.
+end  % --- all landmarks are now projected.
 
 vis = [Obs.vis];
 

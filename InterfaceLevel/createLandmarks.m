@@ -17,10 +17,12 @@ for lmk = 1:Opt.map.numLmks
 
     % Landmark state range in Map
     Lmk(lmk).state.r = [];
+    Lmk(lmk).state.size = Opt.map.lmkSize;
     
     % Landmark manifold state range in map
     Lmk(lmk).manifold.active = true; % Flag for activating estimation on manifold
     Lmk(lmk).manifold.r = [];
+    Lmk(lmk).manifold.size = Opt.map.lmkManiSize;
 
     % Landmark descriptor or signature
     Lmk(lmk).sig = [];

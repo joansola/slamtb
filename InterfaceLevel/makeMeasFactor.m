@@ -11,10 +11,6 @@ Fac.sen = Obs.sen;
 Fac.lmk = Obs.lmk;
 Fac.frames = Frm.frm;
 
-% Project frame pose into manifold, 7DoF --> 6DoF
-% [e, E_x] = qpose2epose(Frm.state.x);
-% E = E_x * Frm.state.P * E_x';
-
 % Measurement is the straight data
 Fac.meas.y = Obs.meas.y;
 Fac.meas.R = Obs.meas.R;

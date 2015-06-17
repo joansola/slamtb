@@ -91,7 +91,7 @@ if any(vis) % Consider only visible observations
 
             
             % Update Lmk inlier counter
-            %             Lmk(lmk).nInlier = Lmk(lmk).nInlier + 1;
+            Lmk(lmk).nInlier = Lmk(lmk).nInlier + 1;
             
             
         end % if matched

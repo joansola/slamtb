@@ -14,6 +14,7 @@ for lmk = 1:Opt.map.numLmks
     Lmk(lmk).id   = [];
     Lmk(lmk).type = '';
     Lmk(lmk).used = false;
+    Lmk(lmk).factors = []; % factors list
 
     % Landmark state range in Map
     Lmk(lmk).state.r = [];

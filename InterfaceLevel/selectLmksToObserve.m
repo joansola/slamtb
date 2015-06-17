@@ -30,7 +30,8 @@ switch Map.type
     case 'graph'
         
         % Use random set
-        lmkList = randperm([Obs.lmk]);
+        perm = randperm(length(Obs));
+        lmkList = [Obs(perm).lmk];
         
     otherwise
    

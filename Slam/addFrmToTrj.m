@@ -25,17 +25,21 @@ if Trj.length < Trj.maxLength
 else
     % Trj was full. Tail frame will be overwritten !!
     
-    % Delete factors from tail before advancing
+    % Delete (and cleanup) factors from tail before advancing
     [Fac(Frm(Trj.tail).factors).used] = deal(false);
     [Fac(Frm(Trj.tail).factors).frames] = deal([]);
+    [Fac(Frm(Trj.tail).factors).lmk] = deal([]);
     % TODO delete landmarks linked only by the tail frame
+    % TODO Clear factors in all landmarks related to tail frame
+    % FIXME we need to add Lmk to the API
     
     % Advance TAIL
     Trj.tail = mod(Trj.tail, Trj.maxLength) + 1;
     
     % Clear motion factors at new tail relating to older frames that have
     % disappeared
-    Frm(Trj.tail).factors = Frm(Trj.tail).factors(end);
+%     Frm(Trj.tail).factors = Frm(Trj.tail).factors(end);
+    Frm(Trj.tail).factors(1) = [];
     
     
 end

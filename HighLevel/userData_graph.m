@@ -218,8 +218,8 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'newSeed',        true,...         % select new random seed?
-    'fixedSeed',      208948,...            % random seed for non-random runs
+    'newSeed',        false,...         % select new random seed?
+    'fixedSeed',      211704,...            % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 

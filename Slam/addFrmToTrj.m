@@ -23,27 +23,10 @@ if Trj.length < Trj.maxLength
     Trj.length = Trj.length + 1;
 
 else
-    % Trj was full. Tail frame will be overwritten !!
+    % Trj is full. Tail frame will be overwritten !!
     
-    % Delete factors from factors lists in Frm and Lmk
-    factors = Frm(Trj.tail).factors;
-    for fac = factors
-        for frm = [Fac(fac).frames];
-            Frm(frm).factors([Frm(frm).factors] == fac) = [];
-        end
-        for lmk = [Fac(fac).lmk]
-            Lmk(lmk).factors([Lmk(lmk).factors] == fac) = [];
-        end
-        
-    end
-
-    % Free (and cleanup just in case) factors from tail before advancing
-    [Fac(factors).used] = deal(false);
-    [Fac(factors).frames] = deal([]);
-    [Fac(factors).lmk] = deal([]);
-
-    % Clean discarded tail frame
-    Frm(Trj.tail).used = false;
+    % Remove tail frame and cleanup graph
+    [Lmk,Trj,Frm,Fac] = removeFrm(Lmk,Trj,Frm,Fac);
     
     % Advance TAIL
     Trj.tail = mod(Trj.tail, Trj.maxLength) + 1;    
@@ -55,7 +38,40 @@ Frm(Trj.head).used = true;
 Frm(Trj.head).id = newId;
 Frm(Trj.head).factors = [];
 
+end
 
+function [Lmk,Trj,Frm,Fac] = removeFrm(Lmk,Trj,Frm,Fac)
+
+    % Delete factors from factors lists in Frm and Lmk
+    factors = Frm(Trj.tail).factors;
+    for fac = factors
+        for frm = [Fac(fac).frames];
+            Frm(frm).factors([Frm(frm).factors] == fac) = [];
+        end
+        for lmk = [Fac(fac).lmk]
+            Lmk(lmk).factors([Lmk(lmk).factors] == fac) = [];
+            % Delete landmark if no factors support it
+            if isempty(Lmk(lmk).factors)
+                % TODO: Use deleteLmk, which also updates Obs. 
+                % Need Obs in the API.
+                Lmk(lmk).used = false;
+                Map.used.x(Lmk(lmk).state.r) = false;
+                Map.used.m(Lmk(lmk).manifold.r) = false;
+
+            end
+        end
+        
+    end
+
+    % Free (and cleanup just in case) factors from tail before advancing
+    [Fac(factors).used] = deal(false);
+    [Fac(factors).frames] = deal([]);
+    [Fac(factors).lmk] = deal([]);
+
+    % Clean discarded tail frame
+    Frm(Trj.tail).used = false;
+
+end
 
 % ========== End of function - Start GPL license ==========
 

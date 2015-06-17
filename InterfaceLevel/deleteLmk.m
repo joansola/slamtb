@@ -8,7 +8,17 @@ function [Lmk,Obs] = deleteLmk(Lmk,Obs)
 
 global Map
 
-Map.used(Lmk.state.r) = false;
+switch Map.type
+
+    case 'ekf'
+        Map.used(Lmk.state.r) = false;
+        
+    case 'graph'
+        Map.used.x(Lmk.state.r) = false;
+        Map.used.m(Lmk.manifold.r) = false;
+
+end
+
 Lmk.used    = false;
 Obs.vis     = false;
 
@@ -42,7 +52,7 @@ Obs.vis     = false;
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
 %   Copyright (c) 2014-2015, Joan Sola @ IRI-UPC-CSIC,
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.

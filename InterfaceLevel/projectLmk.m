@@ -321,38 +321,46 @@ end % sensor type
 
 
 % COVARIANCES
-% Rob-Sen-Lmk range and Jacobian
-if Sen.frameInMap
-    rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
-    E_rsl = [E_rf E_sf E_l];
+if strcom(Map.type,'ekf')
+
+    % Rob-Sen-Lmk range and Jacobian
+    if Sen.frameInMap
+        rslr  = [Rob.frame.r ; Sen.frame.r ; lr]; % range of robot, sensor, and landmark
+        E_rsl = [E_rf E_sf E_l];
+    else
+        rslr  = [Rob.frame.r ; lr];               % range of robot and landmark
+        E_rsl = [E_rf E_l];
+    end
+    
+    % Expectation covariances matrix
+    E = E_rsl*Map.P(rslr,rslr)*E_rsl' ;
+
 else
-    rslr  = [Rob.frame.r ; lr];               % range of robot and landmark
-    E_rsl = [E_rf E_l];
+    E = [];
 end
-
-% Expectation covariances matrix
-E = E_rsl*Map.P(rslr,rslr)*E_rsl' ;
-
 
 % Other parameters
 switch Lmk.type(4:6)
     case 'Lin'
         % for lines, project endpoints with covariances:
 
-        % Rob-Sen-Lmk Jacobian of projected segment
-        if Sen.frameInMap
-            S_rsl = [S_rf S_sf S_si*SI_l];
-        else
-            S_rsl = [S_rf S_si*SI_l];
-        end
-
-        % compute endpoints and covariances
-        S = S_rsl*Map.P(rslr,rslr)*S_rsl'; % segment covariance
+        % compute endpoints
         Obs.par.endp(1).e = s(1:2);
         Obs.par.endp(2).e = s(3:4);
-        Obs.par.endp(1).E = S(1:2,1:2);
-        Obs.par.endp(2).E = S(3:4,3:4);
 
+        if Map.type == 'ekf'
+            % Rob-Sen-Lmk Jacobian of projected segment
+            if Sen.frameInMap
+                S_rsl = [S_rf S_sf S_si*SI_l];
+            else
+                S_rsl = [S_rf S_si*SI_l];
+            end
+            % compute covariances
+            S = S_rsl*Map.P(rslr,rslr)*S_rsl'; % segment covariance
+            Obs.par.endp(1).E = S(1:2,1:2);
+            Obs.par.endp(2).E = S(3:4,3:4);
+        end
+        
 end
 
 

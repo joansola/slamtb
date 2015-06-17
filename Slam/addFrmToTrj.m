@@ -1,4 +1,4 @@
-function [Trj,Frm,Fac] = addFrmToTrj(Trj,Frm,Fac)
+function [Lmk,Trj,Frm,Fac] = addFrmToTrj(Lmk,Trj,Frm,Fac)
 
 % ADDFRMTOTRJ Add frame to trajectory
 %   [Trj,Frm,Fac] = ADDFRMTOTRJ(Trj,Frm,Fac) Adds a frame to the trajectory
@@ -25,26 +25,33 @@ if Trj.length < Trj.maxLength
 else
     % Trj was full. Tail frame will be overwritten !!
     
-    % Delete (and cleanup) factors from tail before advancing
-    [Fac(Frm(Trj.tail).factors).used] = deal(false);
-    [Fac(Frm(Trj.tail).factors).frames] = deal([]);
-    [Fac(Frm(Trj.tail).factors).lmk] = deal([]);
-    % TODO delete landmarks linked only by the tail frame
-    % TODO Clear factors in all landmarks related to tail frame
-    % FIXME we need to add Lmk to the API
+    % Delete factors from factors lists in Frm and Lmk
+    factors = Frm(Trj.tail).factors;
+    for fac = factors
+        for frm = [Fac(fac).frames];
+            Frm(frm).factors([Frm(frm).factors] == fac) = [];
+        end
+        for lmk = [Fac(fac).lmk]
+            Lmk(lmk).factors([Lmk(lmk).factors] == fac) = [];
+        end
+        
+    end
+
+    % Free (and cleanup just in case) factors from tail before advancing
+    [Fac(factors).used] = deal(false);
+    [Fac(factors).frames] = deal([]);
+    [Fac(factors).lmk] = deal([]);
+
+    % Clean discarded tail frame
+    Frm(Trj.tail).used = false;
     
     % Advance TAIL
-    Trj.tail = mod(Trj.tail, Trj.maxLength) + 1;
-    
-    % Clear motion factors at new tail relating to older frames that have
-    % disappeared
-%     Frm(Trj.tail).factors = Frm(Trj.tail).factors(end);
-    Frm(Trj.tail).factors(1) = [];
-    
+    Trj.tail = mod(Trj.tail, Trj.maxLength) + 1;    
     
 end
 
-% Complete the new frame
+% Complete the new frame with no factors
+Frm(Trj.head).used = true;
 Frm(Trj.head).id = newId;
 Frm(Trj.head).factors = [];
 

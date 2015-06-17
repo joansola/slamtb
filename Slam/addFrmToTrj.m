@@ -28,7 +28,8 @@ else
     % Advance TAIL
     Trj.tail = mod(Trj.tail, Trj.maxLength) + 1;
     
-    % Clear factors to tail
+    % Clear motion factors at tail relating to older frames that have
+    % disappeared
     Frm(Trj.tail).factors = Frm(Trj.tail).factors(end);
     
     

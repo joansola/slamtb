@@ -1,4 +1,4 @@
-function [newId, app, meas, exp, inn] = simDetectFeat(lmkType, lmkIds, raw, pixCov, imSize)
+function [id, app, meas, exp, inn] = simDetectFeat(lmkType, lmkIds, raw, pixCov, imSize)
 
 % SIMDETECTFEAT  Detect a new feature in simulated raw data.
 %   [ID, M, E, I] = SIMDETECTFEAT(LTYPE, LIDS, RAW, PIXCOV, IMSIZE)
@@ -37,12 +37,12 @@ function [newId, app, meas, exp, inn] = simDetectFeat(lmkType, lmkIds, raw, pixC
 switch lmkType(4:6)
 
     case 'Pnt'
-        [newId, meas, exp, inn] = simDetectPnt(lmkIds, raw, pixCov, imSize);
-        app    = newId;
+        [id, meas, exp, inn] = simDetectPnt(lmkIds, raw, pixCov, imSize);
+        app    = id;
 
     case 'Lin'
-        [newId, meas, exp, inn] = simDetectLin(lmkIds, raw, pixCov);
-        app    = newId;
+        [id, meas, exp, inn] = simDetectLin(lmkIds, raw, pixCov);
+        app    = id;
         
     otherwise
 

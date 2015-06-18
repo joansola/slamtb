@@ -1,7 +1,7 @@
 function Rob = frm2rob(Rob, Frm)
 
 % FRM2ROB Frame to Robot information transfer
-%   Rob = FRM2ROB(Frm, Rob) Updates the robot Rob from information in Frm.
+%   Rob = FRM2ROB(Rob, Frm) Updates the robot Rob from information in Frm.
 
 %   Copyright 2015 Joan Sola @ IRI-CSIC-UPC
 

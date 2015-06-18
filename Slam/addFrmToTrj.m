@@ -42,6 +42,8 @@ end
 
 function [Lmk,Trj,Frm,Fac] = removeFrm(Lmk,Trj,Frm,Fac)
 
+global Map
+
     % Delete factors from factors lists in Frm and Lmk
     factors = Frm(Trj.tail).factors;
     for fac = factors

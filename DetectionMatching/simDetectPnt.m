@@ -1,4 +1,4 @@
-function [newId, meas, exp, inn] = simDetectPnt(lmkIds, raw, pixCov, imSize)
+function [Id, meas, exp, inn] = simDetectPnt(lmkIds, raw, pixCov, imSize)
 
 %SIMDETECTPNT Detect 2D point in simulated Raw data.
 %   [Y,R,NEWID] = SIMDETECTPNT(LMKIDS,RAW,PIXCOV) return the coordinates Y,
@@ -22,11 +22,12 @@ newIds(~visPnts)    = [];
 newIdsIdx(~visPnts) = [];
 
 if ~isempty(newIds)
-    newId    = newIds(1);
-    newIdx   = newIdsIdx(1);
+    i     = randi(numel(newIds));
+    Id    = newIds(i);
+    Idx   = newIdsIdx(i);
 
     % best new point coordinates and covariance
-    meas.y = raw.points.coord(:,newIdx);
+    meas.y = raw.points.coord(:,Idx);
     meas.R = pixCov;
     exp.e  = meas.y;
     exp.E  = meas.R;
@@ -35,7 +36,7 @@ if ~isempty(newIds)
 
 else
 
-    newId  = [];
+    Id  = [];
     meas.y = [];
     meas.R = [];
     exp.e  = [];

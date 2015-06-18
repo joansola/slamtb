@@ -33,7 +33,7 @@
 Time = struct(...
   'dt',                   .1,...          % sampling time, seconds
   'firstFrame',           1,...           % first frame #
-  'lastFrame',            800);           % last frame #
+  'lastFrame',            400);           % last frame #
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
@@ -188,8 +188,8 @@ Opt = struct(...
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        6,...          % Size of landmark state
     'lmkManiSize',    3,...          % Size of lmk manifold state
-    'numFrames',      4,...         % number of frames in graph
-    'kfrmPeriod',     4),...        % period between keyframes
+    'numFrames',      30,...         % number of frames in graph
+    'kfrmPeriod',     10),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
@@ -201,10 +201,10 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [5 1],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [5 2],...      % number of inits [firstFrame, otherFrames]
     'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
-      'nonObsMean',   .01,...         % mean of non obs
+      'nonObsMean',   .1,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
     'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init
       'nonObsMean',   [.1;0],...      % mean of non obs

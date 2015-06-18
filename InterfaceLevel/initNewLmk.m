@@ -68,7 +68,7 @@ end
 % Feature detection
 switch Raw.type
     case {'simu','dump'}
-        [newId, app, meas, exp, inn] = simDetectFeat(...
+        [lid, app, meas, exp, inn] = simDetectFeat(...
             Opt.init.initType,    ...
             [Lmk([Lmk.used]).id], ...
             Raw.data,             ...
@@ -90,7 +90,7 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     Obs(lmk).sen      = Sen.sen;
     Obs(lmk).lmk      = lmk;
     Obs(lmk).sid      = Sen.id;
-    Obs(lmk).lid      = newId;
+    Obs(lmk).lid      = lid;
     Obs(lmk).stype    = Sen.type;
     Obs(lmk).ltype    = Opt.init.initType;
     Obs(lmk).meas     = meas;
@@ -126,6 +126,7 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     else
         % get lmk ranges in Map
         [lxr,lmr] = newRange([Lmk(lmk).state.size, Lmk(lmk).manifold.size]);
+        blockRange(lxr,lmk);
         
         % Update ranges
         Lmk(lmk).state.r = lxr;
@@ -139,7 +140,7 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
 
     % Fill Lmk structure
     Lmk(lmk).lmk     = lmk;
-    Lmk(lmk).id      = newId;
+    Lmk(lmk).id      = lid;
     Lmk(lmk).type    = Opt.init.initType ;
     Lmk(lmk).used    = true;
     Lmk(lmk).factors = [];

@@ -27,8 +27,8 @@ Fac.err.Z = Fac.meas.R; % error cov matrix
 Fac.err.W = Fac.meas.W; % error information matrix
 
 % Jacobians are zero at this stage. Just make size correct.
-Fac.err.E_node1 = zeros(length(Obs.meas.y),Frm.state.size); % Jac. of error wrt. node 1
-Fac.err.E_node2 = zeros(length(Obs.meas.y),Lmk.state.size); % Jac. of error wrt. node 2
+Fac.err.E_node1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - robot pose
+Fac.err.E_node2 = Obs.Jac.E_l; % Jac. of error wrt. node 2 - lmk state
 
 % Append factor to Frame's and Lmk's factors lists.
 Frm.factors = [Frm.factors Fac.fac]; 

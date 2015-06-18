@@ -4,30 +4,25 @@ global Map
 
 fprintf('--------------------------\n')
 for rob = [Rob.rob]
-    ntabs = 1;
-    printRob(Rob(rob),ntabs);
+    printRob(Rob(rob),1);
     for sen = Rob(rob).sensors
-        ntabs = 2;
-        printSen(Sen(sen),ntabs);
+        printSen(Sen(sen),2);
     end
-    ntabs = 2;
-    printTrj(Trj(rob),ntabs);
+    printTrj(Trj(rob),2);
     for i = Trj(rob).head:-1:Trj(rob).head-Trj(rob).length+1
         frm = mod(i-1, Trj(rob).maxLength)+1;
-        ntabs = 3;
-        printFrm(Frm(frm),ntabs);
+        printFrm(Frm(frm),3);
         for fac = [Frm(frm).factors]
-            ntabs = 4;
-            printFac(Fac(fac),ntabs);
+            printFac(Fac(fac),4);
         end
         
     end
     
 end
 for lmk = find([Lmk.used])
-    ntabs = 1;
-    printLmk(Lmk(lmk),ntabs);
+    printLmk(Lmk(lmk),1);
 end
+fprintf('Map size: %3d, Mani size: %3d\n', sum(Map.used.x), sum(Map.used.m))
 end
 
 
@@ -45,24 +40,27 @@ end
 
 
 function printRob(Rob,ntabs)
-fprintf('%sRob: %d\n', tabs(ntabs), Rob.rob)
+fprintf('%sRob: %2d\n', tabs(ntabs), Rob.rob)
 end
 function printSen(Sen,ntabs)
-fprintf('%sSen: %d\n', tabs(ntabs), Sen.sen)
+fprintf('%sSen: %2d\n', tabs(ntabs), Sen.sen)
 end
 function printLmk(Lmk,ntabs)
-fprintf('%sLmk: %d\n', tabs(ntabs), Lmk.lmk)
+fprintf('%sLmk: %2d, id: %3d\n', tabs(ntabs), Lmk.lmk, Lmk.id)
 end
 function printTrj(Trj,ntabs)
-fprintf('%sTrj: %d\n', tabs(ntabs), Trj.rob)
+fprintf('%sTrj: head <- %s <-tail\n', tabs(ntabs), num2str(mod((Trj.head:-1:Trj.head-Trj.length+1)-1,Trj.maxLength)+1))
 end
 function printFrm(Frm,ntabs)
-fprintf('%sFrm: %d\n', tabs(ntabs), Frm.frm)
+fprintf('%sFrm: %2d, id: %3d\n', tabs(ntabs), Frm.frm, Frm.id)
 end
 function printFac(Fac,ntabs)
-fprintf('%sFac: %d\n', tabs(ntabs), Fac.fac)
-fprintf('%sframes: %s\n', tabs(ntabs+1), num2str(Fac.frames))
-if (~isempty(Fac.lmk))
-    fprintf('%slmk   : %s\n', tabs(ntabs+1), num2str(Fac.lmk))
+fprintf('%sFac: %3d, %s, ', tabs(ntabs), Fac.fac, Fac.type(1:4))
+if (isempty(Fac.lmk)) % abs or motion
+    fprintf('frm: ')
+    fprintf('%3d', Fac.frames)
+    fprintf('\n')
+else % measurement
+    fprintf('lmk: %2d\n', Fac.lmk)
 end
 end

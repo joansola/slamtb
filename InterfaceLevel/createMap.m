@@ -63,8 +63,16 @@ switch lower(Opt.map.type)
         Map.x = zeros(nx,1);
         Map.m = zeros(nm,1);
         
-        % Hessian matrix in the manifold
-%        Map.H = sparse([],[],[],nm,nm,ceil(nm*nm/4)); % 25% sparse. 
+        switch Opt.map.solver
+            case 'QR'
+            case 'Cholesky'
+                % Hessian matrix in the manifold
+                Map.H = sparse([],[],[],nm,nm,ceil(nm*nm/4)); % 25% sparse.
+                Map.b = zeros(nm,1); % rhs vector.
+            case 'Schur'
+            otherwise
+                error('??? Unknown graph solver ''%s''.', Opt.map.solver)
+        end
         
     otherwise
         

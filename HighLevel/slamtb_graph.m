@@ -31,6 +31,7 @@
 
 % clear workspace and declare globals
 clear
+clear Map;
 global Map    
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
@@ -78,6 +79,7 @@ for rob = [Rob.rob]
     factorRob(rob) = resetMotion(Rob(rob));
     
     % Add first keyframe with absolute factor
+    Rob(rob).state.P = 1e-6 * eye(7); % Give 1mm error
     [Rob(rob),Lmk,Trj(rob),Frm(rob,:),Fac] = addKeyFrame(...
         Rob(rob),       ...
         Lmk,            ...
@@ -90,6 +92,8 @@ for rob = [Rob.rob]
 end
 
 printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
+
+[Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
 
 
 %% IV. Main loop

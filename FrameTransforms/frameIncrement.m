@@ -23,8 +23,18 @@ elseif isvector(F) && isvector(G)
 
     if length(F) == 7 && length(G) == 7
         
-        I(1:3,1) = toFrame(F, G(1:3));
-        I(4:7) = qProd(q2qc(F(4:7)),G(4:7));
+        [pi, PI_f, PI_pg] = toFrame(F, G(1:3));
+        [qcf, QCF_qf] = q2qc(F(4:7));
+        [qi, QI_qcf, QI_qg] = qProd(qcf,G(4:7));
+        
+        I(1:3,1) = pi;
+        I(4:7,1) = qi;
+        
+        I_f(1:3,1:7) = PI_f;
+        I_f(4:7,4:7) = QI_qcf * QCF_qf;
+        I_g(1:3,1:3) = PI_pg;
+        I_g(4:7,4:7) = QI_qg;
+        
     else
         error('??? One or both frame vectors, F or G, have incorrect size.')
     end

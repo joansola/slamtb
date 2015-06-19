@@ -37,9 +37,10 @@ return
 %% test
 global Map
 
-Map.used = [0 0 0 1 1 0 1 1 0 0 0 1 0 0]';
+Map.used.x = [0 0 0 1 1 0 1 1 0 0 0 1 0 0]';
+Map.used.m = [0 1 1 0 1 0 0 1 0 0]';
 
-nr = newRange(6)
+[nr,nmr] = newRange([6,3])
 ur = usedRange()
 
 

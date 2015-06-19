@@ -185,6 +185,7 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'type',           'graph',...      % type of map {'ekf','graph'}
+    'solver',         'Cholesky',...   % graph solver {'QR','Cholesly','Schur'}
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        6,...          % Size of landmark state
     'lmkManiSize',    3,...          % Size of lmk manifold state

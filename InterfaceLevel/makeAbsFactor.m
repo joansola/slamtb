@@ -1,36 +1,43 @@
-function [Frm, Fac] = makeAbsFactor(Frm, Fac, factorRob)
+function [Frm, Fac] = makeAbsFactor(Frm, Fac, Rob)
 
 
 Fac.used = true; % Factor is being used ?
 Fac.id = newId; % Factor unique ID
 
 Fac.type = 'absolute'; % {'motion','measurement','absolute'}
-Fac.rob = factorRob.rob;
+Fac.rob = Rob.rob;
 Fac.sen = []; % sen index
 Fac.lmk = []; % lmk index
 Fac.frames = Frm.frm;
 
+% Ranges
+Fac.state.r1 = Frm.state.r;
+Fac.state.r2 = [];
+Fac.manifold.r1 = Frm.manifold.r;
+Fac.manifold.r2 = [];
+
+
 % Project into manifold, 7DoF --> 6DoF
-[e, E_x] = qpose2epose(factorRob.state.x);
-E = E_x * factorRob.state.P * E_x';
+[e, E_x] = qpose2epose(Rob.state.x);
+E = E_x * Rob.state.P * E_x';
 
 % Measurement is the straight data
-Fac.meas.y = e;
-Fac.meas.R = E;
-Fac.meas.W = (E + 1e-10 * eye(numel(e) ) )^-1; % measurement information matrix
+Fac.meas.y = Rob.state.x;
+Fac.meas.R = Rob.state.P;
+% Fac.meas.W = []; % measurement information matrix
 
 % Expectation has zero covariance -- and info is not defined
 Fac.exp.e = Fac.meas.y; % expectation
-Fac.exp.E = zeros(size(E)); % expectation cov
+Fac.exp.E = zeros(size(Fac.meas.R)); % expectation cov
 %     Fac.exp.W = Fac.meas.W; % expectation information matrix
 
 % Error is zero at this stage, and takes covariance and info from measurement
 Fac.err.z = zeros(size(e)); % error or innovation (we call it error because we are on graph SLAM)
-Fac.err.Z = Fac.meas.R; % error cov matrix
-Fac.err.W = Fac.meas.W; % error information matrix
+Fac.err.Z = E; % error cov matrix
+Fac.err.W = E^-1; % error information matrix
 
 % Jacobians are zero at this stage. Just make size correct.
-Fac.err.E_node1 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 1
+Fac.err.E_node1 = zeros(6,Rob.state.size); % Jac. of error wrt. node 1
 
 % Append factor to Frame's factors list.
 Frm.factors = [Frm.factors Fac.fac]; 

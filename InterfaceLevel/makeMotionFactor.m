@@ -10,24 +10,30 @@ Fac.sen = [];
 Fac.lmk = [];
 Fac.frames = [Frm_old.frm Frm_new.frm];
 
+% Ranges
+Fac.state.r1 = Frm_old.state.r;
+Fac.state.r2 = Frm_new.state.r;
+Fac.manifold.r1 = Frm_old.manifold.r;
+Fac.manifold.r2 = Frm_new.manifold.r;
+
 % Project into manifold, 7DoF --> 6DoF
 [e, E_x] = qpose2epose(factorRob.state.x);
 E = E_x * factorRob.state.P * E_x';
 
 % Measurement is the straight data
-Fac.meas.y = e;
-Fac.meas.R = E;
-Fac.meas.W = E^-1; % measurement information matrix
+Fac.meas.y = factorRob.state.x;
+Fac.meas.R = factorRob.state.P;
+% Fac.meas.W = []; % measurement information matrix
 
 % Expectation has zero covariance -- and info in not defined
 Fac.exp.e = Fac.meas.y; % expectation
-Fac.exp.E = zeros(size(E)); % expectation cov
+Fac.exp.E = zeros(size(Fac.meas.R)); % expectation cov
 %     Fac.exp.W = Fac.meas.W; % expectation information matrix
 
 % Error is zero at this stage, and takes covariance and info from measurement
 Fac.err.z = zeros(size(e)); % error or innovation (we call it error because we are on graph SLAM)
-Fac.err.Z = Fac.meas.R; % error cov matrix
-Fac.err.W = Fac.meas.W; % error information matrix
+Fac.err.Z = E; % error cov matrix
+Fac.err.W = E^-1; % error information matrix
 
 % Jacobians are zero at this stage. Just make size correct.
 Fac.err.E_node1 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 1

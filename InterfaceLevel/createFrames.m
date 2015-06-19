@@ -10,6 +10,10 @@ function Frm = createFrames(Rob, Trj)
 
 %   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
 
+% Indices for pre-allocated ranges
+xi = 1;
+mi = 1;
+
 for rob = [Rob.rob]
     
     stateSize = Rob(rob).state.size;

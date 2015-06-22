@@ -212,11 +212,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         
         % Solve graph
         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
-
-%         lmks = [Lmk([Lmk.used]).lmk]
-%         lids = [Lmk(lmks).id]
-%         lvis = [Obs(1,[Obs(1,:).vis]).lmk]
-%         lvis = [Lmk(lvis).id]
+        
+        [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
         
         % Update Rob
         for rob = [Rob.rob]

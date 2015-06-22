@@ -55,12 +55,12 @@ function printFrm(Frm,ntabs)
 fprintf('%sFrm: %2d (%3d)\n', tabs(ntabs), Frm.frm, Frm.id)
 end
 function printFac(Fac,ntabs)
-fprintf('%sFac: %3d, %s, ', tabs(ntabs), Fac.fac, Fac.type(1:4))
+fprintf('%sFac: %3d, %s', tabs(ntabs), Fac.fac, Fac.type(1:4))
 if (isempty(Fac.lmk)) % abs or motion
-    fprintf('frm: ')
+    fprintf(', frm: ')
     fprintf('%3d', Fac.frames)
-    fprintf('\n')
 else % measurement
-    fprintf('lmk: %2d\n', Fac.lmk)
+    fprintf(', lmk: %2d', Fac.lmk)
 end
+fprintf('\n')
 end

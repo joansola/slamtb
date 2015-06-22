@@ -39,6 +39,7 @@ for fac = [Fac([Fac.used]).fac]
     H_22 = J2' * W * J2;
     
     % Re-condition lmks with only 1 observation 
+    % Note: this is to handle single bearing-only's 
     if strcmp(Fac(fac).type, 'measurement') && numel(Fac(fac).frames) == 1
         H_22 = H_22 + eye(size(H_22));
     end

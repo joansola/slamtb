@@ -52,10 +52,13 @@ global Map
     factors = Frm(Trj.tail).factors;
     for fac = factors
         for frm = [Fac(fac).frames];
+            % Remove factors from factors list
             Frm(frm).factors([Frm(frm).factors] == fac) = [];
         end
         for lmk = [Fac(fac).lmk]
+            % Remove factors from factors list
             Lmk(lmk).factors([Lmk(lmk).factors] == fac) = [];
+            
             % Delete landmark if no factors support it
             if isempty(Lmk(lmk).factors)
                 % TODO: Use deleteLmk, which also updates Obs. 

@@ -91,8 +91,8 @@ for rob = [Rob.rob]
     
 end
 
-printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
+printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
 
 %% IV. Main loop
@@ -210,9 +210,9 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         end % end process robots
         
         % Solve graph
-        printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
-        
+        printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
+
         % Update Rob
         for rob = [Rob.rob]
             

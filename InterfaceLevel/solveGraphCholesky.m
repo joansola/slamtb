@@ -12,8 +12,8 @@ end
 for lmk = [Lmk([Lmk.used]).lmk]
     switch Lmk(lmk).type
         case 'hmgPnt'
-            w = Lmk(lmk).state.x(4); % Homogeneous part
-            Lmk(lmk).state.M = [w*eye(3) ; 0 0 0];
+            [~,~,H_dh] = composeHmgPnt(Lmk(lmk).state.x, zeros(3,1));
+            Lmk(lmk).state.M = H_dh;
         otherwise
             error('??? Unknown landmark type ''%s'' or Jacobian not implemented.',Lmk.type)
     end
@@ -21,7 +21,7 @@ end
 
 % Reset Hessian and rhs vector
 Map.H = 0*Map.H;
-Map.b = 8*Map.b;
+Map.b = 0*Map.b;
 
 for fac = [Fac([Fac.used]).fac]
     
@@ -41,7 +41,7 @@ for fac = [Fac([Fac.used]).fac]
     % Re-condition lmks with only 1 observation 
     % Note: this is to handle single bearing-only's 
     if strcmp(Fac(fac).type, 'measurement') && numel(Fac(fac).frames) == 1
-        H_22 = H_22 + eye(size(H_22));
+        H_22 = H_22 + 100*eye(size(H_22));
     end
     
     % Compute rhs
@@ -57,15 +57,19 @@ for fac = [Fac([Fac.used]).fac]
     Map.b(r1,1) = Map.b(r1,1) + b1;
     Map.b(r2,1) = Map.b(r2,1) + b2;
     
+    
 end
 
-% Column permutation 
+figure(3);
+spy(Map.H(Map.used,Map.used));
+
+% Column permutation
 p = colamd(Map.H(Map.used, Map.used))';
 
 % Decomposition
-R = chol(Map.H(p,p));
-y = -R'\Map.b(p);
-dx(p,1) = R\y;
+Map.R = chol(Map.H(p,p));
+y = -Map.R'\Map.b(p);
+dx(p,1) = Map.R\y;
 % Update Map
 Map.x(Map.used) = dx;
 
@@ -87,4 +91,39 @@ for lmk = [Lmk([Lmk.used]).lmk]
             error('??? Unknown landmark type ''%s'' or Jacobian not implemented.',Lmk.type)
     end
 end
+
+% ========== End of function - Start GPL license ==========
+
+
+%   # START GPL LICENSE
+
+%---------------------------------------------------------------------
+%
+%   This file is part of SLAMTB, a SLAM toolbox for Matlab.
+%
+%   SLAMTB is free software: you can redistribute it and/or modify
+%   it under the terms of the GNU General Public License as published by
+%   the Free Software Foundation, either version 3 of the License, or
+%   (at your option) any later version.
+%
+%   SLAMTB is distributed in the hope that it will be useful,
+%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%   GNU General Public License for more details.
+%
+%   You should have received a copy of the GNU General Public License
+%   along with SLAMTB.  If not, see <http://www.gnu.org/licenses/>.
+%
+%---------------------------------------------------------------------
+
+%   SLAMTB is Copyright:
+%   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
+%   Copyright (c) 2010-2013, Joan Sola,
+%   Copyright (c) 2014-2015, Joan Sola @ IRI-UPC-CSIC,
+%   SLAMTB is Copyright 2009 
+%   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
+%   @ LAAS-CNRS.
+%   See on top of this file for its particular copyright.
+
+%   # END GPL LICENSE
 

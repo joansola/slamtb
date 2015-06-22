@@ -13,7 +13,7 @@ function [Lmk,Obs] = smartDeleteLmk(Lmk,Obs)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-global Map
+
 
 
 if Lmk.nSearch >= 10

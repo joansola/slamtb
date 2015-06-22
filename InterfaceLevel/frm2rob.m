@@ -5,18 +5,10 @@ function Rob = frm2rob(Rob, Frm)
 
 %   Copyright 2015 Joan Sola @ IRI-CSIC-UPC
 
-global Map
-
-% Get info from Map
-Frm.state.x = Map.x(Frm.state.r);
-Frm.manifold.x = Map.x(Frm.manifold.r);
-
 % Transfer to Rob - ranges and values
 Rob.state.r = Frm.state.r;
-Rob.manifold.r = Frm.manifold.r;
-
 Rob.state.x = Frm.state.x;
-Rob.manifold.x = Frm.manifold.x;
+Rob.state.dx = Frm.state.dx;
 
 
 % ========== End of function - Start GPL license ==========

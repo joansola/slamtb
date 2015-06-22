@@ -1,19 +1,13 @@
-function [s, ms] = freeSpace()
+function s = freeSpace()
 
 % FREESPACE Check for free space in Map.
 %   FREESPACE() returns the number of free states in the map Map.
 
 global Map
 
-switch Map.type
-    case 'ekf'
-        s = numel(find(~Map.used));
-    case 'graph'
-        s = numel(find(~Map.used.x));
-        ms = numel(find(~Map.used.m));
-    otherwise
-        error('??? Unknown Map type ''%s%''.', Map.type)
-end
+s = sum(~Map.used);
+
+
 % ========== End of function - Start GPL license ==========
 
 

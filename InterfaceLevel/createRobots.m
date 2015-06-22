@@ -24,7 +24,6 @@ for rob = 1:numel(Robot)
     % Robot frame in quaternion form
     ep = [Ri.position;deg2rad(Ri.orientationDegrees)];
     EP = diag([Ri.positionStd;deg2rad(Ri.orientationStd)].^2);
-    
     [qp,QP] = propagateUncertainty(ep,EP,@epose2qpose); % frame and cov. in quaternion
 
     % control and rest of the state
@@ -44,10 +43,7 @@ for rob = 1:numel(Robot)
             % state
             Ro.state.x    = [qp;v]; % state
             Ro.state.P    = blkdiag(QP,V);
-            
-            % manifold state
-            Ro.manifold.active = true; % Flag for activating estimation on manifold
-            Ro.manifold.x    = zeros(12,1);
+            Ro.state.dx   = zeros(12,1);
             
         case {'odometry'}
             % control
@@ -58,21 +54,16 @@ for rob = 1:numel(Robot)
             
             % state
             Ro.state.x    = qp; % state
-            Ro.state.P    = QP;
-
-            % manifold state
-            Ro.manifold.active = true; % Flag for activating estimation on manifold
-            Ro.manifold.x    = zeros(6,1);
+            Ro.state.P    = EP;
+            Ro.state.dx   = zeros(6,1);
                         
         otherwise
             error('Unknown motion model ''%s'' for robot %d.',Robot{rob}.motion,Robot{rob}.id);
     end
     
+    Ro.state.r  = []; % Points  Map.x  into  state.dx
     Ro.state.size = numel(Ro.state.x);   % state size
-    Ro.state.r  = [];
-    
-    Ro.manifold.size = numel(Ro.manifold.x);
-    Ro.manifold.r  = [];
+    Ro.state.dsize = numel(Ro.state.dx);
 
     Ro.frame.x = qp;
     Ro.frame.P = QP;

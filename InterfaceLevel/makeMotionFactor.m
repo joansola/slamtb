@@ -13,8 +13,6 @@ Fac.frames = [Frm_old.frm Frm_new.frm];
 % Ranges
 Fac.state.r1 = Frm_old.state.r;
 Fac.state.r2 = Frm_new.state.r;
-Fac.manifold.r1 = Frm_old.manifold.r;
-Fac.manifold.r2 = Frm_new.manifold.r;
 
 % Project into manifold, 7DoF --> 6DoF
 [e, E_x] = qpose2epose(factorRob.state.x);

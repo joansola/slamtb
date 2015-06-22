@@ -10,15 +10,8 @@ function Frm = createFrames(Rob, Trj)
 
 %   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
 
-% Indices for pre-allocated ranges
-xi = 1;
-mi = 1;
-
 for rob = [Rob.rob]
-    
-    stateSize = Rob(rob).state.size;
-    maniSize = Rob(rob).manifold.size;
-    
+        
     for frm = 1:Trj(rob).maxLength
         
         Frm(rob,frm).frm = frm;
@@ -29,17 +22,15 @@ for rob = [Rob.rob]
         Frm(rob,frm).factors = [];
         
         % State and manifold ranges -- query and block
-        [xr,mr] = newRange([stateSize,maniSize]);
-        blockRange(xr,mr);
-        
-        Frm(rob,frm).state.x = [];
-        Frm(rob,frm).state.r = xr;
-        Frm(rob,frm).state.size = stateSize;
-        
-        Frm(rob,frm).manifold.x = [];
-        Frm(rob,frm).manifold.active = false;
-        Frm(rob,frm).manifold.r = mr;
-        Frm(rob,frm).manifold.size = maniSize;
+%         r = newRange(Rob(rob).state.dsize);
+%         blockRange(r);
+
+        Frm(rob,frm).state.x = zeros(Rob(rob).state.size,1);
+        Frm(rob,frm).state.dx = zeros(Rob(rob).state.dsize,1);
+        Frm(rob,frm).state.r = [];
+        Frm(rob,frm).state.size = Rob(rob).state.size;
+        Frm(rob,frm).state.dsize = Rob(rob).state.dsize;
+        Frm(rob,frm).state.M = []; % Jacobian of projection to manifold
         
     end
 end

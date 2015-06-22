@@ -1,11 +1,19 @@
 function [Rob,Lmk,Trj,Frm,Fac] = addKeyFrame(Rob,Lmk,Trj,Frm,Fac,factorRob, factorType)
 
+global Map
+
 % Add frame to trajectory
 [Lmk,Trj,Frm,Fac] = addFrmToTrj(...
     Lmk,...
     Trj,...
     Frm,...
     Fac);
+
+% Add to Map
+r = newRange(Frm(Trj.head).state.dsize);
+blockRange(r);
+Frm(Trj.head).state.r = r;
+Map.x(r) = 0;
 
 % Update new frame with Rob info
 [Rob, Frm(Trj.head)] = rob2frm(...

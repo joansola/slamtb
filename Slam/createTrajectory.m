@@ -9,7 +9,6 @@ for rob = [Rob.rob]
     Trj(rob).tail = 1;
     Trj(rob).length = 0;
     Trj(rob).maxLength = Opt.map.numFrames;
-%     Trj(rob).frmIds = [];
 
 end
 

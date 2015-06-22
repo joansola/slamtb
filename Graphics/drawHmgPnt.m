@@ -9,10 +9,17 @@ global Map
 posOffset = [0;0;.2];
 
 % transform to Euclidean
-[x,P] = propagateUncertainty(       ...
-    Map.x(Lmk.state.r),             ...
-    Map.P(Lmk.state.r,Lmk.state.r), ...
-    @hmg2euc);
+switch Map.type
+    case 'ekf'
+        [x,P] = propagateUncertainty(       ...
+            Map.x(Lmk.state.r),             ...
+            Map.P(Lmk.state.r,Lmk.state.r), ...
+            @hmg2euc);
+    case 'graph'
+        x = hmg2euc(Lmk.state.x);
+    otherwise
+        error('??? Unknown Map type ''%s''.',Map.type)
+end
 
 % draw
 drawPnt    (MapFig.Lmk(Lmk.lmk).mean,    x,    color.mean)

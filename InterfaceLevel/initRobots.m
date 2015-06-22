@@ -40,20 +40,20 @@ for rob = 1:numel(Rob)
             end
             
         case 'graph' 
-            % Associate to first frame of robot's trajectory, which is
-            % frame # 1.
+            % WIP. Do nothing, frames will be added to the Map on the go.
             
-            % Obtain ranges
-            xr = Frm(rob,1).state.r;
-            mr = Frm(rob,1).manifold.r;
             
-            % Set ranges
-            Rob(rob).state.r = xr;
-            Rob(rob).manifold.r = mr;
-            
-            % Set values
-            Map.x(xr) = Rob(rob).state.x;
-            Map.m(mr) = 0;
+%             % Associate to first frame of robot's trajectory, which is
+%             % frame # 1.
+%             r = newRange(Rob.state.dsize);
+%             blockRange(r);
+%             
+%             % Set ranges
+%             Rob(rob).state.r = r;
+%             Frm(rob,1).state.r = r;
+%             
+%             % Reset error values
+%             Map.m(r) = 0;
             
         otherwise
             error('??? Unknown Map type ''%s''.', Map.type)

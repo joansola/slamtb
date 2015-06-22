@@ -31,9 +31,6 @@ else
     H.x = [H.t;H.q];
     H   = updateFrame(H);
     
-%     H_f = zeros(7);
-%     H_g = zeros(7);
-    
     H_f(1:3,:)   = T_f;
     H_f(4:7,4:7) = Q_qf;
     H_g(1:3,1:3) = T_tg;

@@ -187,9 +187,9 @@ Opt = struct(...
     'type',           'graph',...      % type of map {'ekf','graph'}
     'solver',         'Cholesky',...   % graph solver {'QR','Cholesly','Schur'}
     'numLmks',        73,...         % number of 3d landmarks
-    'lmkSize',        6,...          % Size of landmark state
+    'lmkSize',        4,...          % Size of landmark state
     'lmkManiSize',    3,...          % Size of lmk manifold state
-    'numFrames',      30,...         % number of frames in graph
+    'numFrames',      5,...         % number of frames in graph
     'kfrmPeriod',     10),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?

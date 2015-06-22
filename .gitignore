@@ -6,3 +6,9 @@
 *.png
 *.mat
 
+# Ignored .m files
+bsdbatch.m
+gplbatch.m
+graphslam.m
+licremove.m
+

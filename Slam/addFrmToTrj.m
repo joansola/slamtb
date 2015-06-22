@@ -12,8 +12,6 @@ function [Lmk,Trj,Frm,Fac] = addFrmToTrj(Lmk,Trj,Frm,Fac)
 %   The added frame is empty, and only its ID is created, distinct to all
 %   other IDs.
 
-global Map
-
 % Advance HEAD
 Trj.head = mod(Trj.head, Trj.maxLength) + 1;
 
@@ -79,8 +77,7 @@ global Map
     Frm(Trj.tail).used = false;
     
     % Unblock positions in Map
-    Map.used.x(Frm(Trj.tail).state.r)    = false;
-    Map.used.m(Frm(Trj.tail).manifold.r) = false;
+    Map.used(Frm(Trj.tail).state.r)    = false;
 
 
 end

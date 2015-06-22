@@ -14,8 +14,6 @@ Fac.frames = Frm.frm;
 % Ranges
 Fac.state.r1 = Frm.state.r;
 Fac.state.r2 = Lmk.state.r;
-Fac.manifold.r1 = Frm.manifold.r;
-Fac.manifold.r2 = Lmk.manifold.r;
 
 % Measurement is the straight data
 Fac.meas.y = Obs.meas.y;

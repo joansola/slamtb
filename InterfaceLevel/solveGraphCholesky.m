@@ -2,6 +2,23 @@ function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 global Map
 
+% Compute Jacobians for projection onto the manifold
+for rob = [Rob.rob]
+    for frm = [Frm(rob,[Frm(rob).used]).frm]
+        q = Frm(rob,frm).state.x(4:7);
+        Frm(rob,frm).state.M = [eye(3), zeros(3,3) ; zeros(4,3) q2Pi(q)];
+    end
+end
+for lmk = [Lmk([Lmk.used]).lmk]
+    switch Lmk.type
+        case 'hmgPnt'
+            w = Lmk(lmk).state.x(4); % Homogeneous part
+            Lmk(lmk).state.M = [w*eye(3) ; 0 0 0];
+        otherwise
+            error('??? Unknown landmark type ''%s'' or Jacobian not implemented.',Lmk.type)
+    end
+end
+
 for fac = [Fac([Fac.used]).fac]
     
     rob = Fac(fac).rob;
@@ -31,20 +48,31 @@ for fac = [Fac([Fac.used]).fac]
     
 end
 
-% Fix map used space by removing positions of unused frames
-xu = Map.used.x;
-xu([Frm([Frm.used]).state.r]) = false;
-% TODO: WIP
-% TIP: Free frames from having fixed ranges, and treat them dynamicall all
-% the time.
-
 % Column permutation 
-p = colamd(Map.H(Map.used.x, Map.used.x))';
+p = colamd(Map.H(Map.used, Map.used))';
 
 % Decomposition
-% R = chol(Map.H(p,p));
-% y = -R'\b(Map.p);
-% dx(p) = R\y;
+R = chol(Map.H(p,p));
+y = -R'\Map.b(p);
+dx(p,1) = R\y;
+% Update Map
+Map.x(Map.used) = dx;
 
-% Update
+% Update Map
 % Map.x = Map.x + dx;
+for rob = [Rob.rob]
+    for frm = [Frm(rob,[Frm(rob).used]).frm]
+        % TODO: Compose (++) state and error state
+        % Frm.state.x = Frm.state.x ++ Map.x(Frm.state.r)
+    end
+end
+for lmk = [Lmk([Lmk.used]).lmk]
+    switch Lmk.type
+        case 'hmgPnt'
+        % TODO: Compose (++) state and error state
+        % Lmk.state.x = Lmk.state.x ++ Map.x(Lmk.state.r)
+        otherwise
+            error('??? Unknown landmark type ''%s'' or Jacobian not implemented.',Lmk.type)
+    end
+end
+

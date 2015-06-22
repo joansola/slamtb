@@ -4,24 +4,18 @@ function [Rob, Frm] = rob2frm(Rob, Frm)
 
 global Map
 
-Frm.rob = Rob.rob;
+% Set 'used'
 Frm.used = true;
-% Frm.state.r % This is fixed by Frm structure.
-Frm.state.x = Rob.state.x;
-Frm.state.size = Rob.state.size;
-% Frm.manifold.r % This is fixed by Frm structure.
-Frm.manifold.x = Rob.manifold.x;
-Frm.manifold.size = Rob.manifold.size;
-Frm.manifold.active = true;
 
-% Copy data to Map storage
-Map.x(Frm.state.r) = Frm.state.x;
-% Manifolds are zero until soving:
-Map.m(Frm.manifold.r) = 0; 
+% State
+Frm.state.x = Rob.state.x;
+Frm.state.dx = Rob.state.dx;
 
 % Sync rob ranges to those in Frm
 Rob.state.r = Frm.state.r;
-Rob.manifold.r = Frm.manifold.r;
+
+% Copy data to Map storage
+% Map.x(Frm.state.r) = 0; 
 
 
 

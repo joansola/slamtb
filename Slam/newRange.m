@@ -1,4 +1,4 @@
-function [r, mr] = newRange(vecSize)
+function r = newRange(vecSize)
 
 % NEWRANGE  New map range.
 %   NEWRANGE(SIZE) returns a range vector with the first SIZE non-used
@@ -18,18 +18,9 @@ function [r, mr] = newRange(vecSize)
 global Map
 
 if all(vecSize > 0)
-    switch Map.type
-        case 'ekf'
-            r = find(~Map.used,vecSize,'first');
-        case 'graph'
-            r = find(~Map.used.x,vecSize(1),'first');
-            mr = find(~Map.used.m,vecSize(2),'first');
-        otherwise
-            error('??? Unknown Map type ''%s''.', Map.type)
-    end
+    r = find(~Map.used,vecSize,'first');
 else
     r = [];
-    mr = [];
 end
 
 return
@@ -38,9 +29,8 @@ return
 global Map
 
 Map.used.x = [0 0 0 1 1 0 1 1 0 0 0 1 0 0]';
-Map.used.m = [0 1 1 0 1 0 0 1 0 0]';
 
-[nr,nmr] = newRange([6,3])
+[nr] = newRange(6)
 ur = usedRange()
 
 

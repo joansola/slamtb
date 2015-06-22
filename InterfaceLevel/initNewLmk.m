@@ -107,8 +107,9 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     % retro-project feature onto 3D space
     [l, L_rf, L_sf, L_obs, L_n, N] = retroProjLmk(Rob,Sen,Obs(lmk),Opt);
 
-    % get new Lmk, covariance and cross-variance.
+    % Initialize
     if strcmp(Map.type, 'ekf')
+    % get new Lmk, covariance and cross-variance.
         [P_LL,P_LX] = getNewLmkCovs( ...
             Sen.frameInMap, ...
             Rob.frame.r, ...
@@ -124,18 +125,14 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
         Lmk(lmk).state.r = addToMap(l,P_LL,P_LX);
 
     else
-        % get lmk ranges in Map
-        [lxr,lmr] = newRange([Lmk(lmk).state.size, Lmk(lmk).manifold.size]);
-        blockRange(lxr,lmk);
+        % get lmk ranges in Map, and block
+        r = newRange(Lmk(lmk).state.dsize);
+        blockRange(r);
         
-        % Update ranges
-        Lmk(lmk).state.r = lxr;
-        Lmk(lmk).manifold.r = lmr;
-        
-        % Update states
-        Map.x(lxr) = l;
-        Map.m(lmr) = zeros(Lmk(lmk).manifold.size,1); % landmark manifold vector
-        
+        % Update ranges and state
+        Lmk(lmk).state.r = r;
+        Lmk(lmk).state.x = l;
+                
     end
 
     % Fill Lmk structure

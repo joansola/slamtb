@@ -29,7 +29,14 @@ global Map
 % PREVIOUS TASKS
 % get landmark range and mean
 lr = Lmk.state.r ;        % lmk range in Map
-l  = Map.x(lr) ;               % lmk mean
+switch Map.type
+    case 'ekf'
+        l  = Map.x(lr);   % lmk mean
+    case 'graph'
+        l = Lmk.state.x;  % lmk mean
+    otherwise
+        error('??? Unknown Map type ''%s''.',Map.type)
+end
 
 % PROJECTION FUNCTION
 % explore all sensor and landmark types

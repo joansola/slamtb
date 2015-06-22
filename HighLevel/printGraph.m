@@ -22,7 +22,7 @@ end
 for lmk = find([Lmk.used])
     printLmk(Lmk(lmk),1);
 end
-fprintf('Map size: %3d, Mani size: %3d\n', sum(Map.used.x), sum(Map.used.m))
+fprintf('Map size: %3d\n', sum(Map.used))
 end
 
 

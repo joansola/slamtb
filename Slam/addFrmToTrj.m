@@ -39,9 +39,10 @@ Frm(Trj.head).used    = true;
 Frm(Trj.head).id      = newId;
 Frm(Trj.head).factors = [];
 
-% Block positions in Map
-Map.used.x(Frm(Trj.head).state.r)    = true;
-Map.used.m(Frm(Trj.head).manifold.r) = true;
+% % Query and Block positions in Map
+% r = newRange(Frm(Trj.head).
+% Map.used(Frm(Trj.head).state.r) = true;
+
 
 end
 
@@ -62,8 +63,7 @@ global Map
                 % TODO: Use deleteLmk, which also updates Obs. 
                 % Need Obs in the API.
                 Lmk(lmk).used = false;
-                Map.used.x(Lmk(lmk).state.r) = false;
-                Map.used.m(Lmk(lmk).manifold.r) = false;
+                Map.used(Lmk(lmk).state.r) = false;
 
             end
         end

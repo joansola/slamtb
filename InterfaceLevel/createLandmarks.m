@@ -16,15 +16,14 @@ for lmk = 1:Opt.map.numLmks
     Lmk(lmk).used = false;
     Lmk(lmk).factors = []; % factors list
 
-    % Landmark state range in Map
+    % Landmark state
+    Lmk(lmk).state.x = zeros(Opt.map.lmkSize,1);
+    Lmk(lmk).state.dx = zeros(Opt.map.lmkManiSize,1);
     Lmk(lmk).state.r = [];
     Lmk(lmk).state.size = Opt.map.lmkSize;
+    Lmk(lmk).state.dsize = Opt.map.lmkManiSize;
+    Lmk(lmk).state.M = []; % Jacobian of projection to manifold
     
-    % Landmark manifold state range in map
-    Lmk(lmk).manifold.active = true; % Flag for activating estimation on manifold
-    Lmk(lmk).manifold.r = [];
-    Lmk(lmk).manifold.size = Opt.map.lmkManiSize;
-
     % Landmark descriptor or signature
     Lmk(lmk).sig = [];
 

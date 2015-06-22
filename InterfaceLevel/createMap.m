@@ -64,6 +64,7 @@ switch lower(Opt.map.type)
             case 'Cholesky'
                 % Hessian matrix in the manifold
                 Map.H = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
+                Map.R = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
                 Map.b = zeros(n,1); % rhs vector.
             case 'Schur'
             otherwise

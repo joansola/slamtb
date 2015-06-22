@@ -8,17 +8,7 @@ function [Lmk,Obs] = deleteLmk(Lmk,Obs)
 
 global Map
 
-switch Map.type
-
-    case 'ekf'
-        Map.used(Lmk.state.r) = false;
-        
-    case 'graph'
-        Map.used.x(Lmk.state.r) = false;
-        Map.used.m(Lmk.manifold.r) = false;
-
-end
-
+Map.used(Lmk.state.r) = false;
 Lmk.used    = false;
 Obs.vis     = false;
 

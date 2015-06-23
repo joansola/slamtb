@@ -65,6 +65,8 @@ end
 % Map range
 mr = find(Map.used);
 
+Map.H(mr,mr) = symmetrize(Map.H(mr,mr)); % TODO: To be removed once things work OK.
+
 % Column permutation
 p = colamd(Map.H(mr,mr))';
 
@@ -91,8 +93,6 @@ Map.x(mr) = dx;
 % Map.x = Map.x (+) dx;
 for rob = [Rob.rob]
     for frm = [Frm(rob,[Frm(rob,:).used]).frm]
-        % TODO: Compose (++) state and error state
-        % Frm.state.x = Frm.state.x ++ Map.x(Frm.state.r)
         Frm(rob,frm) = updateKeyFrm(Frm(rob,frm));
     end
 end

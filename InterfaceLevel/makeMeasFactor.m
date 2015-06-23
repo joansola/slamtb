@@ -1,7 +1,5 @@
 function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac)
 
-% TODO: WIP
-
 Fac.used = true; % Factor is being used ?
 Fac.id = newId; % Factor unique ID
 

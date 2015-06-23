@@ -38,7 +38,6 @@ switch Raw.type
         
     case 'image'
         error('??? Feature matching for Raw data type ''%s'' not implemented yet.', Raw.type)
-        % TODO: the 'image' case
         
     otherwise
         

@@ -1,6 +1,8 @@
 function Rob = resetMotion(Rob)
 
-Rob.state.x = epose2qpose(zeros(6,1));
+Rob.state.x = vpose2qpose(zeros(6,1));
+Rob.frame.x = Rob.state.x;
+Rob.frame = updateFrame(Rob.frame);
 Rob.state.P = zeros(7,7);
 
 % ========== End of function - Start GPL license ==========

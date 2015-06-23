@@ -208,7 +208,7 @@ Opt = struct(...
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        3,...          % Size of landmark state
     'lmkManiSize',    3,...          % Size of lmk manifold state
-    'numFrames',      5,...         % number of frames in graph
+    'numFrames',      7,...         % number of frames in graph
     'kfrmPeriod',     10),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?

@@ -92,7 +92,7 @@ for rob = [Rob.rob]
 end
 
 [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
-printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
+% printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
 
 %% IV. Main loop
@@ -211,7 +211,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         
         % Solve graph
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
-        printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
+        %         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
         % Update Rob
         for rob = [Rob.rob]

@@ -60,18 +60,29 @@ for fac = [Fac([Fac.used]).fac]
     
 end
 
-figure(3);
-spy(Map.H(Map.used,Map.used));
+% Map range
+mr = find(Map.used);
 
 % Column permutation
-p = colamd(Map.H(Map.used, Map.used))';
+p = colamd(Map.H(mr,mr))';
+
+% Permutated map range
+pr = mr(p);
+
+% Some displays
+[mr,p,pr]
+max(ans)
+figure(3);
+spy(Map.H(mr,mr));
+figure(4);
+spy(Map.H(pr,pr));
 
 % Decomposition
-Map.R = chol(Map.H(p,p));
-y = -Map.R'\Map.b(p);
+Map.R = chol(Map.H(pr,pr));
+y = -Map.R'\Map.b(pr);
 dx(p,1) = Map.R\y;
 % Update Map
-Map.x(Map.used) = dx;
+Map.x(mr) = dx;
 
 % Update Map
 % Map.x = Map.x (+) dx;

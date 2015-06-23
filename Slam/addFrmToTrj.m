@@ -25,7 +25,7 @@ else
     % Trj is full. Tail frame will be overwritten !!
     
     % Remove tail frame and cleanup graph
-    [Lmk,Trj,Frm,Fac] = removeFrm(Lmk,Trj,Frm,Fac);
+    [Lmk,Trj,Frm,Fac] = removeTailFrm(Lmk,Trj,Frm,Fac);
     
     % Advance TAIL
     Trj.tail = mod(Trj.tail, Trj.maxLength) + 1;    
@@ -44,43 +44,65 @@ Frm(Trj.head).factors = [];
 
 end
 
-function [Lmk,Trj,Frm,Fac] = removeFrm(Lmk,Trj,Frm,Fac)
+function [Lmk,Trj,Frm,Fac] = removeTailFrm(Lmk,Trj,Frm,Fac)
+
+% REMOVETAILFRM Remove tail frame from trajectory.
+%
+%   [Lmk,Trj,Frm,Fac] = REMOVETAILFRM(Lmk,Trj,Frm,Fac) removes the tail
+%   frame from  Trj and cleans up all the information in Lmk(:), Frm(:,:),
+%   Fac(:) that has been affected.
+%
+%   The motionh factor linking this frams to the next one is convertede to
+%   an absolute factor.
 
 global Map
 
-    % Delete factors from factors lists in Frm and Lmk
-    factors = Frm(Trj.tail).factors;
-    for fac = factors
+% Delete factors from factors lists in Frm and Lmk
+factors = Frm(Trj.tail).factors;
+for fac = factors
+    if strcmp(Fac(fac).type, 'motion')
+        
+        % Convert motion factor to absolute factor
+        newTail = Fac(fac).frames(2);
+        [Frm(newTail),Fac(fac)] = makeAbsFactorFromMotionFactor(Frm(newTail),Fac(fac));
+    
+    else
+        
+        % Delete factor after clening up graph
         for frm = [Fac(fac).frames];
-            % Remove factors from factors list
+            % Remove factors from frame's factors list
             Frm(frm).factors([Frm(frm).factors] == fac) = [];
         end
+        
         for lmk = [Fac(fac).lmk]
-            % Remove factors from factors list
+            % Remove factors from landmark's factors list
             Lmk(lmk).factors([Lmk(lmk).factors] == fac) = [];
             
             % Delete landmark if no factors support it
             if isempty(Lmk(lmk).factors)
-                % TODO: Use deleteLmk, which also updates Obs. 
-                % Need Obs in the API.
                 Lmk(lmk).used = false;
                 Map.used(Lmk(lmk).state.r) = false;
-
             end
         end
         
-    end
-
-    % Free (and cleanup just in case) factors from tail before advancing
-    [Fac(factors).used] = deal(false);
-    [Fac(factors).frames] = deal([]);
-    [Fac(factors).lmk] = deal([]);
-
-    % Clean discarded tail frame
-    Frm(Trj.tail).used = false;
+        % Free (and cleanup just in case) factors from tail before advancing
+        Fac(fac).used = false;
+        Fac(fac).frames = [];
+        Fac(fac).lmk = [];
     
-    % Unblock positions in Map
-    Map.used(Frm(Trj.tail).state.r)    = false;
+    end
+    
+end
+
+%     [Fac(factors).used] = deal(false);
+%     [Fac(factors).frames] = deal([]);
+%     [Fac(factors).lmk] = deal([]);
+
+% Clean discarded tail frame
+Frm(Trj.tail).used = false;
+
+% Unblock positions in Map
+Map.used(Frm(Trj.tail).state.r)    = false;
 
 
 end
@@ -113,7 +135,7 @@ end
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
 %   Copyright (c) 2014-2015, Joan Sola @ IRI-UPC-CSIC,
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.

@@ -14,8 +14,8 @@ Fac.frames = Frm.frm;
 Fac.state.r1 = Frm.state.r;
 Fac.state.r2 = [];
 
-% Project into manifold, 7DoF --> 6DoF
-[e, E_x] = qpose2epose(Rob.state.x);
+% Go to minimal space, 7DoF --> 6DoF
+[e, E_x] = qpose2vpose(Rob.state.x);
 E = E_x * Rob.state.P * E_x';
 
 % Measurement is the straight data

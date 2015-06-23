@@ -11,6 +11,8 @@ for rob = [Rob.rob]
 end
 for lmk = [Lmk([Lmk.used]).lmk]
     switch Lmk(lmk).type
+        case 'eucPnt'
+            Lmk(lmk).state.M = 1; % trivial Jac
         case 'hmgPnt'
             [~,~,H_dh] = composeHmgPnt(Lmk(lmk).state.x, zeros(3,1));
             Lmk(lmk).state.M = H_dh;
@@ -38,11 +40,11 @@ for fac = [Fac([Fac.used]).fac]
     H_12 = J1' * W * J2; 
     H_22 = J2' * W * J2;
     
-    % Re-condition lmks with only 1 observation 
-    % Note: this is to handle single bearing-only's 
-    if strcmp(Fac(fac).type, 'measurement') && numel(Fac(fac).frames) == 1
-        H_22 = H_22 + 100*eye(size(H_22));
-    end
+    %     % Re-condition lmks with only 1 observation
+    %     % Note: this is to handle single bearing-only's
+    %     if strcmp(Fac(fac).type, 'measurement') && numel(Fac(fac).frames) == 1
+    %         H_22 = H_22 + 100*eye(size(H_22));
+    %     end
     
     % Compute rhs
     b1 = J1' * W * e;
@@ -69,16 +71,17 @@ p = colamd(Map.H(mr,mr))';
 % Permutated map range
 pr = mr(p);
 
-% Some displays
-[mr,p,pr]
-max(ans)
+% % Some displays
+% [mr,p,pr]
+% max(ans)
 figure(3);
 spy(Map.H(mr,mr));
-figure(4);
-spy(Map.H(pr,pr));
 
 % Decomposition
-Map.R = chol(Map.H(pr,pr));
+[Map.R, neg] = chol(Map.H(pr,pr));
+if neg
+    error('??? Negative Hessian matrix!')
+end
 y = -Map.R'\Map.b(pr);
 dx(p,1) = Map.R\y;
 % Update Map
@@ -98,6 +101,9 @@ for lmk = [Lmk([Lmk.used]).lmk]
         case 'hmgPnt'
         % TODO: Compose (++) state and error state
         % Lmk.state.x = Lmk.state.x ++ Map.x(Lmk.state.r)
+        case 'eucPnt'
+            % Trivial composition -- no manifold stuff
+            Lmk(lmk).state.x = Lmk(lmk).state.x + Map.x(Lmk(lmk).state.r);
         otherwise
             error('??? Unknown landmark type ''%s'' or Jacobian not implemented.',Lmk.type)
     end

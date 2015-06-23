@@ -140,6 +140,27 @@ switch Sen.type
             otherwise
                 error('??? Unknown landmark type ''%s'' for initialization.',Opt.init.initType)
         end
+
+        % Pin hole camera with depth information
+    case 'pinHoleDepth'
+
+        switch Opt.init.initType
+            case 'eucPnt'
+                % INIT LMK OF TYPE: Euclidean point
+                [l, L_rf, L_sf, L_k, L_c, L_obs] = ...
+                    retroProjEucPntFromPhdOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.c, ...
+                    Obs.meas.y) ;
+                
+                L_n = zeros(3,0);
+                N   = [] ;
+
+            otherwise
+                error('??? Unknown landmark type ''%s'' for initialization.',Opt.init.initType)
+        end
         
         
     % Omnidirectional camera 
@@ -161,7 +182,7 @@ switch Sen.type
             otherwise
                 error('??? Unknown landmark type ''%s'' for initialization.',Opt.init.initType)
         end
-
+        
     otherwise % -- Sen.type
         % Print an error and exit
         error('??? Unknown sensor type ''%s''.',Sen.type);

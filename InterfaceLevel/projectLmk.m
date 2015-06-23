@@ -284,9 +284,29 @@ switch Sen.type
                 error('??? Unknown landmark type ''%s'' for sensor ''%s''.', Lmk.type, Sen.type);
 
         end
-
-    case {'omniCam'} % Omnidirectional camera 
-
+        
+        
+    case 'pinHoleDepth'  % Pin hole sensor with depth information
+        switch Lmk.type
+            case 'eucPnt'
+                
+                % Point3D --> pixel+depth -(value and Jacobians)-
+                [e, E_rf, E_sf, E_k, E_d, E_l] = ...
+                    projEucPntIntoPhdOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.d, ...
+                    l) ;
+                
+                vis = isVisible(e(1:2,:),e(3,:),Sen.par.imSize);
+                
+            otherwise
+                error('??? Unknown landmark type ''%s'' for sensor ''%s''.',Lmk.type,Sen.type);
+        end
+        
+    case {'omniCam'} % Omnidirectional camera
+        
         switch Lmk.type
 
             case {'eucPnt'} % euclidean point
@@ -319,6 +339,7 @@ switch Sen.type
                 error('??? Unknown landmark type ''%s'' for sensor ''%s''.',Lmk.type,Sen.type);
                 
         end
+        
         
         
     otherwise % unknown Sensor type

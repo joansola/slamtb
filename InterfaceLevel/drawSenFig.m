@@ -16,7 +16,7 @@ switch Sen.type
 
     % camera pinhole
     % --------------
-    case {'pinHole'}
+    case {'pinHole','pinHoleDepth'}
 
         % 1. Raw data visualisation
         switch Raw.type

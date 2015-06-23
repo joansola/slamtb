@@ -45,7 +45,12 @@ switch Opt.init.initType
     case {'ahmLin'}
         lmkSize = 11;
     case {'eucPnt'}
-        error('??? Unable to initialize lmk type ''%s''. Try using ''idpPnt'' instead.',Opt.init.initType);
+        switch Sen.type
+            case 'pinHoleDepth'
+                lmkSize = 3;
+            otherwise
+                error('??? Unable to initialize lmk type ''%s''. Try using ''idpPnt'' instead.',Opt.init.initType);
+        end
     otherwise
         error('??? Unknown landmark type ''%s''.', Opt.init.initType);
 end
@@ -72,7 +77,7 @@ switch Raw.type
             Opt.init.initType,    ...
             [Lmk([Lmk.used]).id], ...
             Raw.data,             ...
-            Sen.par.pixCov,       ...
+            Sen.par.cov,       ...
             Sen.par.imSize);
 
     case 'image'

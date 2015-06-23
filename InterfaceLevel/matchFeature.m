@@ -9,10 +9,10 @@ function Obs = matchFeature(Sen,Raw,Obs)
 switch Obs.ltype(4:6)
     case 'Pnt'
         rawDataLmks = Raw.data.points;
-        R = Sen.par.pixCov;
+        R = Sen.par.cov;
     case 'Lin'
         rawDataLmks = Raw.data.segments;
-        R = blkdiag(Sen.par.pixCov,Sen.par.pixCov);
+        R = blkdiag(Sen.par.cov,Sen.par.cov);
     otherwise
         error('??? Unknown landmark type ''%s''.',Obs.ltype);
 end

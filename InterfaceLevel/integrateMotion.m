@@ -20,13 +20,14 @@ switch Rob.motion
     case  {'constVel'} % constant velocity
         
         % motion model of the robot: mean and Jacobians
-        [Rob.state.x, F_x, F_u] = constVel(Rob.state.x,Rob.con.u,Tim.dt);
+        [Rob.state.x, ~, F_u] = constVel(Rob.state.x,Rob.con.u,Tim.dt);
         
         
     case  {'odometry'}  % 3D odometry
         
         % motion model of the robot: mean and Jacobians
-        [Rob.frame, F_x, F_u]   = odo3(Rob.frame,Rob.con.u);
+        [Rob.frame, ~, F_u]   = odo3(Rob.frame,Rob.con.u);
+        Rob.state.x(1:7) = Rob.frame.x;
         
     otherwise
         
@@ -35,6 +36,7 @@ end
 
 % Covariances matrix update
 Rob.state.P = Rob.state.P + F_u * Rob.con.U * F_u';
+Rob.state.P = symmetrize(Rob.state.P);
 
 
 

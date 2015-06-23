@@ -15,7 +15,7 @@ Fac.state.r1 = Frm_old.state.r;
 Fac.state.r2 = Frm_new.state.r;
 
 % Project into manifold, 7DoF --> 6DoF
-[e, E_x] = qpose2epose(factorRob.state.x);
+[e, E_x] = qpose2vpose(factorRob.state.x);
 E = E_x * factorRob.state.P * E_x';
 
 % Measurement is the straight data

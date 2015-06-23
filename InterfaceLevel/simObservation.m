@@ -47,7 +47,7 @@ switch SimSen.type
         
         % Add sensor noise
         Raw.data.segments.coord = Raw.data.segments.coord + ...
-            SimSen.par.pixErr*randn(size(Raw.data.segments.coord));
+            SimSen.par.cov*randn(size(Raw.data.points.coord));
 
         % Remove non visible
         [Raw.data.segments.coord,vis] = visibleSegment( ...
@@ -58,6 +58,53 @@ switch SimSen.type
             Opt.obs.lines.minLength);  % min segment length
         Raw.data.segments.coord(:, ~vis)  = [];
         Raw.data.segments.app(~vis) = [];
+
+    case {'pinHoleDepth'}      % camera pinHole
+
+        % Project virtual world's points
+        Raw.data.points.coord = projEucPntIntoPhdOnRob(...
+            SimRob.frame, ...
+            SimSen.frame, ...
+            SimSen.par.k, ...
+            SimSen.par.d, ...
+            SimLmk.points.coord);
+        Raw.data.points.app  = SimLmk.points.id;
+        
+        % Add sensor noise
+        Raw.data.points.coord = Raw.data.points.coord + ...
+            SimSen.par.cov*randn(size(Raw.data.points.coord));
+
+        % Remove non visible
+        vis = isVisible(Raw.data.points.coord(1:2,:),Raw.data.points.coord(3,:),SimSen.par.imSize);        
+        Raw.data.points.coord(:, ~vis)  = [];
+        Raw.data.points.app(~vis) = [];
+        
+        
+        % TODO: Lines not implemented for sensor type 'pihHoleDepth'
+        
+        %         % Project virtual world's segments
+        Raw.data.segments.coord = [];
+        %         [Raw.data.segments.coord, s] = projSegLinIntoPinHoleOnRob(...
+        %             SimRob.frame, ...
+        %             SimSen.frame, ...
+        %             SimSen.par.k, ...
+        %             SimLmk.segments.coord);
+        %         Raw.data.segments.app  = SimLmk.segments.id;
+        Raw.data.segments.app = [];
+        %
+        %         % Add sensor noise
+        %         Raw.data.segments.coord = Raw.data.segments.coord + ...
+        %             SimSen.par.pixErr*randn(size(Raw.data.segments.coord));
+        %
+        %         % Remove non visible
+        %         [Raw.data.segments.coord,vis] = visibleSegment( ...
+        %             Raw.data.segments.coord,...
+        %             s,...
+        %             SimSen.par.imSize,...
+        %             0,...                      % N pixels margin
+        %             Opt.obs.lines.minLength);  % min segment length
+        %         Raw.data.segments.coord(:, ~vis)  = [];
+        %         Raw.data.segments.app(~vis) = [];
 
     case {'omniCam'}      % Omnidirectional camera 
 
@@ -81,7 +128,7 @@ switch SimSen.type
         
     otherwise
         % Print an error and exit
-        error('??? Unknown sensor type ''%s''.',Sen.type);
+        error('??? Unknown sensor type ''%s''.',SimSen.type);
         
 end % end of the "switch" on sensor type
 

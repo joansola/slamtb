@@ -23,7 +23,7 @@ end
 switch Obj.type
     case {'atrv','IMU'}
         graph = thickVehicle(0.8);
-    case {'pinHole','omniCam'}
+    case {'pinHole','pinHoleDepth','omniCam'}
         % graph = camSimpleGraphics(0.1);
         graph = camGraphics(0.1);
     otherwise

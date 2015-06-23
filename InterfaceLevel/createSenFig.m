@@ -59,7 +59,7 @@ for sen = 1:numel(Sen)
         
         % camera pinhole
         % --------------
-        case {'pinHole'}
+        case {'pinHole','pinHoleDepth'}
             % axes
             axis equal
             SenFig(sen).axes = gca;

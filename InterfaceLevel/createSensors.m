@@ -40,7 +40,7 @@ for sen = 1:numel(Sensor)
         case {'pinHole'}
             So.par.imSize = Si.imageSize;
             So.par.pixErr = Si.pixErrorStd;
-            So.par.pixCov = Si.pixErrorStd^2*eye(2);
+            So.par.cov = Si.pixErrorStd^2*eye(2);
             So.par.k = Si.intrinsic; % intrinsic parameters
             So.par.d = Si.distortion; % radial distortion coefficients
             So.par.c = invDistortion(...
@@ -56,6 +56,19 @@ for sen = 1:numel(Sensor)
             So.par.k  = Si.intrinsic;     % intrinsic parameters
             So.par.d  = Si.distortion;    % distortion polynom coefficients
             So.par.c  = Si.invDistortion; % distortion polynom coefficients
+            
+        case 'pinHoleDepth'
+            So.par.imSize = Si.imageSize;
+            %So.par.pixErr = Si.pixErrorStd;
+            So.par.cov = diag([Si.pixErrorStd^2*[1 1], Si.depthErrorStd^2]);
+            So.par.k = Si.intrinsic; % intrinsic parameters
+            So.par.d = Si.distortion; % radial distortion coefficients
+            So.par.c = invDistortion(...
+                So.par.d,...
+                numel(So.par.d)+1,...
+                So.par.k); % distortion correction coefficients
+            So.par.c = So.par.c(:);
+
             
         otherwise
             error('??? Unknown sensor type ''%s''.',Si.type)

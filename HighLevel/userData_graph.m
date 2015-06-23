@@ -101,10 +101,28 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %   - Sensor types (add new type strings if you need more):
 %       'pinHole'   Pin-hole camera
 %   - See EULERANGLES for orientations specifications.
+% Sensor{1} = struct(...
+%   'id',                 1,...           % sensor identifier
+%   'name',               'Micropix',...  % sensor name
+%   'type',               'pinHole',...   % type of sensor
+%   'robot',              1,...           % robot where it is mounted
+%   'position',           [0;0;.6],...    % position in robot
+%   'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
+%   'positionStd',        [0;0;0],...     % position error std
+%   'orientationStd',     [0;0;0],...     % orient. error std
+%   'imageSize',          [640;480],...   % image size
+%   'pixErrorStd',        1.0,...         % pixel error std
+%   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
+%   'distortion',         [-0.3;0.1],...          % distortion params
+%   'frameInMap',         false,...       % add sensor frame in slam map?
+%   'imGrid',               struct(...      % grid for Active Search
+%     'numCells',         [8;6],...         % number of H and V grid cells
+%     'skipOuter',        true));           % skip outer cells for initialization?
+
 Sensor{1} = struct(...
   'id',                 1,...           % sensor identifier
   'name',               'Micropix',...  % sensor name
-  'type',               'pinHole',...   % type of sensor
+  'type',               'pinHoleDepth',...   % type of sensor
   'robot',              1,...           % robot where it is mounted
   'position',           [0;0;.6],...    % position in robot
   'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
@@ -112,6 +130,7 @@ Sensor{1} = struct(...
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
   'pixErrorStd',        1.0,...         % pixel error std
+  'depthErrorStd',      0.1,...         % depth error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [-0.3;0.1],...          % distortion params
   'frameInMap',         false,...       % add sensor frame in slam map?
@@ -187,7 +206,7 @@ Opt = struct(...
     'type',           'graph',...      % type of map {'ekf','graph'}
     'solver',         'Cholesky',...   % graph solver {'QR','Cholesly','Schur'}
     'numLmks',        73,...         % number of 3d landmarks
-    'lmkSize',        4,...          % Size of landmark state
+    'lmkSize',        3,...          % Size of landmark state
     'lmkManiSize',    3,...          % Size of lmk manifold state
     'numFrames',      5,...         % number of frames in graph
     'kfrmPeriod',     10),...        % period between keyframes
@@ -202,8 +221,8 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [5 2],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'hmgPnt',...   % Type of lmk to use for init
+    'nbrInits',       [0 0],...      % number of inits [firstFrame, otherFrames]
+    'initType',       'eucPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs

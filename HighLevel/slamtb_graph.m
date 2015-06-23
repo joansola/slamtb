@@ -73,13 +73,14 @@ userData_graph;           % user-defined data. SCRIPT.
 % Clear user data - not needed anymore
 clear Robot Sensor World Time   % clear all user data
 
+%% Startup -- possibly put in initRobots and createFrames, createFactors, createTrj...
 for rob = [Rob.rob]
     
     % Reset motion robot
     factorRob(rob) = resetMotion(Rob(rob));
     
     % Add first keyframe with absolute factor
-    Rob(rob).state.P = 1e-6 * eye(7); % Give 1mm error
+    Rob(rob).state.P = 1e-4 * eye(7); % Give 1cm error
     [Rob(rob),Lmk,Trj(rob),Frm(rob,:),Fac] = addKeyFrame(...
         Rob(rob),       ...
         Lmk,            ...
@@ -210,8 +211,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         end % end process robots
         
         % Solve graph
+        printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
-        %         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
         % Update Rob
         for rob = [Rob.rob]

@@ -3,7 +3,7 @@ function printGraph(Rob,Sen,Lmk,Trj,Frm,Fac)
 global Map
 
 fprintf('--------------------------\n')
-sprs = round(nnz(Map.H(Map.used,Map.used)/sum(Map.used)^2)/100);
+sprs = round( ( nnz( Map.H(Map.used,Map.used) ) / sum(Map.used)^2 ) * 100);
 fprintf('Map size: %3d; sparse: %d%%\n', sum(Map.used), sprs)
 for rob = [Rob.rob]
     printRob(Rob(rob),1);

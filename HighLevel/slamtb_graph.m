@@ -213,6 +213,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % Solve graph
         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
+        pause(0.5)
 
         % Update Rob
         for rob = [Rob.rob]

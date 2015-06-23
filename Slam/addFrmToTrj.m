@@ -60,22 +60,23 @@ global Map
 % Delete factors from factors lists in Frm and Lmk
 factors = Frm(Trj.tail).factors;
 for fac = factors
-    if strcmp(Fac(fac).type, 'motion')
-        
+    
+    if strcmp(Fac(fac).type, 'motion') 
         % Convert motion factor to absolute factor
+        
         newTail = Fac(fac).frames(2);
         [Frm(newTail),Fac(fac)] = makeAbsFactorFromMotionFactor(Frm(newTail),Fac(fac));
     
     else
+        % Delete factor after cleaning up graph
         
-        % Delete factor after clening up graph
         for frm = [Fac(fac).frames];
-            % Remove factors from frame's factors list
+            % Remove this factor from frame's factors list
             Frm(frm).factors([Frm(frm).factors] == fac) = [];
         end
         
         for lmk = [Fac(fac).lmk]
-            % Remove factors from landmark's factors list
+            % Remove this factor from landmark's factors list
             Lmk(lmk).factors([Lmk(lmk).factors] == fac) = [];
             
             % Delete landmark if no factors support it

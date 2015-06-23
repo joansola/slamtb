@@ -1,13 +1,32 @@
-function v = q2v(q)
+function [v, V_q] = q2v(q)
 
 %Q2V Quaternion to rotation vector conversion.
 %   Q2V(Q) transforms the quaternion Q into a rotation vector representing
 %   the same rotation.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
 
-[a,u] = q2au(q);
-v = a*u;
+if nargout == 1
+    
+    [a,u] = q2au(q);
+    v = a*u;
+    
+else
+    
+    [a,u,A_q,U_q] = q2au(q);
+    v = a*u;
+    
+    if a > 1e-7
+        V_a = u;
+        V_u = a; % = a*eye(3);
+        
+        V_q = V_a*A_q + V_u*U_q;
+    else
+        % TODO: Check that this is the limit a-> 0 for the Jacobian
+        V_q = [zeros(3,1) 2*eye(3)];
+    end
+end
 
 
 
@@ -39,7 +58,7 @@ v = a*u;
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
 %   Copyright (c) 2014-2015, Joan Sola @ IRI-UPC-CSIC,
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.

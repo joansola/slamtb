@@ -1,4 +1,4 @@
-function [a,u] = q2au(q)
+function [a,u,A_q,U_q] = q2au(q)
 
 %Q2AU quaternion to rotated angle and rotation axis vector.
 %   [A,U] = Q2AU(Q) gives the rotation of A rad around the axis
@@ -7,11 +7,30 @@ function [a,u] = q2au(q)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-u = q(2:4);
-u = u/norm(u);
+if nargout <= 2
+    
+    a = 2*acos(q(1));
+    
+    u = q(2:4);
+    u = normvec(u);
+    
+else
+    
+    a = 2*acos(q(1));
+    u = q(2:4);
 
-a = 2*acos(q(1));
-
+    if a > 1e-7
+        A_q1 = -2/sqrt(1-q(1)^2); % d arccos(x) / dx = -1/sqrt(1-x^2)
+        [u, U_u] = normvec(u);
+        A_q = [A_q1 0 0 0];
+        U_q = [zeros(3,1) U_u];
+    else
+        u  = [1;0;0]; % Fake, any vector
+        A_q = zeros(1,4);
+        U_q = [zeros(3,1) 2*eye(3)];
+    end
+    
+end
 
 
 % ========== End of function - Start GPL license ==========
@@ -42,7 +61,7 @@ a = 2*acos(q(1));
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
 %   Copyright (c) 2014-2015, Joan Sola @ IRI-UPC-CSIC,
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.

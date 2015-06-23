@@ -61,7 +61,6 @@ switch (Lmk.type)
         drawAhmLin(MapFig, Lmk, colors, MapOpt);
         
     otherwise
-        % TODO : print an error and go out
         error('??? Unknown landmark type ''%s''.',Lmk.type);
 
 end

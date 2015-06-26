@@ -9,7 +9,7 @@ function Rob = frm2rob(Rob, Frm)
 Rob.state.r = Frm.state.r;
 Rob.state.x = Frm.state.x;
 Rob.state.dx = Frm.state.dx;
-Rob.frame.x = Rob.state.x;
+Rob.frame.x = Rob.state.x(1:7);
 Rob.frame = updateFrame(Rob.frame);
 
 

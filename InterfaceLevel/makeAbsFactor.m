@@ -15,8 +15,8 @@ Fac.state.r1 = Frm.state.r;
 Fac.state.r2 = [];
 
 % Go to minimal space, 7DoF --> 6DoF
-[e, E_x] = qpose2vpose(Rob.state.x);
-E = E_x * Rob.state.P * E_x';
+[e, V_x] = qpose2vpose(Rob.state.x);
+V = V_x * Rob.state.P * V_x';
 
 % Measurement is the straight data
 Fac.meas.y = Rob.state.x;
@@ -30,11 +30,11 @@ Fac.exp.E = zeros(size(Fac.meas.R)); % expectation cov
 
 % Error is zero at this stage, and takes covariance and info from measurement
 Fac.err.z = zeros(size(e)); % error or innovation (we call it error because we are on graph SLAM)
-Fac.err.Z = E; % error cov matrix
-Fac.err.W = E^-1; % error information matrix
+Fac.err.Z = V; % error cov matrix
+Fac.err.W = V^-1; % error information matrix
 
 % Jacobians are zero at this stage. Just make size correct.
-Fac.err.E_node1 = zeros(6,Rob.state.size); % Jac. of error wrt. node 1
+Fac.err.J1 = zeros(6,Rob.state.size); % Jac. of error wrt. node 1
 
 % Append factor to Frame's factors list.
 Frm.factors = [Frm.factors Fac.fac]; 

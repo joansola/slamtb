@@ -32,8 +32,8 @@ for fac = 1:Opt.map.numFactors
     Fac(fac).err.z = []; % error or innovation (we call it error because we are on graph SLAM)
     Fac(fac).err.Z = []; % error cov matrix
     Fac(fac).err.W  = []; % error information matrix
-    Fac(fac).err.E_node1 = []; % Jac. of error wrt. node 1
-    Fac(fac).err.E_node2 = []; % Jac. of error wrt. node 2
+    Fac(fac).err.J1 = []; % Jac. of error wrt. node 1
+    Fac(fac).err.J2 = []; % Jac. of error wrt. node 2
     
 end
 

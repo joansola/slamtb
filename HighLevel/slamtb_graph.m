@@ -92,8 +92,14 @@ for rob = [Rob.rob]
     
 end
 
+% Print poses
+Rob__________SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+
 [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
 % printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
+
+% Print poses
+Rob__________SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
 
 
 %% IV. Main loop
@@ -133,10 +139,14 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % is noised so that the simulated trajectory can be made perfect
         % and act as a clear reference. The noise is additive to the
         % control input 'u'.
-        Rob(rob).con.u = SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
+
+        % FIXME No noise to test
+        Rob(rob).con.u = ...
+            SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
         
-        Rob(rob) = frm2rob(Rob(rob), Frm(Trj(rob).head));
+%         Rob(rob) = frm2rob(Rob(rob), Frm(Trj(rob).head));
         Rob(rob) = simMotion(Rob(rob),Tim);
+%         [Rob(rob), Frm(rob,Trj(rob).head)] = rob2frm(Rob(rob), Frm(rob,Trj(rob).head));
         
         factorRob(rob) = integrateMotion(factorRob(rob),Tim);
         
@@ -144,6 +154,10 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     
     % Advance time
     Map.t = Map.t + Tim.dt;
+    
+%     % Print poses
+%     Rob___________SimRob__FactorRob_____Frm1______Frm2______Frm3 = ...
+%         [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
 
     
     % 3. ESTIMATION
@@ -163,6 +177,10 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                 Fac,            ...
                 factorRob(rob), ...
                 'motion');
+            
+            % Print poses
+            Rob__________SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+
             
             % Process sensor observations
             for sen = Rob(rob).sensors
@@ -211,18 +229,25 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         end % end process robots
         
         % Solve graph
-        printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
+        %         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
-        pause(0.5)
+        %         pause(0.5)
+        
+%         % Print poses
+%         Rob_SimRob_FactorRob_Frm1_Frm2 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+
 
         % Update Rob
         for rob = [Rob.rob]
             
             % Reset motion robot
-            % Rob(rob) = frm2rob(Frm(Trj.head));
+            Rob(rob) = frm2rob(Rob(rob),Frm(rob,Trj.head));
             factorRob(rob) = resetMotion(Rob(rob));
         end
         
+%         % Print poses
+%         Rob_SimRob_FactorRob_Frm1_Frm2 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+
     end
 
 

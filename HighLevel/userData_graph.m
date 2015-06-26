@@ -208,7 +208,7 @@ Opt = struct(...
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        3,...          % Size of landmark state
     'lmkManiSize',    3,...          % Size of lmk manifold state
-    'numFrames',      30,...         % number of frames in graph
+    'numFrames',      10,...         % number of frames in graph
     'kfrmPeriod',     10),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
@@ -221,7 +221,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [1 1],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [0 0],...      % number of inits [firstFrame, otherFrames]
     'initType',       'eucPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs

@@ -13,21 +13,28 @@ if nargout == 1
     v = a*u;
     
 else
-    
+
     [a,u,A_q,U_q] = q2au(q);
-    v = a*u;
+    v   = a*u;
+    V_a = u;
+    V_u = a; % = a*eye(3);
     
-    if a > 1e-7
-        V_a = u;
-        V_u = a; % = a*eye(3);
-        
+    if ~isnumeric(a) || a > 1e-7
         V_q = V_a*A_q + V_u*U_q;
     else
-        % TODO: Check that this is the limit a-> 0 for the Jacobian
         V_q = [zeros(3,1) 2*eye(3)];
     end
+
 end
 
+return
+
+%%
+syms q0 q1 q2 q3 real
+q = [q0;q1;q2;q3];
+[v, V_q] = q2v(q);
+
+simplify(V_q - jacobian(v,q))
 
 
 % ========== End of function - Start GPL license ==========

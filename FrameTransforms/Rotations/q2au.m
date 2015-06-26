@@ -9,28 +9,47 @@ function [a,u,A_q,U_q] = q2au(q)
 
 if nargout <= 2
     
-    a = 2*acos(q(1));
-    
-    u = q(2:4);
-    u = normvec(u);
+    v = q(2:4);
+    a = 2*atan2(vecnorm(v),q(1));
+    u = normvec(v);
     
 else
-    
-    a = 2*acos(q(1));
-    u = q(2:4);
+    s = q(1); % scalar part
+    v = q(2:4); % vector part
+    [n, N_v] = vecnorm(v);
+    a = 2*atan2(n,s);
+    A_n = 2*s/(n^2+s^2);
+    A_s = - 2*n/(n^2+s^2);
+    A_v = A_n * N_v;
 
-    if a > 1e-7
-        A_q1 = -2/sqrt(1-q(1)^2); % d arccos(x) / dx = -1/sqrt(1-x^2)
-        [u, U_u] = normvec(u);
-        A_q = [A_q1 0 0 0];
-        U_q = [zeros(3,1) U_u];
+    if ~isnumeric(n) || n > 1e-7
+        u = v/n;
+        U_v = (eye(3)*n - v*N_v)/n^2;
+        A_q = [A_s A_v];
+        U_q = [zeros(3,1) U_v];
     else
-        u  = [1;0;0]; % Fake, any vector
+        if n == 0
+            u  = [1;0;0]; % Fake, any vector if strictly zero
+        else
+            u = normvec(v);
+        end
         A_q = zeros(1,4);
         U_q = [zeros(3,1) 2*eye(3)];
     end
     
 end
+
+return
+
+%%
+syms a b c d real
+q = [a;b;c;d];
+[t,u,T_q,U_q] = q2au(q);
+
+simplify(T_q - jacobian(t,q))
+simplify(U_q - jacobian(u,q))
+
+
 
 
 % ========== End of function - Start GPL license ==========

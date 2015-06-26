@@ -18,6 +18,17 @@ vp(4:6,1) = v;
 
 % Get Jacobians
 if nargout > 1
+    VP_qp(4:6,4:7) = V_q;  % this one first so that it works in symbolic
     VP_qp(1:3,1:3) = eye(3);
-    VP_qp(4:6,4:7) = V_q;
 end
+
+return
+
+%%
+syms x y z q0 q1 q2 q3 real
+qp = [x;y;z;q0;q1;q2;q3];
+[vp, VP_qp] = qpose2vpose(qp);
+
+simplify(VP_qp - jacobian(vp,qp))
+
+

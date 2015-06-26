@@ -15,8 +15,8 @@ Fac.state.r1 = Frm_old.state.r;
 Fac.state.r2 = Frm_new.state.r;
 
 % Project into manifold, 7DoF --> 6DoF
-[e, E_x] = qpose2vpose(factorRob.state.x);
-E = E_x * factorRob.state.P * E_x';
+[e, V_x] = qpose2vpose(factorRob.state.x);
+V = V_x * factorRob.state.P * V_x';
 
 % Measurement is the straight data
 Fac.meas.y = factorRob.state.x;
@@ -30,12 +30,12 @@ Fac.exp.E = zeros(size(Fac.meas.R)); % expectation cov
 
 % Error is zero at this stage, and takes covariance and info from measurement
 Fac.err.z = zeros(size(e)); % error or innovation (we call it error because we are on graph SLAM)
-Fac.err.Z = E; % error cov matrix
-Fac.err.W = E^-1; % error information matrix
+Fac.err.Z = V; % error cov matrix
+Fac.err.W = V^-1; % error information matrix
 
 % Jacobians are zero at this stage. Just make size correct.
-Fac.err.E_node1 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 1
-Fac.err.E_node2 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 2
+Fac.err.J1 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 1
+Fac.err.J2 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 2
 
 % Append factor to Frames' factors lists.
 Frm_old.factors = [Frm_old.factors Fac.fac]; 

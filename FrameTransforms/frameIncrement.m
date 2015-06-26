@@ -6,7 +6,7 @@ function [I, I_f, I_g] = frameIncrement(F, G)
 %
 %   If both frames F and G are structures as defined in FRAME, then so is I.
 %   If both frames F and G are 7-vectors, then so is I.
-%   Otherwise is an error.
+%   Otherwise an error is issued.
 %
 %   [I, I_f, I_g] returns the Jacobians of I.x wrt. F.x and G.x.
 %

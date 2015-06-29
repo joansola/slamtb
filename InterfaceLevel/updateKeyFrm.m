@@ -15,7 +15,7 @@ dq = [sqrt(1 - norm(dphi)) ; dphi];
 
 % Update pose
 Frm.state.x(1:3) = Frm.state.x(1:3) + dp(1:3);  % posotion in Euclidean
-Frm.state.x(4:7) = qProd(Frm.state.x(4:7), dq); % Quaternion uses manifold
+Frm.state.x(4:7) = normvec(qProd(Frm.state.x(4:7), dq)); % Quaternion uses manifold
 
 
 % ========== End of function - Start GPL license ==========

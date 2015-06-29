@@ -18,7 +18,6 @@ for lmk = 1:Opt.map.numLmks
 
     % Landmark state
     Lmk(lmk).state.x = zeros(Opt.map.lmkSize,1);
-    Lmk(lmk).state.dx = zeros(Opt.map.lmkManiSize,1);
     Lmk(lmk).state.r = [];
     Lmk(lmk).state.size = Opt.map.lmkSize;
     Lmk(lmk).state.dsize = Opt.map.lmkManiSize;

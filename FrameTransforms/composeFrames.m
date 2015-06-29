@@ -38,8 +38,9 @@ else
     
 end
 
-%%
-function f()
+return
+
+
 %%
 syms x y z a b c d X Y Z A B C D real
 F.x = [x y z a b c d]';

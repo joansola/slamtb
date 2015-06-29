@@ -47,6 +47,7 @@ switch Fac.type
         Fac.state.r2 = Frm(2).state.r;
 
     case 'measurement'
+        Rob = frm2rob(Rob,Frm);
         Obs = projectLmk(Rob,Sen,Lmk,Obs);
         Fac.exp.e = Obs.exp.e;
         Fac.err.z = Fac.exp.e - Fac.meas.y; % h(x) (-) y

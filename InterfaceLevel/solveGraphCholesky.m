@@ -4,8 +4,8 @@ global Map
 
 
 olderr      = 0;
-target_derr = 1e-7;
-niter       = 1000;
+target_derr = 1;
+niter       = 30;
 
 % Map range
 mr = find(Map.used);
@@ -47,17 +47,12 @@ for it = 1:niter
         
     end
     
-    if ( (~ill) && (-derr<target_derr) )
+    if ( (~ill) && (derr <= 0) && ( abs(derr) < target_derr) )
+        x___it___nfac__err = round([it sum([Fac.used]) err])
         break;
     end
     
 end
-
-% % Some displays
-figure(3);
-spy(Map.H(mr,mr));
-
-
 
 end
 

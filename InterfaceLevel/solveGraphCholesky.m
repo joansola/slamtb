@@ -4,7 +4,7 @@ global Map
 
 
 olderr      = 0;
-target_derr = 1;
+target_derr = 1e-6;
 niter       = 30;
 
 % Map range
@@ -48,11 +48,12 @@ for it = 1:niter
     end
     
     if ( (~ill) && (derr <= 0) && ( abs(derr) < target_derr) )
-        x___it___nfac__err = round([it sum([Fac.used]) err])
         break;
     end
     
 end
+
+fprintf('it: %2d / nfac: %3d / err: %.2e\n', it, sum([Fac.used]), err)
 
 end
 

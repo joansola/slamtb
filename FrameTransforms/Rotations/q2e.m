@@ -1,4 +1,4 @@
-function [e,Eq] = q2e(q)
+function [e,E_q] = q2e(q)
 
 % Q2E  Quaternion to Euler angles conversion.
 %   Q2E(Q) returns an Euler angles vector [roll;pitch;yaw] corresponding to
@@ -57,7 +57,7 @@ if nargout >1
     de2dq  = de2dz2*dz2dq;
     de3dq  = de3dx3*dx3dq + de3dy3*dy3dq;
     
-    Eq     = [de1dq;de2dq;de3dq];
+    E_q    = [de1dq;de2dq;de3dq];
 end
 
 return
@@ -66,8 +66,8 @@ return
 
 syms a b c d real
 q=[a;b;c;d];
-[e,Eq] = q2e(q);
-simplify(Eq-jacobian(e,q))
+[e,E_q] = q2e(q);
+simplify(E_q-jacobian(e,q))
 
 
 

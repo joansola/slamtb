@@ -8,7 +8,6 @@ function Rob = frm2rob(Rob, Frm)
 % Transfer to Rob - ranges and values
 Rob.state.r = Frm.state.r;
 Rob.state.x = Frm.state.x;
-Rob.state.dx = Frm.state.dx;
 Rob.frame.x = Rob.state.x(1:7);
 Rob.frame = updateFrame(Rob.frame);
 

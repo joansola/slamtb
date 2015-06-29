@@ -92,14 +92,14 @@ for rob = [Rob.rob]
     
 end
 
-% Print poses
-x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+% % Print poses
+% x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
 
 [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Trj,Frm,Fac,Opt);
 % printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
-% Print poses
-x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+% % Print poses
+% x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
 
 
 %% IV. Main loop
@@ -155,10 +155,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % Advance time
     Map.t = Map.t + Tim.dt;
     
-    %     % Print poses
-    x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
-        [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
-
     
     % 3. ESTIMATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -177,10 +173,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                 Fac,            ...
                 factorRob(rob), ...
                 'motion');
-            
-            % Print poses
-            x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
-
             
             % Process sensor observations
             for sen = Rob(rob).sensors
@@ -228,16 +220,15 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             
         end % end process robots
         
-        % Print poses
-        x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+        printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
         % Solve graph
-        %         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Trj,Frm,Fac,Opt);
         
-        % Print poses
-        x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
-
+        %     % Print poses
+        %     x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
+        %         [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+        
         % Reset odometer
         for rob = [Rob.rob]
             
@@ -245,9 +236,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             factorRob(rob) = resetMotion(Rob(rob));
         end
         
-        % Print poses
-        x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
-
     end
 
 

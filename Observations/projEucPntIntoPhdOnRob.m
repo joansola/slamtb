@@ -1,10 +1,10 @@
 function [u, U_r, U_s, U_k, U_d, U_l] = ...
-    projEucPntIntoPhdOnRob(Rf, Sf, Spk, Spd, l)
+    projEucPntIntoPhdOnRob(Rf, Sf, k, d, l)
 
 
 if nargout == 1
     % Project landmark
-    u = pinHoleDepth(toFrame(composeFrames(Rf,Sf), l), Spk, Spd);
+    u = pinHoleDepth(toFrame(composeFrames(Rf,Sf), l), k, d);
     
 else
     % Sensor frame in global frame
@@ -14,13 +14,13 @@ else
     [lrs, LRS_rs, LRS_l] = toFrame(RSf, l);
     
     % Project landmark
-    [u, U_lrs, U_k, U_d] = pinHoleDepth(lrs, Spk, Spd);
+    [u, U_lrs, U_k, U_d] = pinHoleDepth(lrs, k, d);
     
     % Chain rule for Jacobians
-    U_l = U_lrs * LRS_l;
+    U_l  = U_lrs * LRS_l;
     U_rs = U_lrs * LRS_rs;
-    U_r = U_rs * RS_r;
-    U_s = U_rs * RS_s;
+    U_r  = U_rs  * RS_r;
+    U_s  = U_rs  * RS_s;
     
 end
 

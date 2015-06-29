@@ -8,10 +8,10 @@ function Fac = createFactors(Opt)
 %   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
 
 % Compute max nbr of factors based on general options
-Opt.map.numFactors = Opt.map.numFrames*(Opt.correct.nUpdates + Opt.init.nbrInits(2)) + Opt.init.nbrInits(1);
+numFactors = Opt.map.numFrames*(2 + Opt.correct.nUpdates + Opt.init.nbrInits(2)) + Opt.init.nbrInits(1);
 
 % Create all factor structures
-for fac = 1:Opt.map.numFactors
+for fac = 1:numFactors
 
     Fac(fac).fac = fac; % index in Fac array
     Fac(fac).id = []; % Factor unique ID

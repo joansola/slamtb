@@ -1,22 +1,16 @@
-function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
+function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Trj,Frm,Fac)
 
 global Map
 
 
-% LM algorithm
-lambda = 0.001;
-err = 0;
-derr = 0;
+olderr      = 0;
 target_derr = 1e-7;
-up = 10;
-down = 1/10;
-nit = 10;
+niter       = 1000;
 
-for it = 1:nit
-    
-    % Map range
-    mr = find(Map.used);
-    n = numel(mr); % matrix dimension
+% Map range
+mr = find(Map.used);
+
+for it = 1:niter
     
     % Reset Hessian and rhs vector
     Map.H(mr,mr) = 0*Map.H(mr,mr);
@@ -27,8 +21,6 @@ for it = 1:nit
     
     % Build Hessian and rhs vector
     Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac);
-        
-%     Map.H(mr,mr) = symmetrize(Map.H(mr,mr)); % TODO: To be removed once things work OK.
     
     % Column permutation
     p = colamd(Map.H(mr,mr))';
@@ -36,63 +28,34 @@ for it = 1:nit
     % Permutated map range
     pr = mr(p);
     
-    mult = 1 + lambda;
-    ill = true;
+    % Decomposition
+    [Map.R, ill] = chol(Map.H(pr,pr));
     
-    while ill && (it <= nit)
+    if ~ill
+        % Solve for dx
+        y = -Map.R'\Map.b(pr);
+        dx(p,1) = Map.R\y;
+        Map.x(mr) = dx;
+        [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm);
         
-        % Damp Hessian
-        h = spdiags(diag(Map.H(pr,pr)),0,n,n);
-        Map.H(pr,pr) = Map.H(pr,pr) * mult * h;
+        err = computeResidual(Rob,Sen,Lmk,Obs,Trj,Frm,Fac);
+        derr = err - olderr; 
+        olderr = err;
         
-        % Decomposition
-        [Map.R, ill] = chol(Map.H(pr,pr));
+    else
+        error('Ill-conditioned Hessian')
         
-        if ~ill
-            % Solve for dx
-            y = -Map.R'\Map.b(pr);
-            dx(p,1) = Map.R\y;
-            Map.x(mr) = dx;
-            
-            newerr = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac);
-            derr = newerr - err;
-            ill = (derr > 0);
-            
-        end
-        
-        if ill
-            mult =  (1 + lambda*up) / (1 + lambda);
-        	lambda = lambda * up;
-            it=it+1;
-        end
-
     end
     
-    lambda = lambda * down;
-    
-    if ( (~ill) && (-derr<target_derr) ) 
+    if ( (~ill) && (-derr<target_derr) )
         break;
     end
     
 end
 
 % % Some displays
-% [mr,p,pr]
-% max(ans)
 figure(3);
 spy(Map.H(mr,mr));
-
-y = -Map.R'\Map.b(pr);
-dx(p,1) = Map.R\y;
-% Update Map
-Map.x(mr) = dx;
-
-% Update Map
-% Map.x = Map.x (+) dx;
-[Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);
-
-
-disp('-----------------------')
 
 
 
@@ -102,23 +65,8 @@ function [Rob,Frm,Lmk] = computeStateJacobians(Rob,Frm,Lmk)
 
 % COMPUTESTATEJACOBIANS Compute Jacobians for projection onto the manifold.
 
-for rob = [Rob.rob]
-    for frm = [Frm(rob,[Frm(rob,:).used]).frm]
-        q = Frm(rob,frm).state.x(4:7);
-        Frm(rob,frm).state.M = [eye(3), zeros(3,3) ; zeros(4,3) q2Pi(q)];
-    end
-end
-for lmk = [Lmk([Lmk.used]).lmk]
-    switch Lmk(lmk).type
-        case 'eucPnt'
-            Lmk(lmk).state.M = 1; % trivial Jac
-        case 'hmgPnt'
-            [~,~,H_dh] = composeHmgPnt(Lmk(lmk).state.x, zeros(3,1));
-            Lmk(lmk).state.M = H_dh;
-        otherwise
-            error('??? Unknown landmark type ''%s'' or Jacobian not implemented.',Lmk.type)
-    end
-end
+[Rob,Frm] = frmJacobians(Rob,Frm);
+Lmk = lmkJacobians(Lmk);
 end
 
 function [Fac] = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
@@ -159,7 +107,7 @@ end
 
 end
 
-function [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm)
+function [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm)
 
 % UPDATESTATES Update Frm and Lmk states based on computed error.
 
@@ -169,25 +117,26 @@ for rob = [Rob.rob]
     for frm = [Frm(rob,[Frm(rob,:).used]).frm]
         Frm(rob,frm) = updateKeyFrm(Frm(rob,frm));
     end
+    Rob(rob) = frm2rob(Rob(rob), Frm(rob,Trj.head));
 end
 for lmk = [Lmk([Lmk.used]).lmk]
     switch Lmk(lmk).type
-        case 'hmgPnt'
-            % TODO: Compose (++) state and error state
-            % Lmk.state.x = Lmk.state.x ++ Map.x(Lmk.state.r)
         case 'eucPnt'
             % Trivial composition -- no manifold stuff
             Lmk(lmk).state.x = Lmk(lmk).state.x + Map.x(Lmk(lmk).state.r);
         otherwise
-            error('??? Unknown landmark type ''%s'' or Jacobian not implemented.',Lmk.type)
+            error('??? Unknown landmark type ''%s'' or Update not implemented.',Lmk.type)
     end
 end
 
+% Reset error state
+Map.x(Map.used) = 0;
+
 end
 
-function r = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac)
+function r = computeResidual(Rob,Sen,Lmk,Obs,Trj,Frm,Fac)
 
-[Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);
+[Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm);
 
 r = 0;
 

@@ -36,9 +36,9 @@ for rob = 1:numel(Rob)
 
     % robots
     MapFig.Rob(rob).patch = drawObject(MapFig.Rob(rob).patch,Rob(rob));
-    r = Rob(rob).state.r(1:3);
     
     if FigOpt.map.showEllip
+        r = Rob(rob).state.r(1:3);
         drawEllipse(MapFig.Rob(rob).ellipse,Map.x(r),Map.P(r,r));
     end
     

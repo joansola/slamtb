@@ -9,10 +9,10 @@ Frm.used = true;
 
 % State
 Frm.state.x = Rob.state.x;
-Frm.state.dx = Rob.state.dx;
+% Frm.state.dx = Rob.state.dx;
 
 % Sync rob ranges to those in Frm
-Rob.state.r = Frm.state.r;
+% Rob.state.r = Frm.state.r;
 
 % Copy data to Map storage
 % Map.x(Frm.state.r) = 0; 

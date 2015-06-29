@@ -3,22 +3,20 @@ function Frm = updateKeyFrm(Frm)
 global Map
 
 % Get state error from Map
-dvp = Map.x(Frm.state.r);
-Frm.state.dx = dvp;
+dp = Map.x(Frm.state.r);
 
-% Get nominal state from Frm
-F.x(1:7,1) = Frm.state.x;
-F = updateFrame(F);
+% quaternion error - we use:
+%   dq =    [ sqrt( 1 - || dphi || ) ]
+%           [          dphi          ]
+% with
+%   dphi = dp(4:6)
+dphi = dp(4:6);
+dq = [sqrt(1 - norm(dphi)) ; dphi]; 
 
-% Pose error as a PQ pose
-dF.x(1:7,1) = vpose2qpose(dvp);
-dF = updateFrame(dF);
+% Update pose
+Frm.state.x(1:3) = Frm.state.x(1:3) + dp(1:3);  % posotion in Euclidean
+Frm.state.x(4:7) = qProd(Frm.state.x(4:7), dq); % Quaternion uses manifold
 
-% Pose update
-F = composeFrames(dF, F);
-
-% Update Frm structure
-Frm.state.x = F.x;
 
 % ========== End of function - Start GPL license ==========
 

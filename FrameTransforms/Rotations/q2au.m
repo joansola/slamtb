@@ -17,7 +17,11 @@ else
     s = q(1); % scalar part
     v = q(2:4); % vector part
     [n, N_v] = vecnorm(v);
-    a = 2*atan2(n,s);
+    if isnumeric(n)
+        a = 2*atan2(n,s);
+    else
+        a = 2*atan(n/s);
+    end
     A_n = 2*s/(n^2+s^2);
     A_s = - 2*n/(n^2+s^2);
     A_v = A_n * N_v;

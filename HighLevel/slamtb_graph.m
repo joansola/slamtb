@@ -220,7 +220,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             
         end % end process robots
         
-        printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
+        % Print graph as text
+%         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
         % Solve graph
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Trj,Frm,Fac,Opt);

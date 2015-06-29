@@ -132,9 +132,9 @@ Sensor{1} = struct(...
   'pixErrorStd',        1.0,...         % pixel error std
   'depthErrorStd',      0.1,...         % depth error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
-  'distortion',         [-0.3;0.1],...          % distortion params
+  'distortion',         [],...          % distortion params, e.g. [-0.3;0.1]
   'frameInMap',         false,...       % add sensor frame in slam map?
-  'imGrid',               struct(...      % grid for Active Search
+  'imGrid',             struct(...      % grid for Active Search
     'numCells',         [8;6],...         % number of H and V grid cells
     'skipOuter',        true));           % skip outer cells for initialization?
 
@@ -221,7 +221,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [0 0],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [2 2],...      % number of inits [firstFrame, otherFrames]
     'initType',       'eucPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs

@@ -16,3 +16,16 @@ else
     V_k = [U_k ; zeros(1, length(k))];
     V_d = [U_d ; zeros(1, length(d))];
 end
+
+return
+
+%%
+syms x y z u0 v0 au av real
+p = [x;y;z];
+k = [u0;v0;au;av];
+d = [];
+
+[v, V_p, V_k, V_d] = pinHoleDepth(p,k,d);
+
+simplify(V_p - jacobian(v,p))
+simplify(V_k - jacobian(v,k))

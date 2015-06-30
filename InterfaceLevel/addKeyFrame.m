@@ -9,12 +9,6 @@ global Map
     Frm,...
     Fac);
 
-% Add to Map
-r = newRange(Frm(Trj.head).state.dsize);
-blockRange(r);
-Frm(Trj.head).state.r = r;
-Map.x(r) = 0;
-
 % Update new frame with Rob info
 [Rob, Frm(Trj.head)] = rob2frm(...
     Rob,...
@@ -42,6 +36,8 @@ switch factorType
     otherwise
         error('??? Unknown or invalid factor type ''%s''.', facType)
 end
+
+
 
 % ========== End of function - Start GPL license ==========
 

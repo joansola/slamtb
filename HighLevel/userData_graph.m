@@ -119,25 +119,6 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %     'numCells',         [8;6],...         % number of H and V grid cells
 %     'skipOuter',        true));           % skip outer cells for initialization?
 
-Sensor{1} = struct(...
-  'id',                 1,...           % sensor identifier
-  'name',               'Micropix',...  % sensor name
-  'type',               'pinHoleDepth',...   % type of sensor
-  'robot',              1,...           % robot where it is mounted
-  'position',           [0;0;.6],...    % position in robot
-  'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
-  'positionStd',        [0;0;0],...     % position error std
-  'orientationStd',     [0;0;0],...     % orient. error std
-  'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        1.0,...         % pixel error std
-  'depthErrorStd',      0.1,...         % depth error std
-  'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
-  'distortion',         [],...          % distortion params, e.g. [-0.3;0.1]
-  'frameInMap',         false,...       % add sensor frame in slam map?
-  'imGrid',             struct(...      % grid for Active Search
-    'numCells',         [8;6],...         % number of H and V grid cells
-    'skipOuter',        true));           % skip outer cells for initialization?
-
 % Sensor{2} = struct(...
 %   'id',                 2,...           % sensor identifier
 %   'name',               'Micropix',...      % sensor name
@@ -156,47 +137,24 @@ Sensor{1} = struct(...
 %     'numCells',         [8;6],...         % number of H and V grid cells
 %     'skipOuter',        true));           % skip outer cells for initialization?
 
-% Sensor{3} = struct(...
-%   'id',                 1,...           % sensor identifier
-%   'name',               'Micropix',...  % sensor name
-%   'type',               'pinHole',...   % type of sensor
-%   'robot',              2,...           % robot where it is mounted
-%   'position',           [0;.25;.6],...    % position in robot
-%   'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
-%   'positionStd',        [0;0;0],...     % position error std
-%   'orientationStd',     [0;0;0],...     % orient. error std
-%   'imageSize',          [640;480],...   % image size
-%   'pixErrorStd',        1.0,...         % pixel error std
-%   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
-%   'distortion',         [-0.3;0.1],...          % distortion params
-%   'frameInMap',         false,...       % add sensor frame in slam map?
-%   'imGrid',               struct(...      % grid for Active Search
-%     'numCells',         [8;6],...         % number of H and V grid cells
-%     'skipOuter',        true));           % skip outer cells for initialization?
-
-
-% Omnidirectional camera model -> MegaPixel Fish Eye lens as example (FoV is ~190 deg )
-% k           = [668 438 1 0 0]'; 
-% invProjDist = [4.473e+2 -0.000e+0 -1.068e-3 1.184e-6 -1.856e-9]';
-% projDist    = [6.447e+2 -3.410e+2 -2.901e+1 -5.770e+1 1.849e+1 5.415e+0 5.065e+1 -5.614e+1 1.591e+1 0 0]';
-% Sensor{1} = struct(...
-%   'id',                 1,...           % sensor identifier
-%   'name',               'FrontCam',...  % sensor name
-%   'type',               'omniCam',...   % type of sensor
-%   'robot',              1,...           % robot where it is mounted
-%   'position',           [0.2;0;1.2],... % position in robot
-%   'orientationDegrees', [-120;0;-90],...% orientation in robot, [roll; pitch; yaw].  
-%   'positionStd',        [0;0;0],...     % position error std
-%   'orientationStd',     [0;0;0],...     % orient. error std
-%   'imageSize',          [1280;800],...  % image size
-%   'pixErrorStd',        1.0,...         % pixel error std
-%   'intrinsic',          k,...           % intrinsic params: [xc yc c d e]'; 
-%   'distortion',         projDist,...    % distortion params -> polynom for projection to cam sensor
-%   'invDistortion',      invProjDist,... % distortion params -> polynom for inv proj from cam sensor
-%   'frameInMap',         false,...       % add sensor frame in slam map?
-%   'imGrid',             struct(...      % grid for Active Search
-%     'numCells',         [8;6],...       % number of H and V grid cells
-%     'skipOuter',        true));         % skip outer cells for initialization?
+Sensor{1} = struct(...
+  'id',                 1,...           % sensor identifier
+  'name',               'Micropix',...  % sensor name
+  'type',               'pinHoleDepth',...   % type of sensor
+  'robot',              1,...           % robot where it is mounted
+  'position',           [0;0;.6],...    % position in robot
+  'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
+  'positionStd',        [0;0;0],...     % position error std
+  'orientationStd',     [0;0;0],...     % orient. error std
+  'imageSize',          [640;480],...   % image size
+  'pixErrorStd',        1.0,...         % pixel error std
+  'depthErrorStd',      0.1,...         % depth error std
+  'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
+  'distortion',         [],...          % distortion params, e.g. [-0.3;0.1]
+  'frameInMap',         false,...       % add sensor frame in slam map?
+  'imGrid',             struct(...      % grid for Active Search
+    'numCells',         [8;6],...         % number of H and V grid cells
+    'skipOuter',        true));           % skip outer cells for initialization?
 
 
 
@@ -221,7 +179,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [2 3],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [2 2],...      % number of inits [firstFrame, otherFrames]
     'initType',       'eucPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs

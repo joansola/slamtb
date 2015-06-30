@@ -1,4 +1,4 @@
-function [Lmk,Obs,Frm,lmk] = initNewLmk(Rob, Sen, Raw, Lmk, Obs,Frm, Opt)
+function [Lmk,Obs,Frm,Fac,lmk] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Frm, Fac, Opt)
 
 %INITNEWLMK  Initialise one landmark.
 %   [LMK, OBS] = INITNEWLMK(ROB, SEN, RAW, LMK, OBS) initializes one new
@@ -156,8 +156,21 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     
     %     fprintf('Initialized landmark ''%d''.\n',Lmk(lmk).id)
 
+else
+    % Detection failed
+    lmk = [];
     
 end
+
+% Create factor
+if ~isempty(lmk)
+    [Lmk(lmk), Frm, Fac] = makeMeasFactor(...
+        Lmk(lmk),  ...
+        Obs(lmk),  ...
+        Frm,       ...
+        Fac);
+end
+
 
 end
 

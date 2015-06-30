@@ -20,12 +20,15 @@ if Trj.length < Trj.maxLength
 
     % Trj is not yet full. Just lengthen.
     Trj.length = Trj.length + 1;
+    checkGraphIntegrity(Lmk,Frm,Fac);
 
 else
     % Trj is full. Tail frame will be overwritten !!
     
     % Remove tail frame and cleanup graph
     [Lmk,Trj,Frm,Fac] = removeTailFrm(Lmk,Trj,Frm,Fac);
+    
+    checkGraphIntegrity(Lmk,Frm,Fac);
     
     % Advance TAIL
     Trj.tail = mod(Trj.tail, Trj.maxLength) + 1;    
@@ -37,9 +40,10 @@ Frm(Trj.head).used    = true;
 Frm(Trj.head).id      = newId;
 Frm(Trj.head).factors = [];
 
-% % Query and Block positions in Map
-% r = newRange(Frm(Trj.head).
-% Map.used(Frm(Trj.head).state.r) = true;
+% Query and Block positions in Map
+r = newRange(Frm(Trj.head).state.dsize);
+blockRange(r);
+Frm(Trj.head).state.r = r;
 
 
 end
@@ -81,6 +85,7 @@ for fac = factors
             
             % Delete landmark if no factors support it
             if isempty(Lmk(lmk).factors)
+                fprintf('Deleting Lmk ''%d''.\n', lmk)
                 Lmk(lmk).used = false;
                 Map.used(Lmk(lmk).state.r) = false;
             end

@@ -62,8 +62,8 @@ switch Fac.type
 end
 
 if nargout > 1
-    e = Fac.err.z;
-    W = Fac.err.W;
+    e  = Fac.err.z;
+    W  = Fac.err.W;
     J1 = Fac.err.J1;
     J2 = Fac.err.J2;
     r1 = Fac.state.r1;

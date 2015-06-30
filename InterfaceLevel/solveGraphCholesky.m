@@ -17,7 +17,7 @@ for it = 1:niter
     Map.b(mr) = 0*Map.b(mr);
     
     % Compute Jacobians for projection onto the manifold
-    [Rob,Frm,Lmk] = computeStateJacobians(Rob,Frm,Lmk);
+    [Frm,Lmk] = computeStateJacobians(Frm,Lmk);
     
     % Build Hessian and rhs vector
     Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac);
@@ -53,15 +53,15 @@ for it = 1:niter
     
 end
 
-fprintf('it: %2d / nfac: %3d / err: %.2e\n', it, sum([Fac.used]), err)
+% fprintf('it: %2d / nfac: %3d / err: %.2e\n', it, sum([Fac.used]), err)
 
 end
 
-function [Rob,Frm,Lmk] = computeStateJacobians(Rob,Frm,Lmk)
+function [Frm,Lmk] = computeStateJacobians(Frm,Lmk)
 
 % COMPUTESTATEJACOBIANS Compute Jacobians for projection onto the manifold.
 
-[Rob,Frm] = frmJacobians(Rob,Frm);
+Frm = frmJacobians(Frm);
 Lmk = lmkJacobians(Lmk);
 end
 
@@ -113,7 +113,7 @@ for rob = [Rob.rob]
     for frm = [Frm(rob,[Frm(rob,:).used]).frm]
         Frm(rob,frm) = updateKeyFrm(Frm(rob,frm));
     end
-    Rob(rob) = frm2rob(Rob(rob), Frm(rob,Trj.head));
+%     Rob(rob) = frm2rob(Rob(rob), Frm(rob,Trj.head));
 end
 for lmk = [Lmk([Lmk.used]).lmk]
     switch Lmk(lmk).type
@@ -132,7 +132,7 @@ end
 
 function r = computeResidual(Rob,Sen,Lmk,Obs,Trj,Frm,Fac)
 
-[Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm);
+% [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm);
 
 r = 0;
 

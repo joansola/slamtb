@@ -90,6 +90,43 @@ for rob = [Rob.rob]
         factorRob(rob), ...
         'absolute');
     
+    for sen = Rob(rob).sensors
+        
+        % Initialize new landmarks
+        ninits = Opt.init.nbrInits(1);
+        for i = 1:ninits
+
+            % Observe simulated landmarks
+            SimSen(sen).par.cov = 0 * SimSen(sen).par.cov;
+            Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk, SimOpt) ;
+            
+            % Init new lmk
+            fac = find([Fac.used] == false, 1, 'first');
+            
+            if ~isempty(fac)
+                % Compute and allocate lmk
+                [Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac(fac),lmk] = initNewLmk(...
+                    Rob(rob),   ...
+                    Sen(sen),   ...
+                    Raw(sen),   ...
+                    Lmk,        ...
+                    Obs(sen,:), ...
+                    Frm(rob,Trj(rob).head), ...
+                    Fac(fac),        ...
+                    Opt) ;
+                
+                if isempty(lmk)
+                    break
+                end
+                
+                
+            end
+            
+        end
+        
+    end % end process sensors
+    
+    
 end
 
 % % Print poses
@@ -141,12 +178,10 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % control input 'u'.
 
         % FIXME No noise to test
-        Rob(rob).con.u = ...
-            SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
+%         Rob(rob).con.u = ...
+%             SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
         
-%         Rob(rob) = frm2rob(Rob(rob), Frm(Trj(rob).head));
         Rob(rob) = simMotion(Rob(rob),Tim);
-%         [Rob(rob), Frm(rob,Trj(rob).head)] = rob2frm(Rob(rob), Frm(rob,Trj(rob).head));
         
         factorRob(rob) = integrateMotion(factorRob(rob),Tim);
         
@@ -197,41 +232,48 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                     
                     if ~isempty(fac)
                         % Compute and allocate lmk
-                        [Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),lmk] = initNewLmk(...
+                        [Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac(fac),lmk] = initNewLmk(...
                             Rob(rob),   ...
                             Sen(sen),   ...
                             Raw(sen),   ...
                             Lmk,        ...
                             Obs(sen,:), ...
                             Frm(rob,Trj(rob).head), ...
+                            Fac(fac),        ...
                             Opt) ;
                         
-                        % Create factor
-                        [Lmk(lmk), Frm(rob,Trj(rob).head), Fac(fac)] = makeMeasFactor(...
-                            Lmk(lmk),               ...
-                            Obs(sen,lmk),           ...
-                            Frm(rob,Trj(rob).head), ...
-                            Fac(fac));
+                        if isempty(lmk) % Did not find now lmks
+                            break
+                            
+                        end
+                        
                     end
                     
-                end
+                end % for i = 1:ninits 
                 
             end % end process sensors
             
         end % end process robots
         
-        % Print graph as text
-        printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
+        %         % Print graph as text
+        %         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
+         % Print poses
+        x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
+            [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]       % Solve graph
+        
         % Solve graph
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Trj,Frm,Fac,Opt);
         
-        %     % Print poses
-        %     x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
-        %         [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+        % Print poses
+        x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
+            [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
         
-        % Reset odometer
+        % Reset odometer and sync robot with graph
         for rob = [Rob.rob]
+            
+            % Update robots with Frm info
+            Rob(rob) = frm2rob(Rob(rob),Frm(rob,Trj(rob).head));
             
             % Reset motion robot
             factorRob(rob) = resetMotion(Rob(rob));

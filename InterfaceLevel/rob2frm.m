@@ -1,21 +1,19 @@
 function [Rob, Frm] = rob2frm(Rob, Frm)
 
-% Creates a frame Frm from information in Rob.
+% FRM2ROB Robot to Frame information transfer
+%   [Rob, Frm] = ROB2FRM(Rob, Frm) Updates the frame Frm from information
+%   in Rob.
+%
+%   See also FRM2ROB.
 
-global Map
+%   Copyright 2015 Joan Sola @ IRI-CSIC-UPC
+
 
 % Set 'used'
 Frm.used = true;
 
 % State
 Frm.state.x = Rob.state.x;
-% Frm.state.dx = Rob.state.dx;
-
-% Sync rob ranges to those in Frm
-% Rob.state.r = Frm.state.r;
-
-% Copy data to Map storage
-% Map.x(Frm.state.r) = 0; 
 
 
 

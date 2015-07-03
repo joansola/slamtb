@@ -12,7 +12,7 @@ switch Fac.type
         % and minimal() is a 6 DoF expression of the frame, done using the
         % function qframe2vframe().
         Fac.exp.e = Frm.state.x;
-        [pq, PQ_y, PQ_e] = frameIncrement(Fac.meas.y, Fac.exp.e); % h(x) (-) y
+        [pq, PQ_y, PQ_e] = frameIncrement(Fac.meas.y, Fac.exp.e); % err = h(x) (-) y
         [Fac.err.z, Z_pq] = qpose2vpose(pq);
         Fac.err.J1 = Z_pq * PQ_e * Frm.state.M; % Jac wrt manifold
         Fac.err.J2 = zeros(6,0);
@@ -36,7 +36,7 @@ switch Fac.type
         [Fac.exp.e, E_x1, E_x2] = frameIncrement(...
             Frm(1).state.x, ...
             Frm(2).state.x);
-        [pq, PQ_y, PQ_e] = frameIncrement(Fac.meas.y, Fac.exp.e); % h(x) (-) y
+        [pq, PQ_y, PQ_e] = frameIncrement(Fac.meas.y, Fac.exp.e); % err = h(x) (-) y
         [Fac.err.z, Z_pq] = qpose2vpose(pq);
         Fac.err.J1 = Z_pq * PQ_e * E_x1 * Frm(1).state.M; % Jac wrt manifold 1
         Fac.err.J2 = Z_pq * PQ_e * E_x2 * Frm(2).state.M; % Jac wrt manifold 2
@@ -50,7 +50,7 @@ switch Fac.type
         Rob = frm2rob(Rob,Frm);
         Obs = projectLmk(Rob,Sen,Lmk,Obs);
         Fac.exp.e = Obs.exp.e;
-        Fac.err.z = Fac.exp.e - Fac.meas.y; % h(x) (-) y
+        Fac.err.z = Fac.exp.e - Fac.meas.y; % err = h(x) - y
         Fac.err.J1 = Obs.Jac.E_r * Frm.state.M; % Jac wrt manifold 1
         Fac.err.J2 = Obs.Jac.E_l * Lmk.state.M; % Jac wrt manifold 2
         Fac.err.Z = Fac.meas.R; % Measurement Jac is negative identity

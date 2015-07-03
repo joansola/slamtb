@@ -49,14 +49,18 @@ global Map
 Rob = frm2rob(Rob,Frm);
 
 % 1. PROJECT ALL LMKS - get all expectations
-for lmk = find([Lmk.used])
+lmksUsed = [Lmk.used];
+for lmk = find(lmksUsed)
 
     Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
     
 end  % --- all landmarks are now projected.
 
-vis = [Obs.vis];
+% Clear visibility of unused lmks
+[Obs(~lmksUsed).vis] = deal(false);
 
+
+vis = [Obs.vis];
 if any(vis) % Consider only visible observations
 
     % 2. SELECT LMKS TO CORRECT

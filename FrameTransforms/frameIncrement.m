@@ -44,6 +44,31 @@ else
     error('??? Both inputs F and G must be frame structures or 7-vectors. See FRAME.')
     
 end
+
+return
+
+%%
+syms ax ay az aa ab ac ad bx by bz ba bb bc bd real
+F=[ax;ay;az;aa;ab;ac;ad];
+G = [bx;by;bz;ba;bb;bc;bd];
+
+% As vectors
+[I, I_f, I_g] = frameIncrement(F, G);
+
+simplify(I_f - jacobian(I,F))
+simplify(I_g - jacobian(I,G))
+
+% As frames
+F2.x = F; F2 = updateFrame(F2);
+G2.x = G; G2 = updateFrame(G2);
+[I2, I2_f, I2_g] = frameIncrement(F2, G2);
+
+simplify(I2_f - jacobian(I2.x,F2.x))
+simplify(I2_g - jacobian(I2.x,G2.x))
+
+% Check that vector and frame results match
+simplify(I2.x - I)
+
 % ========== End of function - Start GPL license ==========
 
 

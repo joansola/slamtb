@@ -80,7 +80,7 @@ for rob = [Rob.rob]
     factorRob(rob) = resetMotion(Rob(rob));
     
     % Add first keyframe with absolute factor
-    Rob(rob).state.P = 1e-4 * eye(7); % Give 1cm error
+    Rob(rob).state.P = 1e-6 * eye(7); % Give 1cm error
     [Rob(rob),Lmk,Trj(rob),Frm(rob,:),Fac] = addKeyFrame(...
         Rob(rob),       ...
         Lmk,            ...
@@ -97,7 +97,7 @@ for rob = [Rob.rob]
         for i = 1:ninits
 
             % Observe simulated landmarks
-            SimSen(sen).par.cov = 0 * SimSen(sen).par.cov;
+%             SimSen(sen).par.cov = 0 * SimSen(sen).par.cov;
             Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk, SimOpt) ;
             
             % Init new lmk
@@ -178,11 +178,12 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % control input 'u'.
 
         % FIXME No noise to test
-%         Rob(rob).con.u = ...
-%             SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
+        Rob(rob).con.u = ...
+            SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
         
         Rob(rob) = simMotion(Rob(rob),Tim);
         
+        factorRob(rob).con.u = Rob(rob).con.u;
         factorRob(rob) = integrateMotion(factorRob(rob),Tim);
         
     end
@@ -195,6 +196,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     if mod(currentFrame - Tim.firstFrame + 1, Opt.map.kfrmPeriod) == 0
+        
+        fprintf('======================\nFrame: %d\n',currentFrame)
     
         % Process robots
         for rob = [Rob.rob]
@@ -212,6 +215,10 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             % Process sensor observations
             for sen = Rob(rob).sensors
                 
+                % currentFrame == 480, graph OK
+                checkGraphIntegrity(Lmk,Frm,Fac);
+                
+                % FIXME: So the problem is inside this function:
                 % Observe knowm landmarks
                 [Rob(rob),Sen(sen),Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac] ...
                     = addKnownLmkFactors( ...
@@ -224,12 +231,17 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                     Fac,        ...
                     Opt) ;
                 
+                % currentFrame == 480, graph NOK
+                checkGraphIntegrity(Lmk,Frm,Fac);
+
                 % Initialize new landmarks
                 ninits = Opt.init.nbrInits(1 + (currentFrame ~= Tim.firstFrame));
                 for i = 1:ninits
                     % Init new lmk
                     fac = find([Fac.used] == false, 1, 'first');
-                    
+                                 
+                    checkGraphIntegrity(Lmk,Frm,Fac);
+
                     if ~isempty(fac)
                         % Compute and allocate lmk
                         [Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac(fac),lmk] = initNewLmk(...
@@ -241,6 +253,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                             Frm(rob,Trj(rob).head), ...
                             Fac(fac),        ...
                             Opt) ;
+                        
+                        checkGraphIntegrity(Lmk,Frm,Fac);
                         
                         if isempty(lmk) % Did not find now lmks
                             break
@@ -259,15 +273,15 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         %         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
          % Print poses
-        x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
-            [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]       % Solve graph
+%         x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
+%             [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]       % Solve graph
         
         % Solve graph
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Trj,Frm,Fac,Opt);
         
         % Print poses
-        x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
-            [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+%         x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
+%             [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
         
         % Reset odometer and sync robot with graph
         for rob = [Rob.rob]

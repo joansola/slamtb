@@ -1,3 +1,5 @@
+format compact
+
 slam_dir = pwd;
 
 p = [...

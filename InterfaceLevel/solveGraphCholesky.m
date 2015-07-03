@@ -1,16 +1,20 @@
-function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Trj,Frm,Fac)
+function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 global Map
 
 
-olderr      = 0;
+olderr      = 1e10;
 target_derr = 1e-6;
+target_err  = 1e-6;
 niter       = 30;
 
 % Map range
 mr = find(Map.used);
 
 for it = 1:niter
+    
+    fprintf('----------------\nIteration: %d; \n',it)
+
     
     % Reset Hessian and rhs vector
     Map.H(mr,mr) = 0*Map.H(mr,mr);
@@ -32,22 +36,27 @@ for it = 1:niter
     [Map.R, ill] = chol(Map.H(pr,pr));
     
     if ~ill
+
         % Solve for dx
-        y = -Map.R'\Map.b(pr);
-        dx(p,1) = Map.R\y;
+        y = -Map.R'\Map.b(pr); % solve for y
+        dx(p,1) = Map.R\y;     % solve for dx and reorder
         Map.x(mr) = dx;
-        [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm);
         
-        err = computeResidual(Rob,Sen,Lmk,Obs,Trj,Frm,Fac);
+        % Update nominal states
+        [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);
+        
+        % Check resulting errors
+        [err, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac);
         derr = err - olderr; 
         olderr = err;
         
+        fprintf('Residual: %.2e \n',err)
+        
     else
         error('Ill-conditioned Hessian')
-        
     end
     
-    if ( (~ill) && (derr <= 0) && ( abs(derr) < target_derr) )
+    if ( ( -derr <= target_derr ) || (err_max <= target_err) ) %&& ( abs(derr) < target_derr) )
         break;
     end
     
@@ -71,7 +80,9 @@ function [Fac] = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 global Map
 
-for fac = [Fac([Fac.used]).fac]
+facs = find([Fac.used]);
+
+for fac = facs
     
     rob = Fac(fac).rob;
     sen = Fac(fac).sen;
@@ -80,7 +91,7 @@ for fac = [Fac([Fac.used]).fac]
     
     % Compute factor error, info mat, and Jacobians
     [Fac(fac), e, W, J1, J2, r1, r2] = computeError(Rob(rob),Sen(sen),Lmk(lmk),Obs(sen,lmk),Frm(frames),Fac(fac));
-    
+
     % Compute sparse blocks
     H_11 = J1' * W * J1;
     H_12 = J1' * W * J2;
@@ -98,12 +109,14 @@ for fac = [Fac([Fac.used]).fac]
     
     Map.b(r1,1) = Map.b(r1,1) + b1;
     Map.b(r2,1) = Map.b(r2,1) + b2;
-    
-end
+
+    fprintf('Factor: %3d; ''%s'' ; error: %e \n', fac, Fac(fac).type(1:4), norm(e))
 
 end
 
-function [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm)
+end
+
+function [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm)
 
 % UPDATESTATES Update Frm and Lmk states based on computed error.
 
@@ -130,11 +143,12 @@ Map.x(Map.used) = 0;
 
 end
 
-function r = computeResidual(Rob,Sen,Lmk,Obs,Trj,Frm,Fac)
+function [r, emax] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 % [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm);
 
 r = 0;
+emax = 0;
 
 for fac = [Fac([Fac.used]).fac]
     
@@ -145,6 +159,10 @@ for fac = [Fac([Fac.used]).fac]
     
     % Compute factor error, info mat, and Jacobians
     [Fac(fac), e, W] = computeError(Rob(rob),Sen(sen),Lmk(lmk),Obs(sen,lmk),Frm(frames),Fac(fac));
+
+    if max(abs(e)) > emax
+        emax = max(abs(e));
+    end
     
     r = r + e' * W * e;
     

@@ -67,6 +67,7 @@ for fac = factors
     
     if strcmp(Fac(fac).type, 'motion') 
         % Convert motion factor to absolute factor
+%         fprintf('Converting Fac ''%d''.\n', fac)
         
         newTail = Fac(fac).frames(2);
         [Frm(newTail),Fac(fac)] = makeAbsFactorFromMotionFactor(Frm(newTail),Fac(fac));
@@ -85,13 +86,14 @@ for fac = factors
             
             % Delete landmark if no factors support it
             if isempty(Lmk(lmk).factors)
-                fprintf('Deleting Lmk ''%d''.\n', lmk)
+%                 fprintf('Deleting Lmk ''%d''.\n', lmk)
                 Lmk(lmk).used = false;
                 Map.used(Lmk(lmk).state.r) = false;
             end
         end
         
         % Free (and cleanup just in case) factors from tail before advancing
+%         fprintf('Deleting Fac ''%d''.\n', fac)
         Fac(fac).used = false;
         Fac(fac).frames = [];
         Fac(fac).lmk = [];
@@ -106,6 +108,7 @@ end
 
 % Clean discarded tail frame
 Frm(Trj.tail).used = false;
+Frm(Trj.tail).factors = [];
 
 % Unblock positions in Map
 Map.used(Frm(Trj.tail).state.r)    = false;

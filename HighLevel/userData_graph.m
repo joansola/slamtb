@@ -166,12 +166,12 @@ Opt = struct(...
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        3,...          % Size of landmark state
     'lmkManiSize',    3,...          % Size of lmk manifold state
-    'numFrames',      20,...         % number of frames in graph
+    'numFrames',      40,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       2,...         % max simultaneus updates
+    'nUpdates',       4,...         % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections

@@ -22,7 +22,7 @@ else
     iF.x = [-nt;q];
     iF = updateFrame(iF);
 
-    IF_f = zeros(7);
+%     IF_f = zeros(7);
     IF_f(1:3,1:3) = -nT_t;
     IF_f(1:3,4:7) = -nT_q;
     IF_f(4:7,4:7) = Q_q;

@@ -206,10 +206,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             % Process sensor observations
             for sen = Rob(rob).sensors
                 
-                % currentFrame == 480, graph OK
-                checkGraphIntegrity(Lmk,Frm,Fac);
-                
-                % FIXME: So the problem is inside this function:
                 % Observe knowm landmarks
                 [Rob(rob),Sen(sen),Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac] ...
                     = addKnownLmkFactors( ...
@@ -222,17 +218,12 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                     Fac,        ...
                     Opt) ;
                 
-                % currentFrame == 480, graph NOK
-                checkGraphIntegrity(Lmk,Frm,Fac);
-
                 % Initialize new landmarks
                 ninits = Opt.init.nbrInits(1 + (currentFrame ~= Tim.firstFrame));
                 for i = 1:ninits
                     % Init new lmk
                     fac = find([Fac.used] == false, 1, 'first');
                                  
-                    checkGraphIntegrity(Lmk,Frm,Fac);
-
                     if ~isempty(fac)
                         % Compute and allocate lmk
                         [Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac(fac),lmk] = initNewLmk(...
@@ -244,8 +235,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                             Frm(rob,Trj(rob).head), ...
                             Fac(fac),        ...
                             Opt) ;
-                        
-                        checkGraphIntegrity(Lmk,Frm,Fac);
                         
                         if isempty(lmk) % Did not find now lmks
                             break

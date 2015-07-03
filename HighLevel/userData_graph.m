@@ -60,8 +60,8 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.08;0;0],...     % position increment
   'daDegrees',          [0;0;.9],...     % angle increment, degrees
-  'dxStd',              0.005*[1;1;1],...  % odo linear error std
-  'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
+  'dxStd',              0.01*[1;1;1],...  % odo linear error std
+  'daStd',              0.1*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                  % ODOMETRY EXAMPLE
 %   'id',                 2,...           % robot identifier
@@ -148,8 +148,8 @@ Sensor{1} = struct(...
   'positionStd',        [0;0;0],...     % position error std
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        1.0,...         % pixel error std
-  'depthErrorStd',      0.2,...         % depth error std
+  'pixErrorStd',        1.0,...         % pixel error std [pixels]
+  'depthErrorStd',      0.5,...         % depth error std [m]
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params, e.g. [-0.3;0.1]
   'frameInMap',         false,...       % add sensor frame in slam map?
@@ -166,13 +166,13 @@ Opt = struct(...
     'solver',         'Cholesky',...   % graph solver {'QR','Cholesly','Schur'}
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        3,...          % Size of landmark state
-    'lmkDSize',    3,...             % Size of lmk error state
+    'lmkDSize',       3,...          % Size of lmk error state
     'numFrames',      40,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       4,...         % max simultaneus updates
+    'nUpdates',       10,...         % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections

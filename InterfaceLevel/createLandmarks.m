@@ -20,7 +20,7 @@ for lmk = 1:Opt.map.numLmks
     Lmk(lmk).state.x = zeros(Opt.map.lmkSize,1);
     Lmk(lmk).state.r = [];
     Lmk(lmk).state.size = Opt.map.lmkSize;
-    Lmk(lmk).state.dsize = Opt.map.lmkManiSize;
+    Lmk(lmk).state.dsize = Opt.map.lmkDSize;
     Lmk(lmk).state.M = []; % Jacobian of projection to manifold
     
     % Landmark descriptor or signature

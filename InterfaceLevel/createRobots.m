@@ -65,6 +65,7 @@ for rob = 1:numel(Robot)
     Ro.state.size = numel(Ro.state.x);   % state size
     Ro.state.dsize = numel(Ro.state.dx);
 
+    Ro.frame.r = [];
     Ro.frame.x = qp;
     Ro.frame.P = QP;
     Ro.frame = updateFrame(Ro.frame);

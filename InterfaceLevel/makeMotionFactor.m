@@ -1,5 +1,12 @@
 function [Frm_old, Frm_new, Fac] = makeMotionFactor(Frm_old, Frm_new, Fac, factorRob)
 
+% MAKEMOTIONFACTOR Make motion factor
+%   [Frm_old, Frm_new, Fac] = MAKEABSFACTOR(Frm_old, Frm_new, Fac, factorRob) 
+%   creates a motion factor Fac from the past frame Frm_old to the current
+%   frame Frm_new, using the motion measurement and covariance of the robot
+%   factorRob. It updates the pointers of the frames where it is applied.
+%
+%   See also MAKEABSFACTOR, MAKEMEASFACTOR.
 
 Fac.used = true; % Factor is being used ?
 Fac.id = newId; % Factor unique ID

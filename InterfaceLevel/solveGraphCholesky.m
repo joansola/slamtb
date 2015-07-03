@@ -1,24 +1,27 @@
 function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
 
+% SOLVEGRAPHCHOLESKY Solves the SLAM graph using Cholesky decomposition.
+%
+%   See courseSLAM.pdf in the documentation for details about the Cholesky
+%   decomposition, graph-SLAM algorithm.
+
+% Copyright 2015-    Joan Sola @ IRI-UPC-CSIC.
+
 global Map
 
-
-olderr      = 1e10;
-target_derr = 1e-6;
-target_err  = 1e-6;
-niter       = 30;
+% Control of iterations and exit conditions
+res_old     = 1e10;
+target_dres = 1e-6;
+target_res  = 1e-6;
+n_iter       = 30;
 
 % Map range
 mr = find(Map.used);
 
-for it = 1:niter
+for it = 1:n_iter
     
     fprintf('----------------\nIteration: %d; \n',it)
 
-    
-    % Reset Hessian and rhs vector
-    Map.H(mr,mr) = 0*Map.H(mr,mr);
-    Map.b(mr) = 0*Map.b(mr);
     
     % Compute Jacobians for projection onto the manifold
     [Frm,Lmk] = computeStateJacobians(Frm,Lmk);
@@ -46,17 +49,17 @@ for it = 1:niter
         [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);
         
         % Check resulting errors
-        [err, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac);
-        derr = err - olderr; 
-        olderr = err;
+        [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac);
+        dres = res - res_old; 
+        res_old = res;
         
-        fprintf('Residual: %.2e \n',err)
+        fprintf('Residual: %.2e; variation: %.2e \n', res, dres)
         
     else
         error('Ill-conditioned Hessian')
     end
     
-    if ( ( -derr <= target_derr ) || (err_max <= target_err) ) %&& ( abs(derr) < target_derr) )
+    if ( ( -dres <= target_dres ) || (err_max <= target_res) ) %&& ( abs(derr) < target_derr) )
         break;
     end
     
@@ -80,10 +83,16 @@ function [Fac] = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 global Map
 
-facs = find([Fac.used]);
+% Reset Hessian and rhs vector
+mr = find(Map.used);
+Map.H(mr,mr) = 0;
+Map.b(mr)    = 0;
 
+% Iterate all factors
+facs = find([Fac.used]);
 for fac = facs
     
+    % Extract some pointers
     rob = Fac(fac).rob;
     sen = Fac(fac).sen;
     lmk = Fac(fac).lmk;
@@ -92,12 +101,12 @@ for fac = facs
     % Compute factor error, info mat, and Jacobians
     [Fac(fac), e, W, J1, J2, r1, r2] = computeError(Rob(rob),Sen(sen),Lmk(lmk),Obs(sen,lmk),Frm(frames),Fac(fac));
 
-    % Compute sparse blocks
+    % Compute sparse Hessian blocks
     H_11 = J1' * W * J1;
     H_12 = J1' * W * J2;
     H_22 = J2' * W * J2;
     
-    % Compute rhs
+    % Compute rhs vector blocks
     b1 = J1' * W * e;
     b2 = J2' * W * e;
     
@@ -110,7 +119,7 @@ for fac = facs
     Map.b(r1,1) = Map.b(r1,1) + b1;
     Map.b(r2,1) = Map.b(r2,1) + b2;
 
-    fprintf('Factor: %3d; ''%s'' ; error: %e \n', fac, Fac(fac).type(1:4), norm(e))
+%     fprintf('Factor: %3d; ''%s'' ; error: %e \n', fac, Fac(fac).type(1:4), norm(e))
 
 end
 
@@ -143,12 +152,12 @@ Map.x(Map.used) = 0;
 
 end
 
-function [r, emax] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac)
+function [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 % [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm);
 
-r = 0;
-emax = 0;
+res = 0;
+err_max = 0;
 
 for fac = [Fac([Fac.used]).fac]
     
@@ -160,11 +169,13 @@ for fac = [Fac([Fac.used]).fac]
     % Compute factor error, info mat, and Jacobians
     [Fac(fac), e, W] = computeError(Rob(rob),Sen(sen),Lmk(lmk),Obs(sen,lmk),Frm(frames),Fac(fac));
 
-    if max(abs(e)) > emax
-        emax = max(abs(e));
+    err_maha = e' * W * e;
+    
+    if err_maha > err_max
+        err_max = err_maha;
     end
     
-    r = r + e' * W * e;
+    res = res + e' * W * e;
     
 end
 

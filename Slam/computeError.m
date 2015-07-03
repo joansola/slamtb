@@ -1,5 +1,13 @@
 function [Fac, e, W, J1, J2, r1, r2] = computeError(Rob,Sen,Lmk,Obs,Frm,Fac)
 
+% COMPUTEERROR Compute factor error.
+%   [Fac, e, W, J1, J2, r1, r2] = COMPUTEERROR(Rob,Sen,Lmk,Obs,Frm,Fac)
+%   computes the error associated to the factor Fac given the current
+%   states in Frm and / or Lmk.
+
+%   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
+
+
 switch Fac.type
     case 'absolute'
         % Given an expected pose and a pose measurement, compute the error
@@ -47,10 +55,13 @@ switch Fac.type
         Fac.state.r2 = Frm(2).state.r;
 
     case 'measurement'
+        % Given an expected pose and an expected landmark, compute the
+        % measurement error as the difference between the expected
+        % measurement of the landmark and the actual measurement.
         Rob = frm2rob(Rob,Frm);
         Obs = projectLmk(Rob,Sen,Lmk,Obs);
         Fac.exp.e = Obs.exp.e;
-        Fac.err.z = Fac.exp.e - Fac.meas.y; % err = h(x) - y
+        Fac.err.z = Fac.exp.e - Fac.meas.y;     % err = h(x) - y
         Fac.err.J1 = Obs.Jac.E_r * Frm.state.M; % Jac wrt manifold 1
         Fac.err.J2 = Obs.Jac.E_l * Lmk.state.M; % Jac wrt manifold 2
         Fac.err.Z = Fac.meas.R; % Measurement Jac is negative identity
@@ -62,13 +73,18 @@ switch Fac.type
 end
 
 if nargout > 1
-    e  = Fac.err.z;
-    W  = Fac.err.W;
-    J1 = Fac.err.J1;
-    J2 = Fac.err.J2;
-    r1 = Fac.state.r1;
-    r2 = Fac.state.r2;
+    % Return unstructured info also (optional)
+    e  = Fac.err.z;     % measurement error
+    W  = Fac.err.W;     % measurement info matrix
+    J1 = Fac.err.J1;    % Jacobian wrt block 1
+    J2 = Fac.err.J2;    % Jacobian wrt block 2
+    r1 = Fac.state.r1;  % range of block 1
+    r2 = Fac.state.r2;  % range of block 2
 end
+
+
+
+
 % ========== End of function - Start GPL license ==========
 
 

@@ -97,7 +97,6 @@ for rob = [Rob.rob]
         for i = 1:ninits
 
             % Observe simulated landmarks
-%             SimSen(sen).par.cov = 0 * SimSen(sen).par.cov;
             Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk, SimOpt) ;
             
             % Init new lmk
@@ -129,14 +128,8 @@ for rob = [Rob.rob]
     
 end
 
-% % Print poses
-% x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
-
-[Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Trj,Frm,Fac,Opt);
+[Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
 % printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
-
-% % Print poses
-% x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
 
 
 %% IV. Main loop
@@ -176,8 +169,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % is noised so that the simulated trajectory can be made perfect
         % and act as a clear reference. The noise is additive to the
         % control input 'u'.
-
-        % FIXME No noise to test
         Rob(rob).con.u = ...
             SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
         
@@ -197,7 +188,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     
     if mod(currentFrame - Tim.firstFrame + 1, Opt.map.kfrmPeriod) == 0
         
-        fprintf('======================\nFrame: %d\n',currentFrame)
+        fprintf('================\nFrame: %d\n',currentFrame)
     
         % Process robots
         for rob = [Rob.rob]
@@ -258,7 +249,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                         
                         if isempty(lmk) % Did not find now lmks
                             break
-                            
                         end
                         
                     end
@@ -272,16 +262,8 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         %         % Print graph as text
         %         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
-         % Print poses
-%         x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
-%             [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]       % Solve graph
-        
         % Solve graph
-        [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Trj,Frm,Fac,Opt);
-        
-        % Print poses
-%         x____Rob_____SimRob____FactorRob___Frm1______Frm2______Frm3 = ...
-%             [Rob.state.x SimRob.state.x factorRob.state.x Frm(1).state.x Frm(2).state.x Frm(3).state.x]
+        [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
         
         % Reset odometer and sync robot with graph
         for rob = [Rob.rob]

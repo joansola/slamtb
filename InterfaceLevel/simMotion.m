@@ -1,4 +1,5 @@
 function Rob = simMotion(Rob, Tim)
+
 % SIMMOTION  Simulated robot motion.
 %   Rob = SIMMOTION(Rob, Tim) performs one motion step to robot Rob,
 %   following the motion model in Rob.motion. The time information Tim is

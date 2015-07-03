@@ -12,12 +12,15 @@ function [Lmk,Obs,Frm,Fac,lmk] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Frm, Fac, O
 %       Raw:  the raw datas issues from Sen
 %       Lmk:  the set of landmarks
 %       Obs:  the observation structure for the sensor Sen
+%       Frm:  The frame from where the Lmk was perceived
+%       Fac:  the factor to be created.
 %       Opt:  the algorithm options
 %
 %   The algorithm can be configured through numerous options stored in
-%   structure Opt.init. Edit USERDATA to access and modify these options.
+%   structure Opt.init. Edit USERDATA_GRAPH to access and modify these
+%   options.
 
-%   Copyright 2009 Jean Marie Codol, David Marquez @ LAAS-CNRS
+%   Copyright 2015-   Joan Sola @ IRI-CSIC-UPC
 
 global Map
 

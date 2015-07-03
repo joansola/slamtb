@@ -1,6 +1,20 @@
 function [Rob,Lmk,Trj,Frm,Fac] = addKeyFrame(Rob,Lmk,Trj,Frm,Fac,factorRob, factorType)
 
-global Map
+% ADDKEYFRAME Add key frame to trajectory.
+%   [Rob,Lmk,Trj,Frm,Fac] = ADDKEYFRAME(Rob,Lmk,Trj,Frm,Fac,factorRob,factorType)
+%   adds a new frame Frm at the head of trajectory Trj. This new frame has
+%   the pose of Rob. If the trajectory is full, the oldest frame is
+%   deleted, and the graph is updated with the removal of all the necessary
+%   pointers, factors, and, eventually, also the landmarks that have become
+%   orphelin of any factor. It also creates the necessary factors linking
+%   the new frame to the graph, and reserves space in the Map for the error
+%   states of the new frame.
+%
+%   See also PRINTGRAPH, CHECKGRAPHINTEGRITY, ADDFRMTOTRJ.
+
+%   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
+
+
 
 % Add frame to trajectory
 [Lmk,Trj,Frm,Fac] = addFrmToTrj(...

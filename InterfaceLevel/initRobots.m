@@ -1,4 +1,4 @@
-function Rob = initRobots(Rob,Frm)
+function Rob = initRobots(Rob)
 
 % INITROBOTS Initialize robots in Map.
 %   Rob = INITROBOTS(Rob) initializes all robots in Rob() in the global map

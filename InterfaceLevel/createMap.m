@@ -51,7 +51,7 @@ switch lower(Opt.map.type)
         R = [Rob.state];
         
         % overall number of states needed to allocate robots and landmarks
-        n = sum([[R.dsize].*Opt.map.numFrames Opt.map.lmkManiSize*Opt.map.numLmks]);
+        n = sum([[R.dsize].*Opt.map.numFrames Opt.map.lmkDSize*Opt.map.numLmks]);
         
         % Map occupancy
         Map.used = false(n,1);

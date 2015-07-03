@@ -1,4 +1,13 @@
-function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Trj,Frm,Fac,Opt)
+function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt)
+
+% SOLVEGRAPH  Solve the SLAM problem posed as a graph of states and
+% factors.
+%
+%   [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt)
+%   solves the graph defined by Frm, Lmk and Fac, using one solver
+%   specified in Opt.
+%
+%   See also SOLVEGRAPHCHOLESKY, SOLVEGRAPHQR, SOLVEGRAPHSCHUR.
 
 % Take algorithms from courseSLAM.pdf
 

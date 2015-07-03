@@ -1,6 +1,8 @@
 function [Rob,Sen,Raw,Lmk,Obs,Trj,Frm,Fac,Tim] = createGraphStructures(Robot,Sensor,Time,Opt)
 
 % CREATEGRAPHSTRUCTURES  Initialize graphSLAM data structures from user data.
+%
+%   See also CREATESLAMSTRUCTURES.
 
 %   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
 
@@ -39,7 +41,7 @@ Fac = createFactors(Opt);
 Obs = createObservations(Sen,Opt);
 
 % Initialize robots in Map
-Rob = initRobots(Rob,Frm);
+Rob = initRobots(Rob);
 
 % Create time variables
 Tim = createTime(Time);

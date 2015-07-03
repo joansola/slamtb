@@ -1,5 +1,14 @@
 function Rob = resetMotion(Rob)
 
+% RESETMOTION Reset motion to origin of coordinates
+%   Rob = RESETMOTION(Rob) resets the robot frame to the origin of
+%   coordinates, and its covariance to the zero matrix.
+%
+%   See also MOTION, SIMMOTION, INTEGRATEMOTION.
+
+%   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
+
+
 Rob.state.x = vpose2qpose(zeros(6,1));
 Rob.frame.x = Rob.state.x;
 Rob.frame = updateFrame(Rob.frame);

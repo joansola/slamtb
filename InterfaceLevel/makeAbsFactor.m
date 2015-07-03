@@ -1,5 +1,12 @@
 function [Frm, Fac] = makeAbsFactor(Frm, Fac, Rob)
 
+% MAKEABSFACTOR Make absolute factor
+%   [Frm, Fac] = MAKEABSFACTOR(Frm, Fac, Rob) creates an absolute factor
+%   Fac from the current pose and covariance of the robot Rob. It updates
+%   the pointers of the frame Frm where it is applied.
+%
+%   See also MAKEMOTIONFACTOR, MAKEMEASFACTOR.
+
 
 Fac.used = true; % Factor is being used ?
 Fac.id = newId; % Factor unique ID

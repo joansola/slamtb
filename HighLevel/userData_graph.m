@@ -1,4 +1,4 @@
-% USERDATA  User data for SLAMTB.
+% USERDATA_GRAPH  User data for SLAMTB_GRAPH.
 %   Edit this script to enter the information you need for SLAM. Variable
 %   names and comments should make this file easy to understand. Follow
 %   these guidelines:
@@ -13,9 +13,9 @@
 %   number of landmarks that the SLAM map must support.
 %   * Use Opt.init.initType to select the type of landmarks to use. Try
 %   with one in this list:
-%       'idpPnt', 'hmgPnt', 'ahmPnt', 'plkLin', 'ahmLin'.
-%   * Use World.points and World.segments to create artificial worlds of
-%   points or segments. Check functions THICKCLOISTER and HOUSE.
+%       'eucPnt'.
+%   * Use World.points to create artificial worlds of points or segments.
+%   Check function THICKCLOISTER.
 %
 %   See further comments within the file for more detailed information.
 %
@@ -23,10 +23,11 @@
 %   store different simulation conditions. Just modify the call in SLAMTB
 %   to point to the particular 'USERDATA' file you want.
 %
-%   See also SLAMTB, EULERANGLES, THICKCLOISTER, HOUSE, USERDATAPNT,
+%   See also SLAMTB, EULERANGLES, THICKCLOISTER, USERDATA, USERDATAPNT,
 %   USERDATALIN.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2015-     Joan Sola @ IRI-CSIC-UPC.
 
 % Time variables 
 %   - sampling time, first and last frames
@@ -148,7 +149,7 @@ Sensor{1} = struct(...
   'orientationStd',     [0;0;0],...     % orient. error std
   'imageSize',          [640;480],...   % image size
   'pixErrorStd',        1.0,...         % pixel error std
-  'depthErrorStd',      0.1,...         % depth error std
+  'depthErrorStd',      0.2,...         % depth error std
   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
   'distortion',         [],...          % distortion params, e.g. [-0.3;0.1]
   'frameInMap',         false,...       % add sensor frame in slam map?
@@ -165,7 +166,7 @@ Opt = struct(...
     'solver',         'Cholesky',...   % graph solver {'QR','Cholesly','Schur'}
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        3,...          % Size of landmark state
-    'lmkManiSize',    3,...          % Size of lmk manifold state
+    'lmkDSize',    3,...             % Size of lmk error state
     'numFrames',      40,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
@@ -235,7 +236,7 @@ FigOpt = struct(...
     'proj',         'persp',...     % projection of the 3d figure
     'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0 0],...       % Azimuth and Elevation orbit angle increments - use to animate figure
-    'showSimLmk',   true,...        % show simulated landmarks?
+    'showSimLmk',   false,...        % show simulated landmarks?
     'showEllip',    false,...        % show ellipsoids?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      

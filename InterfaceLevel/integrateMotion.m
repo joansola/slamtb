@@ -1,4 +1,5 @@
 function Rob = integrateMotion(Rob, Tim)
+
 %INTEGRATEMOTION Integrate Robot motion, with covariance.
 %   ROB = INTEGRATEMOTION(ROB, TIM) performs one prediction motion step to
 %   the state and covariance of robot Rob, following the motion model in

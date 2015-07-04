@@ -72,7 +72,7 @@ clear Robot Sensor World Time   % clear all user data
 % TODO: Possibly put in initRobots and createFrames, createFactors, createTrj...
 for rob = [Rob.rob]
     
-    % Reset motion robot
+    % Reset relative motion robot
     factorRob(rob) = resetMotion(Rob(rob));
     
     % Add first keyframe with absolute factor
@@ -98,7 +98,7 @@ for rob = [Rob.rob]
             % Init new lmk
             fac = find([Fac.used] == false, 1, 'first');
             
-            if ~isempty(fac)
+%             if ~isempty(fac)
                 % Compute and allocate lmk
                 [Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac(fac),lmk] = initNewLmk(...
                     Rob(rob),   ...
@@ -115,7 +115,7 @@ for rob = [Rob.rob]
                 end
                 
                 
-            end
+%             end
             
         end
         

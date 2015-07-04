@@ -78,14 +78,15 @@ for it = 1:n_iter
     
 end
 
-% fprintf('it: %2d / nfac: %3d / err: %.2e\n', it, sum([Fac.used]), err)
-
 end
 
 
-function [Fac] = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
+function Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
 
-% BUILDPROBLEM Build least squares problem's matrix H and vector b
+% BUILDPROBLEM Build least squares problem's matrix H and vector b 
+%   Fac = BUILDPROBLEM(Rob,Sen,Lmk,Obs,Frm,Fac) Builds the least squares
+%   problem's matrix H and vector b for a solution using sparse Cholesky
+%   factorization of H.
 
 global Map
 
@@ -95,8 +96,8 @@ Map.H(mr,mr) = 0;
 Map.b(mr)    = 0;
 
 % Iterate all factors
-facs = find([Fac.used]);
-for fac = facs
+factors = find([Fac.used]);
+for fac = factors
     
     % Extract some pointers
     rob = Fac(fac).rob;
@@ -105,7 +106,13 @@ for fac = facs
     frames = Fac(fac).frames;
     
     % Compute factor error, info mat, and Jacobians
-    [Fac(fac), e, W, J1, J2, r1, r2] = computeError(Rob(rob),Sen(sen),Lmk(lmk),Obs(sen,lmk),Frm(frames),Fac(fac));
+    [Fac(fac), e, W, J1, J2, r1, r2] = computeError(...
+        Rob(rob),       ...
+        Sen(sen),       ...
+        Lmk(lmk),       ...
+        Obs(sen,lmk),   ...
+        Frm(frames),    ...
+        Fac(fac));
 
     % Compute sparse Hessian blocks
     H_11 = J1' * W * J1;
@@ -122,10 +129,8 @@ for fac = facs
     Map.H(r2,r1) = Map.H(r2,r1) + H_12';
     Map.H(r2,r2) = Map.H(r2,r2) + H_22;
     
-    Map.b(r1,1) = Map.b(r1,1) + b1;
-    Map.b(r2,1) = Map.b(r2,1) + b2;
-
-%     fprintf('Factor: %3d; ''%s'' ; error: %e \n', fac, Fac(fac).type(1:4), norm(e))
+    Map.b(r1,1)  = Map.b(r1,1) + b1;
+    Map.b(r2,1)  = Map.b(r2,1) + b2;
 
 end
 

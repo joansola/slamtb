@@ -1,43 +1,37 @@
-function Frm = frmJacobians(Frm)
+function [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm)
 
-% FRMJACOBIANS Compute Jacobians for projection onto the manifold.
-%   FRMJACOBIANS computes all the Jacobians of the frames in structure
-%   array Frm for the projection of the frame errors into the frame
-%   manifolds. The computed Jacobians are stored in Frm.state.M. 
+% UPDATESTATES Update Frm and Lmk states based on computed error.
+%   [Rob,Lmk,Frm] = UPDATESTATES(Rob,Lmk,Frm) updates the nominal states of
+%   robots Rob, landmarks Lmk and frames Frm, by composing their nominal
+%   states in Xxx.state.x with the computed error states in
+%   Map.x(Xxx.state.r).
 %
-%   Frames are [p,q]'. Details follow.
+%   Each state is updated following a different procedure depending on its
+%   type.
 %
-%   The position manifold is defined trivially, so that
-%       dp = [dpx dpy dpz]'
-%   and the composition is just a sum,
-%       p+ = p + dp,
-%   so the Jacobian is the 3x3 identity matrix I.
-%
-%   The quaternion manifold is defined with a tangent space:
-%       phi = [phix, phiy, phiz]'
-%   so that the quaternion error is expressed
-%       dq = [sqrt(1 - norm(phi)^2)]
-%            [         phi         ]
-%   and the composition is done locally
-%       q+ = qProd( 1, dq)
-%   In such case, the Jacobian is given by
-%       dq+ / d dq = q2Pi(q)
-%
-%   The total Jacobian is thus
-%
-%       M = [  I     0    ]
-%           [  0  q2Pi(q) ]
-%
-%   See also LMKJACOBIANS.
+%   See also UPDATEKEYFRM.
 
 % Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
 
 
-for rob = 1:size(Frm,1)
+global Map
+
+for rob = [Rob.rob]
     for frm = [Frm(rob,[Frm(rob,:).used]).frm]
-        q = Frm(rob,frm).state.x(4:7);
-        Frm(rob,frm).state.M = [eye(3), zeros(3,3) ; zeros(4,3) q2Pi(q)];
+        Frm(rob,frm) = updateKeyFrm(Frm(rob,frm));
     end
+%     Rob(rob) = frm2rob(Rob(rob), Frm(rob,Trj.head));
+end
+for lmk = [Lmk([Lmk.used]).lmk]
+    switch Lmk(lmk).type
+        case 'eucPnt'
+            % Trivial composition -- no manifold stuff
+            Lmk(lmk).state.x = Lmk(lmk).state.x + Map.x(Lmk(lmk).state.r);
+        otherwise
+            error('??? Unknown landmark type ''%s'' or Update not implemented.',Lmk.type)
+    end
+end
+
 end
 
 

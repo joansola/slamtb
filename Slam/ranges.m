@@ -10,13 +10,30 @@ function r = ranges(Str)
 %
 %   In particular, Str is one of the following structures in SLAMTB or
 %   SLAMTB_GRAPH:
+%
 %       Rob: a 1-dimensional array of robots 
 %       Sen: a 1-D array of sensors
 %       Lmk: a 1-D array of landmarks
-%       Frm: a 2-D array of frames
+%       Frm: a 2-D array of frames.
 %   
 %   In any case, the output is a column vector of indices to the storage
-%   vector in the Map, that is, Map.x.
+%   vector in the Map, that is, Map.x, so that,
+%
+%       Map.x(ranges(Str)) 
+%
+%   returns all the state values of all the elements in the structure array
+%   Str. Likewise, and as a particular example,
+%
+%       Map.H(ranges(Lmk),ranges(Lmk)) 
+%
+%   returns the Hessian matrix belonging to the landmark states, while
+%
+%       Map.H(ranges(Frm),ranges(Lmk))
+%
+%   returns the Hessian block with states linking frames and landmarks.
+%   This might be useful to retrieve all states of a given kind, for
+%   example for its use in partitioning the Hessian matrix before taking
+%   the Schur complement.
 %
 %   See also NEWRANGE, BLOCKRANGE, FREESPACE.
 

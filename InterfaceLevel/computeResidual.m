@@ -1,44 +1,46 @@
-function Frm = frmJacobians(Frm)
+function [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac)
 
-% FRMJACOBIANS Compute Jacobians for projection onto the manifold.
-%   FRMJACOBIANS computes all the Jacobians of the frames in structure
-%   array Frm for the projection of the frame errors into the frame
-%   manifolds. The computed Jacobians are stored in Frm.state.M. 
+% COMPUTERESIDUAL Compute the residual.
+%   COMPUTERESIDUAL(Rob,Sen,Lmk,Obs,Frm,Fac) gets the residual of all
+%   factors in structure array Fac given all the states in trajectory
+%   frames Frm, all landmarks Lmk, and the measurement models and
+%   parameters derived from the robot Rob and sensor Sen.
 %
-%   Frames are [p,q]'. Details follow.
+%   The residual is the sum of all Mahalanobis distances squared of all
+%   factors.
 %
-%   The position manifold is defined trivially, so that
-%       dp = [dpx dpy dpz]'
-%   and the composition is just a sum,
-%       p+ = p + dp,
-%   so the Jacobian is the 3x3 identity matrix I.
+%   [res, err_max] = COMPUTERESIDUAL(...) returns also the maximum of the
+%   squared mahalanobis error of all factors.
 %
-%   The quaternion manifold is defined with a tangent space:
-%       phi = [phix, phiy, phiz]'
-%   so that the quaternion error is expressed
-%       dq = [sqrt(1 - norm(phi)^2)]
-%            [         phi         ]
-%   and the composition is done locally
-%       q+ = qProd( 1, dq)
-%   In such case, the Jacobian is given by
-%       dq+ / d dq = q2Pi(q)
-%
-%   The total Jacobian is thus
-%
-%       M = [  I     0    ]
-%           [  0  q2Pi(q) ]
-%
-%   See also LMKJACOBIANS.
+%   See also COMPUTEERROR, SOLVEGRAPHCHOLESKY.
 
 % Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
 
 
-for rob = 1:size(Frm,1)
-    for frm = [Frm(rob,[Frm(rob,:).used]).frm]
-        q = Frm(rob,frm).state.x(4:7);
-        Frm(rob,frm).state.M = [eye(3), zeros(3,3) ; zeros(4,3) q2Pi(q)];
+res = 0;
+err_max = 0;
+
+for fac = [Fac([Fac.used]).fac]
+    
+    rob = Fac(fac).rob;
+    sen = Fac(fac).sen;
+    lmk = Fac(fac).lmk;
+    frames = Fac(fac).frames;
+    
+    % Compute factor error, and info mat
+    [Fac(fac), e, W] = computeError(Rob(rob),Sen(sen),Lmk(lmk),Obs(sen,lmk),Frm(frames),Fac(fac));
+
+    err_maha = e' * W * e;
+    
+    if err_maha > err_max
+        err_max = err_maha;
     end
+    
+    res = res + err_maha;
+    
 end
+
+
 
 
 

@@ -24,7 +24,7 @@ for it = 1:n_iter
 
     
     % Compute Jacobians for projection onto the manifold
-    [Frm,Lmk] = computeStateJacobians(Frm,Lmk);
+    [Frm,Lmk] = errorStateJacobians(Frm,Lmk);
     
     % Build Hessian and rhs vector
     Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac);
@@ -69,13 +69,6 @@ end
 
 end
 
-function [Frm,Lmk] = computeStateJacobians(Frm,Lmk)
-
-% COMPUTESTATEJACOBIANS Compute Jacobians for projection onto the manifold.
-
-Frm = frmJacobians(Frm);
-Lmk = lmkJacobians(Lmk);
-end
 
 function [Fac] = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
 
@@ -125,59 +118,7 @@ end
 
 end
 
-function [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm)
 
-% UPDATESTATES Update Frm and Lmk states based on computed error.
-
-global Map
-
-for rob = [Rob.rob]
-    for frm = [Frm(rob,[Frm(rob,:).used]).frm]
-        Frm(rob,frm) = updateKeyFrm(Frm(rob,frm));
-    end
-%     Rob(rob) = frm2rob(Rob(rob), Frm(rob,Trj.head));
-end
-for lmk = [Lmk([Lmk.used]).lmk]
-    switch Lmk(lmk).type
-        case 'eucPnt'
-            % Trivial composition -- no manifold stuff
-            Lmk(lmk).state.x = Lmk(lmk).state.x + Map.x(Lmk(lmk).state.r);
-        otherwise
-            error('??? Unknown landmark type ''%s'' or Update not implemented.',Lmk.type)
-    end
-end
-
-% Reset error state
-Map.x(Map.used) = 0;
-
-end
-
-function [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac)
-
-res = 0;
-err_max = 0;
-
-for fac = [Fac([Fac.used]).fac]
-    
-    rob = Fac(fac).rob;
-    sen = Fac(fac).sen;
-    lmk = Fac(fac).lmk;
-    frames = Fac(fac).frames;
-    
-    % Compute factor error, and info mat
-    [Fac(fac), e, W] = computeError(Rob(rob),Sen(sen),Lmk(lmk),Obs(sen,lmk),Frm(frames),Fac(fac));
-
-    err_maha = e' * W * e;
-    
-    if err_maha > err_max
-        err_max = err_maha;
-    end
-    
-    res = res + err_maha;
-    
-end
-
-end
 
 
 % ========== End of function - Start GPL license ==========

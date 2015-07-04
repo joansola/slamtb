@@ -1,9 +1,20 @@
 function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 % SOLVEGRAPHCHOLESKY Solves the SLAM graph using Cholesky decomposition.
+%   [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
+%   solves the graph-SLAM problem using Cholesky decomposition of the
+%   Hessian matrix. 
 %
+%   IMPORTANT NOTE: This method is illustrative and constitutes the
+%   motivation for this toolbox. One can achieve better performances, both
+%   in computing time and possibly in robustness and accuracy, by using
+%   Matlab's built-in nonlinear optimization tools, such as LSQNONLIN.
+%   
 %   See courseSLAM.pdf in the documentation for details about the Cholesky
-%   decomposition, graph-SLAM algorithm.
+%   decomposition for solving the graph-SLAM problem.
+%
+%   See also ERRORSTATEJACOBIANS, UPDATESTATES, COMPUTEERROR,
+%   COMPUTERESIDUAL, COLAMD, '\', MLDIVIDE, LSQNONLIN.
 
 % Copyright 2015-    Joan Sola @ IRI-UPC-CSIC.
 
@@ -42,8 +53,7 @@ for it = 1:n_iter
 
         % Solve for dx
         y = -Map.R'\Map.b(pr); % solve for y
-        dx(p,1) = Map.R\y;     % solve for dx and reorder
-        Map.x(mr) = dx;
+        Map.x(pr) = Map.R\y;
         
         % Update nominal states
         [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);

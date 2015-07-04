@@ -40,11 +40,14 @@ for it = 1:n_iter
     % Build Hessian and rhs vector
     Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac);
     
-    % Column permutation
-    p = colamd(Map.H(mr,mr))';
-    
-    % Permutated map range
-    pr = mr(p);
+    if it == 1 % do this only once:
+        
+        % Column permutation
+        p = colamd(Map.H(mr,mr))';
+        
+        % Permutated map range
+        pr = mr(p);
+    end
     
     % Decomposition
     [Map.R, ill] = chol(Map.H(pr,pr));

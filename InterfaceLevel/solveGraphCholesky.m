@@ -11,9 +11,9 @@ global Map
 
 % Control of iterations and exit conditions
 res_old     = 1e10;
-target_dres = 1e-6;
+target_dres = 1e-2;
 target_res  = 1e-6;
-n_iter       = 30;
+n_iter      = 30;
 
 % Map range
 mr = find(Map.used);
@@ -154,8 +154,6 @@ end
 
 function [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac)
 
-% [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Trj,Frm);
-
 res = 0;
 err_max = 0;
 
@@ -166,7 +164,7 @@ for fac = [Fac([Fac.used]).fac]
     lmk = Fac(fac).lmk;
     frames = Fac(fac).frames;
     
-    % Compute factor error, info mat, and Jacobians
+    % Compute factor error, and info mat
     [Fac(fac), e, W] = computeError(Rob(rob),Sen(sen),Lmk(lmk),Obs(sen,lmk),Frm(frames),Fac(fac));
 
     err_maha = e' * W * e;
@@ -175,7 +173,7 @@ for fac = [Fac([Fac.used]).fac]
         err_max = err_maha;
     end
     
-    res = res + e' * W * e;
+    res = res + err_maha;
     
 end
 

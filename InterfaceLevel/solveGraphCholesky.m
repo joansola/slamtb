@@ -21,10 +21,10 @@ function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
 global Map
 
 % Control of iterations and exit conditions
-res_old     = 1e10;
-target_dres = 1e-2;
-target_res  = 1e-6;
-n_iter      = 30;
+res_old     = 1e10; % last iteration's error
+target_dres = 1e-2; % exit criterion for error variation
+target_res  = 1e-6; % exit criterion for current residual
+n_iter      = 30;   % exit criterion of number of iterations
 
 % Map range
 mr = find(Map.used);
@@ -37,13 +37,13 @@ for it = 1:n_iter
     % Compute Jacobians for projection onto the manifold
     [Frm,Lmk] = errorStateJacobians(Frm,Lmk);
     
-    % Build Hessian and rhs vector
-    Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac);
+    % Build Hessian H and rhs vector b, in global Map
+    Fac       = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac);
     
     if it == 1 % do this only once:
         
         % Column permutation
-        p = colamd(Map.H(mr,mr))';
+        p  = colamd(Map.H(mr,mr))';
         
         % Permutated map range
         pr = mr(p);
@@ -55,7 +55,7 @@ for it = 1:n_iter
     if ~ill
 
         % Solve for dx
-        y = -Map.R'\Map.b(pr); % solve for y
+        y         = -Map.R'\Map.b(pr); % solve for y
         Map.x(pr) = Map.R\y;
         
         % Update nominal states
@@ -63,8 +63,8 @@ for it = 1:n_iter
         
         % Check resulting errors
         [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac);
-        dres = res - res_old; 
-        res_old = res;
+        dres           = res - res_old; 
+        res_old        = res;
         
         fprintf('Residual: %.2e; variation: %.2e \n', res, dres)
         

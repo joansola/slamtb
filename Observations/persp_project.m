@@ -20,11 +20,9 @@ if nargout > 1 % jacobians
         error('Jacobians not possible for multiple points')
     else
 
-        [x,y,z] = split(p);
-
         Up = [...
-            [    1/z,      0, -x/z^2]
-            [      0,    1/z, -y/z^2]];
+            [    1/p(3),      0, -p(1)/p(3)^2]
+            [      0,    1/p(3), -p(2)/p(3)^2]];
     end
 end
 

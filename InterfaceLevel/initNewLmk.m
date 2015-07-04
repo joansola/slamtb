@@ -24,6 +24,27 @@ function [Lmk,Obs,Frm,Fac,lmk] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Frm, Fac, O
 
 global Map
 
+% 1. Check that we have space...
+
+% 1a. In Lmk array. Index to first free Idp lmk
+lmk = newLmk(Lmk);
+if isempty(lmk)
+    % Lmk structure array full. Unable to initialize new landmark.
+    return;
+end
+
+% 1b. In Fac array. Check for new factor
+if (strcmp(Map.type, 'graph') == true)
+    
+    fac = find([Fac.used] == false, 1, 'first');
+    
+    if isempty(fac)
+        % Fac structure array full. Unable to initialize new landmark.
+        return;
+    end
+end
+
+% 1c. In Map storage vector
 % Update rob and sen info from Map or from graph
 switch Map.type
     case 'ekf'
@@ -65,26 +86,9 @@ if (freeSpace() < lmkSize)
     return
 end
 
-% index to first free Idp lmk
-lmk = newLmk(Lmk);
-if isempty(lmk)
-    % Lmk structure array full. Unable to initialize new landmark.
-    return;
-end
+% OK, we have space everywhere. Proceed with computations.
 
-% Check for new factor
-if (strcmp(Map.type, 'graph') == true)
-    
-    fac = find([Fac.used] == false, 1, 'first');
-    
-    if isempty(fac)
-        % Fac structure array full. Unable to initialize new landmark.
-        return;
-    end
-end
-
-
-% Feature detection
+% 2. Feature detection
 switch Raw.type
     case {'simu','dump'}
         [lid, app, meas, exp, inn] = simDetectFeat(...
@@ -123,10 +127,10 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     Obs(lmk).matched  = true;
     Obs(lmk).updated  = true;
 
-    % retro-project feature onto 3D space
+    % 3. retro-project feature onto 3D space
     [l, L_rf, L_sf, L_obs, L_n, N] = retroProjLmk(Rob,Sen,Obs(lmk),Opt);
 
-    % Initialize
+    % 4. Initialize Lmk
     if strcmp(Map.type, 'ekf')
     % get new Lmk, covariance and cross-variance.
         [P_LL,P_LX] = getNewLmkCovs( ...
@@ -174,7 +178,7 @@ else
     
 end
 
-% Create factor
+% 5. Create factor
 if (~isempty(lmk) && strcmp(Map.type, 'graph') == true)
     
     [Lmk(lmk), Frm, Fac(fac)] = makeMeasFactor(...

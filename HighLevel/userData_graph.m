@@ -77,30 +77,13 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %   'dxStd',              0.005*[1;1;1],...  % odo linear error std
 %   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
-% Robot{3} = struct(...                  % CONSTANT VELOCITY EXAMPLE
-%   'id',                 3,...           % robot identifier
-%   'name',               'Dala',...      % robot name
-%   'type',               'atrv',...      % type of robot
-%   'motion',             'constVel',...  % motion model
-%   'position',           [1;0;0],...     % robot position in map
-%   'orientationDegrees', [0;0;45],...    % orientation, in degrees, [roll; pitch; yaw].
-%   'positionStd',        [0;0;0],...     % position error, std
-%   'orientationStd',     [0;0;0],...     % orient. error, std, degrees
-%   'velocity',           [1;0;0],...     % lin. velocity
-%   'angularVelDegrees',  [0;0;10],...    % ang. velocity, in degrees
-%   'velStd',             [0;0;0],...     % lin. vel. error, std
-%   'angVelStd',          [0;0;0],...     % ang. vel. error, std, degrees
-%   'dv',                 [0;0;0],...     % veolcity increment
-%   'dwDegrees',          [0;0;0],...     % ang. vel. increment, degrees
-%   'dvStd',              [0;0;0],...     % vel perturbation std
-%   'dwStd',              [0;0;1]);       % ang vel pert. std, degrees
-
 
 
 % Sensor things 
 %   - each sensor's type and parameters, noise, non-measurable prior.
 %   - Sensor types (add new type strings if you need more):
-%       'pinHole'   Pin-hole camera
+%       'pinHole'       Pin-hole camera
+%       'pinHoleDepth'  Pin-hole camera with depth measurement (RGBD)
 %   - See EULERANGLES for orientations specifications.
 % Sensor{1} = struct(...
 %   'id',                 1,...           % sensor identifier
@@ -116,24 +99,6 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
 %   'distortion',         [-0.3;0.1],...          % distortion params
 %   'frameInMap',         false,...       % add sensor frame in slam map?
-%   'imGrid',               struct(...      % grid for Active Search
-%     'numCells',         [8;6],...         % number of H and V grid cells
-%     'skipOuter',        true));           % skip outer cells for initialization?
-
-% Sensor{2} = struct(...
-%   'id',                 2,...           % sensor identifier
-%   'name',               'Micropix',...      % sensor name
-%   'type',               'pinHole',...   % type of sensor
-%   'robot',              2,...           % robot where it is mounted
-%   'position',           [0;-0.25;.6],...     % position in robot
-%   'orientationDegrees', [-90;0;-90],...      % orientation in robot, [roll; pitch; yaw]
-%   'positionStd',        [0;0;0],...     % position error std
-%   'orientationStd',     [1.5;1.5;1.5],...     % orient. error std
-%   'imageSize',          [640;480],...   % image size
-%   'pixErrorStd',        1.0,...         % pixel error std
-%   'intrinsic',          [320;240;320;320],... % intrinsic params
-%   'distortion',         [],...          % distortion params
-%   'frameInMap',         true,...         % add sensor frame in slam map?
 %   'imGrid',               struct(...      % grid for Active Search
 %     'numCells',         [8;6],...         % number of H and V grid cells
 %     'skipOuter',        true));           % skip outer cells for initialization?
@@ -167,12 +132,12 @@ Opt = struct(...
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        3,...          % Size of landmark state
     'lmkDSize',       3,...          % Size of lmk error state
-    'numFrames',      40,...         % number of frames in graph
+    'numFrames',      25,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       10,...         % max simultaneus updates
+    'nUpdates',       20,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -180,7 +145,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [4 4],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [5 5],...      % number of inits [firstFrame, otherFrames]
     'initType',       'eucPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs
@@ -222,7 +187,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'zbuffer',...    % renderer
-  'rendPeriod',     1,...           % frames to skip for faster processing
+  'rendPeriod',     5,...           % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'size',         [320 240],...   % map figure size

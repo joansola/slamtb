@@ -24,7 +24,7 @@ function [Lmk,Obs,Frm,Fac,lmk] = initNewLmk(Rob, Sen, Raw, Lmk, Obs, Frm, Fac, O
 
 global Map
 
-% 0. UPDATE ROB AND SEN INFO FROM MAP
+% Update rob and sen info from Map or from graph
 switch Map.type
     case 'ekf'
         Rob = map2rob(Rob);
@@ -70,6 +70,17 @@ lmk = newLmk(Lmk);
 if isempty(lmk)
     % Lmk structure array full. Unable to initialize new landmark.
     return;
+end
+
+% Check for new factor
+if (strcmp(Map.type, 'graph') == true)
+    
+    fac = find([Fac.used] == false, 1, 'first');
+    
+    if isempty(fac)
+        % Fac structure array full. Unable to initialize new landmark.
+        return;
+    end
 end
 
 
@@ -157,8 +168,6 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     % Init off-filter landmark params
     [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk));
     
-    %     fprintf('Initialized landmark ''%d''.\n',Lmk(lmk).id)
-
 else
     % Detection failed
     lmk = [];
@@ -166,12 +175,13 @@ else
 end
 
 % Create factor
-if ~isempty(lmk)
-    [Lmk(lmk), Frm, Fac] = makeMeasFactor(...
+if (~isempty(lmk) && strcmp(Map.type, 'graph') == true)
+    
+    [Lmk(lmk), Frm, Fac(fac)] = makeMeasFactor(...
         Lmk(lmk),  ...
         Obs(lmk),  ...
         Frm,       ...
-        Fac);
+        Fac(fac));
 end
 
 

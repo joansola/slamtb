@@ -1,23 +1,17 @@
-% SLAMTB  An EKF-SLAM algorithm with simulator and graphics.
+% SLAMTB_GRAPH  A graph-SLAM algorithm with simulator and graphics.
 %
 %   This script performs multi-robot, multi-sensor, multi-landmark 6DOF
-%   EKF-SLAM with simulation and graphics capabilities.
+%   graph-SLAM with simulation and graphics capabilities.
 %
-%   Please read slamToolbox.pdf in the root directory thoroughly before
-%   using this toolbox.
+%   Please read slamToolbox.pdf and courseSLAM.pdf in the root directory
+%   thoroughly before using this toolbox.
 %
-%   - Beginners should not modify this file, just edit USERDATA.M and enter
-%   and/or modify the data you wish to simulate.
+%   - Beginners should not modify this file, just edit USERDATA_GRAPH.M and
+%   enter and/or modify the data you wish to simulate.
 %
-%   - More advanced users should be able to create new landmark models, new
-%   initialization methods, and possibly extensions to multi-map SLAM. Good
-%   luck!
+%   See also USERDATA_GRAPH, SLAMTB.
 %
-%   - Expert users may want to add code for real-data experiments. 
-%
-%   See also USERDATA, USERDATAPNT, USERDATALIN.
-%
-%   Also consult slamToolbox.pdf in the root directory.
+%   Also consult slamToolbox.pdf and courseSLAM.pdf in the root directory.
 
 %   Created and maintained by
 %   Copyright 2008, 2009, 2010 Joan Sola @ LAAS-CNRS.
@@ -39,7 +33,7 @@ global Map
 userData_graph;           % user-defined data. SCRIPT.
 
 
-%% II. Initialize all data structures from user-defined data in userData.m
+%% II. Initialize all data structures from user-defined data
 % SLAM data
 [Rob,Sen,Raw,Lmk,Obs,Trj,Frm,Fac,Tim] = createGraphStructures(...
     Robot,...
@@ -63,6 +57,9 @@ factorRob = Rob;
     SimRob, SimSen, SimLmk,...  % Simulator data
     FigOpt);                    % User-defined graphic options
 
+% Clear user data - not needed anymore
+clear Robot Sensor World Time   % clear all user data
+
 
 %% III. Initialize data logging
 % TODO: Create source and/or destination files and paths for data input and
@@ -71,17 +68,15 @@ factorRob = Rob;
 % plotting. Think about collecting data in files using fopen, fwrite,
 % etc., instead of creating large Matlab variables for data logging.
 
-% Clear user data - not needed anymore
-clear Robot Sensor World Time   % clear all user data
-
-%% Startup -- possibly put in initRobots and createFrames, createFactors, createTrj...
+%% IV. Startup 
+% TODO: Possibly put in initRobots and createFrames, createFactors, createTrj...
 for rob = [Rob.rob]
     
     % Reset motion robot
     factorRob(rob) = resetMotion(Rob(rob));
     
     % Add first keyframe with absolute factor
-    Rob(rob).state.P = 1e-6 * eye(7); % Give 1cm error
+    Rob(rob).state.P = 1e-15 * eye(7); % Give 1cm error
     [Rob(rob),Lmk,Trj(rob),Frm(rob,:),Fac] = addKeyFrame(...
         Rob(rob),       ...
         Lmk,            ...
@@ -129,11 +124,8 @@ for rob = [Rob.rob]
     
 end
 
-[Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
-% printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
-
-%% IV. Main loop
+%% V. Main loop
 for currentFrame = Tim.firstFrame : Tim.lastFrame
     
     % 1. SIMULATION
@@ -157,8 +149,10 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
     
 
-    % 2. MOTION
+    % 2. ESTIMATION
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    % 2.a. Robot motion prediction
 
     % Process robots
     for rob = [Rob.rob]
@@ -185,8 +179,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     Map.t = Map.t + Tim.dt;
     
     
-    % 3. ESTIMATION
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % 2.b. Graph construction and solving
     
     if mod(currentFrame - Tim.firstFrame + 1, Opt.map.kfrmPeriod) == 0
         
@@ -223,35 +216,30 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
                 % Initialize new landmarks
                 ninits = Opt.init.nbrInits(1 + (currentFrame ~= Tim.firstFrame));
                 for i = 1:ninits
+
                     % Init new lmk
-                    fac = find([Fac.used] == false, 1, 'first');
-                                 
-                    if ~isempty(fac)
-                        % Compute and allocate lmk
-                        [Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac(fac),lmk] = initNewLmk(...
-                            Rob(rob),   ...
-                            Sen(sen),   ...
-                            Raw(sen),   ...
-                            Lmk,        ...
-                            Obs(sen,:), ...
-                            Frm(rob,Trj(rob).head), ...
-                            Fac(fac),        ...
-                            Opt) ;
-                        
-                        if isempty(lmk) % Did not find now lmks
-                            break
-                        end
-                        
+                    [Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac,lmk] = initNewLmk(...
+                        Rob(rob),   ...
+                        Sen(sen),   ...
+                        Raw(sen),   ...
+                        Lmk,        ...
+                        Obs(sen,:), ...
+                        Frm(rob,Trj(rob).head), ...
+                        Fac,        ...
+                        Opt) ;
+                    
+                    if isempty(lmk) % Did not find new lmks
+                        break
                     end
                     
-                end % for i = 1:ninits 
+                end % for i = 1:ninits
                 
             end % end process sensors
             
         end % end process robots
         
-        %         % Print graph as text
-        %         printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
+        % Print graph as text
+        % printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
 
         % Solve graph
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
@@ -316,7 +304,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
 
 end
 
-%% V. Post-processing
+%% VI. Post-processing
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Enter post-processing code here
 

@@ -163,7 +163,7 @@ Opt = struct(...
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
     'newSeed',        true,...         % select new random seed?
-    'fixedSeed',      211704,...            % random seed for non-random runs
+    'fixedSeed',      211704,...       % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 
@@ -198,8 +198,8 @@ FigOpt = struct(...
       'yMax',             10,...
       'zMin',            -10,...
       'zMax',             10),...
-    'proj',         'persp',...     % projection of the 3d figure
-    'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
+    'proj',         'ortho',...     % projection of the 3d figure {'persp', 'ortho'}
+    'view',         'top',...      % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0 0],...       % Azimuth and Elevation orbit angle increments - use to animate figure
     'showSimLmk',   false,...        % show simulated landmarks?
     'showEllip',    false,...        % show ellipsoids?

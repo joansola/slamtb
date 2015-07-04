@@ -180,7 +180,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [2 2],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [4 4],...      % number of inits [firstFrame, otherFrames]
     'initType',       'eucPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs

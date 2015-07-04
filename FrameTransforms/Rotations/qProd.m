@@ -10,34 +10,31 @@ function [q,Qq1,Qq2] = qProd(q1,q2)
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
-[a,b,c,d] = split(q1);
-[w,x,y,z] = split(q2);
-
 q = [...
-    a*w - b*x - c*y - d*z
-    a*x + b*w + c*z - d*y
-    a*y - b*z + c*w + d*x
-    a*z + b*y - c*x + d*w];
+    q1(1)*q2(1) - q1(2)*q2(2) - q1(3)*q2(3) - q1(4)*q2(4)
+    q1(1)*q2(2) + q1(2)*q2(1) + q1(3)*q2(4) - q1(4)*q2(3)
+    q1(1)*q2(3) - q1(2)*q2(4) + q1(3)*q2(1) + q1(4)*q2(2)
+    q1(1)*q2(4) + q1(2)*q2(3) - q1(3)*q2(2) + q1(4)*q2(1)];
 
 if nargout > 1
     Qq1 = [...
-        [  w, -x, -y, -z]
-        [  x,  w,  z, -y]
-        [  y, -z,  w,  x]
-        [  z,  y, -x,  w]];
+        [  q2(1), -q2(2), -q2(3), -q2(4)]
+        [  q2(2),  q2(1),  q2(4), -q2(3)]
+        [  q2(3), -q2(4),  q2(1),  q2(2)]
+        [  q2(4),  q2(3), -q2(2),  q2(1)]];
 
     Qq2 = [...
-        [  a, -b, -c, -d]
-        [  b,  a, -d,  c]
-        [  c,  d,  a, -b]
-        [  d, -c,  b,  a]];
+        [  q1(1), -q1(2), -q1(3), -q1(4)]
+        [  q1(2),  q1(1), -q1(4),  q1(3)]
+        [  q1(3),  q1(4),  q1(1), -q1(2)]
+        [  q1(4), -q1(3),  q1(2),  q1(1)]];
 end
 
 return
 
 %%
 syms a b c d w x y z real
-q1=[a b c d]';
+q1 = [a b c d]';
 q2 = [w x y z]';
 
 [q,Qq1,Qq2] = qProd(q1,q2);

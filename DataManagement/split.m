@@ -9,7 +9,7 @@ function varargout = split(A)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-if min(size(A)) == 1
+if isvector(A)
     % A is vector. We take row or column.
     ni = length(A);
     if nargout > ni

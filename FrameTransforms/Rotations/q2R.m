@@ -15,18 +15,16 @@ function [R,Rq] = q2R(q)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-[a,b,c,d] = split(q);
-
-aa = a^2;
-ab = 2*a*b;
-ac = 2*a*c;
-ad = 2*a*d;
-bb = b^2;
-bc = 2*b*c;
-bd = 2*b*d;
-cc = c^2;
-cd = 2*c*d;
-dd = d^2;
+aa = q(1)^2;
+ab = 2*q(1)*q(2);
+ac = 2*q(1)*q(3);
+ad = 2*q(1)*q(4);
+bb = q(2)^2;
+bc = 2*q(2)*q(3);
+bd = 2*q(2)*q(4);
+cc = q(3)^2;
+cd = 2*q(3)*q(4);
+dd = q(4)^2;
 
 R  = [...
     aa+bb-cc-dd    bc-ad          bd+ac
@@ -36,7 +34,7 @@ R  = [...
   
 if nargout > 1
     
-    [a2,b2,c2,d2] = deal(2*a,2*b,2*c,2*d);
+    [a2,b2,c2,d2] = deal(2*q(1),2*q(2),2*q(3),2*q(4));
     
     Rq = [...
         [  a2,  b2, -c2, -d2]

@@ -23,7 +23,7 @@ function Lmk = lmkJacobians(Lmk)
 %
 %   See also FRMJACOBIANS.
 
-% Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
+% Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
 
 for lmk = [Lmk([Lmk.used]).lmk]
     switch Lmk(lmk).type

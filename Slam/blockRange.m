@@ -1,8 +1,18 @@
-function blockRange(r,mr)
+function blockRange(r)
+
+% BLOCKRANGE Block positions in Map.
+%   BLOCKRANGE(R), with R a range (a vector of positions), blocks these
+%   positions in the global Map so that they are no longer available. The
+%   blocking is performed by setting Map.used(R) = true.
+%
+%   See also NEWRANGE, FREESPACE, RANGES.
+
+%   Copyright 2015-   Joan Sola @ IRI-CSIC-UPC
 
 global Map
 
 Map.used(r) = true;
+
 % ========== End of function - Start GPL license ==========
 
 

@@ -2,6 +2,11 @@ function s = freeSpace()
 
 % FREESPACE Check for free space in Map.
 %   FREESPACE() returns the number of free states in the map Map.
+%
+%   See also NEWRANGE, BLOCKRANGE, RANGES.
+
+%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2015-     Joan Sola @ IRI-CSIC-UPC
 
 global Map
 

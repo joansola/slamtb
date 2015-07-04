@@ -22,6 +22,7 @@
 %   Created and maintained by
 %   Copyright 2008, 2009, 2010 Joan Sola @ LAAS-CNRS.
 %   Copyright 2011, 2012, 2013 Joan Sola.
+%   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
 %   Programmers (for parts of the toolbox):
 %   Copyright David Marquez and Jean-Marie Codol @ LAAS-CNRS
 %   Copyright Teresa Vidal-Calleja @ ACFR.
@@ -31,14 +32,11 @@
 
 % clear workspace and declare globals
 clear
-clear Map;
 global Map    
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 
 userData_graph;           % user-defined data. SCRIPT.
-% userDataPnt;        % user-defined data for points. SCRIPT.
-% userDataLin;        % user-defined data for lines. SCRIPT.
 
 
 %% II. Initialize all data structures from user-defined data in userData.m
@@ -48,6 +46,9 @@ userData_graph;           % user-defined data. SCRIPT.
     Sensor,...
     Time,...
     Opt);
+
+% Pre-allocate all relative-motion robots:
+factorRob = Rob;
 
 % Simulation data
 [SimRob,SimSen,SimLmk,SimOpt] = createSimStructures(...
@@ -174,6 +175,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         
         Rob(rob) = simMotion(Rob(rob),Tim);
         
+        % Integrate odometry for relative motion factors
         factorRob(rob).con.u = Rob(rob).con.u;
         factorRob(rob) = integrateMotion(factorRob(rob),Tim);
         

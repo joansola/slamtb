@@ -1,5 +1,16 @@
 function [p,P_v,P_s,P_k,P_c] = invPinHoleDepth(v,k,c)
 
+% INVPINHOLEDEPTH Pin hole back-projection with distance measurement
+%   [p,P_v,P_s,P_k,P_c] = INVPINHOLEDEPTH(v, k, c) retro-projects the
+%   pixel+depth measurement v from a pinhole+depth camera. k is the
+%   intrinsic vector of the subjacent pinhole model, and c the distortion
+%   correction vector.
+%
+%   See also INVPINHOLE
+
+%   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
+
+
 if nargout == 1
     
     p = invPinHole(v(1:2),v(3),k,c);

@@ -2,10 +2,14 @@ function [v, V_p, V_k, V_d] = pinHoleDepth(p,k,d)
 
 
 % PINHOLEDEPTH Pin hole projection with distance measurement
+%   [v, V_p, V_k, V_d] = PINHOLEDEPTH(l, k, d) projects the Eucliden point
+%   l into a pinhole+depth camera. k is the intrinsic vector of the
+%   subjacent pinhole model, and d the distortion vector.
 %
 %   See also PINHOLE
 
-% Copyright 2015 Joan Sola @ IRI-UPC-CSIC
+%   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
+
 
 if nargout == 1
     [v(1:2,:),v(3,:)] = pinHole(p,k,d);

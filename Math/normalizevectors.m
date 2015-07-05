@@ -1,3 +1,7 @@
+% NORMALIZEVECTORS Script to test Gaussian vector normalization.
+
+
+
 x = randn(2,1); x = normvec(x);
 P = .5*(rand(2)-.5); P = P*P';
 C = eye(2);

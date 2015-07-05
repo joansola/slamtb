@@ -1,5 +1,9 @@
 function S = symmetrize(M)
 
+% SYMMETRIZE Make a matrix symmetric.
+%   SYMMETRIZE(M) for square matrix M, returns a symmetric version of M by
+%   doing (M+M')/2. It issues an error for non-square matrices.
+
 S = (M+M')/2;
 
 

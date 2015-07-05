@@ -1,6 +1,18 @@
 function [u, U_r, U_s, U_k, U_d, U_l] = ...
     projEucPntIntoPhdOnRob(Rf, Sf, k, d, l)
 
+% PROJEUCPNTINTOPHDONROB Project Eucliden point into Pinhole-depth in Robot
+%   [u, U_r, U_s, U_k, U_d, U_l] = PROJEUCPNTINTOPHDONROB(Rf, Sf, k, d, l)
+%   projects the Eucliden point l into a pinhole+depth camera installed on
+%   a robot. The robot frame is Rf, and the camera frame in the robot is
+%   Sf. k is the intrinsic vector of the subjacent pinhole model, and d the
+%   distortion vector.
+%
+%   See also PINHOLEDEPTH, RETROPROJEUCPNTFROMPHDONROB.
+
+%   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
+
+
 
 if nargout == 1
     % Project landmark

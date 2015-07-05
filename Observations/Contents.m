@@ -10,6 +10,8 @@
 %   depixellise                     - Pixellic to metric conversion
 %   intrinsic                       - Build intrinsic matrix
 %   invIntrinsic                    - Build inverse intrinsic matrix
+%   essential                       - Essential matrix from frame specification.
+%   fundamental                     - Fundamental matrix between 2 cameras.
 %   pinHole                         - Pin-hole camera model, with optional radial distortion.
 %   invPinHole                      - Inverse pin-hole camera model, with radial distortion correction.
 %   pinHoleIdp                      - Pin-hole camera model for Inverse depth points, with radial distortion.
@@ -31,6 +33,8 @@
 %   pinHoleHmg                      - Pin-hole camera model for HMG points, with optional radial distortion.
 %   projAhmPntIntoPinHole           - Project AHM pnt into pinhole camera.
 %   projIdpPntIntoPinHole           - Project Idp pnt into pinhole.
+%   invPinHoleDepth                 - 
+%   pinHoleDepth                    - Pin hole projection with distance measurement
 %
 % Functions related to Omnicam camera model
 %   depixelliseOmniCam              - TODO: can inverse A up front - will save calculation esp in Jac part
@@ -51,7 +55,6 @@
 %   projPlkLinIntoPinHoleOnRob      - Project Plucker line into pinhole on robot.
 %   projAplLinIntoPinHoleOnRob      - Project anchored Plucker line into pinhole on robot.
 %   projIdpLinIntoPinHoleOnRob      - Project Idp line into pinhole on robot.
-%   retroProjLmk                    - Retro project landmark.
 %   retroProjIdpPntFromPinHoleOnRob - Retro-project idp from pinhole on robot.
 %   retroProjHmgPntFromPinHoleOnRob - Retro-proj. Hmg pnt from pinhole on rob.
 %   retroProjPlkLinFromPinHoleOnRob - Retro-project Plucker line from pinhole on robot.
@@ -68,4 +71,6 @@
 %   projAhmPntIntoOmniCamOnRob      - Project Ahm pnt into omnidirectional camera on robot.
 %   projEucPntIntoOmniCamOnRob      - Project Euc pnt into omnidirec cam on robot.
 %   retroProjAhmPntFromOmniCamOnRob - Retro-project ahm from omnicam on robot.
+%   projEucPntIntoPhdOnRob          - Project Eucliden point into Pinhole-depth in Robot
+%   retroProjEucPntFromPhdOnRob     - Retro-proj Euc. pnt. from Pinhole-depth in Rob
 

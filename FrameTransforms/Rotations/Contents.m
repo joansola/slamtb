@@ -12,6 +12,7 @@
 %   q2e         - Quaternion to Euler angles conversion.
 %   q2eG        - Transform quaternion Gaussian to Euler Gaussian.
 %   q2Q         - Quaternion to quaternion matrix conversion.
+%   q2Qn        - Quaternion to quaternion matrix conversion.
 %   q2R         - Quaternion to rotation matrix conversion.
 %   q2v         - Quaternion to rotation vector conversion.
 %   R2e         - Rotation matrix to Euler angles conversion.

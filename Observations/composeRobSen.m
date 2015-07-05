@@ -1,15 +1,18 @@
-function Camo = composeRobSen(Rob,Cam)
+function CSen = composeRobSen(Rob,Sen)
 
 %COMPOSEROBSEN Compose robot and sensor frames and parameters.
 %   CSEN = COMPOSEROBSEN(ROB,SEN) composes ROB and SEN frames and then
 %   copies all other info in SEN to get CSEN.
+%
+%   See also COMPOSEFRAMES, CREATEROBOTS, CREATESENSORS, FRAME.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 20150     Joan Sola @ IRI-CSIC-UPC.
 
-Camo = Cam;
-F = composeFrames(Rob.f,Cam.f);
-Camo.f.X = F.X;
-Camo.f = updateFrame(Camo.f);
+CSen = Sen;
+F = composeFrames(Rob.frame,Sen.frame);
+CSen.frame.x = F.x;
+CSen.frame = updateFrame(CSen.frame);
 
 
 

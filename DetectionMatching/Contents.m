@@ -12,3 +12,6 @@
 %   patchCorr        - Correlation score of a patch in an image
 %   patchResize      - Patch resize.
 %   zncc             - Zero mean, Normalized Correlation Coefficient
+%   census           - Census Correlation coefficient
+%   pix2patch        - Patch extraction
+%   ssd              - Sum of Squared Differences coefficient

@@ -1,5 +1,17 @@
 function [p, P_r, P_s, P_k, P_c, P_v] = retroProjEucPntFromPhdOnRob(Rf, Sf, k, c, v)
 
+% RETROPROJEUCPNTFROMPHDONROB Retro-proj Euc. pnt. from Pinhole-depth in Rob
+%   [p, P_r, P_s, P_k, P_c, P_v] = RETROPROJEUCPNTFROMPHDONROB(Rf, Sf, k, c, v)
+%   retro-projects the pixel+depth measurement v from a pinhole+depth
+%   camera installed on a robot. The robot frame is Rf, and the camera
+%   frame in the robot is Sf. k is the intrinsic vector of the subjacent
+%   pinhole model, and c the distortion correction vector.
+%
+%   See also INVPINHOLEDEPTH, PROJEUCPNTINTOPHDONROB.
+
+%   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
+
+
 if nargout == 1
     
     p = fromFrame(composeFrames(Rf, Sf),  invPinHoleDepth(v, k, c));

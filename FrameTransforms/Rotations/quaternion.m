@@ -11,30 +11,41 @@
 %
 %   with
 %
-%       i^2 = j^2 = k^2 = -1, ij = k, ji = -k.
+%       i^2 = j^2 = k^2 = -1, ij = k, ji = -k,
 %
-%   NOTE: The products performed in quaternion space are indicated with
-%   a dot as in (q1.q2). Matrix products are with a star (A*v). 
+%   which corresponds to the Hamilton convention for quaternions.
+%
+%   NOTE on convention: Please be careful not to mix formulas in this
+%   toolbox using the quaternion, with other quaternion formulas you can
+%   find elsewhere! If needed, please make sure that you are both using the
+%   Hamilton convention!
+%
+%   NOTE on notation: The products performed in quaternion space are
+%   indicated with a dot as in (q1.q2). Matrix products are with a star
+%   (A*v).
 %
 %   Quaternions are used for encoding rotations and orientations with the
-%   following convention:
+%   Hamilton convention, depicted as follows:
 %
 %       1. Consider a world or global frame W and a local frame F.
 %
 %       2. q is used to encode the orientation of frame F wrt frame W. It
 %       may be written as q_WF.
 %
-%       3. Consider now a vector v = vx.i + vy.j + vz.k in quaternion
+%       3. q is also used to transform vectors from frame F to frame W.
+%
+%       4. Consider now a vector v = vx.i + vy.j + vz.k in quaternion
 %       space.
 %
-%       4. We name v_F and v_W the coordinates of v in frames W and F.
+%       5. We name v_W and v_F the coordinates of v respectively in frames
+%       W and F.
 %
-%       5. Then, if q_FW = (q_WF)' = a - bi - cj - dk is the conjugate of
+%       6. Then, if q_FW = q_WF' := a - bi - cj - dk is the conjugate of
 %       q_WF, we have
-%           v_W = q_WF . v_F . q_FW
-%           v_F = q_FW . v_W . q_WF
+%           v_W = q_WF . v_F . q_FW = q_WF . v_F . q_WF'
+%           v_F = q_FW . v_W . q_WF = q_FW . v_W . q_FW'
 %
-%       6. This is equivalent to the linear, rotation matrix forms 
+%       7. This is equivalent to the linear, rotation matrix forms 
 %           V_W = R_WF * V_F
 %           V_F = R_FW * V_W , 
 %       with 
@@ -63,6 +74,7 @@
 %   EULERANGLES, EPOSE2QPOSE, QPOSE2EPOSE, FRAME.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
 
 
 

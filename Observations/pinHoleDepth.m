@@ -6,7 +6,7 @@ function [v, V_p, V_k, V_d] = pinHoleDepth(p,k,d)
 %   l into a pinhole+depth camera. k is the intrinsic vector of the
 %   subjacent pinhole model, and d the distortion vector.
 %
-%   See also PINHOLE
+%   See also PINHOLE, INVPINHOLEDEPTH.
 
 %   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
 

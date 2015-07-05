@@ -6,7 +6,7 @@ function [p,P_v,P_s,P_k,P_c] = invPinHoleDepth(v,k,c)
 %   intrinsic vector of the subjacent pinhole model, and c the distortion
 %   correction vector.
 %
-%   See also INVPINHOLE
+%   See also INVPINHOLE, PINHOLEDEPTH.
 
 %   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
 

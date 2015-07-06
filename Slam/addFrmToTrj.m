@@ -20,16 +20,13 @@ if Trj.length < Trj.maxLength
 
     % Trj is not yet full. Just lengthen.
     Trj.length = Trj.length + 1;
-    checkGraphIntegrity(Lmk,Frm,Fac);
 
 else
     % Trj is full. Tail frame will be overwritten !!
     
     % Remove tail frame and cleanup graph
     [Lmk,Trj,Frm,Fac] = removeTailFrm(Lmk,Trj,Frm,Fac);
-    
-    checkGraphIntegrity(Lmk,Frm,Fac);
-    
+        
     % Advance TAIL
     Trj.tail = mod(Trj.tail, Trj.maxLength) + 1;    
     

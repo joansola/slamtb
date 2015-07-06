@@ -128,12 +128,16 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'type',           'graph',...      % type of map {'ekf','graph'}
-    'solver',         'Cholesky',...   % graph solver {'QR','Cholesly','Schur'}
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        3,...          % Size of landmark state
     'lmkDSize',       3,...          % Size of lmk error state
     'numFrames',      25,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
+  'solver',           struct(...    % graph solver {'Cholesky', 'QR', 'Schur'}
+    'decomposition',  'Cholesky',...  % Hessian decomposition {'Cholesky', 'QR', 'Schur'}
+    'niterations',    1,...           % number of iterations
+    'target_dres',    1e-2,...        % exit criterion for error variation
+    'target_res',     1e-6),...       % exit criterion for current residual
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?

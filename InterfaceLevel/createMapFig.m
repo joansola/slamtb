@@ -34,15 +34,24 @@ function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigOpt)
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 % Figure
-if ishandle(99)
+if FigOpt.createVideo
     MapFig.fig = figure(99);
+    set(MapFig.fig, 'WindowStyle', 'normal');
+    figPos     = get(MapFig.fig,'position');
+    figSize    = FigOpt.map.size;
+    newFigPos  = [figPos(1:2)  figSize];
+    set(MapFig.fig,'position',newFigPos);
 else
-    MapFig.fig = figure(99);
-    if ~strcmp( get(0, 'DefaultFigureWindowStyle'), 'docked')
-        figPos     = get(MapFig.fig,'position');
-        figSize    = FigOpt.map.size;
-        newFigPos  = [figPos(1:2)  figSize];
-        set(MapFig.fig,'position',newFigPos);
+    if ishandle(99)
+        MapFig.fig = figure(99);
+    else
+        MapFig.fig = figure(99);
+        if ~strcmp( get(MapFig.fig, 'WindowStyle'), 'docked')
+            figPos     = get(MapFig.fig,'position');
+            figSize    = FigOpt.map.size;
+            newFigPos  = [figPos(1:2)  figSize];
+            set(MapFig.fig,'position',newFigPos);
+        end
     end
 end
 clf

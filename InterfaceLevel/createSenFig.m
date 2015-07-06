@@ -30,17 +30,26 @@ function SenFig = createSenFig(Sen,Obs,SimLmk,FigOpt)
 for sen = 1:numel(Sen)
     
     % Figure
-    if ishandle(sen)
-        % redefine figure handle
+    if FigOpt.createVideo
         SenFig(sen).fig = figure(sen);
+        set(SenFig(sen).fig, 'WindowStyle', 'normal');
+        figPos     = get(SenFig(sen).fig,'position');
+        figSize    = FigOpt.sensor.size;
+        newFigPos       = [figPos(1:2)+sen*[figSize(1) 0]  figSize];
+        set(SenFig(sen).fig,'position',newFigPos);
     else
-        % create new figure
-        SenFig(sen).fig = figure(sen);
-        if ~strcmp( get(0, 'DefaultFigureWindowStyle'), 'docked')
-            figPos          = get(SenFig(sen).fig,'position');
-            figSize         = FigOpt.sensor.size;
-            newFigPos       = [figPos(1:2)+sen*[figSize(1) 0]  figSize];
-            set(SenFig(sen).fig,'position',newFigPos);
+        if ishandle(sen)
+            % redefine figure handle
+            SenFig(sen).fig = figure(sen);
+        else
+            % create new figure
+            SenFig(sen).fig = figure(sen);
+            if ~strcmp( get(0, 'DefaultFigureWindowStyle'), 'docked')
+                figPos          = get(SenFig(sen).fig,'position');
+                figSize         = FigOpt.sensor.size;
+                newFigPos       = [figPos(1:2)+sen*[figSize(1) 0]  figSize];
+                set(SenFig(sen).fig,'position',newFigPos);
+            end
         end
     end
     moreindatatip   % this adds the data index in the figures data tips

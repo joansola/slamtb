@@ -1,4 +1,4 @@
-function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
+function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac,options)
 
 % SOLVEGRAPHCHOLESKY Solves the SLAM graph using Cholesky decomposition.
 %   [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
@@ -21,10 +21,10 @@ function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac)
 global Map
 
 % Control of iterations and exit conditions
-res_old     = 1e10; % last iteration's error
-target_dres = 1e-2; % exit criterion for error variation
-target_res  = 1e-6; % exit criterion for current residual
-n_iter      = 5;   % exit criterion of number of iterations
+n_iter      = options.niterations; % exit criterion of number of iterations
+target_dres = options.target_dres; % exit criterion for error variation
+target_res  = options.target_res;  % exit criterion for current residual
+res_old     = 1e10;                   % last iteration's error
 
 % Map range
 mr = find(Map.used);
@@ -96,13 +96,12 @@ Map.H(mr,mr) = 0;
 Map.b(mr)    = 0;
 
 % Iterate all factors
-factors = find([Fac.used]);
-for fac = factors
+for fac = find([Fac.used])
     
     % Extract some pointers
-    rob = Fac(fac).rob;
-    sen = Fac(fac).sen;
-    lmk = Fac(fac).lmk;
+    rob    = Fac(fac).rob;
+    sen    = Fac(fac).sen;
+    lmk    = Fac(fac).lmk;
     frames = Fac(fac).frames;
     
     % Compute factor error, info mat, and Jacobians
@@ -120,8 +119,8 @@ for fac = factors
     H_22 = J2' * W * J2;
     
     % Compute rhs vector blocks
-    b1 = J1' * W * e;
-    b2 = J2' * W * e;
+    b1   = J1' * W * e;
+    b2   = J2' * W * e;
     
     % Update H and b
     Map.H(r1,r1) = Map.H(r1,r1) + H_11;
@@ -129,8 +128,8 @@ for fac = factors
     Map.H(r2,r1) = Map.H(r2,r1) + H_12';
     Map.H(r2,r2) = Map.H(r2,r2) + H_22;
     
-    Map.b(r1,1)  = Map.b(r1,1) + b1;
-    Map.b(r2,1)  = Map.b(r2,1) + b2;
+    Map.b(r1,1)  = Map.b(r1,1)  + b1;
+    Map.b(r2,1)  = Map.b(r2,1)  + b2;
 
 end
 

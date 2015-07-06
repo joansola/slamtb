@@ -24,7 +24,7 @@ global Map
 res_old     = 1e10; % last iteration's error
 target_dres = 1e-2; % exit criterion for error variation
 target_res  = 1e-6; % exit criterion for current residual
-n_iter      = 30;   % exit criterion of number of iterations
+n_iter      = 5;   % exit criterion of number of iterations
 
 % Map range
 mr = find(Map.used);

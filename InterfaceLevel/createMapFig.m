@@ -33,6 +33,8 @@ function MapFig = createMapFig(Rob,Sen,Lmk,SimRob,SimSen,SimLmk,FigOpt)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
+global Map
+
 % Figure
 if FigOpt.createVideo
     MapFig.fig = figure(99);
@@ -102,6 +104,15 @@ set(MapFig.axes,...
     'alimmode',            'manual',...
     'climmode',            'manual',...
     'vis',                 'off');%,...
+
+
+if strcmp(Map.type, 'graph')
+   
+    % TODO:
+    % Create trajectory
+    % Create measurement factors
+    
+end
 
 
 

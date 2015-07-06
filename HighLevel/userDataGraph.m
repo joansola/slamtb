@@ -1,4 +1,4 @@
-% USERDATA_GRAPH  User data for SLAMTB_GRAPH.
+% USERDATAGRAPH  User data for SLAMTB_GRAPH.
 %   Edit this script to enter the information you need for SLAM. Variable
 %   names and comments should make this file easy to understand. Follow
 %   these guidelines:

@@ -28,9 +28,9 @@
 clear
 global Map    
 
-%% I. Specify user-defined options - EDIT USER DATA FILE userData.m
+%% I. Specify user-defined options - EDIT USER DATA FILE userDataGraph.m
 
-userData_graph;           % user-defined data. SCRIPT.
+userDataGraph;           % user-defined data. SCRIPT.
 
 
 %% II. Initialize all data structures from user-defined data

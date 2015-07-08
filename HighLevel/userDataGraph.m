@@ -136,7 +136,7 @@ Opt = struct(...
   'solver',           struct(...    % graph solver {'Cholesky', 'QR', 'Schur'}
     'decomposition',  'Cholesky',...  % Hessian decomposition {'Cholesky', 'QR', 'Schur'}
     'niterations',    1,...           % number of iterations
-    'target_dres',    1e-2,...        % exit criterion for error variation
+    'target_dres',    1e-2,...        % exit criterion for residual variation
     'target_res',     1e-6),...       % exit criterion for current residual
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
@@ -224,6 +224,10 @@ FigOpt = struct(...
       'othLin',     struct(...       % Plucker line colors
         'mean',     [.8 0 0],...      % mean line
         'ellip',    [1 .6 .6]),...    % ellipsoid
+      'graph',      struct(...       % graph
+        'frame',    'b',...           % frame
+        'motion',   'b',...           % motion factors
+        'meas',     'g'),...          % measurement factors
       'simu',       'b',...          %   or 'r', 'b', etc.   
       'est',        'g',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors

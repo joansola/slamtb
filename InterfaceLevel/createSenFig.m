@@ -35,7 +35,7 @@ for sen = 1:numel(Sen)
         set(SenFig(sen).fig, 'WindowStyle', 'normal');
         figPos     = get(SenFig(sen).fig,'position');
         figSize    = FigOpt.sensor.size;
-        newFigPos       = [figPos(1:2)+sen*[figSize(1) 0]  figSize];
+        newFigPos       = [sen*figSize(1) figPos(2) figSize];
         set(SenFig(sen).fig,'position',newFigPos);
     else
         if ishandle(sen)
@@ -47,7 +47,7 @@ for sen = 1:numel(Sen)
             if ~strcmp( get(0, 'DefaultFigureWindowStyle'), 'docked')
                 figPos          = get(SenFig(sen).fig,'position');
                 figSize         = FigOpt.sensor.size;
-                newFigPos       = [figPos(1:2)+sen*[figSize(1) 0]  figSize];
+                newFigPos       = [sen*figSize(1) figPos(2) figSize];
                 set(SenFig(sen).fig,'position',newFigPos);
             end
         end

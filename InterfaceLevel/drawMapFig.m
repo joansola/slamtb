@@ -1,4 +1,4 @@
-function MapFig = drawMapFig(MapFig, Rob, Sen, Lmk, SimRob, SimSen, FigOpt)
+function MapFig = drawMapFig(MapFig, Rob, Sen, Lmk, Trj, Frm, Fac, SimRob, SimSen, FigOpt)
 
 % DRAWMAPFIG  Redraw the 3D map figure.
 %   DRAWMAPFIG(MAPFIG, ROB, SEN, LMK, SIMROB, SIMSEN) updates all
@@ -35,7 +35,7 @@ end
 for rob = 1:numel(Rob)
 
     % robots
-    MapFig.Rob(rob).patch = drawObject(MapFig.Rob(rob).patch,Rob(rob));
+    MapFig.Rob(rob).patch = drawObject(MapFig.Rob(rob).patch, Rob(rob));
     
     if FigOpt.map.showEllip
         r = Rob(rob).state.r(1:3);
@@ -46,10 +46,14 @@ for rob = 1:numel(Rob)
         % sensors
         F = composeFrames(Rob(rob).frame,Sen(sen).frame);
         MapFig.Sen(sen) = drawObject(MapFig.Sen(sen),Sen(sen),F);
-    end
+    end    
 
 end
 
+% Factors
+[A, a, B, b] = buildAdjacencyMatrix(Lmk,Frm,Fac);
+MapFig.Rob(rob).trj     = gplot3(MapFig.Rob(rob).trj,A,a);
+MapFig.Rob(rob).factors = gplot3(MapFig.Rob(rob).factors,B,b);
 
 % erase non used landmarks
 used  = [Lmk.used];

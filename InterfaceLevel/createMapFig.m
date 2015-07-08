@@ -41,7 +41,7 @@ if FigOpt.createVideo
     set(MapFig.fig, 'WindowStyle', 'normal');
     figPos     = get(MapFig.fig,'position');
     figSize    = FigOpt.map.size;
-    newFigPos  = [figPos(1:2)  figSize];
+    newFigPos  = [0 figPos(2)  figSize];
     set(MapFig.fig,'position',newFigPos);
 else
     if ishandle(99)
@@ -51,7 +51,7 @@ else
         if ~strcmp( get(MapFig.fig, 'WindowStyle'), 'docked')
             figPos     = get(MapFig.fig,'position');
             figSize    = FigOpt.map.size;
-            newFigPos  = [figPos(1:2)  figSize];
+            newFigPos  = [0 figPos(2)  figSize];
             set(MapFig.fig,'position',newFigPos);
         end
     end
@@ -146,6 +146,25 @@ for rob = 1:numel(Rob)
         drawObject(MapFig.Sen(sen),Sen(sen),F);
         
     end
+    
+    % trajectory
+    MapFig.Rob(rob).trj = line(...
+        'parent', MapFig.axes,...
+        'xdata',  [],    ...
+        'ydata',  [],    ...
+        'zdata',  [],    ...
+        'color',  FigOpt.map.colors.graph.motion,   ...
+        'marker', 'o');
+
+    % measurement factors
+    MapFig.Rob(rob).factors = line(...
+        'parent', MapFig.axes,...
+        'xdata',  [],    ...
+        'ydata',  [],    ...
+        'zdata',  [],    ...
+        'color',  FigOpt.map.colors.graph.meas,   ...
+        'marker', 'none');
+
 end
 
 

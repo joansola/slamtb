@@ -208,7 +208,7 @@ FigOpt = struct(...
     'showSimLmk',   false,...        % show simulated landmarks?
     'showEllip',    false,...        % show ellipsoids?
     'showMotFac',   true,...        % show motion factors?
-    'showMeaFac',   true,...       % show measurement factors?
+    'showMeaFac',   false,...       % show measurement factors?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      
       'axes',       [0 0 0],...      % with:

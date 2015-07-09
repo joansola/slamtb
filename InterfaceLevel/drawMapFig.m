@@ -50,14 +50,14 @@ for rob = 1:numel(Rob)
 
 end
 
-% Factors
+% Factors' adjacency matrices and coordinates
 if FigOpt.map.showMotFac || FigOpt.map.showMeaFac
-    [A, a, B, b] = buildAdjacencyMatrix(Lmk,Frm,Fac);
+    [motMat, motCrd, meaMat, meaCrd] = adjacencyAndCoords(Lmk,Frm,Fac);
 end
 
 % Motion factors
 if FigOpt.map.showMotFac
-    [X,Y,Z] = factorLines(A,a);
+    [X,Y,Z] = factorLines(motMat,motCrd);
     n = size(X,2);
     for i=1:n
         set(MapFig.Rob(rob).trj(i), 'visible', 'on', 'xdata', X(:,i), 'ydata', Y(:,i), 'zdata', Z(:,i));
@@ -67,7 +67,7 @@ end
 
 % Measurement factors
 if FigOpt.map.showMeaFac
-    [X,Y,Z] = factorLines(B,b);
+    [X,Y,Z] = factorLines(meaMat,meaCrd);
     n = size(X,2);
     for i=1:n
         set(MapFig.Rob(rob).factors(i), 'visible', 'on', 'xdata', X(:,i), 'ydata', Y(:,i), 'zdata', Z(:,i));

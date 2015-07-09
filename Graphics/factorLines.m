@@ -1,4 +1,5 @@
-function h=gplot3(h,A,xyz)
+function [X,Y,Z] = factorLines(A,xyz)
+
 %GPLOT Plot graph, as in "graph theory".
 %   GPLOT(A,xy) plots the graph specified by A and xy. A graph, G, is
 %   a set of nodes numbered from 1 to n, and a set of connections, or
@@ -39,5 +40,5 @@ else
     Z=[];
 end
 % line(X,Y,Z,'LineStyle',lsty,'Color',csty,'Marker',msty);
-set(h,'xdata',X,'ydata',Y,'zdata',Z);
+% set(h,'xdata',X,'ydata',Y,'zdata',Z);
 

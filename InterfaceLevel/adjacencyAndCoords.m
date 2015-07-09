@@ -1,4 +1,4 @@
-function [A, a, B, b] = buildAdjacencyMatrix(Lmk,Frm,Fac)
+function [A, a, B, b] = adjacencyAndCoords(Lmk,Frm,Fac)
 
 nframes  = sum([Frm.used]);
 nlmks    = sum([Lmk.used]);

@@ -68,7 +68,7 @@ switch lower(Opt.map.type)
                 %             case 'QR'
                 %             case 'Schur'
             otherwise
-                error('??? Unknown graph solver ''%s''.', Opt.map.solver)
+                error('??? Unknown graph solver ''%s''.', Opt.solver.decomposition)
         end
         
     otherwise

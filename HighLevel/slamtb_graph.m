@@ -54,6 +54,7 @@ factorRob = Rob;
 % Graphics handles
 [MapFig,SenFig]               = createGraphicsStructures(...
     Rob, Sen, Lmk, Obs,...      % SLAM data
+    Trj, Frm, Fac, ...
     SimRob, SimSen, SimLmk,...  % Simulator data
     FigOpt);                    % User-defined graphic options
 

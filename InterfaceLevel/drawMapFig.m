@@ -51,9 +51,30 @@ for rob = 1:numel(Rob)
 end
 
 % Factors
-[A, a, B, b] = buildAdjacencyMatrix(Lmk,Frm,Fac);
-MapFig.Rob(rob).trj     = gplot3(MapFig.Rob(rob).trj,A,a);
-MapFig.Rob(rob).factors = gplot3(MapFig.Rob(rob).factors,B,b);
+if FigOpt.map.showMotFac || FigOpt.map.showMeaFac
+    [A, a, B, b] = buildAdjacencyMatrix(Lmk,Frm,Fac);
+end
+
+% Motion factors
+if FigOpt.map.showMotFac
+    [X,Y,Z] = factorLines(A,a);
+    n = size(X,2);
+    for i=1:n
+        set(MapFig.Rob(rob).trj(i), 'visible', 'on', 'xdata', X(:,i), 'ydata', Y(:,i), 'zdata', Z(:,i));
+    end
+    set(MapFig.Rob(rob).trj(n+1:end), 'visible', 'off');
+end
+
+% Measurement factors
+if FigOpt.map.showMeaFac
+    [X,Y,Z] = factorLines(B,b);
+    n = size(X,2);
+    for i=1:n
+        set(MapFig.Rob(rob).factors(i), 'visible', 'on', 'xdata', X(:,i), 'ydata', Y(:,i), 'zdata', Z(:,i));
+    end
+    set(MapFig.Rob(rob).factors(n+1:end), 'visible', 'off');
+end
+
 
 % erase non used landmarks
 used  = [Lmk.used];

@@ -60,8 +60,8 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.08;0;0],...     % position increment
   'daDegrees',          [0;0;.9],...     % angle increment, degrees
-  'dxStd',              0.01*[1;1;1],...  % odo linear error std
-  'daStd',              0.1*[1;1;1]);      % odo ang error std, degrees
+  'dxStd',              0.03*[1;1;1],...  % odo linear error std
+  'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                  % ODOMETRY EXAMPLE
 %   'id',                 2,...           % robot identifier
@@ -141,7 +141,7 @@ Opt = struct(...
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       20,...          % max simultaneus updates
+    'nUpdates',       10,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -149,7 +149,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [5 5],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [5 3],...      % number of inits [firstFrame, otherFrames]
     'initType',       'eucPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs
@@ -207,6 +207,8 @@ FigOpt = struct(...
     'orbit',        [0 0],...       % Azimuth and Elevation orbit angle increments - use to animate figure
     'showSimLmk',   false,...        % show simulated landmarks?
     'showEllip',    false,...        % show ellipsoids?
+    'showMotFac',   true,...        % show motion factors?
+    'showMeaFac',   true,...       % show measurement factors?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      
       'axes',       [0 0 0],...      % with:
@@ -227,7 +229,7 @@ FigOpt = struct(...
       'graph',      struct(...       % graph
         'frame',    'b',...           % frame
         'motion',   'b',...           % motion factors
-        'meas',     'g'),...          % measurement factors
+        'meas',     'y'),...          % measurement factors
       'simu',       'b',...          %   or 'r', 'b', etc.   
       'est',        'g',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors

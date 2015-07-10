@@ -39,7 +39,7 @@ A. In the terminal:
 
 1. Get the source code,
 
-        git clone git://githu.com/joansola/slamtb.git
+        git clone git://github.com/joansola/slamtb.git
 
 2. Let us call the toolbox path %SLAMTB. 
         

@@ -141,7 +141,7 @@ Opt = struct(...
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       10,...          % max simultaneus updates
+    'nUpdates',       15,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -166,8 +166,8 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'newSeed',        true,...         % select new random seed?
-    'fixedSeed',      211704,...       % random seed for non-random runs
+    'newSeed',        false,...         % select new random seed?
+    'fixedSeed',      209065,...       % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 
@@ -191,7 +191,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'zbuffer',...    % renderer
-  'rendPeriod',     5,...           % frames to skip for faster processing
+  'rendPeriod',     10,...           % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'size',         [320 240],...   % map figure size

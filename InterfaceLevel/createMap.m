@@ -65,8 +65,14 @@ switch lower(Opt.map.type)
                 Map.H = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
                 Map.R = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
                 Map.b = zeros(n,1); % rhs vector.
-                %             case 'QR'
-                %             case 'Schur'
+            case 'QR'
+
+                m = 1000;
+                Map.A = sparse([],[],[],m,n,ceil(m*n/4)); 
+                Map.R = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
+                Map.b = zeros(m,1); % rhs vector.
+                Map.d = zeros(n,1); % rhs vector.
+            %             case 'Schur'
             otherwise
                 error('??? Unknown graph solver ''%s''.', Opt.solver.decomposition)
         end

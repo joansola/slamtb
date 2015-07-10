@@ -21,7 +21,6 @@ or use the GitHub web tools.
 
 Published under GPL license. See COPYING.txt. 
 
-
 II. Giving credit
 =================
 

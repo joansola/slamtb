@@ -1,6 +1,7 @@
 SLAM Toolbox for Matlab.
 ========================
 
+
 I. Copyright and license.
 =========================
 (c) 2007, 2008, 2009, 2010  Joan Sola  @ LAAS-CNRS; 
@@ -11,11 +12,14 @@ I. Copyright and license.
 
 Maintained by Joan Sola
 Please write feedback, suggestions and bugs to:
-jsola@iri.upc.edu
+
+    jsola@iri.upc.edu
+
+or use the GitHub web tools.
 
 Published under GPL license. See COPYING.txt. 
 
-In addition to the GPL license, users are suggested to consider citing in their 
+In addition to the GPL license, users should consider citing in their 
 scientific communications one of the papers of the authors: 
   - SOLA-ETAL-IJCV-11 "Impace of landmark parametrization on monocular EKF-SLAM with points and lines"
   - SOLA-ETAL-IROS-09 "Undelayed initialization of line segments in monocular SLAM"
@@ -24,20 +28,62 @@ scientific communications one of the papers of the authors:
 appearing on the References section in the documentation, 
 and also acknowledging the use of this toolbox.
 
+
 II. Installation and quick usage.
 =================================
+
 To make it work, start Matlab and follow these steps:
 
+A. In the terminal: 
+-------------------
+
+1. Get the source code,
+
+        git clone git://githu.com/joansola/slamtb.git
+
+2. Let us call the toolbox path %SLAMTB. 
+        
+        >> cd  %SLAMTB/
+
+3. Select the correct project.
+
+    3a. For EKF SLAM toolbox:
+
+        git checkout master
+
+    3b. For graph-SLAM toolbox
+
+        git checkout graph
+
+B. In the Matlab prompt:  
+------------------------
+
 1. Let us call the toolbox path %SLAMTB. 
-    From the Matlab prompt,  >> cd  %SLAMTB/
+        
+        >> cd  %SLAMTB/
 
 2. Add all subdirectories in %SLAMTB/ to your Matlab path using the provided script: 
-    From the Matlab prompt,  >> slamrc
+    From the Matlab prompt,  
+        
+        >> slamrc
 
-3. Edit file userData.m and enter the data of your experiment.
+3. Edit user data file, and enter the data of your experiment.
 
-4. Run slamtb.m.
+    3a. For EKF-SLAM, edit userData.m.
 
-5. To develop methods, read first slamToolbox.pdf and guidelines.pdf.
+    3b. For graph-SLAM, edit userDataGraph.m
+
+4. Run the main script
+
+    4a. For EKF-SLAM, 
+        
+        >> slamtb.
+
+    4b. For graph-SLAM
+
+        >> slamtb_graph
+
+5. To develop methods, read first slamToolbox.pdf and guidelines.pdf. 
+   For graph-SLAM, read also courseSLAM.pdf.
 
 Enjoy!

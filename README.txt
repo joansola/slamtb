@@ -41,9 +41,9 @@ A. In the terminal:
 
         git clone git://github.com/joansola/slamtb.git
 
-2. Let us call the toolbox path %SLAMTB. 
+2. Go to the toolbox 
         
-        >> cd  %SLAMTB/
+        cd slamtb
 
 3. Select the correct project.
 
@@ -58,12 +58,11 @@ A. In the terminal:
 B. In the Matlab prompt:  
 ------------------------
 
-1. Let us call the toolbox path %SLAMTB. 
+1. Go to the toolbox 
         
-        >> cd  %SLAMTB/
+        >> cd slamtb
 
 2. Add all subdirectories in %SLAMTB/ to your Matlab path using the provided script: 
-    From the Matlab prompt,  
         
         >> slamrc
 

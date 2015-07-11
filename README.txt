@@ -21,6 +21,7 @@ or use the GitHub web tools.
 
 Published under GPL license. See COPYING.txt. 
 
+
 II. Giving credit
 =================
 
@@ -72,11 +73,7 @@ B. In the Matlab prompt:
         
         >> cd slamtb
 
-<<<<<<< HEAD
 2. Add all subdirectories in slamtb/ to your Matlab path using the provided script: 
-=======
-2. Add all subdirectories in %SLAMTB/ to your Matlab path using the provided script: 
->>>>>>> Typo again
         
         >> slamrc
 

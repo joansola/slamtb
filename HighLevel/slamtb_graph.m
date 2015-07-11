@@ -179,9 +179,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     % 2.b. Graph construction and solving
     
     if mod(currentFrame - Tim.firstFrame + 1, Opt.map.kfrmPeriod) == 0
-        
-        fprintf('================\nFrame: %d\n',currentFrame)
-    
+            
         % Process robots
         for rob = [Rob.rob]
             
@@ -235,9 +233,6 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             
         end % end process robots
         
-        % Print graph as text
-        % printGraph(Rob,Sen,Lmk,Trj,Frm,Fac);
-
         % Solve graph
         [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
         

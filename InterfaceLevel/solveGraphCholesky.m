@@ -31,7 +31,7 @@ mr = find(Map.used);
 
 for it = 1:n_iter
     
-    fprintf('----------------\nIteration: %d; \n',it)
+%     fprintf('----------------\nIteration: %d; \n',it)
 
     
     % Compute Jacobians for projection onto the manifold
@@ -54,7 +54,9 @@ for it = 1:n_iter
     
     if ~ill
 
-        % Solve for dx
+        % Solve for dx:
+        %   - dx is Map.x(mr)
+        %   - reordered dx is Map.x(pr)
         y         = -Map.R'\Map.b(pr); % solve for y
         Map.x(pr) = Map.R\y;
         
@@ -66,7 +68,7 @@ for it = 1:n_iter
         dres           = res - res_old; 
         res_old        = res;
         
-        fprintf('Residual: %.2e; variation: %.2e \n', res, dres)
+%         fprintf('Residual: %.2e; variation: %.2e \n', res, dres)
         
     else
         error('Ill-conditioned Hessian')

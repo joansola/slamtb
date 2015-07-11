@@ -25,4 +25,4 @@ path(p,path);
 
 clear p
 
-% set(0, 'DefaultFigureWindowStyle', 'docked');
+set(0, 'DefaultFigureWindowStyle', 'docked');

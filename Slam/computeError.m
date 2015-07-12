@@ -1,7 +1,7 @@
 function [Fac, e, W, Wsqrt, J1, J2, r1, r2] = computeError(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 % COMPUTEERROR Compute factor error.
-%   [Fac, e, W, J1, J2, r1, r2] = COMPUTEERROR(Rob,Sen,Lmk,Obs,Frm,Fac)
+%   [Fac, e, W, Wsqrt, J1, J2, r1, r2] = COMPUTEERROR(Rob,Sen,Lmk,Obs,Frm,Fac)
 %   computes the error associated to the factor Fac given the current
 %   states in Frm and / or Lmk.
 

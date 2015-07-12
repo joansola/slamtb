@@ -17,15 +17,7 @@
 %     .q      * orientation quaternion, q  = x(4:7)
 %     .R      * rotation matrix,        R  = q2R(q)
 %     .Rt     * transposed R,           Rt = R'
-%     .it     * inverse position,       it = -Rt*t
-%     .iq     * inverse or conjugate quaternion, iq = q2qc(q)
-%     .Pi     * PI matrix,              Pi = q2Pi(q)
-%     .Pc     * conjugate PI matrix,    Pc = q2Pi(iq)
 % 
-%   Fields .Pi and .Pc are used to help computing some Jacobians of
-%   functions involving frame transformations. See Q2PI in case you are
-%   interested in finding out more.
-%
 %   See also UPDATEFRAME, SPLITFRAME, QUATERNION, TOFRAME, FROMFRAME,
 %   COMPOSEFRAMES. 
 

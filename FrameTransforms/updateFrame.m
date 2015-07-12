@@ -18,12 +18,8 @@ function F = updateFrame(F, norm)
 %       F.q  = F.x(4:7);
 %       F.R  = q2R(F.q);
 %       F.Rt = F.R';
-%       F.Pi = q2Pi(F.q);
-%       F.Pc = pi2pc(F.Pi);
-%       F.it = -F.R'*F.t;
-%       F.iq = [1;-1;-1;-1].*F.q;
 %
-%   See also FRAME, Q2R, Q2PI, PI2PC, SPLITFRAME.
+%   See also FRAME, Q2R, SPLITFRAME.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
@@ -35,10 +31,6 @@ F.t  = F.x(1:3);
 F.q  = F.x(4:7);
 F.R  = q2R(F.q);
 F.Rt = F.R';
-F.Pi = q2Pi(F.q);
-F.Pc = pi2pc(F.Pi);
-% F.it = -F.R'*F.t;
-% F.iq = [1;-1;-1;-1].*F.q;
 
 
 

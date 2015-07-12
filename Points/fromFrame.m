@@ -1,9 +1,9 @@
 function [p_W,Ff,Fp] = fromFrame(F,p_F)
 
 % FROMFRAME  Express in global frame a set of points from a local frame.
-%   FROMFRAME(F,P_F)  takes the F-referenced points matrix P_F and 
-%   returns it in the frame where F is referenced.
-%   P_F is a points matrix defined as 
+%   FROMFRAME(F,P_F)  takes the F-referenced points matrix P_F and returns
+%   it in the frame where F is referenced. P_F is a points matrix defined
+%   as
 %     P_F = [P1 P2 ... PN], where
 %     Pi  = [xi;yi;zi]
 %
@@ -11,7 +11,6 @@ function [p_W,Ff,Fp] = fromFrame(F,p_F)
 %     t : frame position
 %     q : frame orientation quaternion
 %     R : rotation matrix
-%     Pi: Pi matrix
 %
 %   or a 7-vector F = [t;q].
 %
@@ -20,7 +19,7 @@ function [p_W,Ff,Fp] = fromFrame(F,p_F)
 %     Fp: wrt the point P_F
 %   Note that this is only available for single points.
 %
-%   See also FRAME, TOFRAME, Q2PI, QUATERNION, UPDATEFRAME, SPLITFRAME.
+%   See also FRAME, TOFRAME, QUATERNION, UPDATEFRAME, SPLITFRAME.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
@@ -31,14 +30,14 @@ function [p_W,Ff,Fp] = fromFrame(F,p_F)
 
 s = size(p_F,2);
 
-[t,q,R,Rt,Pi] = splitFrame(F);
+[t,q,R] = splitFrame(F);
 
 if s==1 % one point
     
     p_W = R*p_F + t;
     
     if nargout > 1   % Jacobians. See [1] for details.
-        s = 2*Pi*p_F;
+        s = 2*q2Pi(q)*p_F;
 
         Ft = eye(3);
         Fq = [...

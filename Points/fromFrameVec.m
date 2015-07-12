@@ -16,7 +16,7 @@ if nargout > 1   % Jacobians.
 
     if size(v,2) == 1
         
-        s = 2*F.Pi*v;
+        s = 2*q2Pi(F.q)*v;
 
         W_q = [...
             s(2) -s(1)  s(4) -s(3)

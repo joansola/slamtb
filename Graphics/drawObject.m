@@ -17,9 +17,9 @@ end
 
 objGraph = get(handle,'userdata');
 
-[te,~,Ret]       = getTR(F);
+[te,Re]       = getTR(F);
 Te                = repmat(te,1,size(objGraph.vert,1));
-objGraph.vert     = objGraph.vert0*Ret+Te'; 
+objGraph.vert     = objGraph.vert0*Re'+Te'; 
 
 set(handle,'vertices',objGraph.vert);
 

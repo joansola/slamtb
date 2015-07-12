@@ -30,14 +30,14 @@ function [p_F,Tf,Tp] = toFrame(F,p_W)
 
 s = size(p_W,2); % number of points in input matrix
 
-[t,q,R,Rt,Pi,Pc] = splitFrame(F);
+[t,q,R,Rt] = splitFrame(F);
 
 if s==1 % one point
 
     p_F = Rt*p_W - Rt*t;
    
     if nargout > 1 % Jacobians. See [1] for details.
-        sc  = 2*Pc*(p_W-t);   % Conjugated s
+        sc  = 2*q2Pi(q2qc(q))*(p_W-t);   % Conjugated s
 
         Tt  = -Rt;
         Tq  = [...

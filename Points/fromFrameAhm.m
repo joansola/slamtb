@@ -17,7 +17,7 @@ xf  = ahmf(1:3,:);
 mf  = ahmf(4:6,:);
 sf  = ahmf(7,:);
 
-[t,q,R,Rt] = splitFrame(F);
+[t,q,R] = splitFrame(F);
 
 if nargout == 1
 

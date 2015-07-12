@@ -13,6 +13,10 @@ Fac.meas.y = Frm.state.x;
 % Expectation has zero covariance -- and info is not defined
 Fac.exp.e = Fac.meas.y; % expectation
 
+sigma = 1e4;
+Fac.err.Wsqrt = sigma*eye(numel(Fac.err.z));
+Fac.err.W     = sigma*Fac.err.Wsqrt;
+
 
 
 % ========== End of function - Start GPL license ==========

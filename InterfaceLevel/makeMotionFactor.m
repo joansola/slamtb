@@ -36,9 +36,10 @@ Fac.exp.E = zeros(size(Fac.meas.R)); % expectation cov
 %     Fac.exp.W = Fac.meas.W; % expectation information matrix
 
 % Error is zero at this stage, and takes covariance and info from measurement
-Fac.err.z = zeros(size(e)); % error or innovation (we call it error because we are on graph SLAM)
-Fac.err.Z = V; % error cov matrix
-Fac.err.W = V^-1; % error information matrix
+Fac.err.z     = zeros(size(e)); % error or innovation (we call it error because we are on graph SLAM)
+Fac.err.Z     = V;              % error cov matrix
+Fac.err.W     = V^-1;           % error information matrix
+Fac.err.Wsqrt = chol(Fac.err.W);
 
 % Jacobians are zero at this stage. Just make size correct.
 Fac.err.J1 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 1

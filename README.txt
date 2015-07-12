@@ -1,7 +1,7 @@
 SLAM Toolbox for Matlab.
 ========================
 
-This git repository provides an EKF-SLAM and a graph-SLAM toolbox.
+This git repository provides EKF-SLAM and graph-SLAM toolboxes.
 
 
 I. Copyright and license.

@@ -100,34 +100,25 @@ for fac = find([Fac.used])
     frames = Fac(fac).frames;
     
     % Compute factor error, info mat, and Jacobians
-    [Fac(fac), e, W, J1, J2, r1, r2] = computeError(...
+    [Fac(fac), e, W, Wsqrt, J1, J2, r1, r2] = computeError(...
         Rob(rob),       ...
         Sen(sen),       ...
         Lmk(lmk),       ...
         Obs(sen,lmk),   ...
         Frm(frames),    ...
         Fac(fac));
-    
-    Wsqrt = chol(W);
-    
+        
     % row band matrix size
     m  = numel(e);
     mr = (firstLine : firstLine + m - 1);
-
-    % Compute sparse Hessian blocks
-    A_1 = Wsqrt * J1;
-    A_2 = Wsqrt * J2;
-    
-    % Compute rhs vector blocks
-    b1   = Wsqrt * e;
-    b2   = Wsqrt * e;
     
     % Update A and b
-    Map.A(mr,r1) = A_1;
-    Map.A(mr,r2) = A_2;
+    Map.A(mr,r1) = Wsqrt * J1;
+    Map.A(mr,r2) = Wsqrt * J2;
     
-    Map.b(mr,1)  = b1;
-    
+    Map.b(mr,1)  = Wsqrt * e;
+
+    % Advance to next row band
     firstLine = firstLine + m;
 
 end

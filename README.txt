@@ -73,7 +73,7 @@ B. In the Matlab prompt:
         
         >> cd slamtb
 
-2. Add all subdirectories in %SLAMTB/ to your Matlab path using the provided script: 
+2. Add all subdirectories in slamtb/ to your Matlab path using the provided script: 
         
         >> slamrc
 

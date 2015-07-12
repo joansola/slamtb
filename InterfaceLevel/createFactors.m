@@ -12,28 +12,29 @@ numFactors = Opt.map.numFrames*(2 + Opt.correct.nUpdates + Opt.init.nbrInits(2))
 
 % Create all factor structures
 for fac = 1:numFactors
-
-    Fac(fac).fac = fac; % index in Fac array
-    Fac(fac).id = []; % Factor unique ID
-    Fac(fac).used = false; % Factor is being used ?
-    Fac(fac).type = ''; % {'motion','measurement','absolute'}
-    Fac(fac).rob = []; % rob index
-    Fac(fac).sen = []; % sen index
-    Fac(fac).lmk = []; % lmk index
-    Fac(fac).frames = []; % Frames (one or more)
-    Fac(fac).state.r1 = [];
-    Fac(fac).state.r2 = [];
-    Fac(fac).meas.y = [];
-    Fac(fac).meas.R = [];
-    Fac(fac).meas.W = []; % measurement information matrix
-    Fac(fac).exp.e = []; % expectation
-    Fac(fac).exp.E = []; % expectation cov
-    Fac(fac).exp.W = []; % expectation information matrix
-    Fac(fac).err.z = []; % error or innovation (we call it error because we are on graph SLAM)
-    Fac(fac).err.Z = []; % error cov matrix
-    Fac(fac).err.W  = []; % error information matrix
-    Fac(fac).err.J1 = []; % Jac. of error wrt. node 1
-    Fac(fac).err.J2 = []; % Jac. of error wrt. node 2
+ 
+    Fac(fac).fac       = fac; % index in Fac array
+    Fac(fac).id        = []; % Factor unique ID
+    Fac(fac).used      = false; % Factor is being used ?
+    Fac(fac).type      = ''; % {'motion','measurement','absolute'}
+    Fac(fac).rob       = []; % rob index
+    Fac(fac).sen       = []; % sen index
+    Fac(fac).lmk       = []; % lmk index
+    Fac(fac).frames    = []; % Frames (one or more)
+    Fac(fac).state.r1  = [];
+    Fac(fac).state.r2  = [];
+    Fac(fac).meas.y    = [];
+    Fac(fac).meas.R    = [];
+    Fac(fac).meas.W    = []; % measurement information matrix
+    Fac(fac).exp.e     = []; % expectation
+    Fac(fac).exp.E     = []; % expectation cov
+    Fac(fac).exp.W     = []; % expectation information matrix
+    Fac(fac).err.z     = []; % error or innovation (we call it error because we are on graph SLAM)
+    Fac(fac).err.Z     = []; % error cov matrix
+    Fac(fac).err.W     = []; % error information matrix
+    Fac(fac).err.Wsqrt = []; % square root of error information matrix
+    Fac(fac).err.J1    = []; % Jac. of error wrt. node 1
+    Fac(fac).err.J2    = []; % Jac. of error wrt. node 2
     
 end
 

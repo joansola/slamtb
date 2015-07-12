@@ -24,9 +24,10 @@ Fac.exp.E = zeros(size(Obs.meas.R)); % expectation cov
 %     Fac.exp.W = Fac.meas.W; % expectation information matrix
 
 % Error is zero at this stage, and takes covariance and info from measurement
-Fac.err.z = zeros(size(Fac.meas.y)); % error or innovation (we call it error because we are on graph SLAM)
-Fac.err.Z = Fac.meas.R; % error cov matrix
-Fac.err.W = Fac.meas.W; % error information matrix
+Fac.err.z     = zeros(size(Fac.meas.y)); % error or innovation (we call it error because we are on graph SLAM)
+Fac.err.Z     = Fac.meas.R;              % error cov matrix
+Fac.err.W     = Fac.meas.W;              % error information matrix
+Fac.err.Wsqrt = chol(Fac.err.W);
 
 % Jacobians are zero at this stage. Just make size correct.
 Fac.err.J1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - robot pose

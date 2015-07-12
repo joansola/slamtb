@@ -8,13 +8,13 @@ function [Frm, Fac] = makeAbsFactor(Frm, Fac, Rob)
 %   See also MAKEMOTIONFACTOR, MAKEMEASFACTOR.
 
 
-Fac.used = true; % Factor is being used ?
-Fac.id = newId; % Factor unique ID
+Fac.used   = true;  % Factor is being used ?
+Fac.id     = newId; % Factor unique ID
 
-Fac.type = 'absolute'; % {'motion','measurement','absolute'}
-Fac.rob = Rob.rob;
-Fac.sen = []; % sen index
-Fac.lmk = []; % lmk index
+Fac.type   = 'absolute'; % {'motion','measurement','absolute'}
+Fac.rob    = Rob.rob;
+Fac.sen    = [];    % sen index
+Fac.lmk    = [];    % lmk index
 Fac.frames = Frm.frm;
 
 % Ranges
@@ -23,28 +23,29 @@ Fac.state.r2 = [];
 
 % Go to minimal space, 7DoF --> 6DoF
 [e, V_x] = qpose2vpose(Rob.state.x);
-V = V_x * Rob.state.P * V_x';
+V        = V_x * Rob.state.P * V_x';
 
 % Measurement is the straight data
-Fac.meas.y = Rob.state.x;
-Fac.meas.R = Rob.state.P;
-% Fac.meas.W = []; % measurement information matrix
+Fac.meas.y    = Rob.state.x;
+Fac.meas.R    = Rob.state.P;
+% Fac.meas.W = [];  % measurement information matrix
 
 % Expectation has zero covariance -- and info is not defined
-Fac.exp.e = Fac.meas.y; % expectation
-Fac.exp.E = zeros(size(Fac.meas.R)); % expectation cov
+Fac.exp.e     = Fac.meas.y;                 % expectation
+Fac.exp.E     = zeros(size(Fac.meas.R));    % expectation cov
 %     Fac.exp.W = Fac.meas.W; % expectation information matrix
 
 % Error is zero at this stage, and takes covariance and info from measurement
-Fac.err.z = zeros(size(e)); % error or innovation (we call it error because we are on graph SLAM)
-Fac.err.Z = V; % error cov matrix
-Fac.err.W = V^-1; % error information matrix
+Fac.err.z     = zeros(size(e)); % error or innovation (we call it error because we are on graph SLAM)
+Fac.err.Z     = V;              % error cov matrix
+Fac.err.W     = V^-1;           % error information matrix
+Fac.err.Wsqrt = chol(Fac.err.W);
 
 % Jacobians are zero at this stage. Just make size correct.
-Fac.err.J1 = zeros(6,Rob.state.size); % Jac. of error wrt. node 1
+Fac.err.J1    = zeros(6,Rob.state.size); % Jac. of error wrt. node 1
 
 % Append factor to Frame's factors list.
-Frm.factors = [Frm.factors Fac.fac]; 
+Frm.factors   = [Frm.factors Fac.fac]; 
 
 
 

@@ -23,7 +23,7 @@
 %     .Pc     * conjugate PI matrix,    Pc = q2Pi(iq)
 % 
 %   Fields .Pi and .Pc are used to help computing some Jacobians of
-%   functions involving frame transformations. See TOFRAME in case you are
+%   functions involving frame transformations. See Q2PI in case you are
 %   interested in finding out more.
 %
 %   See also UPDATEFRAME, SPLITFRAME, QUATERNION, TOFRAME, FROMFRAME,

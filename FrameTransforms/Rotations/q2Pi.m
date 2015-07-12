@@ -14,7 +14,7 @@ function Pi = q2Pi(q)
 %                | d  a -b |
 %                |-c  b  a |  
 % 
-%   is the Jacobian of OMEGA*Q with respect to W
+%   is the Jacobian of OMEGA(W)*Q with respect to W
 %
 %   See also W2OMEGA, Q2R
     

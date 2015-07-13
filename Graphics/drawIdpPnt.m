@@ -11,13 +11,13 @@ posOffset = [0;0;.2];
 % transform to Euclidean
 switch Map.type
     case 'ekf'
-[x,P] = propagateUncertainty(       ...
-    Map.x(Lmk.state.r),             ...
-    Map.P(Lmk.state.r,Lmk.state.r), ...
-    @idp2euc);
+        [x,P] = propagateUncertainty(       ...
+            Map.x(Lmk.state.r),             ...
+            Map.P(Lmk.state.r,Lmk.state.r), ...
+            @idp2euc);
     case 'graph'
         x = idp2euc(Map.x(Lmk.state.r));
-        P = eye(3); % irrelevant because we will not print ellipses
+%         P = eye(3); % irrelevant because we will not print ellipses
 end
 
 % draw
@@ -25,8 +25,9 @@ drawPnt(MapFig.Lmk(Lmk.lmk).mean, x, color.mean)
 if MapOpt.showEllip
     drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
 end
-drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
-
+if MapOpt.showLmkId
+    drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
+end
 
 
 % ========== End of function - Start GPL license ==========

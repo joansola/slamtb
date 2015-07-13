@@ -206,6 +206,7 @@ FigOpt = struct(...
     'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0 0],...       % Azimuth and Elevation orbit angle increments - use to animate figure
     'showSimLmk',   false,...        % show simulated landmarks?
+    'showLmkId',    true,...        % Show landmark id?
     'showEllip',    false,...        % show ellipsoids?
     'showMotFac',   true,...        % show motion factors?
     'showMeaFac',   false,...       % show measurement factors?
@@ -229,7 +230,7 @@ FigOpt = struct(...
       'graph',      struct(...       % graph
         'frame',    'b',...           % frame
         'motion',   'b',...           % motion factors
-        'meas',     'y'),...          % measurement factors
+        'meas',     [1 .8 .6]),...          % measurement factors
       'simu',       'b',...          %   or 'r', 'b', etc.   
       'est',        'g',...          % estimated robots and sensors
       'ground',     [.8 .8 .8],...   % simulated robots and sensors

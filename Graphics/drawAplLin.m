@@ -30,10 +30,11 @@ if MapOpt.showEllip
 end
 
 % the label
-n = plk(1:3); % Plucker's normal vector
-posOffset = 0.2*n;     % label orthogonally out of the line.
-drawLabel(MapFig.Lmk(Lmk.lmk).label,0.5*(e1+e2) + posOffset,num2str(Lmk.id))
-
+if MapOpt.showLmkId
+    n = plk(1:3); % Plucker's normal vector
+    posOffset = 0.2*n;     % label orthogonally out of the line.
+    drawLabel(MapFig.Lmk(Lmk.lmk).label,0.5*(e1+e2) + posOffset,num2str(Lmk.id))
+end
 
 
 % ========== End of function - Start GPL license ==========

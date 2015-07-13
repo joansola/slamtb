@@ -106,14 +106,6 @@ set(MapFig.axes,...
     'vis',                 'off');%,...
 
 
-if strcmp(Map.type, 'graph')
-   
-    % TODO:
-    % Create trajectory
-    % Create measurement factors
-    
-end
-
 
 
 % OBJECTS COMMON TO SIMULATION AND ESTIMATION

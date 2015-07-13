@@ -45,6 +45,8 @@ Fac.err.Wsqrt = chol(Fac.err.W);
 Fac.err.J1 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 1
 Fac.err.J2 = zeros(6,factorRob.state.size); % Jac. of error wrt. node 2
 
+Fac.err.size  = numel(e);
+
 % Append factor to Frames' factors lists.
 Frm_old.factors = [Frm_old.factors Fac.fac]; 
 Frm_new.factors = [Frm_new.factors Fac.fac]; 

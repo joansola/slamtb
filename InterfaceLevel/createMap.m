@@ -62,16 +62,19 @@ switch lower(Opt.map.type)
         switch Opt.solver.decomposition
             case 'Cholesky'
                 % Hessian matrix in the manifold
-                Map.H = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
-                Map.R = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
-                Map.b = zeros(n,1); % rhs vector.
+                Map.H  = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
+                Map.R  = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
+                Map.b  = zeros(n,1); % rhs vector.
+                Map.mr = []; % range of used states in H
             case 'QR'
 
                 m = 1000;
-                Map.A = sparse([],[],[],m,n,ceil(m*n/4)); 
-                Map.R = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
-                Map.b = zeros(m,1); % rhs vector.
-                Map.d = zeros(n,1); % rhs vector.
+                Map.A  = sparse([],[],[],m,n,ceil(m*n/4)); 
+                Map.R  = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
+                Map.b  = zeros(m,1); % rhs vector.
+                Map.d  = zeros(n,1); % rhs vector.
+                Map.mr = []; % range of used states in A
+                Map.fr = []; % range of used factors in A
             %             case 'Schur'
             otherwise
                 error('??? Unknown graph solver ''%s''.', Opt.solver.decomposition)

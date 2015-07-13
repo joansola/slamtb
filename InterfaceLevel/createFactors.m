@@ -35,6 +35,7 @@ for fac = 1:numFactors
     Fac(fac).err.Wsqrt = []; % square root of error information matrix
     Fac(fac).err.J1    = []; % Jac. of error wrt. node 1
     Fac(fac).err.J2    = []; % Jac. of error wrt. node 2
+    Fac(fac).err.size  = 0;  % Size of error vector
     
 end
 

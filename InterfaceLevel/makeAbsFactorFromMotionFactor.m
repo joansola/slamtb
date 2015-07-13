@@ -17,6 +17,9 @@ sigma = 1e4;
 Fac.err.Wsqrt = sigma*eye(numel(Fac.err.z));
 Fac.err.W     = sigma*Fac.err.Wsqrt;
 
+Fac.err.size  = numel(Fac.err.z);
+
+
 
 
 % ========== End of function - Start GPL license ==========

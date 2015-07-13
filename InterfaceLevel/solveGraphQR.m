@@ -27,12 +27,12 @@ target_res  = options.target_res;  % exit criterion for current residual
 res_old     = 1e10;                   % last iteration's error
 
 % Map range
-mr = find(Map.used);
+Map.mr = find(Map.used);
+% Factors range
+errs = [Fac.err];
+Map.fr = 1:sum([errs.size]);
 
 for it = 1:n_iter
-    
-    fprintf('----------------\nIteration: %d; \n',it)
-
     
     % Compute Jacobians for projection onto the manifold
     [Frm,Lmk] = errorStateJacobians(Frm,Lmk);
@@ -43,14 +43,14 @@ for it = 1:n_iter
     if it == 1 % do this only once:
         
         % Column permutation
-        p  = colamd(Map.A(mr,mr))';
+        p  = colamd(Map.A(Map.fr,Map.mr))';
         
         % Permutated map range
-        pr = mr(p);
+        pr = Map.mr(p);
     end
     
     % Decomposition
-    [Map.d, Map.R] = qr(Map.A(:,pr), Map.b, 0);
+    [Map.d, Map.R] = qr(Map.A(Map.fr,pr), Map.b(Map.fr), 0);
     
     % Solve for dx
     Map.x(pr) = -Map.R\Map.d; % solve for dx;
@@ -63,9 +63,7 @@ for it = 1:n_iter
     dres           = res - res_old;
     res_old        = res;
     
-    fprintf('Residual: %.2e; variation: %.2e \n', res, dres)
-    
-    
+    % Test and exit
     if ( ( -dres <= target_dres ) || (err_max <= target_res) ) %&& ( abs(derr) < target_derr) )
         break;
     end
@@ -84,13 +82,13 @@ function Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 global Map
 
+
 % Reset Hessian and rhs vector
-mr = find(Map.used);
-Map.A(:,mr) = 0;
-Map.b(:)    = 0;
+Map.A(Map.fr,Map.mr) = 0;
+Map.b(Map.fr)    = 0;
 
 % Iterate all factors
-firstLine = 1;
+facCount = 1;
 for fac = find([Fac.used])
     
     % Extract some pointers
@@ -110,7 +108,7 @@ for fac = find([Fac.used])
         
     % row band matrix size
     m  = numel(e);
-    mr = (firstLine : firstLine + m - 1);
+    mr = (facCount : facCount + m - 1);
     
     % Update A and b
     Map.A(mr,r1) = Wsqrt * J1;
@@ -119,7 +117,7 @@ for fac = find([Fac.used])
     Map.b(mr,1)  = Wsqrt * e;
 
     % Advance to next row band
-    firstLine = firstLine + m;
+    facCount = facCount + m;
 
 end
 

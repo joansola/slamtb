@@ -27,7 +27,7 @@ target_res  = options.target_res;  % exit criterion for current residual
 res_old     = 1e10;                   % last iteration's error
 
 % Map range
-mr = find(Map.used);
+Map.mr = find(Map.used);
 
 for it = 1:n_iter
     
@@ -43,10 +43,10 @@ for it = 1:n_iter
     if it == 1 % do this only once:
         
         % Column permutation
-        p  = colamd(Map.H(mr,mr))';
+        p  = colamd(Map.H(Map.mr,Map.mr))';
         
         % Permutated map range
-        pr = mr(p);
+        pr = Map.mr(p);
     end
     
     % Decomposition
@@ -93,9 +93,8 @@ function Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
 global Map
 
 % Reset Hessian and rhs vector
-mr = find(Map.used);
-Map.H(mr,mr) = 0;
-Map.b(mr)    = 0;
+Map.H(Map.mr,Map.mr) = 0;
+Map.b(Map.mr)    = 0;
 
 % Iterate all factors
 for fac = find([Fac.used])

@@ -33,6 +33,8 @@ Fac.err.Wsqrt = chol(Fac.err.W);
 Fac.err.J1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - robot pose
 Fac.err.J2 = Obs.Jac.E_l; % Jac. of error wrt. node 2 - lmk state
 
+Fac.err.size  = numel(Fac.err.z);
+
 % Append factor to Frame's and Lmk's factors lists.
 Frm.factors = [Frm.factors Fac.fac]; 
 Lmk.factors = [Lmk.factors Fac.fac];

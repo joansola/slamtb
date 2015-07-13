@@ -44,6 +44,8 @@ Fac.err.Wsqrt = chol(Fac.err.W);
 % Jacobians are zero at this stage. Just make size correct.
 Fac.err.J1    = zeros(6,Rob.state.size); % Jac. of error wrt. node 1
 
+Fac.err.size  = numel(e);
+
 % Append factor to Frame's factors list.
 Frm.factors   = [Frm.factors Fac.fac]; 
 

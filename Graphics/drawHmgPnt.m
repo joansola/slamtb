@@ -26,8 +26,9 @@ drawPnt    (MapFig.Lmk(Lmk.lmk).mean,    x,    color.mean)
 if MapOpt.showEllip
     drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
 end
-drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
-
+if MapOpt.showLmkId
+    drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
+end
 
 
 % ========== End of function - Start GPL license ==========

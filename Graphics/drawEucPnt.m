@@ -21,11 +21,14 @@ switch Map.type
 end
 
 drawPnt    (MapFig.Lmk(Lmk.lmk).mean,    x,    color.mean)
+
 if MapOpt.showEllip
     drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
 end
-drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
 
+if MapOpt.showLmkId
+    drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
+end
 
 
 % ========== End of function - Start GPL license ==========
@@ -56,7 +59,7 @@ drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
 %   Copyright (c) 2008-2010, Joan Sola @ LAAS-CNRS,
 %   Copyright (c) 2010-2013, Joan Sola,
 %   Copyright (c) 2014-2015, Joan Sola @ IRI-UPC-CSIC,
-%   SLAMTB is Copyright 2009 
+%   SLAMTB is Copyright 2009
 %   by Joan Sola, Teresa Vidal-Calleja, David Marquez and Jean Marie Codol
 %   @ LAAS-CNRS.
 %   See on top of this file for its particular copyright.

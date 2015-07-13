@@ -26,7 +26,7 @@ target_dres = options.target_dres; % exit criterion for error variation
 target_res  = options.target_res;  % exit criterion for current residual
 res_old     = 1e10;                   % last iteration's error
 
-% Map range
+% Map states range
 Map.mr = find(Map.used);
 
 for it = 1:n_iter

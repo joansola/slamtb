@@ -10,20 +10,16 @@ function [S,iA] = schurc(M, m1, m2, sqrt)
 %
 %   Ss = SCHURC(M,R,T,sqrt), with sqrt ~= 0, returns the square root factor
 %   of S, for its use in the solution of systems of equations. The square
-%   root factors are equivalent to the Cholesky factorization, that is,
+%   root factor Ss is equivalent to the Cholesky factorization, that is,
 %
 %       S  = Ss' * Ss
 %
 %   [S, iA] = SCHURC(...) returns also the inverse of the block matrix
 %   used to compute the Schur complement, for its eventual reuse.
 %
-%   [Ss, iAs] = SCHURC(M,R,T,sqrt), with sqrt ~= 0, returns the square root
-%   factors of S and iA, for their use in the solution of systems of
-%   equations. The square root factors are equivalent to the Cholesky
-%   factorization, that is,
-%
-%       S  = Ss' * Ss
-%       iA = iAs * iAs'  <-- mind the different order of transposes.
+%   [Ss, iA] = SCHURC(M,R,T,sqrt), with sqrt ~= 0, returns the square root
+%   factors of S, for their use in the solution of systems of
+%   equations. The optional output iA is not factored
 %
 %   ----------------------------------------------------------------
 %
@@ -71,16 +67,16 @@ elseif isempty(m1)
 else
     
     % Test ranges integrity
-    if ~isempty(setdiff((1:n),[m1 m2]))
+    if ~isempty(setdiff((1:n),[m1;m2]))
         error('??? Ranges do not cover the full matrix!')
     end
-    if ~isempty(setdiff(m1,m2))
-        error('??? Some indices in ranges R and T are repeated!')
-    end
+%     if ~isempty(setdiff(m1,m2))
+%         error('??? Some indices in ranges R and T are repeated!')
+%     end
 end
 
 % Cholesky of the reordered block-matrix
-R = chol(M([m1 m2],[m1 m2]));
+R = chol(M([m1;m2],[m1;m2]));
 
 % Compact ranges for the sqrt factors
 n1 = numel(m1);
@@ -91,14 +87,11 @@ r2 = n1 + (1:n2);
 % Sqrt factors
 S  = R(r2,r2);      % sqrt of Schur complement
 iA = R(r1,r1)^-1;   % sqrt of inverse block
+iA = iA * iA';      % inverse block
 
 if nargin < 4 || ~sqrt
     
     % Return full version of Schur complement (normal behavior)
     S = S'*S;
-    
-    if nargout == 2
-        iA = iA * iA';
-    end
     
 end

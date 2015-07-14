@@ -1,22 +1,31 @@
-function [S,iC] = schurc(M, m1, m2, sqrt)
+function [S,iA] = schurc(M, m1, m2, sqrt)
 
 % SCHURC Schur complement of a symmetric matrix.
 %   SCHURC(M,R) returns the Schur complement of the block matrix of M
 %   defined by the indices in the range R, that is, of M(R,R).
 %
-%   SCHURC(M,R,T) accepts the range T, the complement of R.
+%   SCHURC(M,R,T) accepts the range T, the complement of R. It is an error
+%   if T is not the complement of R. If one of R or T are an empty array,
+%   but not both, then the other one is computed internally by SCHURC.
 %
-%   [S, iC] = SCHURC(...) returns also the inverse of the block matrix used
-%   to compute the Schur complement, for its eventual reuse.
-%
-%   [Ss, iCs] = SCHURC(M,R,T,sqrt), with sqrt ~= 0, returns the square root
-%   factors of S, and eventuall of iC, for their use in the solution of
-%   systems of equations. If one of R or T are an empty array, but not
-%   both, then the other one is computed internally by SCHURC. The square
+%   Ss = SCHURC(M,R,T,sqrt), with sqrt ~= 0, returns the square root factor
+%   of S, for its use in the solution of systems of equations. The square
 %   root factors are equivalent to the Cholesky factorization, that is,
 %
 %       S  = Ss' * Ss
-%       iC = iCs * iCs'  <-- mind the different order of transposes.
+%
+%   [S, iA] = SCHURC(...) returns also the inverse of the block matrix
+%   used to compute the Schur complement, for its eventual reuse.
+%
+%   [Ss, iAs] = SCHURC(M,R,T,sqrt), with sqrt ~= 0, returns the square root
+%   factors of S and iA, for their use in the solution of systems of
+%   equations. The square root factors are equivalent to the Cholesky
+%   factorization, that is,
+%
+%       S  = Ss' * Ss
+%       iA = iAs * iAs'  <-- mind the different order of transposes.
+%
+%   ----------------------------------------------------------------
 %
 %   Definitions and rationale:
 %
@@ -30,16 +39,23 @@ function [S,iC] = schurc(M, m1, m2, sqrt)
 %
 %   The optionally returned inverse block is just
 %
-%       iC = M_11^-1
+%       iA = M_11^-1
 %
-%   If M is positive, then using the Cholesky decomposition
+%   whose name comes from 'inverse of A', A given by the popular partition
+%   of M = [A B; B' C], therefore A = M_11.
+%
+%   If M is symmetrical and positive, then using the Cholesky decomposition
 %
 %       M = [R_11' 0 ; R_12' R_22'] * [R_11 R_12 ; 0 R_22]
 %
 %   leads to
 %
 %       S  =  R_22' * R_22
-%       iC = (R_11' * R_11)^-1 = R_11^-1 * R_11^-T
+%       iA = (R_11' * R_11)^-1 = R_11^-1 * R_11^-T
+%
+%   which constitutes an efficient and stable way to compute the Schur
+%   complement. The square root factors R_22 and R_11^-1 can be obtained by
+%   setting the optional flag sqrt.
 %
 %   See also CHOL.
 
@@ -74,7 +90,7 @@ r2 = n1 + (1:n2);
 
 % Sqrt factors
 S  = R(r2,r2);      % sqrt of Schur complement
-iC = R(r1,r1)^-1;   % sqrt of inverse block
+iA = R(r1,r1)^-1;   % sqrt of inverse block
 
 if nargin < 4 || ~sqrt
     
@@ -82,7 +98,7 @@ if nargin < 4 || ~sqrt
     S = S'*S;
     
     if nargout == 2
-        iC = iC * iC';
+        iA = iA * iA';
     end
     
 end

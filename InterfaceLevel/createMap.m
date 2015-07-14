@@ -50,8 +50,10 @@ switch lower(Opt.map.type)
         
         R = [Rob.state];
         
-        % overall number of states needed to allocate robots and landmarks
-        n = sum([[R.dsize].*Opt.map.numFrames Opt.map.lmkDSize*Opt.map.numLmks]);
+        % overall number of states needed to allocate frames and landmarks
+        nf = sum([R.dsize].*Opt.map.numFrames); % number of states for frames
+        nl = Opt.map.lmkDSize*Opt.map.numLmks;  % number of states for landmarks
+        n = nf + nl;    % total number of states
         
         % Map occupancy
         Map.used = false(n,1);
@@ -60,14 +62,15 @@ switch lower(Opt.map.type)
         Map.x = zeros(n,1);
         
         switch Opt.solver.decomposition
+            
             case 'Cholesky'
                 % Hessian matrix in the manifold
                 Map.H  = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
                 Map.R  = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
                 Map.b  = zeros(n,1); % rhs vector.
                 Map.mr = []; % range of used states in H
+            
             case 'QR'
-
                 m = 1000;
                 Map.A  = sparse([],[],[],m,n,ceil(m*n/4)); 
                 Map.R  = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
@@ -75,7 +78,15 @@ switch lower(Opt.map.type)
                 Map.d  = zeros(n,1); % rhs vector.
                 Map.mr = []; % range of used states in A
                 Map.fr = []; % range of used factors in A
-            %             case 'Schur'
+            
+            case 'Schur'
+                % Hessian matrix in the manifold
+                Map.H    = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
+                Map.b    = zeros(n,1); % rhs vector.
+                Map.sSff = sparse([],[],[],nf,nf,ceil(nf*nf/4)); % sqrt of the Schur complement
+                Map.iHll = sparse([],[],[],nl,nl,9*nl); % Inverse of the landmarks Hessian
+                Map.mr   = []; % range of used states in H
+           
             otherwise
                 error('??? Unknown graph solver ''%s''.', Opt.solver.decomposition)
         end

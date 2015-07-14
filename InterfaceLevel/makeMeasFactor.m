@@ -1,5 +1,12 @@
 function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac)
 
+% MAKEMEASFACTOR Make measurement factor.
+%   [Lmk, Frm, Fac] = MAKEMEASFACTOR(Lmk, Obs, Frm, Fac) creates a new
+%   measurement factor Fac linking frame Frm to landmark Lmk, using the
+%   observation informaiton in Obs.
+
+%   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC
+
 Fac.used = true; % Factor is being used ?
 Fac.id = newId; % Factor unique ID
 

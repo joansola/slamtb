@@ -14,23 +14,19 @@ for rob = [Rob.rob]
         
     for frm = 1:Trj(rob).maxLength
         
-        Frm(rob,frm).frm = frm;
-        Frm(rob,frm).id = [];
-        Frm(rob,frm).used = false;
+        Frm(rob,frm).frm         = frm;
+        Frm(rob,frm).id          = [];
+        Frm(rob,frm).used        = false;
         
-        Frm(rob,frm).rob = rob;
-        Frm(rob,frm).factors = [];
+        Frm(rob,frm).rob         = rob;
+        Frm(rob,frm).factors     = [];
         
-        % State and manifold ranges -- query and block
-%         r = newRange(Rob(rob).state.dsize);
-%         blockRange(r);
-
-        Frm(rob,frm).state.x = zeros(Rob(rob).state.size,1);
-        Frm(rob,frm).state.dx = zeros(Rob(rob).state.dsize,1);
-        Frm(rob,frm).state.r = [];
-        Frm(rob,frm).state.size = Rob(rob).state.size;
+        Frm(rob,frm).state.x     = zeros(Rob(rob).state.size,1);
+        Frm(rob,frm).state.dx    = zeros(Rob(rob).state.dsize,1);
+        Frm(rob,frm).state.r     = [];
+        Frm(rob,frm).state.size  = Rob(rob).state.size;
         Frm(rob,frm).state.dsize = Rob(rob).state.dsize;
-        Frm(rob,frm).state.M = []; % Jacobian of projection to manifold
+        Frm(rob,frm).state.M     = []; % Jacobian of projection to manifold
         
     end
 end

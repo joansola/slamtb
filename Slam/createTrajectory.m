@@ -1,5 +1,11 @@
 function Trj = createTrajectory(Rob, Opt)
 
+% CREATETRAJECTORY Create empty trajectories for robots.
+%   Trj = CREATETRAJECTORY(Rob, Opt) creates a trajectory for each robot in
+%   robots array Rob, using the options in Opt.
+
+%   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC
+
 
 % Trajectories, one per robot
 for rob = [Rob.rob]

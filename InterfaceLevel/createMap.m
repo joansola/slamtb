@@ -24,11 +24,11 @@ switch lower(Opt.map.type)
         
         Map.type = 'ekf';
         
-        R = [Rob.state];
-        S = [Sen.state];
+        RobStates = [Rob.state];
+        SenStates = [Sen.state];
         
         % overall number of states needed to allocate robots, sensors and landmarks
-        n = sum([R.size S.size Opt.map.lmkSize*Opt.map.numLmks]);
+        n = sum([RobStates.size SenStates.size Opt.map.lmkSize*Opt.map.numLmks]);
         
         Map.used = false(n,1);
         
@@ -48,10 +48,10 @@ switch lower(Opt.map.type)
         
         Map.type = 'graph';
         
-        R = [Rob.state];
+        RobStates = [Rob.state];
         
         % overall number of states needed to allocate frames and landmarks
-        nf = sum([R.dsize].*Opt.map.numFrames); % number of states for frames
+        nf = sum([RobStates.dsize].*Opt.map.numFrames); % number of states for frames
         nl = Opt.map.lmkDSize*Opt.map.numLmks;  % number of states for landmarks
         n = nf + nl;    % total number of states
         

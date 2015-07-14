@@ -40,10 +40,7 @@ function [Rob, Sen, Lmk, Obs, Frm, Fac] = addKnownLmkFactors(Rob, Sen, Raw, Lmk,
 % 5- perform consistency test. If it is OK:
 % 6- do correction
 % 7- eventually reparametrize landmark
-% 8- eventually delete corrupted landmarks
-% 9- force covariance symmetry
 
-global Map
 
 % 0. UPDATE ROB INFO FROM GRAPH
 Rob = frm2rob(Rob,Frm);
@@ -87,31 +84,23 @@ if any(vis) % Consider only visible observations
             % 4. Make and add factors
             fac = find([Fac.used] == false, 1, 'first');
             
-            [Lmk(lmk), Frm, Fac(fac)] = makeMeasFactor(...
-                Lmk(lmk),               ...
-                Obs(lmk),           ...
-                Frm, ...
-                Fac(fac));
-
+            if ~isempty(fac)
             
-            % Update Lmk inlier counter
-            Lmk(lmk).nInlier = Lmk(lmk).nInlier + 1;
+                [Lmk(lmk), Frm, Fac(fac)] = makeMeasFactor(...
+                    Lmk(lmk),               ...
+                    Obs(lmk),           ...
+                    Frm, ...
+                    Fac(fac));
+                
+                
+                % Update Lmk inlier counter
+                Lmk(lmk).nInlier = Lmk(lmk).nInlier + 1;
             
+            end
             
         end % if matched
 
     end % for lmk = lmkList
-
-    % 8. LANDMARK DELETION -- loop all visible
-    for lmk = find([Obs.vis])
-        
-        [Lmk(lmk),Obs(lmk)] = smartDeleteLmk(Lmk(lmk),Obs(lmk));
-        
-    end
-
-    % 9. FORCE COVARIANCE SYMMETRY
-%     Map.P(Map.used,Map.used) = (Map.P(Map.used,Map.used) + Map.P(Map.used,Map.used)')/2;
-
 
 end % if any(vis)
 

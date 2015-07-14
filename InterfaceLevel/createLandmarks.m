@@ -10,24 +10,24 @@ function Lmk = createLandmarks(Opt)
 
 for lmk = 1:Opt.map.numLmks
 
-    Lmk(lmk).lmk  = lmk;
-    Lmk(lmk).id   = [];
-    Lmk(lmk).type = '';
-    Lmk(lmk).used = false;
+    Lmk(lmk).lmk     = lmk;
+    Lmk(lmk).id      = [];
+    Lmk(lmk).type    = '';
+    Lmk(lmk).used    = false;
     Lmk(lmk).factors = []; % factors list
 
     % Landmark state
     Lmk(lmk).state.x = zeros(Opt.map.lmkSize,1);
     Lmk(lmk).state.r = [];
-    Lmk(lmk).state.size = Opt.map.lmkSize;
+    Lmk(lmk).state.size  = Opt.map.lmkSize;
     Lmk(lmk).state.dsize = Opt.map.lmkDSize;
     Lmk(lmk).state.M = []; % Jacobian of projection to manifold
     
     % Landmark descriptor or signature
-    Lmk(lmk).sig = [];
+    Lmk(lmk).sig     = [];
 
     % other parameters out of the SLAM map
-    Lmk(lmk).par = [];
+    Lmk(lmk).par     = [];
 
     % Lmk management counters
     Lmk(lmk).nSearch = 0;  % number of times searched

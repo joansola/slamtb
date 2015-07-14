@@ -127,7 +127,7 @@ Sensor{1} = struct(...
 % Estimation options 
 Opt = struct(...
   'map',              struct(...    % options for the map
-    'type',           'graph',...      % type of map {'ekf','graph'}
+    'type',           'graph',...    % type of map {'ekf','graph'}
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        3,...          % Size of landmark state
     'lmkDSize',       3,...          % Size of lmk error state

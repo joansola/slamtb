@@ -65,15 +65,15 @@ switch lower(Opt.map.type)
             
             case 'Cholesky'
                 % Hessian matrix in the manifold
-                Map.H  = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
-                Map.R  = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
+                Map.H  = sparse(n,n);
+                Map.R  = sparse(n,n);
                 Map.b  = zeros(n,1); % rhs vector.
                 Map.mr = []; % range of used states in H
             
             case 'QR'
                 m = 1000;
-                Map.A  = sparse([],[],[],m,n,ceil(m*n/4)); 
-                Map.R  = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
+                Map.A  = sparse(m,n); 
+                Map.R  = sparse(n,n);
                 Map.b  = zeros(m,1); % rhs vector.
                 Map.d  = zeros(n,1); % rhs vector.
                 Map.mr = []; % range of used states in A
@@ -81,10 +81,10 @@ switch lower(Opt.map.type)
             
             case 'Schur'
                 % Hessian matrix in the manifold
-                Map.H    = sparse([],[],[],n,n,ceil(n*n/4)); % 25% sparse.
+                Map.H    = sparse(n,n);
                 Map.b    = zeros(n,1); % rhs vector.
-                Map.sSff = sparse([],[],[],nf,nf,ceil(nf*nf/4)); % sqrt of the Schur complement
-                Map.iHll = sparse([],[],[],nl,nl,9*nl); % Inverse of the landmarks Hessian
+                Map.sSff = sparse(nf,nf); % sqrt of the Schur complement
+                Map.iHll = sparse(nl,nl); % Inverse of the landmarks Hessian
                 Map.mr   = []; % range of used states in H
            
             otherwise

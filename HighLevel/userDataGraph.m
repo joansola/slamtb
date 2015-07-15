@@ -134,10 +134,10 @@ Opt = struct(...
     'numFrames',      25,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
   'solver',           struct(...    % graph solver {'Cholesky', 'QR', 'Schur'}
-    'decomposition',  'Cholesky',...  % Hessian decomposition {'Cholesky', 'QR', 'Schur'}
+    'decomposition',  'QR',...  % Hessian decomposition {'Cholesky', 'QR', 'Schur'}
     'niterations',    1,...           % number of iterations
     'target_dres',    1e-2,...        % exit criterion for residual variation
-    'target_res',     1e-6),...       % exit criterion for current residual
+    'target_res',     1e-3),...       % exit criterion for current residual
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?

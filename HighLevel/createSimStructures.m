@@ -10,7 +10,7 @@ if SimOpt.random.newSeed
     rng(SimOpt.random.seed);
     %    randn('state',SimOpt.random.seed);
     fprintf('Random seed: %6.0f.\n',SimOpt.random.seed)
-    disp('To repeat this run, edit userData.m,')
+    disp('To repeat this run, edit userDataGraph.m,')
     disp('   add this seed to SimOpt.random.fixedSeed,')
     disp('   and set SimOpt.random.newSeed to false.')
 else
@@ -18,7 +18,7 @@ else
     rng(SimOpt.random.seed);
     %    randn('state',SimOpt.random.seed);
     fprintf('Fixed random seed: %6.0f.\n',SimOpt.random.seed)
-    disp('To make further runs truly random, edit userData.m,')
+    disp('To make further runs truly random, edit userDataGraph.m,')
     disp('   and set SimOpt.random.newSeed to true.')
 end
 

@@ -55,6 +55,15 @@ for it = 1:n_iter
     % Solve for dx
     Map.x(pr) = -Map.R\Map.d; % solve for dx;
     
+    % NOTE: Matlab is able to do all the reordering and QR factorization
+    % for you. If you just use the operator '\', as in 'dx = -A\b', Matlab
+    % will reorder A, then factor it to get R and d, then solve the
+    % factored problem, then reorder back the result into dx. Use the
+    % following line to accomplish this, and comment out the code from line
+    % 'if it == 1' until here:
+    %
+    %     Map.x(Map.mr) = -Map.A(Map.fr,Map.mr)\Map.b(Map.fr);
+    
     % Update nominal states
     [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);
     

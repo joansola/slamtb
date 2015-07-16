@@ -56,7 +56,7 @@ for it = 1:n_iter
         error('Ill-conditioned Hessian')
     end
 
-    % Solve for dx:
+    % Solve for dx and reorder:
     %   - dx is Map.x(mr)
     %   - reordered dx is Map.x(pr)
     y         = -Map.R'\Map.b(pr); % solve for y

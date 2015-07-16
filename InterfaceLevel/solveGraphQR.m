@@ -52,7 +52,9 @@ for it = 1:n_iter
     % Decomposition
     [Map.d, Map.R] = qr(Map.A(Map.fr,pr), Map.b(Map.fr), 0);
     
-    % Solve for dx
+    % Solve for dx and reorder:
+    %   - dx is Map.x(mr)
+    %   - reordered dx is Map.x(pr)
     Map.x(pr) = -Map.R\Map.d; % solve for dx;
     
     % NOTE: Matlab is able to do all the reordering and QR factorization

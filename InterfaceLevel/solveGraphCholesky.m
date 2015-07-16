@@ -52,27 +52,34 @@ for it = 1:n_iter
     % Decomposition
     [Map.R, ill] = chol(Map.H(pr,pr));
     
-    if ~ill
-
-        % Solve for dx:
-        %   - dx is Map.x(mr)
-        %   - reordered dx is Map.x(pr)
-        y         = -Map.R'\Map.b(pr); % solve for y
-        Map.x(pr) = Map.R\y;
-        
-        % Update nominal states
-        [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);
-        
-        % Check resulting errors
-        [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac);
-        dres           = res - res_old; 
-        res_old        = res;
-        
-%         fprintf('Residual: %.2e; variation: %.2e \n', res, dres)
-        
-    else
+    if ill
         error('Ill-conditioned Hessian')
     end
+
+    % Solve for dx:
+    %   - dx is Map.x(mr)
+    %   - reordered dx is Map.x(pr)
+    y         = -Map.R'\Map.b(pr); % solve for y
+    Map.x(pr) = Map.R\y;
+    
+    % NOTE: Matlab is able to do all the reordering and Cholesky
+    % factorization for you. If you just use the operator '\', as in 
+    % 'dx = -H\b', Matlab will reorder H, then factor it as R'R, then solve
+    % the two subproblems, then reorder back the result into dx. Use the
+    % following line to accomplish this, and comment out the code from line
+    % 'if it == 1' until here:
+    %
+    %     Map.x(Map.mr) = -Map.H(Map.mr,Map.mr)\Map.b(Map.mr);
+    
+    % Update nominal states
+    [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);
+    
+    % Check resulting errors
+    [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac);
+    dres           = res - res_old;
+    res_old        = res;
+    
+    %         fprintf('Residual: %.2e; variation: %.2e \n', res, dres)
     
     if ( ( -dres <= target_dres ) || (err_max <= target_res) ) %&& ( abs(derr) < target_derr) )
         break;

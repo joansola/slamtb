@@ -48,7 +48,7 @@ switch factorType
             factorRob);
         
     otherwise
-        error('??? Unknown or invalid factor type ''%s''.', facType)
+        error('??? Unknown or invalid factor type ''%s''.', factorType)
 end
 
 

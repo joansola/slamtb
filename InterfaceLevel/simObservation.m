@@ -47,7 +47,7 @@ switch SimSen.type
         
         % Add sensor noise
         Raw.data.segments.coord = Raw.data.segments.coord + ...
-            SimSen.par.cov*randn(size(Raw.data.points.coord));
+            SimSen.par.pixErr*randn(size(Raw.data.segments.coord));
 
         % Remove non visible
         [Raw.data.segments.coord,vis] = visibleSegment( ...

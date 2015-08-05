@@ -23,7 +23,7 @@ function [idp, IDP_rf, IDP_sf, IDP_sk, IDP_sc, IDP_u, IDP_rho] = ...
 
 if nargout == 1
     
-    idp = ahp2idp(retroProjIdpPntFromPinHoleOnRob(Rf, Sf, Sk, Sc, u, n));
+    idp = ahp2idp(retroProjAhmPntFromPinHoleOnRob(Rf, Sf, Sk, Sc, u, n));
     
 else
     

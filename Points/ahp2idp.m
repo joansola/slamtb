@@ -1,9 +1,9 @@
 function [idp, IDP_ahp] = ahp2idp(ahp)
 
-% AHP2IDP IDP to AHP point transformation.
-%   AHP2IDP(IDP) transforms the IDP point into its AHP representation.
+% AHP2IDP AHP to IDP point transformation.
+%   AHP2IDP(AHP) transforms the AHP point into its IDP representation.
 %
-%   [ahp, AHP_idp] = AHP2IDP(...) returns the Jacobian.
+%   [idp, IDP_ahp] = AHP2IDP(...) returns the Jacobian.
 
 %   Copyright 2010 Joan Sola
 

@@ -158,6 +158,19 @@ switch Sen.type
                 L_n = zeros(3,0);
                 N   = [] ;
 
+            case 'idpPnt'
+                % INIT LMK OF TYPE: Inverse Depth point
+                [l, L_rf, L_sf, L_k, L_c, L_obs] = ...
+                    retroProjIdpPntFromPhdOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.c, ...
+                    Obs.meas.y) ;
+                % EP-WARNING: Depth is known, so N=[], right? L_n is also empty, and with same dimension as 'l'?
+                L_n = zeros(6,0);
+                N   = [] ;
+
             otherwise
                 error('??? Unknown landmark type ''%s'' for initialization.',Opt.init.initType)
         end

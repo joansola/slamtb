@@ -27,7 +27,7 @@ function Lmk = lmkJacobians(Lmk)
 
 for lmk = [Lmk([Lmk.used]).lmk]
     switch Lmk(lmk).type
-        case 'eucPnt'
+        case {'eucPnt','idpPnt'}
             Lmk(lmk).state.M = 1; % trivial Jac
         case 'hmgPnt'
             [~,~,H_dh] = composeHmgPnt(Lmk(lmk).state.x, zeros(3,1));

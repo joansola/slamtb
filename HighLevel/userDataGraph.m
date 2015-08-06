@@ -129,7 +129,7 @@ Opt = struct(...
   'map',              struct(...    % options for the map
     'type',           'graph',...    % type of map {'ekf','graph'}
     'numLmks',        73,...         % number of 3d landmarks
-    'lmkSize',        3,...          % Size of landmark state
+    'lmkSize',        6,...          % Size of landmark state EP-WARNING: Shouldn't this be automatic according to the lmktype?
     'lmkDSize',       3,...          % Size of lmk error state
     'numFrames',      25,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
@@ -150,7 +150,7 @@ Opt = struct(...
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [5 3],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'eucPnt',...   % Type of lmk to use for init
+    'initType',       'idpPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs

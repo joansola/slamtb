@@ -1,4 +1,4 @@
-function MapFig = drawLmk(MapFig,Lmk,MapOpt)
+function MapFig = drawLmk(MapFig,Lmk,MapOpt,Sen,Frm,Fac)
 
 % DRAWLMK  Draw 3D landmark.
 %   DRAWLMK(MapFig,Lmk) draws 3D landmark Lmk into the map figure by
@@ -26,7 +26,11 @@ switch (Lmk.type)
     % --------------
     case {'idpPnt'}
         colors = MapOpt.colors.othPnt;
-        drawIdpPnt(MapFig, Lmk, colors, MapOpt);
+        if exist('Sen', 'var') && exist('Frm', 'var') && exist('Fac', 'var')
+            drawIdpPnt(MapFig, Lmk, colors, MapOpt, Sen, Frm, Fac);
+        else
+            drawIdpPnt(MapFig, Lmk, colors, MapOpt);
+        end
 
     case {'eucPnt'}
         colors = MapOpt.colors.defPnt;

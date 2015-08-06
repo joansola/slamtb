@@ -1,4 +1,4 @@
-function drawIdpPnt(MapFig, Lmk, color, MapOpt)
+function drawIdpPnt(MapFig, Lmk, color, MapOpt, Sen, Frm, Fac)
 
 % DRAWIDPPNT  Draw inverse-depth point landmark in MapFig.
 
@@ -16,7 +16,7 @@ switch Map.type
             Map.P(Lmk.state.r,Lmk.state.r), ...
             @idp2euc);
     case 'graph'
-        x = idp2euc(Map.x(Lmk.state.r));
+        x = idp2euc(idpFromGraph(Lmk,Sen,Frm,Fac));
 %         P = eye(3); % irrelevant because we will not print ellipses
 end
 

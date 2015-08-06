@@ -60,7 +60,14 @@ switch Opt.init.initType
         lmkSize = 4;
     case {'ahmPnt'}
         lmkSize = 7;
-    case {'idpPnt','plkLin'}
+    case {'idpPnt'}
+        switch Map.type
+            case 'graph'
+                lmkSize = 3; % we don't keep the anchor part on in the lmk
+            otherwise
+                lmkSize = 6;
+        end
+    case {'plkLin'}
         lmkSize = 6;
     case {'idpLin','aplLin'}
         lmkSize = 9;
@@ -154,7 +161,12 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
         
         % Update ranges and state
         Lmk(lmk).state.r = r;
-        Lmk(lmk).state.x = l;
+        switch Opt.init.initType
+            case {'idpPnt'}
+                Lmk(lmk).state.x = l(4:6); % we don't keep the anchor part
+            otherwise
+                Lmk(lmk).state.x = l;
+        end
                 
     end
 
@@ -168,6 +180,9 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     Lmk(lmk).nSearch = 1;
     Lmk(lmk).nMatch  = 1;
     Lmk(lmk).nInlier = 1;
+    if strcmp(Opt.init.initType,'idpPnt') == true
+        Lmk(lmk).anchorFac = fac(1);
+    end
     
     % Init off-filter landmark params
     [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk));

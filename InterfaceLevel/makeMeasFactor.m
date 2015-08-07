@@ -1,24 +1,36 @@
-function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac)
+function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac, NFrms)
 
 % MAKEMEASFACTOR Make measurement factor.
-%   [Lmk, Frm, Fac] = MAKEMEASFACTOR(Lmk, Obs, Frm, Fac) creates a new
-%   measurement factor Fac linking frame Frm to landmark Lmk, using the
-%   observation informaiton in Obs.
+%
+% [Lmk, Frm, Fac] = MAKEMEASFACTOR(Lmk, Obs, Frm, Fac) creates a new
+% measurement factor Fac linking frame Frm to landmark Lmk, using the
+% observation informaiton in Obs and the type in Lmk.
+%
+% [Lmk, Frm, Fac] = MAKEMEASFACTOR(Lmk, Obs, Frm, Fac, numFrames) creates a
+% new measurement factor Fac linking a NFrms number of frames Frm to
+% landmark Lmk, using the observation informaiton in Obs and the type in
+% Lmk. The variable Frm should be a vector with NFrms elements. The
+% landmark will always be the last element (this influenciates the index of
+% range and jacobians)
 
 %   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC
+
+if ~exist('NFrms','var')
+    NFrms = 1;
+end
+
+if NFrms > 2
+    error('Measurement factors linking to more than 2 frames is not yet supported! (NFrms == %s)',num2str(NFrms));
+end
 
 Fac.used = true; % Factor is being used ?
 Fac.id = newId; % Factor unique ID
 
 Fac.type = 'measurement'; % {'motion','measurement','absolute'}
-Fac.rob = Frm.rob;
+Fac.rob = Frm(1).rob;
 Fac.sen = Obs.sen;
 Fac.lmk = Obs.lmk;
-Fac.frames = Frm.frm;
-
-% Ranges
-Fac.state.r1 = Frm.state.r;
-Fac.state.r2 = Lmk.state.r;
+Fac.frames = [Frm.frm];
 
 % Measurement is the straight data
 Fac.meas.y = Obs.meas.y;
@@ -36,16 +48,46 @@ Fac.err.Z     = Fac.meas.R;              % error cov matrix
 Fac.err.W     = Fac.meas.W;              % error information matrix
 Fac.err.Wsqrt = chol(Fac.err.W);
 
-% Jacobians are zero at this stage. Just make size correct.
-Fac.err.J1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - robot pose
-Fac.err.J2 = Obs.Jac.E_l; % Jac. of error wrt. node 2 - lmk state
+% Ranges and Jacobians and update factors lists
+% NOTE: Jacobians are zero at this stage. Just make size correct.
+% TODO: this switch could be implicit by using the number of elements in the Frm vector
+switch NFrms
+    case 1
+        % range
+        Fac.state.r1 = Frm(1).state.r;
+        Fac.state.r2 = Lmk.state.r;
+        Fac.state.r3 = [];
+        % jacobians
+        Fac.err.J1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - robot pose
+        Fac.err.J2 = Obs.Jac.E_l; % Jac. of error wrt. node 2 - lmk state
+        Fac.err.J3 = zeros(size(Fac.meas.y)); % not used
+        % Append factor to Frame's and Lmk's factors lists.
+        Frm(1).factors = [Frm(1).factors Fac.fac]; 
+        Lmk.factors = [Lmk.factors Fac.fac];
+
+    case 2
+        % range
+        Fac.state.r1 = Frm(1).state.r;
+        Fac.state.r2 = Frm(2).state.r;
+        Fac.state.r3 = Lmk.state.r;
+        % jacobians
+        Fac.err.J1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - frame 1
+        Fac.err.J2 = Obs.Jac.E_r; % Jac. of error wrt. node 2 - frame 2
+        if strcmp(Lmk.type,'idpPnt')
+            Fac.err.J3 = Obs.Jac.E_l(:,4:6); % Jac. of error wrt. node 3 - idp lmk state without anchor
+        else
+            Fac.err.J3 = Obs.Jac.E_l; % Jac. of error wrt. node 3 - lmk state
+        end
+        
+        % Append factor to Frame's and Lmk's factors lists.
+        Frm(1).factors = [Frm(1).factors Fac.fac]; 
+        Frm(2).factors = [Frm(2).factors Fac.fac]; 
+        Lmk.factors = [Lmk.factors Fac.fac];
+end
 
 Fac.err.size  = numel(Fac.err.z);
 
-% Append factor to Frame's and Lmk's factors lists.
-Frm.factors = [Frm.factors Fac.fac]; 
-Lmk.factors = [Lmk.factors Fac.fac];
-
+end
 
 
 % ========== End of function - Start GPL license ==========

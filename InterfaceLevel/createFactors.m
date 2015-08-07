@@ -23,6 +23,7 @@ for fac = 1:numFactors
     Fac(fac).frames    = []; % Frames (one or more)
     Fac(fac).state.r1  = [];
     Fac(fac).state.r2  = [];
+    Fac(fac).state.r3  = [];
     Fac(fac).meas.y    = [];
     Fac(fac).meas.R    = [];
     Fac(fac).meas.W    = []; % measurement information matrix
@@ -35,6 +36,7 @@ for fac = 1:numFactors
     Fac(fac).err.Wsqrt = []; % square root of error information matrix
     Fac(fac).err.J1    = []; % Jac. of error wrt. node 1
     Fac(fac).err.J2    = []; % Jac. of error wrt. node 2
+    Fac(fac).err.J3    = []; % Jac. of error wrt. node 3
     Fac(fac).err.size  = 0;  % Size of error vector
     
 end

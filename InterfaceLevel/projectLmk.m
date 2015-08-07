@@ -301,6 +301,19 @@ switch Sen.type
                 
                 vis = isVisible(e(1:2,:),e(3,:),Sen.par.imSize);
                 
+            case 'idpPnt'
+
+                % Inverse Depth Point3D --> pixel+depth -(value and Jacobians)-
+                [e, E_rf, E_sf, E_k, E_d, E_l] = ...
+                    projIdpPntIntoPhdOnRob( ...
+                    Rob.frame, ...
+                    Sen.frame, ...
+                    Sen.par.k, ...
+                    Sen.par.d, ...
+                    l) ;
+
+                vis = isVisible(e(1:2,:),e(3,:),Sen.par.imSize);
+
             otherwise
                 error('??? Unknown landmark type ''%s'' for sensor ''%s''.',Lmk.type,Sen.type);
         end

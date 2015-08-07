@@ -1,4 +1,4 @@
-function [Fac, e, W, Wsqrt, J1, J2, r1, r2] = computeError(Rob,Sen,Lmk,Obs,Frm,Fac)
+function [Fac, e, W, Wsqrt, J1, J2, J3, r1, r2, r3] = computeError(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 % COMPUTEERROR Compute factor error.
 %   [Fac, e, W, Wsqrt, J1, J2, r1, r2] = COMPUTEERROR(Rob,Sen,Lmk,Obs,Frm,Fac)
@@ -24,12 +24,14 @@ switch Fac.type
         [Fac.err.z, Z_pq] = qpose2vpose(pq);
         Fac.err.J1        = Z_pq * PQ_e * Frm.state.M; % Jac wrt manifold
         Fac.err.J2        = zeros(6,0);
+        Fac.err.J3        = zeros(6,0);
         Z_y               = Z_pq * PQ_y;
         Fac.err.Z         = symmetrize(Z_y * Fac.meas.R * Z_y');
         Fac.err.W         = Fac.err.Z^-1;
         Fac.err.Wsqrt     = chol(Fac.err.W);
         Fac.state.r1      = Frm.state.r;
         Fac.state.r2      = [];
+        Fac.state.r3      = [];
         
     case 'motion'
         % Given two expected poses and a pose increment measurement,
@@ -49,28 +51,76 @@ switch Fac.type
         [Fac.err.z, Z_pq] = qpose2vpose(pq);
         Fac.err.J1        = Z_pq * PQ_e * E_x1 * Frm(1).state.M; % Jac wrt manifold 1
         Fac.err.J2        = Z_pq * PQ_e * E_x2 * Frm(2).state.M; % Jac wrt manifold 2
+        Fac.err.J3        = zeros(6,0);
         Z_y               = Z_pq * PQ_y;
         Fac.err.Z         = symmetrize(Z_y * Fac.meas.R * Z_y');
         Fac.err.W         = Fac.err.Z^-1;
         Fac.err.Wsqrt     = chol(Fac.err.W);
         Fac.state.r1      = Frm(1).state.r;
         Fac.state.r2      = Frm(2).state.r;
+        Fac.state.r3      = [];
 
     case 'measurement'
         % Given an expected pose and an expected landmark, compute the
         % measurement error as the difference between the expected
         % measurement of the landmark and the actual measurement.
-        Rob           = frm2rob(Rob,Frm);
-        Obs           = projectLmk(Rob,Sen,Lmk,Obs);
-        Fac.exp.e     = Obs.exp.e;
-        Fac.err.z     = Fac.exp.e - Fac.meas.y;     % err = h(x) - y
-        Fac.err.J1    = Obs.Jac.E_r * Frm.state.M; % Jac wrt manifold 1
-        Fac.err.J2    = Obs.Jac.E_l * Lmk.state.M; % Jac wrt manifold 2
-        Fac.err.Z     = Fac.meas.R; % Measurement Jac is negative identity
-        Fac.err.W     = Fac.err.Z^-1;
-        Fac.err.Wsqrt = chol(Fac.err.W);
-        Fac.state.r1  = Frm.state.r;
-        Fac.state.r2  = Lmk.state.r;
+        switch Lmk.type
+            case 'eucPnt'
+                % all projection factors are the same
+                Rob           = frm2rob(Rob,Frm);
+                Obs           = projectLmk(Rob,Sen,Lmk,Obs);
+                Fac.exp.e     = Obs.exp.e;
+                Fac.err.z     = Fac.exp.e - Fac.meas.y;     % err = h(x) - y
+                Fac.err.J1    = Obs.Jac.E_r * Frm.state.M; % Jac wrt manifold 1
+                Fac.err.J2    = Obs.Jac.E_l * Lmk.state.M; % Jac wrt manifold 2
+                Fac.err.J3    = zeros(numel(Obs.exp.e),0);
+                Fac.err.Z     = Fac.meas.R; % Measurement Jac is negative identity
+                Fac.err.W     = Fac.err.Z^-1;
+                Fac.err.Wsqrt = chol(Fac.err.W);
+                Fac.state.r1  = Frm.state.r;
+                Fac.state.r2  = Lmk.state.r;
+                Fac.state.r3  = [];
+                
+            case 'idpPnt'
+                % EP-WARNING: I'm not so sure about the computation of the jacobians below.
+                if numel(Fac.frames) == 1
+                    % factor is a projection to anchor
+                    Rob           = frm2rob(Rob,Frm);
+                    Obs           = projectLmk(Rob,Sen,Lmk,Obs);
+                    Fac.exp.e     = Obs.exp.e;
+                    Fac.err.z     = Fac.exp.e - Fac.meas.y;     % err = h(x) - y
+                    Fac.err.J1    = Obs.Jac.E_r * Frm.state.M; % Jac wrt manifold 1
+                    Fac.err.J1(:,1:3) = zeros(numel(Obs.exp.e),3); % There's no contribution to pose anchor
+                    Fac.err.J2    = Obs.Jac.E_l(:,4:6) * Lmk.state.M; % Jac wrt manifold 2
+                    Fac.err.J3    = zeros(numel(Obs.exp.e),0);
+                    Fac.err.Z     = Fac.meas.R; % Measurement Jac is negative identity
+                    Fac.err.W     = Fac.err.Z^-1;
+                    Fac.err.Wsqrt = chol(Fac.err.W);
+                    Fac.state.r1  = Frm.state.r;
+                    Fac.state.r2  = Lmk.state.r;
+                    Fac.state.r3  = [];
+
+                elseif numel(Fac.frames) == 2
+                    % factor is a normal idpPnt projection factor
+                    Rob           = frm2rob(Rob,Frm(2));
+                    Obs           = projectLmk(Rob,Sen,Lmk,Obs);
+                    Fac.exp.e     = Obs.exp.e;
+                    Fac.err.z     = Fac.exp.e - Fac.meas.y;     % err = h(x) - y
+                    [~, RS_r, ~]  = composeFrames(Rob.frame,Sen.frame);
+                    Fac.err.J1    = Obs.Jac.E_l(:,1:3) * RS_r(1:3,:) * Frm(1).state.M; % Jac wrt anchor (manifold 1)
+                    Fac.err.J2    = Obs.Jac.E_r * Frm(2).state.M; % Jac wrt current frame (manifold 2)
+                    Fac.err.J3    = Obs.Jac.E_l(:,4:6) * Lmk.state.M; % Jac wrt idp landmark w/o anchor (manifold 3)
+                    Fac.err.Z     = Fac.meas.R; % Measurement Jac is negative identity
+                    Fac.err.W     = Fac.err.Z^-1;
+                    Fac.err.Wsqrt = chol(Fac.err.W);
+                    Fac.state.r1  = Frm(1).state.r;
+                    Fac.state.r2  = Frm(2).state.r;
+                    Fac.state.r3  = Lmk.state.r;
+                    
+                else
+                    error('??? Something went wrong: idpPnt meas factor has ''%s'' frames (2 frames max allowed).', numel(Fac.frames))
+                end
+        end
     otherwise
         error('??? Unknown factor type ''%s''.', Fac.type)
 end
@@ -82,8 +132,10 @@ if nargout > 1
     Wsqrt = Fac.err.Wsqrt; % sqrt of info mat
     J1    = Fac.err.J1;    % Jacobian wrt block 1
     J2    = Fac.err.J2;    % Jacobian wrt block 2
+    J3    = Fac.err.J3;    % Jacobian wrt block 3
     r1    = Fac.state.r1;  % range of block 1
     r2    = Fac.state.r2;  % range of block 2
+    r3    = Fac.state.r3;  % range of block 3
 end
 
 

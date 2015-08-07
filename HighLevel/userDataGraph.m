@@ -131,7 +131,7 @@ Opt = struct(...
     'numLmks',        73,...         % number of 3d landmarks
     'lmkSize',        6,...          % Size of landmark state EP-WARNING: Shouldn't this be automatic according to the lmktype?
     'lmkDSize',       3,...          % Size of lmk error state
-    'numFrames',      25,...         % number of frames in graph
+    'numFrames',      50,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
   'solver',           struct(...    % graph solver
     'decomposition',  'QR',...        % Matrix decomposition {'Cholesky', 'QR', 'Schur'}

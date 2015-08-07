@@ -93,7 +93,7 @@ for fac = find([Fac.used])
     frames = Fac(fac).frames;
     
     % Compute factor error, info mat, and Jacobians
-    [Fac(fac), e, W, ~, J1, J2, r1, r2] = computeError(...
+    [Fac(fac), e, W, ~, J1, J2, J3, r1, r2, r3] = computeError(...
         Rob(rob),       ...
         Sen(sen),       ...
         Lmk(lmk),       ...
@@ -104,20 +104,30 @@ for fac = find([Fac.used])
     % Compute sparse Hessian blocks
     H_11 = J1' * W * J1;
     H_12 = J1' * W * J2;
+    H_13 = J1' * W * J3;
     H_22 = J2' * W * J2;
+    H_23 = J2' * W * J3;
+    H_33 = J3' * W * J3;
     
     % Compute rhs vector blocks
     b1   = J1' * W * e;
     b2   = J2' * W * e;
+    b3   = J3' * W * e;
     
     % Update H and b
     Map.H(r1,r1) = Map.H(r1,r1) + H_11;
     Map.H(r1,r2) = Map.H(r1,r2) + H_12;
+    Map.H(r1,r3) = Map.H(r1,r3) + H_13;
     Map.H(r2,r1) = Map.H(r2,r1) + H_12';
     Map.H(r2,r2) = Map.H(r2,r2) + H_22;
-    
+    Map.H(r2,r3) = Map.H(r2,r3) + H_23;
+    Map.H(r3,r1) = Map.H(r3,r1) + H_13';
+    Map.H(r3,r2) = Map.H(r3,r2) + H_23';
+    Map.H(r3,r3) = Map.H(r3,r3) + H_33;
+
     Map.b(r1,1)  = Map.b(r1,1)  + b1;
     Map.b(r2,1)  = Map.b(r2,1)  + b2;
+    Map.b(r3,1)  = Map.b(r3,1)  + b3;
     
 end
 

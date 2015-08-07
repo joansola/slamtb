@@ -1,4 +1,4 @@
-function [Rob, Sen, Lmk, Obs, Frm, Fac] = addKnownLmkFactors(Rob, Sen, Raw, Lmk, Obs, Frm, Fac, Opt)
+function [Rob, Sen, Lmk, Obs, Frm, Fac] = addKnownLmkFactors(Rob, Sen, Raw, Lmk, Obs, Frm, Fac, Opt, currFrmIdx)
 
 % CORRECTKNOWNLMKS  Correct known landmarks.
 %   [Rob,Sen,Lmk,Obs] = correctKnownLmks(Rob, Sen, Raw, Lmk, Obs, Opt)
@@ -43,7 +43,7 @@ function [Rob, Sen, Lmk, Obs, Frm, Fac] = addKnownLmkFactors(Rob, Sen, Raw, Lmk,
 
 
 % 0. UPDATE ROB INFO FROM GRAPH
-Rob = frm2rob(Rob,Frm);
+Rob = frm2rob(Rob,Frm(currFrmIdx));
 
 % 1. PROJECT ALL LMKS - get all expectations
 lmksUsed = [Lmk.used];
@@ -85,13 +85,27 @@ if any(vis) % Consider only visible observations
             fac = find([Fac.used] == false, 1, 'first');
             
             if ~isempty(fac)
-            
-                [Lmk(lmk), Frm, Fac(fac)] = makeMeasFactor(...
-                    Lmk(lmk),               ...
-                    Obs(lmk),           ...
-                    Frm, ...
-                    Fac(fac));
                 
+                switch Lmk(lmk).type
+                    case 'eucPnt'
+                        [Lmk(lmk), Frm(currFrmIdx), Fac(fac)] = makeMeasFactor(...
+                            Lmk(lmk),  ...
+                            Obs(lmk),  ...
+                            Frm(currFrmIdx), ...
+                            Fac(fac));
+                        
+                    case 'idpPnt'
+                        % pointers to anchor frame and current frame
+                        frms = [Fac(Lmk(lmk).factors(1)).frames(1) currFrmIdx];
+                        
+                        [Lmk(lmk), Frm(frms), Fac(fac)] = makeMeasFactor(...
+                            Lmk(lmk),  ...
+                            Obs(lmk),  ...
+                            Frm(frms), ...
+                            Fac(fac),  ...
+                            numel(frms));
+                        
+                end
                 
                 % Update Lmk inlier counter
                 Lmk(lmk).nInlier = Lmk(lmk).nInlier + 1;

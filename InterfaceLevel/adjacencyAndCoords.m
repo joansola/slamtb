@@ -18,14 +18,24 @@ for fac = find([Fac.used])
 
     switch Fac(fac).type
         case'motion'
-            A(frames(1),frames(2))   = 1;
+            A(frames(1),frames(2)) = 1;
             a(frames(1),1:3) = Frm(frames(1)).state.x(1:3)';
             a(frames(2),1:3) = Frm(frames(2)).state.x(1:3)';
         case 'absolute'
         case 'measurement'
-            B(frames,lmk+nframes) = 1;
-            b(frames,1:3) = Frm(frames).state.x(1:3)';
-            b(lmk+nframes,1:3) = Lmk(lmk).state.x(1:3)';
+            % if 'frames' has multiple values, the last one is the frame
+            % from where the measurement was taken. The others are
+            % auxiliary frames (aka anchor frames).
+            B(frames(end),lmk+nframes) = 1;
+            b(frames(end),1:3) = Frm(frames(end)).state.x(1:3)';
+            switch Lmk(lmk).type
+                case 'eucPnt'
+                    x = Lmk(lmk).state.x(1:3);
+                case 'idpPnt'
+                    x = idp2euc(Lmk(lmk).state.x);
+            end
+            b(lmk+nframes,1:3) = x';
+
     end
 
 end

@@ -16,7 +16,7 @@ switch Map.type
             Map.P(Lmk.state.r,Lmk.state.r), ...
             @idp2euc);
     case 'graph'
-        x = idp2euc(idpFromGraph(Lmk,Sen,Frm,Fac));
+        x = idp2euc(Lmk.state.x);
 %         P = eye(3); % irrelevant because we will not print ellipses
 end
 

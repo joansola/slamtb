@@ -1,4 +1,4 @@
-function Lmk = updateLmk(Lmk)
+function Lmk = updateLmk(Lmk,Sen,Frms,Fac)
 
 global Map
 
@@ -6,13 +6,25 @@ global Map
 dl = Map.x(Lmk.state.r);
 Lmk.state.dx = dl;
 
+% IMPORTANT: for anchored landmarks the frames should be already updated.
 switch Lmk.type
+    case 'eucPnt'
+        % Trivial composition -- no manifold stuff
+        Lmk.state.x = Lmk.state.x + dl;
+    case 'idpPnt'
+        % get some pointers
+        rob = Fac(Lmk.anchorFac).rob;
+        sen = Fac(Lmk.anchorFac).sen;
+        frm = Fac(Lmk.anchorFac).frames(1);
+        anchorpose = composeFrames(updateFrame(Frms(rob,frm).state),Sen(sen).frame);
+        
+        Lmk.state.x(1:3) = anchorpose.x(1:3);
+        Lmk.state.x(4:6) = Lmk.state.x(4:6) + dl;
     case 'hmgPnt'
         Lmk.state.x = composeHmgPnt(Lmk.state.x, dl);
     otherwise
-        error('??? Unknown or NYI lmk type ''%s''.', Lmk.type)
-end        
-
+        error('??? Unknown landmark or update not yet implemented landmark type ''%s''.',Lmk.type)
+end
 
 % ========== End of function - Start GPL license ==========
 

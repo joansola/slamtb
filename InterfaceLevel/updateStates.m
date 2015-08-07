@@ -1,4 +1,4 @@
-function [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm)
+function [Rob,Lmk,Frm] = updateStates(Rob,Sen,Lmk,Frm,Fac)
 
 % UPDATESTATES Update Frm and Lmk states based on computed error.
 %   [Rob,Lmk,Frm] = UPDATESTATES(Rob,Lmk,Frm) updates the nominal states of
@@ -13,9 +13,6 @@ function [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm)
 
 % Copyright 2015-     Joan Sola @ IRI-UPC-CSIC.
 
-
-global Map
-
 for rob = [Rob.rob]
     for frm = [Frm(rob,[Frm(rob,:).used]).frm]
         Frm(rob,frm) = updateKeyFrm(Frm(rob,frm));
@@ -23,13 +20,7 @@ for rob = [Rob.rob]
 %     Rob(rob) = frm2rob(Rob(rob), Frm(rob,Trj.head));
 end
 for lmk = [Lmk([Lmk.used]).lmk]
-    switch Lmk(lmk).type
-        case 'eucPnt'
-            % Trivial composition -- no manifold stuff
-            Lmk(lmk).state.x = Lmk(lmk).state.x + Map.x(Lmk(lmk).state.r);
-        otherwise
-            error('??? Unknown landmark type ''%s'' or Update not implemented.',Lmk.type)
-    end
+    Lmk(lmk) = updateLmk(Lmk(lmk),Sen,Frm,Fac);
 end
 
 end

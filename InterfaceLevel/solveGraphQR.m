@@ -67,7 +67,7 @@ for it = 1:n_iter
     %     Map.x(Map.mr) = -Map.A(Map.fr,Map.mr)\Map.b(Map.fr);
     
     % Update nominal states
-    [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);
+    [Rob,Lmk,Frm] = updateStates(Rob,Sen,Lmk,Frm,Fac);
     
     % Check resulting errors
     [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac);

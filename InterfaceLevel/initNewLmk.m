@@ -63,7 +63,7 @@ switch Opt.init.initType
     case {'idpPnt'}
         switch Map.type
             case 'graph'
-                lmkSize = 3; % we don't keep the anchor part on in the lmk
+                lmkSize = 3; % we don't keep the anchor part of the lmk
             otherwise
                 lmkSize = 6;
         end
@@ -161,13 +161,8 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
         
         % Update ranges and state
         Lmk(lmk).state.r = r;
-        switch Opt.init.initType
-            case {'idpPnt'}
-                Lmk(lmk).state.x = l(4:6); % we don't keep the anchor part
-            otherwise
-                Lmk(lmk).state.x = l;
-        end
-                
+        Lmk(lmk).state.x = l;
+
     end
 
     % Fill Lmk structure

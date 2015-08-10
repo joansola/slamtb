@@ -53,7 +53,7 @@ function [Lmk,Trj,Frm,Fac] = removeTailFrm(Lmk,Trj,Frm,Fac)
 %   frame from  Trj and cleans up all the information in Lmk(:), Frm(:,:),
 %   Fac(:) that has been affected.
 %
-%   The motionh factor linking this frams to the next one is convertede to
+%   The motionh factor linking this frams to the next one is converted to
 %   an absolute factor.
 
 global Map
@@ -69,31 +69,21 @@ for fac = factors
         newTail = Fac(fac).frames(2);
         [Frm(newTail),Fac(fac)] = makeAbsFactorFromMotionFactor(Frm(newTail),Fac(fac));
     
-    else
-        % Delete factor after cleaning up graph
-        
-        for frm = [Fac(fac).frames];
-            % Remove this factor from frame's factors list
-            Frm(frm).factors([Frm(frm).factors] == fac) = [];
+    elseif strcmp(Fac(fac).type, 'absolute')
+        [Fac(fac),Frm,Lmk] = deleteFactor(Fac(fac),Frm,Lmk);
+    else % if strcmp(Fac(fac).type, 'measurement')
+        switch Lmk(Fac(fac).lmk).type
+            case 'eucPnt'
+                % No re-anchoring needed, just delete factor.
+                [Fac(fac),Frm,Lmk] = deleteFactor(Fac(fac),Frm,Lmk);
+
+            case 'idpPnt'
+                % EP-WARNING: Here we should deal with re-anchoring idp landmarks. For now we're just deleting as with eucPnt
+                [Fac(fac),Frm,Lmk] = deleteFactor(Fac(fac),Frm,Lmk);
+
+            otherwise
+                error('Unknown or Not Yet Supported landmark type ''%s''.',Lmk(Fac(fac).lmk).type);
         end
-        
-        for lmk = [Fac(fac).lmk]
-            % Remove this factor from landmark's factors list
-            Lmk(lmk).factors([Lmk(lmk).factors] == fac) = [];
-            
-            % Delete landmark if no factors support it
-            if isempty(Lmk(lmk).factors)
-%                 fprintf('Deleting Lmk ''%d''.\n', lmk)
-                Lmk(lmk).used = false;
-                Map.used(Lmk(lmk).state.r) = false;
-            end
-        end
-        
-        % Free (and cleanup just in case) factors from tail before advancing
-%         fprintf('Deleting Fac ''%d''.\n', fac)
-        Fac(fac).used = false;
-        Fac(fac).frames = [];
-        Fac(fac).lmk = [];
     
     end
     

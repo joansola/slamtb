@@ -36,12 +36,18 @@ end
 % 1b. In Fac array. Check for new factor
 if (strcmp(Map.type, 'graph') == true)
     
-    fac = find([Fac.used] == false, 1, 'first');
-    
+    if strcmp(Opt.init.initType, 'idpPnt') == true && strcmp(Sen.type,'pinHoleDepth') == false
+        % We'll need two factors if the sensor does not provide depth
+        fac = find([Fac.used] == false, 2, 'first');
+    else
+        fac = find([Fac.used] == false, 1, 'first');
+    end
+
     if isempty(fac)
         % Fac structure array full. Unable to initialize new landmark.
         return;
     end
+
 end
 
 % 1c. In Map storage vector
@@ -191,11 +197,22 @@ end
 % 5. Create factor
 if (~isempty(lmk) && strcmp(Map.type, 'graph') == true)
     
-    [Lmk(lmk), Frm, Fac(fac)] = makeMeasFactor(...
-        Lmk(lmk),  ...
-        Obs(lmk),  ...
-        Frm,       ...
-        Fac(fac));
+    [Lmk(lmk), Frm, Fac(fac(1))] = makeMeasFactor(...
+        Lmk(lmk), ...
+        Obs(lmk), ...
+        Frm,      ...
+        Fac(fac(1)));
+
+    % Add specific factors if needed.
+    % Add inverse depth prior when the sensor does not provide depth
+    if strcmp(Lmk(lmk).type, 'idpPnt') == true && strcmp(Sen.type,'pinHoleDepth') == false
+        [Lmk(lmk), Fac(fac(2))] = makeInvDepPriorFactor(...
+            Lmk(lmk),    ...
+            Obs(lmk),    ...
+            Fac(fac(2)), ...
+            Opt);
+    end
+
 end
 
 

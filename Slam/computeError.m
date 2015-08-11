@@ -1,4 +1,4 @@
-function [Fac, e, W, Wsqrt, J1, J2, J3, r1, r2, r3] = computeError(Rob,Sen,Lmk,Obs,Frm,Fac)
+function [Fac, e, W, Wsqrt, J1, r1, J2, r2, J3, r3] = computeError(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 % COMPUTEERROR Compute factor error.
 %   [Fac, e, W, Wsqrt, J1, J2, r1, r2] = COMPUTEERROR(Rob,Sen,Lmk,Obs,Frm,Fac)

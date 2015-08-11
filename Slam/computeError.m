@@ -10,28 +10,43 @@ function [Fac, e, W, Wsqrt, J1, J2, J3, r1, r2, r3] = computeError(Rob,Sen,Lmk,O
 
 switch Fac.type
     case 'absolute'
-        % Given an expected pose and a pose measurement, compute the error
-        % as the minimal pose that transforms the measurement into the
-        % given pose, that is:
-        %   err = minimal(frameIncrement(meas, expected))
-        % where frameIncrement(F,G) implements the composition of the
-        % inverse of F and G,
-        %   composeFrames(invertFrame(F), G)
-        % and minimal() is a 6 DoF expression of the frame, done using the
-        % function qframe2vframe().
-        Fac.exp.e         = Frm.state.x;
-        [pq, PQ_y, PQ_e]  = frameIncrement(Fac.meas.y, Fac.exp.e); % err = h(x) (-) y
-        [Fac.err.z, Z_pq] = qpose2vpose(pq);
-        Fac.err.J1        = Z_pq * PQ_e * Frm.state.M; % Jac wrt manifold
-        Fac.err.J2        = zeros(6,0);
-        Fac.err.J3        = zeros(6,0);
-        Z_y               = Z_pq * PQ_y;
-        Fac.err.Z         = symmetrize(Z_y * Fac.meas.R * Z_y');
-        Fac.err.W         = Fac.err.Z^-1;
-        Fac.err.Wsqrt     = chol(Fac.err.W);
-        Fac.state.r1      = Frm.state.r;
-        Fac.state.r2      = [];
-        Fac.state.r3      = [];
+        if ~isempty(Fac.frames)
+            % Given an expected pose and a pose measurement, compute the error
+            % as the minimal pose that transforms the measurement into the
+            % given pose, that is:
+            %   err = minimal(frameIncrement(meas, expected))
+            % where frameIncrement(F,G) implements the composition of the
+            % inverse of F and G,
+            %   composeFrames(invertFrame(F), G)
+            % and minimal() is a 6 DoF expression of the frame, done using the
+            % function qframe2vframe().
+            Fac.exp.e         = Frm.state.x;
+            [pq, PQ_y, PQ_e]  = frameIncrement(Fac.meas.y, Fac.exp.e); % err = h(x) (-) y
+            [Fac.err.z, Z_pq] = qpose2vpose(pq);
+            Fac.err.J1        = Z_pq * PQ_e * Frm.state.M; % Jac wrt manifold
+            Fac.err.J2        = zeros(6,0);
+            Fac.err.J3        = zeros(6,0);
+            Z_y               = Z_pq * PQ_y;
+            Fac.err.Z         = symmetrize(Z_y * Fac.meas.R * Z_y');
+            Fac.err.W         = Fac.err.Z^-1;
+            Fac.err.Wsqrt     = chol(Fac.err.W);
+            Fac.state.r1      = Frm.state.r;
+            Fac.state.r2      = [];
+            Fac.state.r3      = [];
+        else
+            % Given a expected prior for the landmark inverse depth,
+            % compute the error between the inverse depth and the prior.
+
+            % NOTE: Factor err.e, err.Z, err.W, and err.Wsqrt are constant
+            % and already stored on Fac.
+            Fac.err.z         = Lmk.state.x(6) - Fac.exp.e;
+            Fac.err.J1        = Lmk.state.M; % Jac wrt manifold
+            Fac.err.J2        = zeros(1,0);
+            Fac.err.J3        = zeros(1,0);
+            Fac.state.r1      = Lmk.state.r(3);
+            Fac.state.r2      = [];
+            Fac.state.r3      = [];
+        end
         
     case 'motion'
         % Given two expected poses and a pose increment measurement,

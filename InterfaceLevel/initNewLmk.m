@@ -60,41 +60,10 @@ switch Map.type
         Rob = frm2rob(Rob,Frm);
 end
 
-% Type of the lmk to initialize - with error check.
-switch Opt.init.initType
-    case {'hmgPnt'}
-        lmkSize = 4;
-    case {'ahmPnt'}
-        lmkSize = 7;
-    case {'idpPnt'}
-        switch Map.type
-            case 'graph'
-                lmkSize = 3; % we don't keep the anchor part of the lmk
-            otherwise
-                lmkSize = 6;
-        end
-    case {'plkLin'}
-        lmkSize = 6;
-    case {'idpLin','aplLin'}
-        lmkSize = 9;
-    case {'hmgLin'}
-        lmkSize = 8;
-    case {'ahmLin'}
-        lmkSize = 11;
-    case {'eucPnt'}
-        switch Sen.type
-            case 'pinHoleDepth'
-                lmkSize = 3;
-            otherwise
-                error('??? Unable to initialize lmk type ''%s''. Try using ''idpPnt'' instead.',Opt.init.initType);
-        end
-    otherwise
-        error('??? Unknown landmark type ''%s''.', Opt.init.initType);
-end
 
-
-% % check for free space in the Map.
-if (freeSpace() < lmkSize) 
+% check for free space in the Map.
+[~, ~, lmkInitSize] = lmkSizes(Opt.init.initType);
+if (freeSpace() < lmkInitSize) 
     % Map full. Unable to initialize landmark.
     return
 end
@@ -162,7 +131,7 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
 
     else
         % get lmk ranges in Map, and block
-        r = newRange(Lmk(lmk).state.dsize);
+        r = newRange(lmkInitSize);
         blockRange(r);
         
         % Update ranges and state

@@ -17,11 +17,12 @@ for lmk = 1:Opt.map.numLmks
     Lmk(lmk).factors = []; % factors list
 
     % Landmark state
-    Lmk(lmk).state.x = zeros(Opt.map.lmkSize,1);
-    Lmk(lmk).state.dx = zeros(Opt.map.lmkDSize,1);
+    [ lmkSize, lmkDSize, ~ ] = lmkSizes( Opt.init.initType );
+    Lmk(lmk).state.x = zeros(lmkSize,1);
+    Lmk(lmk).state.dx = zeros(lmkDSize,1);
     Lmk(lmk).state.r = [];
-    Lmk(lmk).state.size  = Opt.map.lmkSize;
-    Lmk(lmk).state.dsize = Opt.map.lmkDSize;
+    Lmk(lmk).state.size  = lmkSize;
+    Lmk(lmk).state.dsize = lmkDSize;
     Lmk(lmk).state.M = []; % Jacobian of projection to manifold
     
     % Landmark descriptor or signature

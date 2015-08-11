@@ -129,8 +129,6 @@ Opt = struct(...
   'map',              struct(...    % options for the map
     'type',           'graph',...    % type of map {'ekf','graph'}
     'numLmks',        73,...         % number of 3d landmarks
-    'lmkSize',        6,...          % Size of landmark state EP-WARNING: Shouldn't this be automatic according to the lmktype?
-    'lmkDSize',       3,...          % Size of lmk error state
     'numFrames',      50,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
   'solver',           struct(...    % graph solver

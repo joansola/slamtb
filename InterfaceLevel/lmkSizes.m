@@ -1,15 +1,20 @@
 function [ lmkSize, lmkDSize ] = lmkSizes( lmkType )
 %LMKSIZES( LMKTYPE ) returns the sizes used by a especific landmark type
 %
-%  [ LMKSIZE, LMKDSIZE, LMKINITDSIZE ] = LMKSIZES( LMKTYPE ) returns the
-%  landmark size LMKSIZE, the landmark error state size LMKDSIZE, and the
-%  landmark initial error state size LMKINITDSIZE. In most of the cases the
-%  LMKDSIZE and LMKINITDSIZE will be the same unless we do not want to
-%  delay the addition of the landmark to the solver.
+%  [ LMKSIZE, LMKDSIZE ] = LMKSIZES( LMKTYPE ) returns the landmark sizes
+%  in LMKSIZE and the landmark error state sizes in the LMKDSIZE. Both
+%  LMKSIZE and LMKDSIZE are 1x2 vectors, with the first element being the
+%  initial value and the second being the nominal value. In most of the
+%  cases both elements of each vector will be the same. They won't be the
+%  same if:
+%    1) The landmark has a specific initial (normally incomplete)
+%    parametrization: then LMKTYPE(1) ~= LMKTYPE(2);    
+%    2) The landmark has a specific initial error state (normally zero):
+%    then LMKDTYPE(1) ~= LMKDTYPE(2);
 
 %   Copyright 2015   Ellon Paiva @ LAAS-CNRS
 
-% TODO: Define lmkDSize and lmkInitDSize for all lmk types
+% TODO: Define lmkDSize for all lmk types
 
 global Map
 

@@ -121,8 +121,8 @@ switch Fac.type
                     Obs           = projectLmk(Rob,Sen,Lmk,Obs);
                     Fac.exp.e     = Obs.exp.e;
                     Fac.err.z     = Fac.exp.e - Fac.meas.y;     % err = h(x) - y
-                    RobAnchor.frame.x = Frm(1).state.x(1:7);
-                    RobAnchor.frame = updateFrame(RobAnchor.frame);
+                    RobAnchor     = Rob; % just to have the structure
+                    RobAnchor     = frm2rob(RobAnchor,Frm(1));
                     [~, RS_r, ~]  = composeFrames(RobAnchor.frame,Sen.frame);
                     Fac.err.J1    = Obs.Jac.E_l(:,1:3) * RS_r(1:3,:) * Frm(1).state.M; % Jac wrt anchor (manifold 1)
                     Fac.err.J2    = Obs.Jac.E_r * Frm(2).state.M; % Jac wrt current frame (manifold 2)

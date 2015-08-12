@@ -17,7 +17,7 @@ for lmk = 1:Opt.map.numLmks
     Lmk(lmk).factors = []; % factors list
 
     % Landmark state
-    [ lmkSize, lmkDSize] = lmkSizes( Opt.init.initType );
+    [ lmkSize, lmkDSize] = lmkSizes( Opt.init.initType, Opt.map.type);
     Lmk(lmk).state.x = zeros(lmkSize(1),1);
     Lmk(lmk).state.dx = zeros(lmkDSize(1),1);
     Lmk(lmk).state.r = [];

@@ -52,7 +52,7 @@ switch lower(Opt.map.type)
         
         % overall number of states needed to allocate frames and landmarks
         nf = sum([RobStates.dsize].*Opt.map.numFrames); % number of states for frames
-        [ ~, lmkDSize ] = lmkSizes( Opt.init.initType );
+        [ ~, lmkDSize ] = lmkSizes( Opt.init.initType, Opt.map.type);
         % EP-WARNING: Use lmkDSize or lmkInitDSize in the line below?
         nl = lmkDSize(2)*Opt.map.numLmks;  % number of states for landmarks
         n = nf + nl;    % total number of states

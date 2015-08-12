@@ -62,8 +62,8 @@ end
 
 
 % check for free space in the Map.
-[~, ~, lmkInitSize] = lmkSizes(Opt.init.initType);
-if (freeSpace() < lmkInitSize) 
+[~, lmkDSize] = lmkSizes(Opt.init.initType);
+if (freeSpace() < lmkDSize(1)) 
     % Map full. Unable to initialize landmark.
     return
 end
@@ -131,7 +131,7 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
 
     else
         % get lmk ranges in Map, and block
-        r = newRange(lmkInitSize);
+        r = newRange(lmkDSize(1));
         blockRange(r);
         
         % Update ranges and state

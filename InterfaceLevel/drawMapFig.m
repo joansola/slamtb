@@ -91,11 +91,7 @@ end
 % for each landmark:
 for lmk=find(used)
     MapFig.Lmk(lmk).drawn = true;
-    if strcmp(Map.type,'ekf') == true
-        drawLmk(MapFig,Lmk(lmk),FigOpt.map);
-    else % if strcmp(Map.type,'graph') == true
-        drawLmk(MapFig,Lmk(lmk),FigOpt.map,Sen,Frm,Fac);
-    end
+    drawLmk(MapFig,Lmk(lmk),FigOpt.map);
 end
 
 % Simulate camera viewpoint

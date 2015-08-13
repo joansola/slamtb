@@ -1,4 +1,4 @@
-function drawIdpPnt(MapFig, Lmk, color, MapOpt, Sen, Frm, Fac)
+function drawIdpPnt(MapFig, Lmk, color, MapOpt)
 
 % DRAWIDPPNT  Draw inverse-depth point landmark in MapFig.
 

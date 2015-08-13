@@ -1,4 +1,4 @@
-function drawPapPnt(MapFig, Lmk, color, MapOpt, Sen, Frm, Fac)
+function drawPapPnt(MapFig, Lmk, color, MapOpt)
 
 % DRAWPAPPNT  Draw parallax angle parametrization point landmark in MapFig.
 

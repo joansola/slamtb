@@ -71,7 +71,45 @@ switch Sen.type
                     l) ;
 
                 vis = isVisible(e,depth,Sen.par.imSize);
+            
+            case {'papPnt'} % parallax angle parametrization point
 
+                % We can only project the pap pnt if it is stored in the
+                % complete form, so we check this here.
+                %
+                % In fact, this is a work-around for the current version of
+                % the toolbox: currnetly addKnownLmkFactors() calls
+                % projectLmk() to see if it is visible in the current image
+                % before matching points, so if the pap pnt is in the
+                % reduced form (aka only seen once), we consider it is
+                % still visible so it can be matched one second time later
+                % in addKnownLmkFactors().
+                
+                [~, ~, ~, ~, completeForm] = splitPap(l);
+                if completeForm
+                    % PAP --> pixel -(value and Jacobians)-
+                    [e, depth, E_rf, E_k, E_d, E_l] = ...
+                        projPapPntIntoPinHole( ...
+                        Rob.frame, ... % This should be already the camera frame
+                        Sen.par.k, ...
+                        Sen.par.d, ...
+                        l) ;
+
+                    E_sf = zeros(2,7);
+                    
+                    vis = isVisible(e,depth,Sen.par.imSize);
+                    
+                else
+                    e     = zeros(2,Lmk.state.dsize);
+%                     depth = [];
+                    E_rf  = zeros(2,7);
+                    E_sf  = zeros(2,7);
+%                     E_k   = [];
+%                     E_d   = [];
+                    E_l   = zeros(2,Lmk.state.dsize);
+                    vis = true;
+                end
+            
             case {'hmgPnt'} % euclidean point
 
                 % Point3D --> pixel -(value and Jacobians)-

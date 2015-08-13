@@ -19,8 +19,8 @@ if ~exist('NFrms','var')
     NFrms = 1;
 end
 
-if NFrms > 2
-    error('Measurement factors linking to more than 2 frames is not yet supported! (NFrms == %s)',num2str(NFrms));
+if NFrms > 3
+    error('Measurement factors linking to more than 3 frames is not yet supported! (NFrms == %s)',num2str(NFrms));
 end
 
 Fac.used = true; % Factor is being used ?
@@ -83,6 +83,28 @@ switch NFrms
         Frm(1).factors = [Frm(1).factors Fac.fac]; 
         Frm(2).factors = [Frm(2).factors Fac.fac]; 
         Lmk.factors = [Lmk.factors Fac.fac];
+
+    case 3
+        % range
+        Fac.state.r1 = Frm(1).state.r;
+        Fac.state.r2 = Frm(2).state.r;
+        Fac.state.r3 = Frm(3).state.r;
+        Fac.state.r4 = Lmk.state.r;
+        % jacobians
+%         Fac.err.J1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - frame 1
+%         Fac.err.J2 = Obs.Jac.E_r; % Jac. of error wrt. node 2 - frame 2
+%         if strcmp(Lmk.type,'idpPnt')
+%             Fac.err.J3 = Obs.Jac.E_l(:,4:6); % Jac. of error wrt. node 3 - idp lmk state without anchor
+%         else
+%             Fac.err.J3 = Obs.Jac.E_l; % Jac. of error wrt. node 3 - lmk state
+%         end
+        
+        % Append factor to Frame's and Lmk's factors lists.
+        Frm(1).factors = [Frm(1).factors Fac.fac]; 
+        Frm(2).factors = [Frm(2).factors Fac.fac]; 
+        Frm(3).factors = [Frm(3).factors Fac.fac]; 
+        Lmk.factors = [Lmk.factors Fac.fac];
+
 end
 
 Fac.err.size  = numel(Fac.err.z);

@@ -106,7 +106,7 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 Sensor{1} = struct(...
   'id',                 1,...           % sensor identifier
   'name',               'Micropix',...  % sensor name
-  'type',               'pinHoleDepth',...   % type of sensor
+  'type',               'pinHole',...   % type of sensor
   'robot',              1,...           % robot where it is mounted
   'position',           [0;0;.6],...    % position in robot
   'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
@@ -148,7 +148,7 @@ Opt = struct(...
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
     'nbrInits',       [5 3],...      % number of inits [firstFrame, otherFrames]
-    'initType',       'idpPnt',...   % Type of lmk to use for init
+    'initType',       'papPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
@@ -165,7 +165,7 @@ Opt = struct(...
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
     'newSeed',        false,...         % select new random seed?
-    'fixedSeed',      209065,...       % random seed for non-random runs
+    'fixedSeed',      210498,...       % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
 

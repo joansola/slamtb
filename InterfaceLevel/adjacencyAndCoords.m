@@ -29,7 +29,7 @@ for fac = find([Fac.used])
                 case 'idpPnt'
                     x = idp2euc(Lmk(lmk).state.x);
                 case 'papPnt'
-                    x = pap2eucOrLine(Lmk(lmk).state.x);
+                    x = pap2euc(Lmk(lmk).state.x);                    
             end
             % next if guards against 'incomplete' parametrizations that
             % doesn't return a 3D point when converted to euclidean

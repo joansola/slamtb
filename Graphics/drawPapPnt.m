@@ -16,24 +16,17 @@ switch Map.type
             Map.P(Lmk.state.r,Lmk.state.r), ...
             @pap2euc);
     case 'graph'
-        x = pap2eucOrLine(Lmk.state.x);
+        x = pap2euc(Lmk.state.x);
 %         P = eye(3); % irrelevant because we will not print ellipses
 end
 
 % draw
-% FIXME: Use drawSeg
 drawPnt(MapFig.Lmk(Lmk.lmk).mean, x, color.mean)
 if MapOpt.showEllip
     drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
 end
 if MapOpt.showLmkId
-    if numel(x) == 3
-        drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x(1:3)+posOffset, num2str(Lmk.id))
-    else % incomplete point represented as a line (6-vector)
-        % FIXME: Use code from drawAhmLin, for example
-        mean_x = mean([x(1:3)'; x(4:6)'])';
-        drawLabel  (MapFig.Lmk(Lmk.lmk).label,   mean_x+posOffset, num2str(Lmk.id))
-    end
+    drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
 end
 
 

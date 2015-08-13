@@ -1,17 +1,17 @@
-function pap = initPapPnt(CamM, MeasM, CamA, MeasA, KM, CorrM, KA, CorrA)
+function pap = initPapPnt(CamM, MeasM, CamA, MeasA, kM, CorrM, kA, CorrA)
 %INITPAPPNT Initialize a pap pnt from camera poses, measurements and camera
 %parameters.
 
 % use the same camera parameters for associated camera if only one set of
 % parameters is supplied
 if nargin < 7
-    KA = KM;
+    kA = kM;
     CorrA = CorrM;
 end
 
 % get direction vectors from measurements and camera parameters
-vecMtoPInC = invPinHole(MeasM,1,KM,CorrM);
-vecAtoPInC = invPinHole(MeasA,1,KA,CorrA);
+vecMtoPInC = invPinHole(MeasM,1,kM,CorrM);
+vecAtoPInC = invPinHole(MeasA,1,kA,CorrA);
 
 % Rotate the vectors to match the global frame
 vecMtoP = CamM.R*vecMtoPInC;
@@ -33,6 +33,7 @@ end
 
 function par = parallaxFromDirVec(vecMtoP,vecAtoP)
 
+% TODO JS: Check quadrants. Consider vecsAngle().
 par = acos( dot(vecMtoP,vecAtoP) / (norm(vecMtoP)*norm(vecAtoP)) );
 
 end

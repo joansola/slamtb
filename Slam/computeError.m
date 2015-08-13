@@ -152,6 +152,7 @@ switch Fac.type
                 end
                 
             case 'papPnt'
+                % TODO: Make projectPapWithAnchorsIntoPinHoleOnRob(rf,sf,k,c,pap,ma,aa) and simplify this code
                 if numel(Fac.frames) == 1
                     % factor is a projection to main anchor
                     % EP-WARNING: I'm not so sure about the computation of the jacobians below.

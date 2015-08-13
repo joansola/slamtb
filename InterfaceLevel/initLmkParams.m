@@ -11,6 +11,8 @@ switch Lmk.type
     case {'eucPnt','idpPnt','hmgPnt','ahmPnt'}
         % Nothing to do.
     case 'papPnt'
+
+        % FIXME: Use pointers to rob, frm, sen, and copy the measurement from Obs.
         if ~isfield(Lmk.par,'mainRob')
             Lmk.par.mainRob = [];
             Lmk.par.mainSen = [];

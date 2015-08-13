@@ -4,7 +4,6 @@ global Map
 
 % Get state error from Map
 dl = Map.x(Lmk.state.r);
-Lmk.state.dx = dl;
 
 % IMPORTANT: for anchored landmarks the frames should be already updated.
 switch Lmk.type

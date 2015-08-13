@@ -89,12 +89,12 @@ for rob = [Rob.rob]
     
     for sen = Rob(rob).sensors
         
+        % Observe simulated landmarks
+        Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk, SimOpt) ;
+        
         % Initialize new landmarks
         ninits = Opt.init.nbrInits(1);
         for i = 1:ninits
-            
-            % Observe simulated landmarks
-            Raw(sen) = simObservation(SimRob(rob), SimSen(sen), SimLmk, SimOpt) ;
             
             % Compute and allocate lmk
             [Lmk,Obs(sen,:),Frm(rob,Trj(rob).head),Fac,lmk] = initNewLmk(...

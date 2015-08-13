@@ -16,17 +16,18 @@ Lmk.state.dsize = lmkDSize(2);
 % main
 CamM = composeFrames(Lmk.par.mainRob.frame,Lmk.par.mainSen.frame);
 MeasM = Lmk.par.mainObs.meas.y;
-KM = Lmk.par.mainSen.par.k;
-CorrM = Lmk.par.mainSen.par.c;
+kM = Lmk.par.mainSen.par.k;
+cM = Lmk.par.mainSen.par.c;
 % asso
 CamA = composeFrames(Lmk.par.assoRob.frame,Lmk.par.assoSen.frame);
 MeasA = Lmk.par.assoObs.meas.y;
-KA = Lmk.par.assoSen.par.k;
-CorrA = Lmk.par.assoSen.par.c;
+kA = Lmk.par.assoSen.par.k;
+cA = Lmk.par.assoSen.par.c;
 
 % update state
-Lmk.state.x = initPapPnt(CamM,MeasM,CamA,MeasA,KM,CorrM,KA,CorrA);
-Lmk.state.dx(1:3,1) = Lmk.state.x(7:9);
+Lmk.state.x = initPapPnt(CamM,MeasM,CamA,MeasA,kM,cM,kA,cA);
+% TODO JS remove state.dx stuff
+% Lmk.state.dx(1:3,1) = Lmk.state.x(7:9);
                             
 
 end

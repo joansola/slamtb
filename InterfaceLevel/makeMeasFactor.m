@@ -15,10 +15,12 @@ function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac, NFrms)
 
 %   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC
 
+% FIXME remove this . Remove also variable NFrms, get numel(Frm) instead.
 if ~exist('NFrms','var')
     NFrms = 1;
 end
 
+% FIXME remove this
 if NFrms > 3
     error('Measurement factors linking to more than 3 frames is not yet supported! (NFrms == %s)',num2str(NFrms));
 end
@@ -51,6 +53,7 @@ Fac.err.Wsqrt = chol(Fac.err.W);
 % Ranges and Jacobians and update factors lists
 % NOTE: Jacobians are zero at this stage. Just make size correct.
 % TODO: this switch could be implicit by using the number of elements in the Frm vector
+% FIXME JS: remove this switch. Do not ser ranges and Jacs.
 switch NFrms
     case 1
         % range
@@ -100,6 +103,7 @@ switch NFrms
 %         end
         
         % Append factor to Frame's and Lmk's factors lists.
+        % FIXME do a loop to fill these fields.
         Frm(1).factors = [Frm(1).factors Fac.fac]; 
         Frm(2).factors = [Frm(2).factors Fac.fac]; 
         Frm(3).factors = [Frm(3).factors Fac.fac]; 

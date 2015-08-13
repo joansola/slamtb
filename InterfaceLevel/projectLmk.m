@@ -100,6 +100,7 @@ switch Sen.type
                     vis = isVisible(e,depth,Sen.par.imSize);
                     
                 else
+                    % FIXME: Fill variables using IDP projection
                     e     = zeros(2,Lmk.state.dsize);
 %                     depth = [];
                     E_rf  = zeros(2,7);

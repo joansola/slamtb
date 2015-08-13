@@ -21,6 +21,7 @@ switch Map.type
 end
 
 % draw
+% FIXME: Use drawSeg
 drawPnt(MapFig.Lmk(Lmk.lmk).mean, x, color.mean)
 if MapOpt.showEllip
     drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
@@ -29,6 +30,7 @@ if MapOpt.showLmkId
     if numel(x) == 3
         drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x(1:3)+posOffset, num2str(Lmk.id))
     else % incomplete point represented as a line (6-vector)
+        % FIXME: Use code from drawAhmLin, for example
         mean_x = mean([x(1:3)'; x(4:6)'])';
         drawLabel  (MapFig.Lmk(Lmk.lmk).label,   mean_x+posOffset, num2str(Lmk.id))
     end

@@ -1,6 +1,6 @@
 function drawPnt(h,x,c)
 
-% DRAWPNT  Draw 3D point with color.
+% DRAWPNT  Draw 2D or 3D point with color.
 %   DRAWPNT(H,X) Draw 2D or 3D point with handle H at position X.
 %
 %   DRAWPNT(H,X,C) uses color C.
@@ -15,7 +15,7 @@ elseif numel(x) == 3
 
     set(h,'xdata',x(1),'ydata',x(2),'zdata',x(3),'vis','on', 'linewidth', 2, 'marker', '.')
 
-elseif numel(x) == 6 % line (two 3D points)
+elseif numel(x) == 6 % partially obeserved point: line (two 3D points)
 
     set(h,'xdata',x([1 4]),'ydata',x([2 5]),'zdata',x([3 6]),'vis','on', 'linewidth', 0.5, 'marker', 'none')
     

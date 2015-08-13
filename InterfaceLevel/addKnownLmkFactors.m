@@ -104,7 +104,43 @@ if any(vis) % Consider only visible observations
                             Frm(frms), ...
                             Fac(fac),  ...
                             numel(frms));
+                    
+                    case 'papPnt'
+                        [~, ~, ~, ~, completePap] = splitPap(Lmk(lmk).state.x);
+                        if ~completePap
+                            % Reserve space for the landmark
+                            % check for free space in the Map.
+                            [lmkSize, lmkDSize] = lmkSizes(Lmk(lmk).type);
+                            if (freeSpace() < lmkDSize(2)) 
+                                % Map full. Unable to initialize landmark.
+                                warning('Unable to initialize landmark: map full!');
+                                continue;
+                            end
+                            % get lmk ranges in Map, and block
+                            r = newRange(lmkDSize(2));
+                            blockRange(r);
+                            Lmk(lmk).state.r = r;
+
+                            % Store associate anchor information
+                            [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk));
+
+                            % init pap pnt to a complete parametrization
+                            Lmk(lmk) = initPapLmk(Lmk(lmk));
+                            
+                            % store associate factor index
+                            Lmk(lmk).anchorFac(2) = fac;
+                        end
                         
+                        % pointers to anchor frames (main or both) and current frame
+                        frms = [papFrmAnchorIndices(Lmk(lmk),Fac) currFrmIdx];
+                        
+                        [Lmk(lmk), Frm(frms), Fac(fac)] = makeMeasFactor(...
+                            Lmk(lmk),  ...
+                            Obs(lmk),  ...
+                            Frm(frms), ...
+                            Fac(fac),  ...
+                            numel(frms));
+                    
                 end
                 
                 % Update Lmk inlier counter

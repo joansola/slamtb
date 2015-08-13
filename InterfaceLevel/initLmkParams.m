@@ -9,6 +9,30 @@ global Map
 % Init internal state
 switch Lmk.type
     case {'eucPnt','idpPnt','hmgPnt','ahmPnt'}
+        % Nothing to do.
+    case 'papPnt'
+        if ~isfield(Lmk.par,'mainRob')
+            Lmk.par.mainRob = [];
+            Lmk.par.mainSen = [];
+            Lmk.par.mainObs = [];
+            Lmk.par.assoRob = [];
+            Lmk.par.assoSen = [];
+            Lmk.par.assoObs = [];
+        end
+        
+        if isempty(Lmk.par.mainRob)
+            % initialize main anchor params
+            Lmk.par.mainRob = Rob;
+            Lmk.par.mainSen = Sen;
+            Lmk.par.mainObs = Obs;
+        elseif isempty(Lmk.par.assoRob)
+            % initialize associated anchor params
+            Lmk.par.assoRob = Rob;
+            Lmk.par.assoSen = Sen;
+            Lmk.par.assoObs = Obs;
+        end
+        
+
     case 'plkLin'
         l  = Map.x(Lmk.state.r);
         t1 = -8;

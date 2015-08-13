@@ -35,6 +35,14 @@ switch (Lmk.type)
     case {'eucPnt'}
         colors = MapOpt.colors.defPnt;
         drawEucPnt(MapFig, Lmk, colors, MapOpt);
+        
+    case {'papPnt'}
+        colors = MapOpt.colors.othPnt;
+        if exist('Sen', 'var') && exist('Frm', 'var') && exist('Fac', 'var')
+            drawPapPnt(MapFig, Lmk, colors, MapOpt, Sen, Frm, Fac);
+        else
+            drawPapPnt(MapFig, Lmk, colors, MapOpt);
+        end
 
     case {'hmgPnt'}
         colors = MapOpt.colors.othPnt;

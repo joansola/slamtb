@@ -23,18 +23,26 @@ for fac = find([Fac.used])
             a(frames(2),1:3) = Frm(frames(2)).state.x(1:3)';
         case 'absolute'
         case 'measurement'
-            % if 'frames' has multiple values, the last one is the frame
-            % from where the measurement was taken. The others are
-            % auxiliary frames (aka anchor frames).
-            B(frames(end),lmk+nframes) = 1;
-            b(frames(end),1:3) = Frm(frames(end)).state.x(1:3)';
             switch Lmk(lmk).type
                 case 'eucPnt'
                     x = Lmk(lmk).state.x(1:3);
                 case 'idpPnt'
                     x = idp2euc(Lmk(lmk).state.x);
+                case 'papPnt'
+                    x = pap2eucOrLine(Lmk(lmk).state.x);
             end
-            b(lmk+nframes,1:3) = x';
+            % next if guards against 'incomplete' parametrizations that
+            % doesn't return a 3D point when converted to euclidean
+            if numel(x) == 3
+                % if 'frames' has multiple values, the last one is the frame
+                % from where the measurement was taken. The others are
+                % auxiliary frames (aka anchor frames).
+                B(frames(end),lmk+nframes) = 1;
+                b(frames(end),1:3) = Frm(frames(end)).state.x(1:3)';
+
+                b(lmk+nframes,1:3) = x';
+            end
+
 
     end
 

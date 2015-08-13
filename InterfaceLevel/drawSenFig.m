@@ -57,7 +57,7 @@ switch Sen.type
                     colors = FigOpt.sensor.colors.defPnt;
                     drawObsPnt(SenFig, Obs(lmk), colors, FigOpt.sensor.showEllip);
 
-                case {'idpPnt','hmgPnt','ahmPnt','fhmPnt'}  % IDP and HMG points
+                case {'idpPnt','hmgPnt','ahmPnt','fhmPnt','papPnt'}  % IDP and HMG points
                     colors = FigOpt.sensor.colors.othPnt;
                     drawObsPnt(SenFig, Obs(lmk), colors, FigOpt.sensor.showEllip);
 

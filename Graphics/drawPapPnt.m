@@ -1,34 +1,38 @@
-function drawPnt(h,x,c)
+function drawPapPnt(MapFig, Lmk, color, MapOpt, Sen, Frm, Fac)
 
-% DRAWPNT  Draw 3D point with color.
-%   DRAWPNT(H,X) Draw 2D or 3D point with handle H at position X.
-%
-%   DRAWPNT(H,X,C) uses color C.
+% DRAWPAPPNT  Draw parallax angle parametrization point landmark in MapFig.
 
-%   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Copyright 2015 Ellon Paiva @ LAAS-CNRS.
 
-if numel(x) == 2
+global Map
 
-    set(h,'xdata',x(1),'ydata',x(2),'vis','on')
+posOffset = [0;0;.2];
 
-elseif numel(x) == 3
-
-    set(h,'xdata',x(1),'ydata',x(2),'zdata',x(3),'vis','on', 'linewidth', 2, 'marker', '.')
-
-elseif numel(x) == 6 % line (two 3D points)
-
-    set(h,'xdata',x([1 4]),'ydata',x([2 5]),'zdata',x([3 6]),'vis','on', 'linewidth', 0.5, 'marker', 'none')
-    
-else
-
-    error('??? Size of vector ''x'' not correct.')
-
+% transform to Euclidean
+switch Map.type
+    case 'ekf'
+        [x,P] = propagateUncertainty(       ...
+            Map.x(Lmk.state.r),             ...
+            Map.P(Lmk.state.r,Lmk.state.r), ...
+            @pap2euc);
+    case 'graph'
+        x = pap2eucOrLine(Lmk.state.x);
+%         P = eye(3); % irrelevant because we will not print ellipses
 end
 
-if nargin == 3
-    set(h,'color',c)
+% draw
+drawPnt(MapFig.Lmk(Lmk.lmk).mean, x, color.mean)
+if MapOpt.showEllip
+    drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
 end
-
+if MapOpt.showLmkId
+    if numel(x) == 3
+        drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x(1:3)+posOffset, num2str(Lmk.id))
+    else % incomplete point represented as a line (6-vector)
+        mean_x = mean([x(1:3)'; x(4:6)'])';
+        drawLabel  (MapFig.Lmk(Lmk.lmk).label,   mean_x+posOffset, num2str(Lmk.id))
+    end
+end
 
 
 % ========== End of function - Start GPL license ==========

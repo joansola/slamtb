@@ -1,4 +1,4 @@
-function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac, NFrms)
+function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac)
 
 % MAKEMEASFACTOR Make measurement factor.
 %
@@ -15,15 +15,7 @@ function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac, NFrms)
 
 %   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC
 
-% FIXME remove this . Remove also variable NFrms, get numel(Frm) instead.
-if ~exist('NFrms','var')
-    NFrms = 1;
-end
-
-% FIXME remove this
-if NFrms > 3
-    error('Measurement factors linking to more than 3 frames is not yet supported! (NFrms == %s)',num2str(NFrms));
-end
+nfrms = numel(Frm);
 
 Fac.used = true; % Factor is being used ?
 Fac.id = newId; % Factor unique ID
@@ -49,69 +41,13 @@ Fac.err.z     = zeros(size(Fac.meas.y)); % error or innovation (we call it error
 Fac.err.Z     = Fac.meas.R;              % error cov matrix
 Fac.err.W     = Fac.meas.W;              % error information matrix
 Fac.err.Wsqrt = chol(Fac.err.W);
-
-% Ranges and Jacobians and update factors lists
-% NOTE: Jacobians are zero at this stage. Just make size correct.
-% TODO: this switch could be implicit by using the number of elements in the Frm vector
-% FIXME JS: remove this switch. Do not ser ranges and Jacs.
-switch NFrms
-    case 1
-        % range
-        Fac.state.r1 = Frm(1).state.r;
-        Fac.state.r2 = Lmk.state.r;
-        Fac.state.r3 = [];
-        % jacobians
-        Fac.err.J1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - robot pose
-        Fac.err.J2 = Obs.Jac.E_l; % Jac. of error wrt. node 2 - lmk state
-        Fac.err.J3 = zeros(size(Fac.meas.y)); % not used
-        % Append factor to Frame's and Lmk's factors lists.
-        Frm(1).factors = [Frm(1).factors Fac.fac]; 
-        Lmk.factors = [Lmk.factors Fac.fac];
-
-    case 2
-        % range
-        Fac.state.r1 = Frm(1).state.r;
-        Fac.state.r2 = Frm(2).state.r;
-        Fac.state.r3 = Lmk.state.r;
-        % jacobians
-        Fac.err.J1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - frame 1
-        Fac.err.J2 = Obs.Jac.E_r; % Jac. of error wrt. node 2 - frame 2
-        if strcmp(Lmk.type,'idpPnt')
-            Fac.err.J3 = Obs.Jac.E_l(:,4:6); % Jac. of error wrt. node 3 - idp lmk state without anchor
-        else
-            Fac.err.J3 = Obs.Jac.E_l; % Jac. of error wrt. node 3 - lmk state
-        end
-        
-        % Append factor to Frame's and Lmk's factors lists.
-        Frm(1).factors = [Frm(1).factors Fac.fac]; 
-        Frm(2).factors = [Frm(2).factors Fac.fac]; 
-        Lmk.factors = [Lmk.factors Fac.fac];
-
-    case 3
-        % range
-        Fac.state.r1 = Frm(1).state.r;
-        Fac.state.r2 = Frm(2).state.r;
-        Fac.state.r3 = Frm(3).state.r;
-        Fac.state.r4 = Lmk.state.r;
-        % jacobians
-%         Fac.err.J1 = Obs.Jac.E_r; % Jac. of error wrt. node 1 - frame 1
-%         Fac.err.J2 = Obs.Jac.E_r; % Jac. of error wrt. node 2 - frame 2
-%         if strcmp(Lmk.type,'idpPnt')
-%             Fac.err.J3 = Obs.Jac.E_l(:,4:6); % Jac. of error wrt. node 3 - idp lmk state without anchor
-%         else
-%             Fac.err.J3 = Obs.Jac.E_l; % Jac. of error wrt. node 3 - lmk state
-%         end
-        
-        % Append factor to Frame's and Lmk's factors lists.
-        % FIXME do a loop to fill these fields.
-        Frm(1).factors = [Frm(1).factors Fac.fac]; 
-        Frm(2).factors = [Frm(2).factors Fac.fac]; 
-        Frm(3).factors = [Frm(3).factors Fac.fac]; 
-        Lmk.factors = [Lmk.factors Fac.fac];
-
-end
-
 Fac.err.size  = numel(Fac.err.z);
+
+% Append factor to Frame's and Lmk's factors lists.
+for frm = 1:nfrms
+    Frm(frm).factors = [Frm(frm).factors Fac.fac]; 
+end
+Lmk.factors = [Lmk.factors Fac.fac];
 
 end
 

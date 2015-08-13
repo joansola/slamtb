@@ -26,9 +26,6 @@ cA = Lmk.par.assoSen.par.c;
 
 % update state
 Lmk.state.x = initPapPnt(CamM,MeasM,CamA,MeasA,kM,cM,kA,cA);
-% TODO JS remove state.dx stuff
-% Lmk.state.dx(1:3,1) = Lmk.state.x(7:9);
-                            
 
 end
 

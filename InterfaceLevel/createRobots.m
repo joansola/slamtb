@@ -43,7 +43,6 @@ for rob = 1:numel(Robot)
             % state
             Ro.state.x    = [qp;v]; % state
             Ro.state.P    = blkdiag(QP,V);
-            Ro.state.dx   = zeros(12,1);
             
         case {'odometry'}
             % control
@@ -55,15 +54,14 @@ for rob = 1:numel(Robot)
             % state
             Ro.state.x    = qp; % state
             Ro.state.P    = EP;
-            Ro.state.dx   = zeros(6,1);
                         
         otherwise
             error('Unknown motion model ''%s'' for robot %d.',Robot{rob}.motion,Robot{rob}.id);
     end
     
-    Ro.state.r  = []; % Points  Map.x  into  state.dx
+    Ro.state.r  = []; % Range on Map.x
     Ro.state.size = numel(Ro.state.x);   % state size
-    Ro.state.dsize = numel(Ro.state.dx);
+    Ro.state.dsize = 6;
 
     Ro.frame.r = [];
     Ro.frame.x = qp;

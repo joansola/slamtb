@@ -150,6 +150,94 @@ switch Fac.type
                 else
                     error('??? Something went wrong: idpPnt meas factor has ''%s'' frames (2 frames max allowed).', numel(Fac.frames))
                 end
+                
+            case 'papPnt'
+                if numel(Fac.frames) == 1
+                    % factor is a projection to main anchor
+                    % EP-WARNING: I'm not so sure about the computation of the jacobians below.
+                    Rob           = frm2rob(Rob,Frm);
+                    [~, ~, py, ~] = splitPap( Lmk.state.x );
+                    [v, V_py]     = py2vec(py);
+                    [cam, CAM_rob, ~] = composeFrames(Rob.frame,Sen.frame);
+                    [vc, VC_camq, VC_v] = Rtp(cam.q,v);
+                    [u, ~, U_vc, ~, ~] = pinHole(vc,Sen.par.k,Sen.par.d);
+                    Fac.exp.e     = u;
+                    Fac.err.z     = Fac.exp.e - Fac.meas.y;   % err = h(x) - y
+                    Fac.err.J1    = [zeros(numel(Fac.err.z),3) U_vc*VC_camq]*CAM_rob*Frm(1).state.M; % Jac wrt manifold 1
+                    Fac.err.J2    = [U_vc*VC_v*V_py zeros(numel(Fac.err.z),1)] * Lmk.state.M; % Jac wrt manifold 2
+                    Fac.err.J3    = zeros(numel(Fac.err.z),0);
+                    Fac.err.J4    = zeros(numel(Fac.err.z),0);
+                    Fac.err.Z     = Fac.meas.R; % Measurement Jac is negative identity
+                    Fac.err.W     = Fac.err.Z^-1;
+                    Fac.err.Wsqrt = chol(Fac.err.W);
+                    Fac.state.r1  = Frm.state.r;
+                    Fac.state.r2  = Lmk.state.r;
+                    Fac.state.r3  = [];
+                    Fac.state.r4  = [];
+                    
+
+                elseif numel(Fac.frames) == 2
+                    % factor is a projection to associated anchor
+                    Rob           = frm2rob(Rob,Frm(2));
+                    RobAssoAnchor = Rob;
+                    [RobAssoAnchor.frame, CAMASSO_assorf, CAMASSO_sf]  = composeFrames(RobAssoAnchor.frame,Sen.frame);
+                    Obs           = projectLmk(RobAssoAnchor,Sen,Lmk,Obs);
+                    
+                    Fac.exp.e     = Obs.exp.e;
+                    Fac.err.z     = Fac.exp.e - Fac.meas.y;     % err = h(x) - y
+                    
+                    RobMainAnchor = Rob; % just to have the structure
+                    RobMainAnchor = frm2rob(RobMainAnchor,Frm(1));
+                    [~, CAMMAIN_mainrf, ~] = composeFrames(RobMainAnchor.frame,Sen.frame);
+                    Fac.err.J1    = Obs.Jac.E_l(:,1:3) * CAMMAIN_mainrf(1:3,:) * Frm(1).state.M; % Jac wrt main anchor (manifold 1)
+
+                    Fac.err.J2    = (Obs.Jac.E_l(:,4:6) + Obs.Jac.E_r(:,1:3)) * CAMASSO_assorf(1:3,:) * Frm(2).state.M; % Jac wrt associated anchor (manifold 2)
+                    Fac.err.J3    = Obs.Jac.E_l(:,7:9) * Lmk.state.M; % Jac wrt pap landmark w/o anchors (manifold 3)
+                    Fac.err.J4    = zeros(numel(Fac.err.z),0);
+                    Fac.err.Z     = Fac.meas.R; % Measurement Jac is negative identity
+                    Fac.err.W     = Fac.err.Z^-1;
+                    Fac.err.Wsqrt = chol(Fac.err.W);
+                    Fac.state.r1  = Frm(1).state.r;
+                    Fac.state.r2  = Frm(2).state.r;
+                    Fac.state.r3  = Lmk.state.r;
+                    Fac.state.r4  = [];
+                    
+                elseif numel(Fac.frames) == 3
+                    % factor is a normal pap projection factor
+                    Rob           = frm2rob(Rob,Frm(3));
+                    [Rob.frame, CAM_rf, CAMASSO_sf]  = composeFrames(Rob.frame,Sen.frame);
+                    Obs           = projectLmk(Rob,Sen,Lmk,Obs);
+                    
+                    Fac.exp.e     = Obs.exp.e;
+                    Fac.err.z     = Fac.exp.e - Fac.meas.y;     % err = h(x) - y
+                    
+                    RobMainAnchor = Rob; % just to have the structure
+                    RobMainAnchor = frm2rob(RobMainAnchor,Frm(1));
+                    [~, CAMMAIN_mainrf, ~] = composeFrames(RobMainAnchor.frame,Sen.frame);
+                    Fac.err.J1    = Obs.Jac.E_l(:,1:3) * CAMMAIN_mainrf(1:3,:) * Frm(1).state.M; % Jac wrt main anchor (manifold 1)
+
+                    RobAssoAnchor = Rob; % just to have the structure
+                    RobAssoAnchor = frm2rob(RobAssoAnchor,Frm(2));
+                    [~, CAMASSO_assorf, ~] = composeFrames(RobAssoAnchor.frame,Sen.frame);
+                    Fac.err.J2    = Obs.Jac.E_l(:,4:6) * CAMASSO_assorf(1:3,:) * Frm(2).state.M; % Jac wrt asso anchor (manifold 1)
+                    
+                    Fac.err.J3    = Obs.Jac.E_r * CAM_rf * Frm(3).state.M; % Jac wrt current frame (manifold 2)
+                    Fac.err.J4    = Obs.Jac.E_l(:,7:9) * Lmk.state.M; % Jac wrt idp landmark w/o anchor (manifold 3)
+
+                    Fac.err.Z     = Fac.meas.R; % Measurement Jac is negative identity
+                    Fac.err.W     = Fac.err.Z^-1;
+                    Fac.err.Wsqrt = chol(Fac.err.W);
+                    Fac.state.r1  = Frm(1).state.r;
+                    Fac.state.r2  = Frm(2).state.r;
+                    Fac.state.r3  = Frm(3).state.r;
+                    Fac.state.r4  = Lmk.state.r;
+                   
+                else
+                    error('??? Something went wrong: papPnt meas factor has ''%s'' frames (3 frames max allowed).', numel(Fac.frames))
+                end
+                
+            otherwise
+                error('??? Error function of ''%s'' factor linking to lmk type ''%s'' not yet implemented.', Fac.type, Lmk.type);
         end
     otherwise
         error('??? Unknown factor type ''%s''.', Fac.type)

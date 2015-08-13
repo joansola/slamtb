@@ -109,7 +109,7 @@ for fac = find([Fac.used])
     frames = Fac(fac).frames;
     
     % Compute factor error, info mat, and Jacobians
-    [Fac(fac), e, ~, Wsqrt, J1, r1, J2, r2, J3, r3] = computeError(...
+    [Fac(fac), e, ~, Wsqrt, J1, r1, J2, r2, J3, r3, J4, r4] = computeError(...
         Rob(rob),       ...
         Sen(sen),       ...
         Lmk(lmk),       ...
@@ -125,6 +125,7 @@ for fac = find([Fac.used])
     Map.A(mr,r1) = Wsqrt * J1;
     Map.A(mr,r2) = Wsqrt * J2;
     Map.A(mr,r3) = Wsqrt * J3;
+    Map.A(mr,r4) = Wsqrt * J4;
     
     Map.b(mr,1)  = Wsqrt * e;
 

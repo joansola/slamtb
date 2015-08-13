@@ -29,6 +29,16 @@ for lmk = [Lmk([Lmk.used]).lmk]
     switch Lmk(lmk).type
         case {'eucPnt','idpPnt'}
             Lmk(lmk).state.M = 1; % trivial Jac
+        case 'papPnt'
+            % We test if the lmk is in complete form here to adjust the
+            % jacobians properly on computeError when we don't want to
+            % update a specific landmark
+            [~, ~, ~, ~, completeForm] = splitPap( Lmk(lmk).state.x );
+            if(completeForm)
+                Lmk(lmk).state.M = 1; % trivial Jac
+            else
+                Lmk(lmk).state.M = zeros(3,0);
+            end
         case 'hmgPnt'
             [~,~,H_dh] = composeHmgPnt(Lmk(lmk).state.x, zeros(3,1));
             Lmk(lmk).state.M = H_dh;

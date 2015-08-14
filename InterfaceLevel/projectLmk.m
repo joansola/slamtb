@@ -100,15 +100,22 @@ switch Sen.type
                     vis = isVisible(e,depth,Sen.par.imSize);
                     
                 else
-                    % FIXME: Fill variables using IDP projection
-                    e     = zeros(2,Lmk.state.dsize);
-%                     depth = [];
-                    E_rf  = zeros(2,7);
-                    E_sf  = zeros(2,7);
-%                     E_k   = [];
-%                     E_d   = [];
-                    E_l   = zeros(2,Lmk.state.dsize);
-                    vis = true;
+                    % The pap in reduced form is a idp without inverse
+                    % depth. So here we project the pap pnt in a
+                    % pre-defined inverse depth
+                    % TODO: Move the fixed value to a program option on Opt
+                    [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
+                        projIdpPntIntoPinHoleOnRob( ...
+                        Rob.frame, ...
+                        Sen.frame, ...
+                        Sen.par.k, ...
+                        Sen.par.d, ...
+                        [l; 0.1]) ;
+
+                    E_l   = E_l(:,1:5);
+
+                    % TODO: Maybe consider the landmark always visible when seen a second time?
+                    vis = isVisible(e,depth,Sen.par.imSize);
                 end
             
             case {'hmgPnt'} % euclidean point

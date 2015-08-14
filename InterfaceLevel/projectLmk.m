@@ -1,4 +1,4 @@
-function Obs = projectLmk(Rob,Sen,Lmk,Obs,Opt)
+function Obs = projectLmk(Rob,Sen,Lmk,Obs,Frm,Opt)
 
 % PROJECTLMK  Project landmark estimate into sensor's measurement space.
 %   Obs = PROJECTLMK(Rob,Sen,Lmk,Obs) projects the landmark Lmk into sensor
@@ -73,50 +73,45 @@ switch Sen.type
                 vis = isVisible(e,depth,Sen.par.imSize);
             
             case {'papPnt'} % parallax angle parametrization point
+                % PAP --> pixel -(value and Jacobians)-
 
-                % We can only project the pap pnt if it is stored in the
-                % complete form, so we check this here.
-                %
-                % In fact, this is a work-around for the current version of
-                % the toolbox: currnetly addKnownLmkFactors() calls
-                % projectLmk() to see if it is visible in the current image
-                % before matching points, so if the pap pnt is in the
-                % reduced form (aka only seen once), we consider it is
-                % still visible so it can be matched one second time later
-                % in addKnownLmkFactors().
-                
-                [~, ~, ~, ~, completeForm] = splitPap(l);
-                if completeForm
-                    % PAP --> pixel -(value and Jacobians)-
-                    [e, depth, E_rf, E_k, E_d, E_l] = ...
-                        projPapPntIntoPinHole( ...
-                        Rob.frame, ... % This should be already the camera frame
-                        Sen.par.k, ...
-                        Sen.par.d, ...
-                        l) ;
-
-                    E_sf = zeros(2,7);
-                    
-                    vis = isVisible(e,depth,Sen.par.imSize);
-                    
-                else
-                    % The pap in reduced form is a idp without inverse
-                    % depth. So here we project the pap pnt in a
-                    % pre-defined inverse depth
-                    % TODO: Move the fixed value to a program option on Opt
-                    [e, depth, E_rf, E_sf, E_k, E_d, E_l] = ...
-                        projIdpPntIntoPinHoleOnRob( ...
+                [~, ~, py, par, completeForm] = splitPap(l);
+                minpap = [py; par];
+                if ~completeForm
+                    % No anchors
+                    [e,depth,E_rf,E_sf,E_k,E_d,E_l] = ...
+                        projPapPntWithAnchorsIntoPinHoleOnRob(...
                         Rob.frame, ...
                         Sen.frame, ...
                         Sen.par.k, ...
                         Sen.par.d, ...
-                        [l; 0.1]) ;
+                        minpap);
+                elseif isempty(Lmk.par.assofrm)
+                    % Only main anchor
+                    [e,depth,E_rf,E_sf,E_k,E_d,E_l,E_mf,E_af] = ...
+                        projPapPntWithAnchorsIntoPinHoleOnRob(...
+                        Rob.frame, ...
+                        Sen.frame, ...
+                        Sen.par.k, ...
+                        Sen.par.d, ...
+                        minpap,    ...
+                        updateFrame(Frm(Lmk.par.mainfrm).state));
 
-                    E_l   = E_l(:,1:5);
+                else
+                    % both anchors
+                    [e,depth,E_rf,E_sf,E_k,E_d,E_l,E_mf,E_af] = ...
+                        projPapPntWithAnchorsIntoPinHoleOnRob(...
+                        Rob.frame, ...
+                        Sen.frame, ...
+                        Sen.par.k, ...
+                        Sen.par.d, ...
+                        minpap,    ...
+                        updateFrame(Frm(Lmk.par.mainfrm).state), ...
+                        updateFrame(Frm(Lmk.par.assofrm).state));
 
-                    % TODO: Maybe consider the landmark always visible when seen a second time?
-                    vis = isVisible(e,depth,Sen.par.imSize);
                 end
+
+                vis = isVisible(e,depth,Sen.par.imSize);
             
             case {'hmgPnt'} % euclidean point
 
@@ -462,6 +457,10 @@ Obs.exp.um  = det(E);  % uncertainty measure proportional to ellipsoid area
 Obs.Jac.E_r = E_rf;
 Obs.Jac.E_s = E_sf;
 Obs.Jac.E_l = E_l;
+if exist('E_mf','var')
+    Obs.Jac.E_mf = E_mf;
+    Obs.Jac.E_af = E_af;
+end
 
 
 

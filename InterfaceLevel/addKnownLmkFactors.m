@@ -49,7 +49,7 @@ Rob = frm2rob(Rob,Frm(currFrmIdx));
 lmksUsed = [Lmk.used];
 for lmk = find(lmksUsed)
 
-    Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Opt);
+    Obs(lmk) = projectLmk(Rob,Sen,Lmk(lmk),Obs(lmk),Frm,Opt);
     
 end  % --- all landmarks are now projected.
 

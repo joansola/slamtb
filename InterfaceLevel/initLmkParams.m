@@ -1,4 +1,4 @@
-function [Lmk,Obs] = initLmkParams(Rob,Sen,Lmk,Obs)
+function [Lmk,Obs] = initLmkParams(Rob,Sen,Lmk,Obs,Frm)
 
 % INITLMKPARAMS  Initialize off-filter landmark parameters.
 
@@ -11,29 +11,22 @@ switch Lmk.type
     case {'eucPnt','idpPnt','hmgPnt','ahmPnt'}
         % Nothing to do.
     case 'papPnt'
-
-        % FIXME: Use pointers to rob, frm, sen, and copy the measurement from Obs.
-        if ~isfield(Lmk.par,'mainRob')
-            Lmk.par.mainRob = [];
-            Lmk.par.mainSen = [];
-            Lmk.par.mainObs = [];
-            Lmk.par.assoRob = [];
-            Lmk.par.assoSen = [];
-            Lmk.par.assoObs = [];
-        end
-        
-        if isempty(Lmk.par.mainRob)
-            % initialize main anchor params
-            Lmk.par.mainRob = Rob;
-            Lmk.par.mainSen = Sen;
-            Lmk.par.mainObs = Obs;
-        elseif isempty(Lmk.par.assoRob)
+        if ~isfield(Lmk.par,'mainrob')
+            Lmk.par.mainrob  = Rob.rob;
+            Lmk.par.mainsen  = Sen.sen;
+            Lmk.par.mainfrm  = Frm.frm;
+            Lmk.par.mainmeas = Obs.meas.y;
+            Lmk.par.assorob  = [];
+            Lmk.par.assosen  = [];
+            Lmk.par.assofrm  = [];
+            Lmk.par.assomeas = [];
+        elseif isempty(Lmk.par.assorob)
             % initialize associated anchor params
-            Lmk.par.assoRob = Rob;
-            Lmk.par.assoSen = Sen;
-            Lmk.par.assoObs = Obs;
+            Lmk.par.assorob  = Rob.rob;
+            Lmk.par.assosen  = Sen.sen;
+            Lmk.par.assofrm  = Frm.frm;
+            Lmk.par.assomeas = Obs.meas.y;
         end
-        
 
     case 'plkLin'
         l  = Map.x(Lmk.state.r);

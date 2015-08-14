@@ -158,7 +158,7 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     end
     
     % Init off-filter landmark params
-    [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk));
+    [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm);
     
 else
     % Detection failed

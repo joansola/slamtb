@@ -122,7 +122,7 @@ if any(vis) % Consider only visible observations
                             Lmk(lmk).state.r = r;
 
                             % Store associate anchor information
-                            [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk));
+                            [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm(currFrmIdx));
 
                             % init pap pnt to a complete parametrization
                             Lmk(lmk) = initPapLmk(Lmk(lmk));

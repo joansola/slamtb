@@ -125,7 +125,7 @@ if any(vis) % Consider only visible observations
                             [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm(currFrmIdx));
 
                             % init pap pnt to a complete parametrization
-                            Lmk(lmk) = initPapLmk(Lmk(lmk));
+                            Lmk(lmk) = initPapLmk(Lmk(lmk),Sen,Frm);
                             
                             % store associate factor index
                             Lmk(lmk).anchorFac(2) = fac;

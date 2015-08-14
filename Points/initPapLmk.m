@@ -1,6 +1,6 @@
-function [ Lmk ] = initPapLmk( Lmk )
+function [ Lmk ] = initPapLmk( Lmk, Sen, Frm )
 %INITPAPLMK Initializes a complete form pap landmark using the data stored
-%into Lmk.par
+%into Lmk.par and the frames and sensors
 
 % Type error check
 if strcmp(Lmk.type,'papPnt') == false
@@ -12,20 +12,16 @@ end
 Lmk.state.size  = lmkSize(2);
 Lmk.state.dsize = lmkDSize(2);
 
-% get values from Lmk.par
-% main
-CamM = composeFrames(Lmk.par.mainRob.frame,Lmk.par.mainSen.frame);
-MeasM = Lmk.par.mainObs.meas.y;
-kM = Lmk.par.mainSen.par.k;
-cM = Lmk.par.mainSen.par.c;
-% asso
-CamA = composeFrames(Lmk.par.assoRob.frame,Lmk.par.assoSen.frame);
-MeasA = Lmk.par.assoObs.meas.y;
-kA = Lmk.par.assoSen.par.k;
-cA = Lmk.par.assoSen.par.c;
+% get camera anchor poses from frames and sensors
+mainframe = updateFrame(Frm(Lmk.par.mainfrm).state);
+assoframe = updateFrame(Frm(Lmk.par.assofrm).state);
+maincamframe = composeFrames(mainframe,Sen.frame);
+assocamframe = composeFrames(assoframe,Sen.frame);
 
 % update state
-Lmk.state.x = initPapPnt(CamM,MeasM,CamA,MeasA,kM,cM,kA,cA);
+Lmk.state.x = measurements2pap(maincamframe, Lmk.par.mainmeas, ...
+                               assocamframe, Lmk.par.assomeas, ...
+                               Sen.par.k, Sen.par.c);
 
 end
 

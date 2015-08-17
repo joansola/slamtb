@@ -19,7 +19,7 @@ function [ Lmk, Frms, Facs ] = reanchorPapPnt( Rob, Sen, Lmk, Obs , Frms, Facs, 
 
 % Only continue if the current factor is not one of the factors linking
 % only to anchor frames
-if find(Lmk.anchorFac == currFacIdx)
+if Lmk.par.mainfac == currFacIdx || Lmk.par.assofac == currFacIdx
     return
 end
  
@@ -45,18 +45,18 @@ papassocurr = measurements2pap(assocamframe, Lmk.par.assomeas, ...
 
 % Based on the new parallax angles, test if the current frame is a better
 % anchor than the current anchors
-[~, bestParInd] = max([Lmk.state.x(9) papmaincurr(9) papassocurr(9)]);
-switch bestParInd
+[~, bestParIdx] = max([Lmk.state.x(9) papmaincurr(9) papassocurr(9)]);
+switch bestParIdx
     case 1 % Parallax main-asso is better
         % do nothing
         
     case 2 % Parallax main-current is better, perform the reanchoring
         % Update factors frame indices
         for fac = Lmk.factors
-            if fac == Lmk.anchorFac(1) 
-                % no update
+            if fac == Lmk.par.mainfac 
+                % No update. The main factor is the same.
                 continue;
-            elseif fac == Lmk.anchorFac(2)
+            elseif fac == Lmk.par.assofac
                 % asso anchor factor update
                 Facs(fac).frames = [Lmk.par.mainfrm currFrmIdx Lmk.par.assofrm];
             elseif fac == currFacIdx   
@@ -69,7 +69,7 @@ switch bestParInd
         end
 
         % Update anchor factor list
-        Lmk.anchorFac(2) = currFacIdx;
+        Lmk.par.assofac = currFacIdx;
         
         % make current frame the new associated anchor
         Lmk.par.assorob = Rob.rob;
@@ -82,10 +82,10 @@ switch bestParInd
     case 3 % Parallax asso-current is better, perform the reanchoring
         % Update factors frame indices
         for fac = Lmk.factors
-            if fac == Lmk.anchorFac(1) 
+            if fac == Lmk.par.mainfac 
                 % main anchor factor update
                 Facs(fac).frames = [Lmk.par.assofrm currFrmIdx Lmk.par.mainfrm];
-            elseif fac == Lmk.anchorFac(2)
+            elseif fac == Lmk.par.assofac
                 % asso anchor factor update
                 Facs(fac).frames = [Lmk.par.assofrm];
             elseif fac == currFacIdx   
@@ -99,8 +99,8 @@ switch bestParInd
         end
         
         % Update anchor factor list
-        Lmk.anchorFac(1) = Lmk.anchorFac(2);
-        Lmk.anchorFac(2) = currFacIdx;
+        Lmk.par.mainfac = Lmk.par.assofac;
+        Lmk.par.assofac = currFacIdx;
         
         % make asso anchor frame the new main anchor frame; make the
         % current frame the new asso anchor frame

@@ -1,4 +1,4 @@
-function [Lmk,Obs] = initLmkParams(Rob,Sen,Lmk,Obs,Frm)
+function [Lmk,Obs] = initLmkParams(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 % INITLMKPARAMS  Initialize off-filter landmark parameters.
 
@@ -8,23 +8,35 @@ global Map
 
 % Init internal state
 switch Lmk.type
-    case {'eucPnt','idpPnt','hmgPnt','ahmPnt'}
+    case {'eucPnt','hmgPnt','ahmPnt'}
         % Nothing to do.
+    case 'idpPnt'
+        if ~isfield(Lmk.par,'anchorrob')
+            Lmk.par.anchorrob  = Rob.rob;
+            Lmk.par.anchorsen  = Sen.sen;
+            Lmk.par.anchorfrm  = Frm.frm;
+            Lmk.par.anchorfac  = Fac(1).fac;
+            Lmk.par.anchormeas = Obs.meas.y;
+        end
+    
     case 'papPnt'
         if ~isfield(Lmk.par,'mainrob')
             Lmk.par.mainrob  = Rob.rob;
             Lmk.par.mainsen  = Sen.sen;
             Lmk.par.mainfrm  = Frm.frm;
+            Lmk.par.mainfac  = Fac(1).fac;
             Lmk.par.mainmeas = Obs.meas.y;
             Lmk.par.assorob  = [];
             Lmk.par.assosen  = [];
             Lmk.par.assofrm  = [];
+            Lmk.par.assofac  = [];
             Lmk.par.assomeas = [];
         elseif isempty(Lmk.par.assorob)
             % initialize associated anchor params
             Lmk.par.assorob  = Rob.rob;
             Lmk.par.assosen  = Sen.sen;
             Lmk.par.assofrm  = Frm.frm;
+            Lmk.par.assofac  = Fac(1).fac;
             Lmk.par.assomeas = Obs.meas.y;
         end
 

@@ -150,15 +150,9 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     Lmk(lmk).nSearch = 1;
     Lmk(lmk).nMatch  = 1;
     Lmk(lmk).nInlier = 1;
-    switch Opt.init.initType
-        case 'idpPnt'
-            Lmk(lmk).anchorFac = fac(1);
-        case 'papPnt'
-            Lmk(lmk).anchorFac(1) = fac(1);
-    end
     
     % Init off-filter landmark params
-    [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm);
+    [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm,Fac(fac));
     
 else
     % Detection failed

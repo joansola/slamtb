@@ -121,13 +121,11 @@ if any(vis) % Consider only visible observations
                             Lmk(lmk).state.r = r;
 
                             % Store associate anchor information
-                            [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm(currFrmIdx));
+                            [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm(currFrmIdx),Fac(fac));
 
                             % init pap pnt to a complete parametrization
                             Lmk(lmk) = initPapLmk(Lmk(lmk),Sen,Frm);
                             
-                            % store associate factor index
-                            Lmk(lmk).anchorFac(2) = fac;
                         end
                         
                         % pointers to anchor frames (main or both) and current frame

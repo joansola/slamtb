@@ -12,9 +12,9 @@ switch Lmk.type
         Lmk.state.x = Lmk.state.x + dl;
     case 'idpPnt'
         % get some pointers
-        rob = Fac(Lmk.anchorFac).rob;
-        sen = Fac(Lmk.anchorFac).sen;
-        frm = Fac(Lmk.anchorFac).frames(1);
+        rob = Lmk.par.anchorrob;
+        sen = Lmk.par.anchorsen;
+        frm = Lmk.par.anchorfrm;
         anchorpose = composeFrames(updateFrame(Frms(rob,frm).state),Sen(sen).frame);
         
         Lmk.state.x(1:3) = anchorpose.x(1:3);

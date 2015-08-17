@@ -93,7 +93,7 @@ for fac = find([Fac.used])
     frames = Fac(fac).frames;
     
     % Compute factor error, info mat, and Jacobians
-    [Fac(fac), e, W, ~, J1, r1, J2, r2, J3, r3] = computeError(...
+    [Fac(fac), e, W, ~, J1, r1, J2, r2, J3, r3, J4, r4] = computeError(...
         Rob(rob),       ...
         Sen(sen),       ...
         Lmk(lmk),       ...
@@ -105,29 +105,42 @@ for fac = find([Fac.used])
     H_11 = J1' * W * J1;
     H_12 = J1' * W * J2;
     H_13 = J1' * W * J3;
+    H_14 = J1' * W * J4;
     H_22 = J2' * W * J2;
     H_23 = J2' * W * J3;
+    H_24 = J2' * W * J4;
     H_33 = J3' * W * J3;
-    
+    H_34 = J3' * W * J4;
+    H_44 = J4' * W * J4;
+
     % Compute rhs vector blocks
     b1   = J1' * W * e;
     b2   = J2' * W * e;
     b3   = J3' * W * e;
-    
+    b4   = J4' * W * e;
+
     % Update H and b
     Map.H(r1,r1) = Map.H(r1,r1) + H_11;
     Map.H(r1,r2) = Map.H(r1,r2) + H_12;
     Map.H(r1,r3) = Map.H(r1,r3) + H_13;
+    Map.H(r1,r4) = Map.H(r1,r4) + H_14;
     Map.H(r2,r1) = Map.H(r2,r1) + H_12';
     Map.H(r2,r2) = Map.H(r2,r2) + H_22;
     Map.H(r2,r3) = Map.H(r2,r3) + H_23;
+    Map.H(r2,r4) = Map.H(r2,r4) + H_24;
     Map.H(r3,r1) = Map.H(r3,r1) + H_13';
     Map.H(r3,r2) = Map.H(r3,r2) + H_23';
     Map.H(r3,r3) = Map.H(r3,r3) + H_33;
+    Map.H(r3,r4) = Map.H(r3,r4) + H_34;
+    Map.H(r4,r1) = Map.H(r4,r1) + H_14';
+    Map.H(r4,r2) = Map.H(r4,r2) + H_24';
+    Map.H(r4,r3) = Map.H(r4,r3) + H_34';
+    Map.H(r4,r4) = Map.H(r4,r4) + H_44;
 
     Map.b(r1,1)  = Map.b(r1,1)  + b1;
     Map.b(r2,1)  = Map.b(r2,1)  + b2;
     Map.b(r3,1)  = Map.b(r3,1)  + b3;
+    Map.b(r4,1)  = Map.b(r4,1)  + b4;
     
 end
 

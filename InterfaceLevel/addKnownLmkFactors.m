@@ -139,7 +139,10 @@ if any(vis) % Consider only visible observations
                             Obs(lmk),  ...
                             Frm(frms), ...
                             Fac(fac));
-                    
+
+                        % check and perform reanchoring if needed
+                        [Lmk(lmk), Frm, Fac] = reanchorPapPnt(Rob, Sen, Lmk(lmk), Obs(lmk), Frm, Fac, currFrmIdx, fac);
+
                 end
                 
                 % Update Lmk inlier counter

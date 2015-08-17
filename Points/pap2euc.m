@@ -61,13 +61,13 @@ else
     end
     
     vm = py2vec(py);  % unity vector from main
-    vm2a = unitVectorBetweenPoints(xm,xa);
+    vm2a = (xa - xm) / norm(xa - xm);
 
     phi = acos(dot(vm,vm2a));
 
     d = (sin(par + phi) / sin(par)) * norm(xa - xm);
 
-    p(1:3,:) = xm + d;
+    p(1:3,:) = xm + d*vm;
 end
         
 return

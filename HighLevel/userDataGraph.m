@@ -133,13 +133,13 @@ Opt = struct(...
     'kfrmPeriod',     20),...        % period between keyframes
   'solver',           struct(...    % graph solver
     'decomposition',  'QR',...        % Matrix decomposition {'Cholesky', 'QR', 'Schur'}
-    'niterations',    1,...           % number of iterations
+    'niterations',    5,...           % number of iterations
     'target_dres',    1e-2,...        % exit criterion for residual variation
     'target_res',     1e-3),...       % exit criterion for current residual
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       10,...          % max simultaneus updates
+    'nUpdates',       20,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -147,7 +147,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [5 3],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [10 10],...      % number of inits [firstFrame, otherFrames]
     'initType',       'papPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs

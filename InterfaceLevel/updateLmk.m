@@ -1,4 +1,4 @@
-function Lmk = updateLmk(Lmk,Sen,Frms,Fac)
+function Lmk = updateLmk(Lmk,Sen,Frms)
 
 global Map
 

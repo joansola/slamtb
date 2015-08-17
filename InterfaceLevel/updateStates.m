@@ -1,4 +1,4 @@
-function [Rob,Lmk,Frm] = updateStates(Rob,Sen,Lmk,Frm,Fac)
+function [Rob,Lmk,Frm] = updateStates(Rob,Sen,Lmk,Frm)
 
 % UPDATESTATES Update Frm and Lmk states based on computed error.
 %   [Rob,Lmk,Frm] = UPDATESTATES(Rob,Lmk,Frm) updates the nominal states of
@@ -20,7 +20,7 @@ for rob = [Rob.rob]
 %     Rob(rob) = frm2rob(Rob(rob), Frm(rob,Trj.head));
 end
 for lmk = [Lmk([Lmk.used]).lmk]
-    Lmk(lmk) = updateLmk(Lmk(lmk),Sen,Frm,Fac);
+    Lmk(lmk) = updateLmk(Lmk(lmk),Sen,Frm);
 end
 
 end

@@ -13,10 +13,7 @@ Lmk.state.size  = lmkSize(2);
 Lmk.state.dsize = lmkDSize(2);
 
 % get camera anchor poses from frames and sensors
-mainframe = updateFrame(Frm(Lmk.par.mainfrm).state);
-assoframe = updateFrame(Frm(Lmk.par.assofrm).state);
-maincamframe = composeFrames(mainframe,Sen.frame);
-assocamframe = composeFrames(assoframe,Sen.frame);
+[ maincamframe, assocamframe ] = papLmkCamAnchorFrames( Lmk, Sen, Frm );
 
 % update state
 Lmk.state.x = measurements2pap(maincamframe, Lmk.par.mainmeas, ...

@@ -24,13 +24,9 @@ switch Lmk.type
         [~, ~, ~, ~, completeForm] = splitPap( Lmk.state.x );
         if completeForm
             % get some pointers
-            rob = Fac(Lmk.anchorFac(2)).rob;
-            sen = Fac(Lmk.anchorFac(2)).sen;
-            mainfrm = Fac(Lmk.anchorFac(2)).frames(1);
-            assofrm = Fac(Lmk.anchorFac(2)).frames(2);
             % FIXME: This may not work for multirobot (using the same sensor!)
-            mainanchorpose = composeFrames(updateFrame(Frms(rob,mainfrm).state),Sen(sen).frame);
-            assoanchorpose = composeFrames(updateFrame(Frms(rob,assofrm).state),Sen(sen).frame);
+            mainanchorpose = composeFrames(updateFrame(Frms(Lmk.par.mainfrm).state),Sen.frame);
+            assoanchorpose = composeFrames(updateFrame(Frms(Lmk.par.assofrm).state),Sen.frame);
 
             Lmk.state.x(1:3) = mainanchorpose.t;
             Lmk.state.x(4:6) = assoanchorpose.t;

@@ -50,7 +50,29 @@ switch bestParIdx
     case 1 % Parallax main-asso is better
         % do nothing
         
-    case 2 % Parallax main-current is better, perform the reanchoring
+    case 2 % Parallax main-current is better, perform the reanchoring.
+        % legend:
+        %   l = lmk
+        %   M = main frame
+        %   A = anchor frame
+        %   C = current frame (aka last one added)
+        %   O = other frame
+        %
+        %  (l)      (l)         (l)         (l)
+        %   |        |           |           |
+        %  [ ]      [ ]         [ ]         [ ]
+        %   |       / \        / | \       / | \
+        %  (M)    (M) (A)    (M)(A)(C)   (M)(A)(O)
+        %
+        %  |||      |||         |||         |||
+        %  |||      VVV         VVV         VVV
+        %
+        %  (l)      (l)         (l)         (l)
+        %   |        |           |           |
+        %  [ ]      [ ]         [ ]         [ ]
+        %   |      / | \        / \        / | \
+        %  (M)   (M)(C)(A)    (M) (C)    (M)(C)(O)
+
         % Update factors frame indices
         for fac = Lmk.factors
             if fac == Lmk.par.mainfac 
@@ -58,13 +80,17 @@ switch bestParIdx
                 continue;
             elseif fac == Lmk.par.assofac
                 % asso anchor factor update
-                Facs(fac).frames = [Lmk.par.mainfrm currFrmIdx Lmk.par.assofrm];
-            elseif fac == currFacIdx   
+                Facs(fac).frames = [Lmk.par.mainfrm currFrmIdx Lmk.par.assofrm]; % Warning: the order in Facs(fac).frames matter!
+                Frms(currFrmIdx).factors = [Frms(currFrmIdx).factors fac];
+            elseif fac == currFacIdx
                 % current factor update
-                Facs(fac).frames = [Lmk.par.mainfrm currFrmIdx];
+                Facs(fac).frames = [Lmk.par.mainfrm currFrmIdx]; % Warning: the order in Facs(fac).frames matter!
+                Frms(Lmk.par.assofrm).factors([Frms(Lmk.par.assofrm).factors] == fac) = [];
             else
                 % all other factors update
-                Facs(fac).frames(2) = currFrmIdx;
+                Facs(fac).frames(2) = currFrmIdx; % Warning: the order in Facs(fac).frames matter!
+                Frms(Lmk.par.assofrm).factors([Frms(Lmk.par.assofrm).factors] == fac) = [];
+                Frms(currFrmIdx).factors = [Frms(currFrmIdx).factors fac];
             end
         end
 
@@ -80,21 +106,49 @@ switch bestParIdx
         Lmk.state.x = papmaincurr;
         
     case 3 % Parallax asso-current is better, perform the reanchoring
-        % Update factors frame indices
+        % legend:
+        %   l = lmk
+        %   M = main frame
+        %   A = anchor frame
+        %   C = current frame (aka last one added)
+        %   O = other frame
+        %
+        %     (l)      (l)       (l)         (l)
+        %      |        |         |           |
+        %     [ ]      [ ]       [ ]         [ ]
+        %      |       / \      / | \       / | \
+        %     (M)    (M) (A)  (M)(A)(C)   (M)(A)(O)
+        %
+        %     |||      |||       |||         |||
+        %     VVV      VVV       VVV         VVV
+        %
+        %     (l)      (l)       (l)         (l)
+        %      |        |         |           |
+        %     [ ]      [ ]       [ ]         [ ]
+        %    / | \      |        / \        / | \
+        %  (A)(C)(M)   (A)     (A) (C)    (A)(C)(O)
+
+        % Update Fac.frames and Frm.factors pointers
         for fac = Lmk.factors
             if fac == Lmk.par.mainfac 
                 % main anchor factor update
-                Facs(fac).frames = [Lmk.par.assofrm currFrmIdx Lmk.par.mainfrm];
+                Facs(fac).frames = [Lmk.par.assofrm currFrmIdx Lmk.par.mainfrm]; % Warning: the order in Facs(fac).frames matter!
+                Frms(currFrmIdx).factors = [Frms(currFrmIdx).factors fac];
+                Frms(Lmk.par.assofrm).factors = [Frms(Lmk.par.assofrm).factors fac];
             elseif fac == Lmk.par.assofac
                 % asso anchor factor update
-                Facs(fac).frames = [Lmk.par.assofrm];
+                Facs(fac).frames = [Lmk.par.assofrm]; % Warning: the order in Facs(fac).frames matter!
+                Frms(Lmk.par.mainfrm).factors([Frms(Lmk.par.mainfrm).factors] == fac) = [];
             elseif fac == currFacIdx   
                 % current factor update
-                Facs(fac).frames = [Lmk.par.assofrm currFrmIdx];
+                Facs(fac).frames = [Lmk.par.assofrm currFrmIdx]; % Warning: the order in Facs(fac).frames matter!
+                Frms(Lmk.par.mainfrm).factors([Frms(Lmk.par.mainfrm).factors] == fac) = [];
             else
                 % all other factors update
-                Facs(fac).frames(1) = Lmk.par.assofrm;
-                Facs(fac).frames(2) = currFrmIdx;
+                Facs(fac).frames(1) = Lmk.par.assofrm; % Warning: the order in Facs(fac).frames matter!
+                Facs(fac).frames(2) = currFrmIdx;      % Warning: the order in Facs(fac).frames matter!
+                Frms(Lmk.par.mainfrm).factors([Frms(Lmk.par.mainfrm).factors] == fac) = [];
+                Frms(currFrmIdx).factors = [Frms(currFrmIdx).factors fac];
             end
         end
         

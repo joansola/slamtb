@@ -19,6 +19,9 @@ switch Lmk.type
         
         Lmk.state.x(1:3) = anchorpose.x(1:3);
         Lmk.state.x(4:6) = Lmk.state.x(4:6) + dl;
+        if Lmk.state.x(end) < 0
+            Lmk.state.x(end) = 0.001; % Fix lmk
+        end
     case 'papPnt'
         % only update if in complete form
         [~, ~, ~, ~, completeForm] = splitPap( Lmk.state.x );
@@ -32,6 +35,9 @@ switch Lmk.type
             Lmk.state.x(4:6) = assoanchorpose.t;
             Lmk.state.x(7:9) = Lmk.state.x(7:9) + dl;
             
+            if Lmk.state.x(end) < 0
+                Lmk.state.x(end) = 0.001; % Fix lmk
+            end
         end
 
     case 'hmgPnt'

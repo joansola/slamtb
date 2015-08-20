@@ -177,6 +177,7 @@ if (~isempty(lmk) && strcmp(Map.type, 'graph') == true)
             Obs(lmk),    ...
             Fac(fac(2)), ...
             Opt);
+        Lmk(lmk).par.priorfac = fac(2);
     end
 
 end

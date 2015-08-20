@@ -19,6 +19,7 @@ for lmk = [Fac.lmk]
     if isempty(Lmk(lmk).factors)
 %                 fprintf('Deleting Lmk ''%d''.\n', lmk)
         Lmk(lmk).used = false;
+        Lmk(lmk) = clearLmkParams(Lmk(lmk));
         Map.used(Lmk(lmk).state.r) = false;
     end
 end

@@ -1,4 +1,4 @@
-function [Lmk,Trj,Frm,Fac] = addFrmToTrj(Lmk,Trj,Frm,Fac)
+function [Lmk,Trj,Frm,Fac] = addFrmToTrj(Sen,Lmk,Trj,Frm,Fac)
 
 % ADDFRMTOTRJ Add frame to trajectory
 %   [Trj,Frm,Fac] = ADDFRMTOTRJ(Trj,Frm,Fac) Adds a frame to the trajectory
@@ -23,6 +23,9 @@ if Trj.length < Trj.maxLength
 
 else
     % Trj is full. Tail frame will be overwritten !!
+    
+    % Reanchor landmarks anchored on the tail
+    [Lmk,Trj,Frm,Fac] = moveAnchorsFromTailFrm(Sen,Lmk,Trj,Frm,Fac);
     
     % Remove tail frame and cleanup graph
     [Lmk,Trj,Frm,Fac] = removeTailFrm(Lmk,Trj,Frm,Fac);
@@ -69,22 +72,8 @@ for fac = factors
         newTail = Fac(fac).frames(2);
         [Frm(newTail),Fac(fac)] = makeAbsFactorFromMotionFactor(Frm(newTail),Fac(fac));
     
-    elseif strcmp(Fac(fac).type, 'absolute')
-        [Fac(fac),Frm,Lmk] = deleteFactor(Fac(fac),Frm,Lmk);
-    else % if strcmp(Fac(fac).type, 'measurement')
-        switch Lmk(Fac(fac).lmk).type
-            case 'eucPnt'
-                % No re-anchoring needed, just delete factor.
-                [Fac(fac),Frm,Lmk] = deleteFactor(Fac(fac),Frm,Lmk);
-
-            case 'idpPnt'
-                % EP-WARNING: Here we should deal with re-anchoring idp landmarks. For now we're just deleting as with eucPnt
-                [Fac(fac),Frm,Lmk] = deleteFactor(Fac(fac),Frm,Lmk);
-
-            otherwise
-                error('Unknown or Not Yet Supported landmark type ''%s''.',Lmk(Fac(fac).lmk).type);
-        end
-    
+    else
+        [Fac(fac),Frm,Lmk] = deleteFactor(Fac(fac),Frm,Lmk);    
     end
     
 end
@@ -100,6 +89,31 @@ Frm(Trj.tail).factors = [];
 % Unblock positions in Map
 Map.used(Frm(Trj.tail).state.r)    = false;
 
+
+end
+
+function [Lmk,Trj,Frms,Facs] = moveAnchorsFromTailFrm(Sen,Lmk,Trj,Frms,Facs)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+factors = Frms(Trj.tail).factors;
+for fac = factors
+    if strcmp(Facs(fac).type, 'measurement') 
+        switch Lmk(Facs(fac).lmk).type
+            case 'idpPnt'
+                if Lmk(Facs(fac).lmk).par.anchorfrm == Trj.tail
+                    [Lmk(Facs(fac).lmk),Frms,Facs] = reanchorIdpLmk(Sen,Lmk(Facs(fac).lmk),Frms,Facs);
+                end
+            case 'papPnt'
+                if Lmk(Facs(fac).lmk).par.mainfrm == Trj.tail
+                    reanchorPapPntMainAnchor();
+                elseif Lmk(Facs(fac).lmk).par.assofrm == Trj.tail
+                    reanchorPapPntAssoAnchor();
+                end
+                
+        end
+    end
+end
 
 end
 

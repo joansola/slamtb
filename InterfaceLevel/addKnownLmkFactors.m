@@ -129,7 +129,7 @@ if any(vis) % Consider only visible observations
                         end
                         
                         % pointers to anchor frames (main or both) and current frame
-                        frms = [papFrmAnchorIndices(Lmk(lmk),Fac) currFrmIdx];
+                        frms = unique([Lmk(lmk).par.mainfrm Lmk(lmk).par.assofrm currFrmIdx]);
                         
                         [Lmk(lmk), Frm(frms), Fac(fac)] = makeMeasFactor(...
                             Lmk(lmk),  ...

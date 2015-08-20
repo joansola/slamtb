@@ -29,7 +29,17 @@ for lmk = 1:Opt.map.numLmks
 
     % other parameters out of the SLAM map
     Lmk(lmk).par     = [];
-
+    switch Opt.init.initType
+        case 'idpPnt'
+            Lmk(lmk).par.anchorrob  = [];
+            Lmk(lmk).par.anchorsen  = [];
+            Lmk(lmk).par.anchorfrm  = [];
+            Lmk(lmk).par.anchorfac  = [];
+            Lmk(lmk).par.anchormeas = [];
+            Lmk(lmk).par.priorfac   = [];
+    end
+    
+    
     % Lmk management counters
     Lmk(lmk).nSearch = 0;  % number of times searched
     Lmk(lmk).nMatch  = 0;  % number of times matched

@@ -11,7 +11,7 @@ switch Lmk.type
     case {'eucPnt','hmgPnt','ahmPnt'}
         % Nothing to do.
     case 'idpPnt'
-        if ~isfield(Lmk.par,'anchorrob')
+        if isempty(Lmk.par.anchorfrm)
             Lmk.par.anchorrob  = Rob.rob;
             Lmk.par.anchorsen  = Sen.sen;
             Lmk.par.anchorfrm  = Frm.frm;

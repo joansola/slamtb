@@ -37,8 +37,18 @@ for lmk = 1:Opt.map.numLmks
             Lmk(lmk).par.anchorfac  = [];
             Lmk(lmk).par.anchormeas = [];
             Lmk(lmk).par.priorfac   = [];
+        case 'papPnt'
+            Lmk(lmk).par.mainrob  = [];
+            Lmk(lmk).par.mainsen  = [];
+            Lmk(lmk).par.mainfrm  = [];
+            Lmk(lmk).par.mainfac  = [];
+            Lmk(lmk).par.mainmeas = [];
+            Lmk(lmk).par.assorob  = [];
+            Lmk(lmk).par.assosen  = [];
+            Lmk(lmk).par.assofrm  = [];
+            Lmk(lmk).par.assofac  = [];
+            Lmk(lmk).par.assomeas = [];
     end
-    
     
     % Lmk management counters
     Lmk(lmk).nSearch = 0;  % number of times searched

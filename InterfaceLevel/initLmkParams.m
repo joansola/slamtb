@@ -20,18 +20,13 @@ switch Lmk.type
         end
     
     case 'papPnt'
-        if ~isfield(Lmk.par,'mainrob')
+        if isempty(Lmk.par.mainfrm)
             Lmk.par.mainrob  = Rob.rob;
             Lmk.par.mainsen  = Sen.sen;
             Lmk.par.mainfrm  = Frm.frm;
             Lmk.par.mainfac  = Fac(1).fac;
             Lmk.par.mainmeas = Obs.meas.y;
-            Lmk.par.assorob  = [];
-            Lmk.par.assosen  = [];
-            Lmk.par.assofrm  = [];
-            Lmk.par.assofac  = [];
-            Lmk.par.assomeas = [];
-        elseif isempty(Lmk.par.assorob)
+        elseif isempty(Lmk.par.assofrm)
             % initialize associated anchor params
             Lmk.par.assorob  = Rob.rob;
             Lmk.par.assosen  = Sen.sen;

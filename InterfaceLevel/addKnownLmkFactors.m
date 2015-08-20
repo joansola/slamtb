@@ -96,7 +96,7 @@ if any(vis) % Consider only visible observations
                         
                     case 'idpPnt'
                         % pointers to anchor frame and current frame
-                        frms = [Fac(Lmk(lmk).factors(1)).frames(1) currFrmIdx];
+                        frms = [Lmk(lmk).par.anchorfrm currFrmIdx];
                         
                         [Lmk(lmk), Frm(frms), Fac(fac)] = makeMeasFactor(...
                             Lmk(lmk),  ...

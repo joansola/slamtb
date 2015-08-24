@@ -138,7 +138,7 @@ if any(vis) % Consider only visible observations
                             Fac(fac));
 
                         % check and perform reanchoring if needed
-                        [Lmk(lmk), Frm, Fac] = reanchorPapPnt(Rob, Sen, Lmk(lmk), Obs(lmk), Frm, Fac, currFrmIdx, fac);
+                        [Lmk(lmk), Frm, Fac] = papTestAnchorOnFrm(Rob, Sen, Lmk(lmk), Obs(lmk), Frm, Fac, currFrmIdx, fac);
 
                 end
                 

@@ -38,10 +38,11 @@ Time = struct(...
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
+% Long hallway with far wide wall
 World = struct(...
-  'points',           thickCloister(-6,6,-6,6,1,7),... % 3d point landmarks - see THICKCLOISTER. 
+  'points',           [ YZHallway(-2,2,-1,3,0,90,20) YZWall(-60,60,0,10,95,15,6) ], ... % 3d point landmarks - see YZHALLWAY and YZWALL
   'segments',         []);  % 3D segments - see HOUSE. 
-    
+  
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
 %   - motion models (add new model strings if you need more):
@@ -54,12 +55,12 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
   'name',               'Dala',...      % robot name
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
-  'position',           [0;-5;0],...     % robot position in map
+  'position',           [0;0;0],...     % robot position in map
   'orientationDegrees', [0;0;0],...     % orientation, in degrees, [roll; pitch; yaw].
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.08;0;0],...     % position increment
-  'daDegrees',          [0;0;.9],...     % angle increment, degrees
+  'daDegrees',          [0;0;0],...     % angle increment, degrees
   'dxStd',              0.03*[1;1;1],...  % odo linear error std
   'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
 
@@ -128,7 +129,7 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'type',           'graph',...    % type of map {'ekf','graph'}
-    'numLmks',        73,...         % number of 3d landmarks
+    'numLmks',        200,...         % number of 3d landmarks
     'numFrames',      50,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes
   'solver',           struct(...    % graph solver
@@ -139,7 +140,7 @@ Opt = struct(...
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       10,...          % max simultaneus updates
+    'nUpdates',       50,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -147,7 +148,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [10 10],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [50 10],...      % number of inits [firstFrame, otherFrames]
     'initType',       'papPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs
@@ -195,15 +196,15 @@ FigOpt = struct(...
     'size',         [320 240],...   % map figure size
     'lims',         struct(...      % playground limits
       'xMin',            -10,...             
-      'xMax',             10,...
-      'yMin',            -10,...
-      'yMax',             10,...
+      'xMax',             100,...
+      'yMin',            -70,...
+      'yMax',             70,...
       'zMin',            -10,...
       'zMax',             10),...
     'proj',         'persp',...     % projection of the 3d figure {'persp', 'ortho'}
     'view',         'view',...      % viewpoint of the 3d figure [30 45 40 20]
     'orbit',        [0 0],...       % Azimuth and Elevation orbit angle increments - use to animate figure
-    'showSimLmk',   false,...        % show simulated landmarks?
+    'showSimLmk',   true,...        % show simulated landmarks?
     'showLmkId',    true,...        % Show landmark id?
     'showEllip',    false,...        % show ellipsoids?
     'showMotFac',   true,...        % show motion factors?

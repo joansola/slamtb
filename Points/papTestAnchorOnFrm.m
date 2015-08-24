@@ -36,12 +36,8 @@ currcamframe = composeFrames(updateFrame(Frms(currFrmIdx).state),Sen.frame);
 
 % Get parallax angle between main anchor frame and current frame, and
 % between associated anchor frame and current frame
-papmaincurr = measurements2pap(maincamframe, Lmk.par.mainmeas, ...
-                               currcamframe, Obs.meas.y,       ...
-                               Sen.par.k, Sen.par.c);
-papassocurr = measurements2pap(assocamframe, Lmk.par.assomeas, ...
-                               currcamframe, Obs.meas.y,       ...
-                               Sen.par.k, Sen.par.c);
+papmaincurr = pap2newanchors(Lmk.state.x, maincamframe.t, currcamframe.t);
+papassocurr = pap2newanchors(Lmk.state.x, assocamframe.t, currcamframe.t);
 
 % Based on the new parallax angles, test if the current frame is a better
 % anchor than the current anchors

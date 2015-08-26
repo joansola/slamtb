@@ -38,6 +38,7 @@ end
 % Complete the new frame with no factors
 Frm(Trj.head).used    = true;
 Frm(Trj.head).id      = newId('Frm'); % Frame unique ID
+Frm(Trj.head).new     = true; % Flag should be cleared by GTSAM functions
 Frm(Trj.head).factors = [];
 
 % Query and Block positions in Map

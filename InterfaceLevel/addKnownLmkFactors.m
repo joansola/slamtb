@@ -126,6 +126,8 @@ if any(vis) % Consider only visible observations
                             % init pap pnt to a complete parametrization
                             Lmk(lmk) = initPapLmk(Lmk(lmk),Sen,Frm);
                             
+                            Lmk(lmk).optim = true; % Flag to be cleared by GTSAM functions
+
                         end
                         
                         % pointers to anchor frames (main or both) and current frame

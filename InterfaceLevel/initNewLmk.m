@@ -145,6 +145,9 @@ if ~isempty(meas.y)  % a feature was detected --> initialize it
     Lmk(lmk).id      = lid;
     Lmk(lmk).type    = Opt.init.initType ;
     Lmk(lmk).used    = true;
+    Lmk(lmk).new     = true;
+    Lmk(lmk).optim   = false;
+    Lmk(lmk).reset   = false;
     Lmk(lmk).factors = [];
     Lmk(lmk).sig     = app;
     Lmk(lmk).nSearch = 1;

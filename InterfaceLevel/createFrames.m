@@ -17,6 +17,7 @@ for rob = [Rob.rob]
         Frm(rob,frm).frm         = frm;
         Frm(rob,frm).id          = [];
         Frm(rob,frm).used        = false;
+        Frm(rob,frm).new         = false; % Frame is new? (used by GTSAM)
         
         Frm(rob,frm).rob         = rob;
         Frm(rob,frm).factors     = [];

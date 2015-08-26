@@ -9,6 +9,7 @@ function [Lmk, Fac] = makeInvDepPriorFactor(Lmk, Obs, Fac, Opt)
 
 Fac.used = true; % Factor is being used ?
 Fac.id = newId('Fac'); % Factor unique ID
+Fac.new  = true;  % Mark factor as new (to be cleared by GTSAM functions)
 
 Fac.type = 'absolute'; % {'motion','measurement','absolute'}
 Fac.rob = [];

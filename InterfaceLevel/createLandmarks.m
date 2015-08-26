@@ -14,6 +14,9 @@ for lmk = 1:Opt.map.numLmks
     Lmk(lmk).id      = [];
     Lmk(lmk).type    = '';
     Lmk(lmk).used    = false;
+    Lmk(lmk).new     = false; % Landmark is new? (used by GTSAM)
+    Lmk(lmk).optim   = false; % Landmark should be optimized? (used by GTSAM)
+    Lmk(lmk).reset   = false; % Landmark value should be reseted? (used by GTSAM)
     Lmk(lmk).factors = []; % factors list
 
     % Landmark state

@@ -1,5 +1,7 @@
 function [Frm, Fac] = makeAbsFactorFromMotionFactor(Frm, Fac)
 
+Fac.replace = true; % Flag to be cleared by GTSAM functions
+
 Fac.type = 'absolute'; 
 Fac.frames = Frm.frm;
 

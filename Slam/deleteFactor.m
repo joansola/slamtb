@@ -27,5 +27,6 @@ end
 % Free (and cleanup just in case) factors from tail before advancing
 %         fprintf('Deleting Fac ''%d''.\n', fac)
 Fac.used = false;
+Fac.remove = true; % Flag to be cleared by GTSAM functions
 Fac.frames = [];
 Fac.lmk = [];

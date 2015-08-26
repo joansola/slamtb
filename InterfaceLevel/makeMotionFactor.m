@@ -10,6 +10,7 @@ function [Frm_old, Frm_new, Fac] = makeMotionFactor(Frm_old, Frm_new, Fac, facto
 
 Fac.used = true; % Factor is being used ?
 Fac.id = newId('Fac'); % Factor unique ID
+Fac.new  = true;  % Mark factor as new (to be cleared by GTSAM functions)
 
 Fac.type = 'motion'; % {'motion','measurement','absolute'}
 Fac.rob = factorRob.rob;

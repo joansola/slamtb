@@ -10,6 +10,7 @@ function [Frm, Fac] = makeAbsFactor(Frm, Fac, Rob)
 
 Fac.used   = true;  % Factor is being used ?
 Fac.id     = newId('Fac'); % Factor unique ID
+Fac.new    = true;  % Mark factor as new (cleared by GTSAM functions)
 
 Fac.type   = 'absolute'; % {'motion','measurement','absolute'}
 Fac.rob    = Rob.rob;

@@ -19,6 +19,7 @@ nfrms = numel(Frm);
 
 Fac.used = true; % Factor is being used ?
 Fac.id = newId('Fac'); % Factor unique ID
+Fac.new  = true;  % Mark factor as new (to be cleared by GTSAM functions)
 
 Fac.type = 'measurement'; % {'motion','measurement','absolute'}
 Fac.rob = Frm(1).rob;

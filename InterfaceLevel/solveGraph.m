@@ -11,16 +11,24 @@ function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt)
 
 % Take algorithms from courseSLAM.pdf
 
-switch Opt.solver.decomposition
-    case 'QR'
-        [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphQR(Rob,Sen,Lmk,Obs,Frm,Fac,Opt.solver);
-    case 'Cholesky'
-        [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac,Opt.solver);
-    case 'Schur'
-%         error('??? Graph solver ''%s'' not implemented. Try ''Cholesky''.', Opt.solver.decomposition)
-        [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphSchur(Rob,Sen,Lmk,Obs,Frm,Fac,Opt.solver);
-    otherwise
-        error('??? Unknown graph solver ''%s''.', Opt.map.solver)
+if Opt.map.useGtsam
+
+    [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphGtsam(Rob,Sen,Lmk,Obs,Frm,Fac,Opt.solver);
+
+else
+
+    switch Opt.solver.decomposition
+        case 'QR'
+            [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphQR(Rob,Sen,Lmk,Obs,Frm,Fac,Opt.solver);
+        case 'Cholesky'
+            [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphCholesky(Rob,Sen,Lmk,Obs,Frm,Fac,Opt.solver);
+        case 'Schur'
+    %         error('??? Graph solver ''%s'' not implemented. Try ''Cholesky''.', Opt.solver.decomposition)
+            [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphSchur(Rob,Sen,Lmk,Obs,Frm,Fac,Opt.solver);
+        otherwise
+            error('??? Unknown graph solver ''%s''.', Opt.map.solver)
+    end
+
 end
 
 % ========== End of function - Start GPL license ==========

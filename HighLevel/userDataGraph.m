@@ -129,6 +129,7 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'type',           'graph',...    % type of map {'ekf','graph'}
+    'useGtsam',       true,...       % use GTSAM as optimization backend
     'numLmks',        200,...         % number of 3d landmarks
     'numFrames',      50,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes

@@ -83,7 +83,7 @@ for fac = [Facs(neworreplacefac).fac]
     % If we're replacing a factor, store last index to remove the last
     % factor in the next ISAM2.update()
     if Facs(fac).replace
-        factorsToRemove.push_back(Fac.gtsamIndex);
+        factorsToRemove.push_back(Facs(fac).gtsamIndex);
     end
     
     % Store the index of the factor in the newFactors structure.

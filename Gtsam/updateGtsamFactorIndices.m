@@ -13,10 +13,17 @@ for fac = [Facs(neworreplacefac).fac]
     % Facs(fac)gtsamIndex is empty.
     if ~strcmp(Facs(fac).type, 'measurement') || (strcmp(Facs(fac).type, 'measurement') && Lmks(Facs(fac).lmk).optim)
         Facs(fac).gtsamIndex = newFactorsIndices.at(Facs(fac).gtsamIndex);
+
+        % reset 'new' flag if set.
+        if Facs(fac).new == true;
+            Facs(fac).new = false;
+        end
+
+        % reset 'replace' flag if set.
+        if Facs(fac).replace == true;
+            Facs(fac).replace = false;
+        end
     end
 end
-
-[Facs(newfac).new] = deal(false);
-[Facs(replacefac).replace] = deal(false);
 
 end

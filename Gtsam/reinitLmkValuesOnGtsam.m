@@ -12,8 +12,11 @@ for Lmk = Lmks(resetlmks)
     reinitValues.insert(symbol('l',Lmk.id), ParallaxAnglePoint3( Lmk.state.x(7:9) ));
 end
 
-% Reinit them inside ISAM2
-Map.gtsam.isam.updateLinearizationPoint(reinitValues);
+if ~reinitValues.empty()
+    % Reinit them inside ISAM2
+    Map.gtsam.isam.updateLinearizationPoint(reinitValues);
 
-% Clear reset flag
-[Lmks(resetlmks).reset] = deal(false);
+    % Clear reset flag
+    [Lmks(resetlmks).reset] = deal(false);
+end
+

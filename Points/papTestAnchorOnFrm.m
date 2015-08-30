@@ -54,6 +54,11 @@ switch bestParIdx
         % Update lmk state
         Lmk.state.x = papmaincurr;
         
+        % Mark the landmark to be reseted if it is not new (used by GTSAM)
+        if ~Lmk.new
+            Lmk.reset = true;
+        end
+        
     case 3 % Parallax asso-current is better, perform the reanchoring
         % First swap main and associated anchors
         [ Lmk, Frms, Facs ] = papSwapMainAssoAnchors( Lmk, Frms, Facs );
@@ -63,7 +68,13 @@ switch bestParIdx
 
         % Update lmk state
         Lmk.state.x = papassocurr;
+
+        % Mark the landmark to be reseted if it is not new (used by GTSAM)
+        if ~Lmk.new
+            Lmk.reset = true;
+        end
         
+
 end
 
 end

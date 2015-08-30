@@ -29,14 +29,23 @@ for fac = Lmk.factors
         % main anchor factor update
         Facs(fac).frames = [Lmk.par.assofrm Lmk.par.mainfrm]; % Warning: the order in Facs(fac).frames matter!
         Frms(Lmk.par.assofrm).factors = [Frms(Lmk.par.assofrm).factors fac];
+        if ~Facs(fac).new
+            Facs(fac).replace = true;
+        end
     elseif fac == Lmk.par.assofac
         % asso anchor factor update
         Facs(fac).frames([Facs(fac).frames] == Lmk.par.mainfrm) = [];
         Frms(Lmk.par.mainfrm).factors([Frms(Lmk.par.mainfrm).factors] == fac) = [];
+        if ~Facs(fac).new
+            Facs(fac).replace = true;
+        end
     else
         % all other factors update
         Facs(fac).frames(1) = Lmk.par.assofrm; % Warning: the order in Facs(fac).frames matter!
         Facs(fac).frames(2) = Lmk.par.mainfrm; % Warning: the order in Facs(fac).frames matter!
+        if ~Facs(fac).new
+            Facs(fac).replace = true;
+        end
     end
 end
 

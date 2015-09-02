@@ -70,13 +70,17 @@ switch lower(Opt.map.type)
             switch Opt.map.gtsam.nonlinearOptimizer
                 case 'GAUSSNEWTON'
                     optimizer = gtsam.ISAM2GaussNewtonParams();
+                    optimizer.setWildfireThreshold( Opt.map.gtsam.wildfireTh )
                 case 'DOGLEG'
                     optimizer = gtsam.ISAM2DoglegParams();
-                    % This makes the trust reagion increase only once every
-                    % iteraction. See
+                    optimizer.setWildfireThreshold( Opt.map.gtsam.wildfireTh )
+                    % ONE_STEP_PER_ITERATION makes the trust region
+                    % increase only once every iteraction. See
                     % https://research.cc.gatech.edu/borg/sites/edu.borg/html/a00065.html#a52e03ca11a892d070c911db43f22cf04
                     % for details.
                     optimizer.setAdaptationMode('ONE_STEP_PER_ITERATION');
+%                     optimizer.setAdaptationMode('SEARCH_EACH_ITERATION');
+                    
             end
             Map.gtsam.params.setOptimizationParams(optimizer);
             Map.gtsam.params.setRelinearizeSkip( Opt.map.gtsam.relinearizeSkip );

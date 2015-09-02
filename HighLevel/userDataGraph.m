@@ -131,10 +131,11 @@ Opt = struct(...
     'type',           'graph',...    % type of map {'ekf','graph'}
     'useGtsam',       true,...       % use GTSAM as optimization backend
     'gtsam',          struct(...      % options to gtsam (mostly related to ISAM2)
-      'relinearizeSkip', 1,...          % number of updates to skip relinearization
-      'relinearizeTh',   0.1,...        % threshold to decide to relinearize a variable
+      'relinearizeSkip', 1,...          % relinearize every 'relinearizeSkip' ISAM2 updates
+      'relinearizeTh',   0.0,...        % threshold to decide to relinearize a variable
       'factorization',   'CHOLESKY',... % factorization used to do matrix decomposition {'CHOLESKY', 'QR'}
-      'nonlinearOptimizer', 'DOGLEG'),...    % nonlinear optimizer used {'GAUSSNEWTON', 'DOGLEG'}
+      'nonlinearOptimizer', 'DOGLEG',...    % nonlinear optimizer used {'GAUSSNEWTON', 'DOGLEG'}
+      'wildfireTh', 0.0),...            % Stop updating the linear delta if the changes are below this threshold
     'numLmks',        200,...         % number of 3d landmarks
     'numFrames',      50,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes

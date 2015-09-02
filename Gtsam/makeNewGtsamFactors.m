@@ -36,7 +36,7 @@ for fac = [Facs(neworreplacefac).fac]
             switch Lmks(Facs(fac).lmk).type
                 case 'papPnt'
                     if numel(Facs(fac).frames) == 1
-                        newFactors.add( PAPoint3SingleAnchorProjectionFactorCal3_S2( ... % Pap projection factor for a measurement from the main anchor:
+                        newFactors.add( PAPoint3MainAnchorProjectionFactorCal3_S2( ... % Pap projection factor for a measurement from the main anchor:
                             Point2(Facs(fac).meas.y),                                ... %   Image measurement
                             noiseModel.Gaussian.Covariance(Facs(fac).err.Z),         ... %   Image measurement error
                             symbol('x',Frms(Facs(fac).frames).id),                   ... %   Main anchor frame key
@@ -45,7 +45,7 @@ for fac = [Facs(neworreplacefac).fac]
                             false, true,                                             ... %   Flags: throw Cheirality? verbose Cheyrality?
                             qpose2gtsampose( Sen(Facs(fac).sen).frame.x )));             %   Camera pose in robot frame
                     elseif numel(Facs(fac).frames) == 2
-                        newFactors.add( PAPoint3OnlyAnchorsProjectionFactorCal3_S2( ... % Pap projection factor for a measurement from the associated anchor:
+                        newFactors.add( PAPoint3AssoAnchorProjectionFactorCal3_S2( ... % Pap projection factor for a measurement from the associated anchor:
                             Point2(Facs(fac).meas.y),                               ... %   Image measurement
                             noiseModel.Gaussian.Covariance(Facs(fac).err.Z),        ... %   Image measurement error
                             symbol('x',Frms(Facs(fac).frames(1)).id),               ... %   Main anchor frame key

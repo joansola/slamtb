@@ -65,8 +65,28 @@ switch lower(Opt.map.type)
         
         if Opt.map.useGtsam
             
+            % Define ISAM2 options
             Map.gtsam.params = gtsam.ISAM2Params;
-            Map.gtsam.params.setOptimizationParams(gtsam.ISAM2DoglegParams());
+            switch Opt.map.gtsam.nonlinearOptimizer
+                case 'GAUSSNEWTON'
+                    optimizer = gtsam.ISAM2GaussNewtonParams();
+                case 'DOGLEG'
+                    optimizer = gtsam.ISAM2DoglegParams();
+                    % This makes the trust reagion increase only once every
+                    % iteraction. See
+                    % https://research.cc.gatech.edu/borg/sites/edu.borg/html/a00065.html#a52e03ca11a892d070c911db43f22cf04
+                    % for details.
+                    optimizer.setAdaptationMode('ONE_STEP_PER_ITERATION');
+            end
+            Map.gtsam.params.setOptimizationParams(optimizer);
+            Map.gtsam.params.setRelinearizeSkip( Opt.map.gtsam.relinearizeSkip );
+            Map.gtsam.params.setRelinearizeThreshold( Opt.map.gtsam.relinearizeTh );
+            Map.gtsam.params.setFactorization( Opt.map.gtsam.factorization );
+            % This option is always true because we're removing and
+            % re-adding factors when reanchoring
+            Map.gtsam.params.setFindUnusedFactorSlots( true );
+            
+            % Build ISAM2 object
             Map.gtsam.isam = gtsam.ISAM2(Map.gtsam.params);
             
         else

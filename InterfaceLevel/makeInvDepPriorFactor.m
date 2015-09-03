@@ -8,7 +8,7 @@ function [Lmk, Fac] = makeInvDepPriorFactor(Lmk, Obs, Fac, Opt)
 %   Copyright 2015-     Joan Sola @ IRI-UPC-CSIC
 
 Fac.used = true; % Factor is being used ?
-Fac.id = newId; % Factor unique ID
+Fac.id = newId('Fac'); % Factor unique ID
 
 Fac.type = 'absolute'; % {'motion','measurement','absolute'}
 Fac.rob = [];

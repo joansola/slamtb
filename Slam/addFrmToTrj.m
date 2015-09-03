@@ -37,7 +37,7 @@ end
 
 % Complete the new frame with no factors
 Frm(Trj.head).used    = true;
-Frm(Trj.head).id      = newId;
+Frm(Trj.head).id      = newId('Frm'); % Frame unique ID
 Frm(Trj.head).factors = [];
 
 % Query and Block positions in Map

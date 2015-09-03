@@ -9,7 +9,7 @@ function [Frm_old, Frm_new, Fac] = makeMotionFactor(Frm_old, Frm_new, Fac, facto
 %   See also MAKEABSFACTOR, MAKEMEASFACTOR.
 
 Fac.used = true; % Factor is being used ?
-Fac.id = newId; % Factor unique ID
+Fac.id = newId('Fac'); % Factor unique ID
 
 Fac.type = 'motion'; % {'motion','measurement','absolute'}
 Fac.rob = factorRob.rob;

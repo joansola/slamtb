@@ -1,35 +1,37 @@
-function id = newId(idreset)
+function id = newId(factoryName, idreset)
 
 % NEWID  Id factory.
-%   NEWID returns an increasing ID each time it is called. The first
-%   created ID is 1.
+%   NEWID(FACTORYNAME) returns an increasing ID each time it is called with
+%   the same FACTORYNAME string. The first created ID is 1.
 %
-%   NEWID(ID) resets the counter to the given ID and returns it. For
-%   negative ID inputs, the counter is set to zero, and zero is returned.
+%   NEWID(FACTORYNAME,ID) resets the counter of the id factory FACTORYNAME
+%   to the given ID and returns it. For negative ID inputs, the counter is
+%   set to zero, and zero is returned.
 %
 %   Copyright 2015 Joan Sola @ IRI-CSIC-UPC
+%   Copyright 2015 Ellon Paiva @ LAAS-CNRS
 
 persistent ids;
 
-if nargin == 1
+if nargin == 2
     
     if idreset < 0
-        ids = 0;
+        ids.(factoryName) = 0;
     else
-        ids = idreset;
+        ids.(factoryName) = idreset;
     end
     
 else
     
-    if isempty(ids)
-        ids = 0;
+    if ~isfield(ids,factoryName)
+        ids.(factoryName) = 0;
     end
     
-    ids = ids + 1;
+    ids.(factoryName) = ids.(factoryName) + 1;
     
 end
 
-id = ids;
+id = ids.(factoryName);
 % ========== End of function - Start GPL license ==========
 
 

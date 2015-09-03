@@ -18,7 +18,7 @@ function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac)
 nfrms = numel(Frm);
 
 Fac.used = true; % Factor is being used ?
-Fac.id = newId; % Factor unique ID
+Fac.id = newId('Fac'); % Factor unique ID
 
 Fac.type = 'measurement'; % {'motion','measurement','absolute'}
 Fac.rob = Frm(1).rob;

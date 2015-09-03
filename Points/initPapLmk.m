@@ -20,5 +20,7 @@ Lmk.state.x = measurements2pap(maincamframe, Lmk.par.mainmeas, ...
                                assocamframe, Lmk.par.assomeas, ...
                                Sen.par.k, Sen.par.c);
 
+Lmk.par.initialpar = Lmk.state.x(9);
+
 end
 

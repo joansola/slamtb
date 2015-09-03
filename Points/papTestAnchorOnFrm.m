@@ -26,18 +26,22 @@ end
 % Only continue if the current parallax is not good enough
 % TODO: Make MAXPARTHRESHOLD a program option
 MAXPARTHRESHOLD = 0.5;
-if Lmk.state.x(9) > MAXPARTHRESHOLD
+if Lmk.par.initialpar > MAXPARTHRESHOLD
     return
 end
 
 % Get main, associated and current camera frames
 [ maincamframe, assocamframe ] = papLmkCamAnchorFrames( Lmk, Sen, Frms );
-currcamframe = composeFrames(updateFrame(Frms(currFrmIdx).state),Sen.frame);
+currcamframe = composeFrames(updateFrame(Frms(currFrmIdx).deadreckostate),Sen.frame);
 
 % Get parallax angle between main anchor frame and current frame, and
 % between associated anchor frame and current frame
-papmaincurr = pap2newanchors(Lmk.state.x, maincamframe.t, currcamframe.t);
-papassocurr = pap2newanchors(Lmk.state.x, assocamframe.t, currcamframe.t);
+papmaincurr = measurements2pap(maincamframe, Lmk.par.mainmeas, ...
+                               currcamframe, Facs(currFacIdx).meas.y, ...
+                               Sen.par.k, Sen.par.c);
+papassocurr = measurements2pap(assocamframe, Lmk.par.assomeas, ...
+                               currcamframe, Facs(currFacIdx).meas.y, ...
+                               Sen.par.k, Sen.par.c);
 
 % Based on the new parallax angles, test if the current frame is a better
 % anchor than the current anchors
@@ -54,6 +58,9 @@ switch bestParIdx
         % Update lmk state
         Lmk.state.x = papmaincurr;
         
+        % Store new initial parallax angle value
+        Lmk.par.initialpar = papmaincurr(9);
+        
         % Mark the landmark to be reseted if it is not new (used by GTSAM)
         if ~Lmk.new
             Lmk.reset = true;
@@ -68,6 +75,9 @@ switch bestParIdx
 
         % Update lmk state
         Lmk.state.x = papassocurr;
+        
+        % Store new initial parallax angle value
+        Lmk.par.initialpar = papassocurr(9);
 
         % Mark the landmark to be reseted if it is not new (used by GTSAM)
         if ~Lmk.new

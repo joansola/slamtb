@@ -9,8 +9,8 @@ if strcmp(Lmk.type,'papPnt') == false
 end
 
 % get camera anchor poses from frames and sensors
-mainframe = updateFrame(Frm(Lmk.par.mainfrm).state);
-assoframe = updateFrame(Frm(Lmk.par.assofrm).state);
+mainframe = updateFrame(Frm(Lmk.par.mainfrm).deadreckostate);
+assoframe = updateFrame(Frm(Lmk.par.assofrm).deadreckostate);
 maincamframe = composeFrames(mainframe,Sen.frame);
 assocamframe = composeFrames(assoframe,Sen.frame);
 

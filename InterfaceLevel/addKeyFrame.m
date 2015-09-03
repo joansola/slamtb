@@ -29,6 +29,8 @@ function [Rob,Lmk,Trj,Frm,Fac] = addKeyFrame(Rob,Sen,Lmk,Trj,Frm,Fac,factorRob, 
     Rob,...
     Frm(Trj.head));
 
+Frm(Trj.head).deadreckostate.x = Rob.deadreckoframe.x;
+
 % Create motion factor
 fac = find([Fac.used] == false, 1, 'first');
 

@@ -28,6 +28,9 @@ for rob = [Rob.rob]
         Frm(rob,frm).state.dsize = Rob(rob).state.dsize;
         Frm(rob,frm).state.M     = []; % Jacobian of projection to manifold
         
+        % To store the dead reckoning estimation
+        Frm(rob,frm).deadreckostate.x = zeros(Rob(rob).state.size,1);
+        
     end
 end
 

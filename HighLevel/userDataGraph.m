@@ -339,6 +339,7 @@ FigOpt = struct(...
         'meas',     [1 .8 .6]),...          % measurement factors
       'simu',       'b',...          %   or 'r', 'b', etc.   
       'est',        'g',...          % estimated robots and sensors
+      'drest',      'r',...          % read reckoning estimated robots and sensors      
       'ground',     [.8 .8 .8],...   % simulated robots and sensors
       'label',      [.0 .5 0])),...  % landmark ID labels
   'sensor',         struct(...      % sensor figures options

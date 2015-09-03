@@ -181,6 +181,9 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % Process robots
         for rob = [Rob.rob]
             
+            % Update dead reckoning on Rob
+            Rob(rob).deadreckoframe = composeFrames(Rob(rob).deadreckoframe,updateFrame(factorRob.state));
+
             % Add key frame
             [Rob(rob),Lmk,Trj(rob),Frm(rob,:),Fac] = addKeyFrame(...
                 Rob(rob),       ...
@@ -244,6 +247,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
             
             % Reset motion robot
             factorRob(rob) = resetMotion(Rob(rob));
+
         end
         
     end

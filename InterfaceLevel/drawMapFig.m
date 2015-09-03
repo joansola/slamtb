@@ -37,6 +37,9 @@ for rob = 1:numel(Rob)
     % robots
     MapFig.Rob(rob).patch = drawObject(MapFig.Rob(rob).patch, Rob(rob));
     
+    % dead reckoning robot estimation
+    MapFig.Rob(rob).drpatch = drawObject(MapFig.Rob(rob).drpatch, Rob(rob), Rob(rob).deadreckoframe);
+
     if FigOpt.map.showEllip
         r = Rob(rob).state.r(1:3);
         drawEllipse(MapFig.Rob(rob).ellipse,Map.x(r),Map.P(r,r));

@@ -38,11 +38,23 @@ Time = struct(...
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
-% Long hallway with far wide wall
+
+% % Long hallway with far wide wall
+% World = struct(...
+%   'points',           [ YZHallway(-2,2,-1,3,0,90,20) YZWall(-60,60,0,10,95,15,6) ], ... % 3d point landmarks - see YZHALLWAY and YZWALL
+%   'segments',         []);  % 3D segments - see HOUSE. 
+
+% Thick Cloister
 World = struct(...
-  'points',           [ YZHallway(-2,2,-1,3,0,90,20) YZWall(-60,60,0,10,95,15,6) ], ... % 3d point landmarks - see YZHALLWAY and YZWALL
+  'points',           thickCloister(-6,6,-6,6,1,7),... % 3d point landmarks - see THICKCLOISTER. 
   'segments',         []);  % 3D segments - see HOUSE. 
-  
+
+% % Several Thick Cloisters with different sizes
+% World = struct(...
+%   'points',           [thickCloister(-6,6,-6,6,1,7) thickCloister(-12,12,-12,12,1,13) thickCloister(-18,18,-18,18,1,19)],... % 3d point landmarks - see THICKCLOISTER. 
+%   'segments',         []);  % 3D segments - see HOUSE. 
+
+
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
 %   - motion models (add new model strings if you need more):
@@ -50,19 +62,65 @@ World = struct(...
 %       'odometry'    6D Odometry model
 %       'inertial'    6D IMU-based model
 %   - See EULERANGLES for orientations specifications.
+% Robot inside thick cloister
 Robot{1} = struct(...                  % ODOMETRY EXAMPLE
   'id',                 1,...           % robot identifier
   'name',               'Dala',...      % robot name
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
-  'position',           [0;0;0],...     % robot position in map
+  'position',           [0;-5;0.0],...     % robot position in map
   'orientationDegrees', [0;0;0],...     % orientation, in degrees, [roll; pitch; yaw].
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.08;0;0],...     % position increment
-  'daDegrees',          [0;0;0],...     % angle increment, degrees
+  'daDegrees',          [0;0;.9],...     % angle increment, degrees
   'dxStd',              0.03*[1;1;1],...  % odo linear error std
   'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
+
+% % Robot moving around thick cloister
+% Robot{1} = struct(...                  % ODOMETRY EXAMPLE
+%   'id',                 1,...           % robot identifier
+%   'name',               'Dala',...      % robot name
+%   'type',               'atrv',...      % type of robot
+%   'motion',             'odometry',...  % motion model
+%   'position',           [0;-11;0],...     % robot position in map
+%   'orientationDegrees', [0;0;0],...     % orientation, in degrees, [roll; pitch; yaw].
+%   'positionStd',        [0.1;0.1;0.1],...     % position error, std
+%   'orientationStd',     [0.001;0.001;0.001],...     % orient. error, std, in degrees
+%   'dx',                 [0.1728;0;0],...     % position increment
+%   'daDegrees',          [0;0;.9],...     % angle increment, degrees
+%   'dxStd',              0.03*[1;1;1],...  % odo linear error std
+%   'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
+
+% % Tilted robot inside thick cloister
+% Robot{1} = struct(...                  % ODOMETRY EXAMPLE
+%   'id',                 1,...           % robot identifier
+%   'name',               'Dala',...      % robot name
+%   'type',               'atrv',...      % type of robot
+%   'motion',             'odometry',...  % motion model
+%   'position',           [0;-5;0.5],...     % robot position in map
+%   'orientationDegrees', [-90;0;-90],...     % orientation, in degrees, [roll; pitch; yaw].
+%   'positionStd',        [0;0;0],...     % position error, std
+%   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
+%   'dx',                 [0;0;.08;],...     % position increment
+%   'daDegrees',          [0;-0.9;0;],...     % angle increment, degrees
+%   'dxStd',              0.03*[1;1;1],...  % odo linear error std
+%   'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
+
+% % Robot moving forward
+% Robot{1} = struct(...                  % ODOMETRY EXAMPLE
+%   'id',                 1,...           % robot identifier
+%   'name',               'Dala',...      % robot name
+%   'type',               'atrv',...      % type of robot
+%   'motion',             'odometry',...  % motion model
+%   'position',           [0;0;0],...     % robot position in map
+%   'orientationDegrees', [0;0;0],...     % orientation, in degrees, [roll; pitch; yaw].
+%   'positionStd',        [0;0;0],...     % position error, std
+%   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
+%   'dx',                 [.08;0;0],...     % position increment
+%   'daDegrees',          [0;0;0],...     % angle increment, degrees
+%   'dxStd',              0.03*[1;1;1],...  % odo linear error std
+%   'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                  % ODOMETRY EXAMPLE
 %   'id',                 2,...           % robot identifier
@@ -86,13 +144,34 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %       'pinHole'       Pin-hole camera
 %       'pinHoleDepth'  Pin-hole camera with depth measurement (RGBD)
 %   - See EULERANGLES for orientations specifications.
+
+% Camera on top, loking forward
+Sensor{1} = struct(...
+  'id',                 1,...           % sensor identifier
+  'name',               'Micropix',...  % sensor name
+  'type',               'pinHole',...   % type of sensor
+  'robot',              1,...           % robot where it is mounted
+  'position',           [0;0;.6],...    % position in robot
+  'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
+  'positionStd',        [0;0;0],...     % position error std
+  'orientationStd',     [0;0;0],...     % orient. error std
+  'imageSize',          [640;480],...   % image size
+  'pixErrorStd',        1.0,...         % pixel error std
+  'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
+  'distortion',         [-0.3;0.1],...          % distortion params
+  'frameInMap',         false,...       % add sensor frame in slam map?
+  'imGrid',               struct(...      % grid for Active Search
+    'numCells',         [8;6],...         % number of H and V grid cells
+    'skipOuter',        true));           % skip outer cells for initialization?
+
+% % Camera on top, loking sideways
 % Sensor{1} = struct(...
 %   'id',                 1,...           % sensor identifier
 %   'name',               'Micropix',...  % sensor name
 %   'type',               'pinHole',...   % type of sensor
 %   'robot',              1,...           % robot where it is mounted
 %   'position',           [0;0;.6],...    % position in robot
-%   'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
+%   'orientationDegrees', [-90;0;0],... % orientation in robot, [roll; pitch; yaw]
 %   'positionStd',        [0;0;0],...     % position error std
 %   'orientationStd',     [0;0;0],...     % orient. error std
 %   'imageSize',          [640;480],...   % image size
@@ -104,24 +183,45 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %     'numCells',         [8;6],...         % number of H and V grid cells
 %     'skipOuter',        true));           % skip outer cells for initialization?
 
-Sensor{1} = struct(...
-  'id',                 1,...           % sensor identifier
-  'name',               'Micropix',...  % sensor name
-  'type',               'pinHole',...   % type of sensor
-  'robot',              1,...           % robot where it is mounted
-  'position',           [0;0;.6],...    % position in robot
-  'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
-  'positionStd',        [0;0;0],...     % position error std
-  'orientationStd',     [0;0;0],...     % orient. error std
-  'imageSize',          [640;480],...   % image size
-  'pixErrorStd',        1.0,...         % pixel error std [pixels]
-  'depthErrorStd',      0.5,...         % depth error std [m]
-  'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
-  'distortion',         [],...          % distortion params, e.g. [-0.3;0.1]
-  'frameInMap',         false,...       % add sensor frame in slam map?
-  'imGrid',             struct(...      % grid for Active Search
-    'numCells',         [8;6],...         % number of H and V grid cells
-    'skipOuter',        true));           % skip outer cells for initialization?
+% % Camera on center, looking forward 
+% Sensor{1} = struct(...
+%   'id',                 1,...           % sensor identifier
+%   'name',               'Micropix',...  % sensor name
+%   'type',               'pinHole',...   % type of sensor
+%   'robot',              1,...           % robot where it is mounted
+%   'position',           [0;0;0],...    % position in robot
+%   'orientationDegrees', [-90;0;-90],... % orientation in robot, [roll; pitch; yaw]
+%   'positionStd',        [0;0;0],...     % position error std
+%   'orientationStd',     [0;0;0],...     % orient. error std
+%   'imageSize',          [640;480],...   % image size
+%   'pixErrorStd',        1.0,...         % pixel error std [pixels]
+%   'depthErrorStd',      0.5,...         % depth error std [m]
+%   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
+%   'distortion',         [],...          % distortion params, e.g. [-0.3;0.1]
+%   'frameInMap',         false,...       % add sensor frame in slam map?
+%   'imGrid',             struct(...      % grid for Active Search
+%     'numCells',         [8;6],...         % number of H and V grid cells
+%     'skipOuter',        true));           % skip outer cells for initialization?
+
+% % Camera on center, no rotation
+% Sensor{1} = struct(...
+%   'id',                 1,...           % sensor identifier
+%   'name',               'Micropix',...  % sensor name
+%   'type',               'pinHole',...   % type of sensor
+%   'robot',              1,...           % robot where it is mounted
+%   'position',           [0;0;0],...    % position in robot
+%   'orientationDegrees', [0;0;0],... % orientation in robot, [roll; pitch; yaw]
+%   'positionStd',        [0;0;0],...     % position error std
+%   'orientationStd',     [0;0;0],...     % orient. error std
+%   'imageSize',          [640;480],...   % image size
+%   'pixErrorStd',        1.0,...         % pixel error std [pixels]
+%   'depthErrorStd',      0.5,...         % depth error std [m]
+%   'intrinsic',          [320;240;320;320],... % intrinsic params [u0 v0 au av]
+%   'distortion',         [],...          % distortion params, e.g. [-0.3;0.1]
+%   'frameInMap',         false,...       % add sensor frame in slam map?
+%   'imGrid',             struct(...      % grid for Active Search
+%     'numCells',         [8;6],...         % number of H and V grid cells
+%     'skipOuter',        true));           % skip outer cells for initialization?
 
 
 

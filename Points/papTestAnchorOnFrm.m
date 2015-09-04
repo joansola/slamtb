@@ -1,4 +1,4 @@
-function [ Lmk, Frms, Facs ] = papTestAnchorOnFrm( Rob, Sen, Lmk, Obs , Frms, Facs, currFrmIdx, currFacIdx )
+function [ Lmk, Frms, Facs ] = papTestAnchorOnFrm( Rob, Sen, Lmk, Obs , Frms, Facs, Opt, currFrmIdx, currFacIdx )
 %PAPTESTANCHORONFRM Reanchor pap pnt on frame if it is a better anchor
 %   [ LMK, FRMS, FACS ] = PAPTESTANCHORONFRM( ROB, SEN, LMK, OBS , FRMS,
 %   FACS, CURRFRMIDX, CURRFACIDX ) test if the frame FRMS(CURRFRMIDX) is a
@@ -24,9 +24,7 @@ if Lmk.par.mainfac == currFacIdx || Lmk.par.assofac == currFacIdx
 end
  
 % Only continue if the current parallax is not good enough
-% TODO: Make MAXPARTHRESHOLD a program option
-MAXPARTHRESHOLD = 0.5;
-if Lmk.par.initialpar > MAXPARTHRESHOLD
+if Lmk.par.initialpar >= Opt.init.papPnt.noReanchorTh
     return
 end
 

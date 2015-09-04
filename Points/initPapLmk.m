@@ -1,4 +1,4 @@
-function [ Lmk ] = initPapLmk( Lmk, Sen, Frm )
+function [ Lmk, failed ] = initPapLmk( Lmk, Sen, Frm, Opt)
 %INITPAPLMK Initializes a complete form pap landmark using the data stored
 %into Lmk.par and the frames and sensors
 
@@ -7,20 +7,29 @@ if strcmp(Lmk.type,'papPnt') == false
     error('Expected landmark of type papPnt instead of ''%s''.',Lmk.type);
 end
 
-% update lmk sizes
-[lmkSize, lmkDSize] = lmkSizes(Lmk.type);
-Lmk.state.size  = lmkSize(2);
-Lmk.state.dsize = lmkDSize(2);
-
 % get camera anchor poses from frames and sensors
 [ maincamframe, assocamframe ] = papLmkCamAnchorFrames( Lmk, Sen, Frm );
 
-% update state
-Lmk.state.x = measurements2pap(maincamframe, Lmk.par.mainmeas, ...
-                               assocamframe, Lmk.par.assomeas, ...
-                               Sen.par.k, Sen.par.c);
+% get initial estimate
+pap = measurements2pap(maincamframe, Lmk.par.mainmeas, ...
+                       assocamframe, Lmk.par.assomeas, ...
+                       Sen.par.k, Sen.par.c);
 
-Lmk.par.initialpar = Lmk.state.x(9);
+% test for minimal parallax to initialize
+if pap(9) >= Opt.init.papPnt.minParTh
+    Lmk.state.x = pap;
+    Lmk.par.initialpar = pap(9);
+
+    % update lmk sizes
+    [lmkSize, lmkDSize] = lmkSizes(Lmk.type);
+    Lmk.state.size  = lmkSize(2);
+    Lmk.state.dsize = lmkDSize(2);
+
+    failed = false;
+else
+    failed = true;
+end
+                    
 
 end
 

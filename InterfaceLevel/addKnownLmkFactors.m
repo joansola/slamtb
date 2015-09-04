@@ -107,27 +107,35 @@ if any(vis) % Consider only visible observations
                     case 'papPnt'
                         [~, ~, ~, ~, completePap] = splitPap(Lmk(lmk).state.x);
                         if ~completePap
-                            % Reserve space for the landmark
-                            % check for free space in the Map.
-                            [lmkSize, lmkDSize] = lmkSizes(Lmk(lmk).type);
-                            if (freeSpace() < lmkDSize(2)) 
-                                % Map full. Unable to initialize landmark.
-                                warning('Unable to initialize landmark: map full!');
-                                continue;
-                            end
-                            % get lmk ranges in Map, and block
-                            r = newRange(lmkDSize(2));
-                            blockRange(r);
-                            Lmk(lmk).state.r = r;
-
                             % Store associate anchor information
                             [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm(currFrmIdx),Fac(fac));
 
                             % init pap pnt to a complete parametrization
-                            Lmk(lmk) = initPapLmk(Lmk(lmk),Sen,Frm);
-                            
-                            Lmk(lmk).optim = true; % Flag to be cleared by GTSAM functions
+                            [Lmk(lmk), initFailed]  = initPapLmk(Lmk(lmk),Sen,Frm,Opt);
 
+                            if initFailed
+                                Lmk(lmk) = clearLmkParams(Lmk(lmk),'asso');
+                                % TODO: continuing here will drop one of the landmark measurements. Change it to
+                                % store the measurement somewhere until we have the minimal baseline to add the lmk
+                                continue;
+                            else
+                                % Reserve space for the landmark
+                                % check for free space in the Map.
+                                [lmkSize, lmkDSize] = lmkSizes(Lmk(lmk).type);
+                                if (freeSpace() < lmkDSize(2)) 
+                                    % Map full. Unable to initialize landmark.
+                                    warning('Unable to initialize landmark: map full!');
+                                    continue;
+                                end
+                                % get lmk ranges in Map, and block
+                                r = newRange(lmkDSize(2));
+                                blockRange(r);
+                                Lmk(lmk).state.r = r;
+
+                                Lmk(lmk).optim = true; % Flag to be cleared by GTSAM functions
+
+                            end
+                            
                         end
                         
                         % pointers to anchor frames (main or both) and current frame
@@ -140,7 +148,7 @@ if any(vis) % Consider only visible observations
                             Fac(fac));
 
                         % check and perform reanchoring if needed
-                        [Lmk(lmk), Frm, Fac] = papTestAnchorOnFrm(Rob, Sen, Lmk(lmk), Obs(lmk), Frm, Fac, currFrmIdx, fac);
+                        [Lmk(lmk), Frm, Fac] = papTestAnchorOnFrm(Rob, Sen, Lmk(lmk), Obs(lmk), Frm, Fac, Opt, currFrmIdx, fac);
 
                 end
                 

@@ -1,4 +1,4 @@
-function [Lmk] = clearLmkParams(Lmk)
+function [Lmk] = clearLmkParams(Lmk,paramsgroup)
 
 % INITLMKPARAMS  Initialize off-filter landmark parameters.
 
@@ -16,16 +16,24 @@ switch Lmk.type
         Lmk.par.anchormeas = [];
     
     case 'papPnt'
-        Lmk.par.mainrob  = [];
-        Lmk.par.mainsen  = [];
-        Lmk.par.mainfrm  = [];
-        Lmk.par.mainfac  = [];
-        Lmk.par.mainmeas = [];
-        Lmk.par.assorob  = [];
-        Lmk.par.assosen  = [];
-        Lmk.par.assofrm  = [];
-        Lmk.par.assofac  = [];
-        Lmk.par.assomeas = [];
+        if nargin < 2
+            paramsgroup = 'all';
+        end
+        
+        if strcmp(paramsgroup,'main') || strcmp(paramsgroup,'all')
+            Lmk.par.mainrob  = [];
+            Lmk.par.mainsen  = [];
+            Lmk.par.mainfrm  = [];
+            Lmk.par.mainfac  = [];
+            Lmk.par.mainmeas = [];
+        end
+        if strcmp(paramsgroup,'asso') || strcmp(paramsgroup,'all')
+            Lmk.par.assorob  = [];
+            Lmk.par.assosen  = [];
+            Lmk.par.assofrm  = [];
+            Lmk.par.assofac  = [];
+            Lmk.par.assomeas = [];
+        end
 
     otherwise
         error('??? clear for landmark type ''%s'' not yet implemented.',Lmk.type);

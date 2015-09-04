@@ -231,6 +231,8 @@ Opt = struct(...
     'type',           'graph',...    % type of map {'ekf','graph'}
     'useGtsam',       true,...       % use GTSAM as optimization backend
     'gtsam',          struct(...      % options to gtsam (mostly related to ISAM2)
+      'verboseCheirality', true,...     % print messages when the point is projected behind the camera
+      'throwCheirality',   false,...    % throw an error when the point is projected behind the camera
       'relinearizeSkip', 1,...          % relinearize every 'relinearizeSkip' ISAM2 updates
       'relinearizeTh',   0.0,...        % threshold to decide to relinearize a variable
       'factorization',   'CHOLESKY',... % factorization used to do matrix decomposition {'CHOLESKY', 'QR'}

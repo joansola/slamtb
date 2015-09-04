@@ -13,7 +13,7 @@ function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraph(Rob,Sen,Lmk,Obs,Frm,Fac,Opt)
 
 if Opt.map.useGtsam
 
-    [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphGtsam(Rob,Sen,Lmk,Obs,Frm,Fac,Opt.solver);
+    [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphGtsam(Rob,Sen,Lmk,Obs,Frm,Fac,Opt);
 
 else
 

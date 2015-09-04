@@ -1,4 +1,4 @@
-function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphGtsam(Rob,Sen,Lmk,Obs,Frm,Fac,options)
+function [Rob,Sen,Lmk,Obs,Frm,Fac] = solveGraphGtsam(Rob,Sen,Lmk,Obs,Frm,Fac,Opt)
 
 % SOLVEGRAPHGTSAM Solves the SLAM graph using GTSAM.
 %   [Rob,Sen,Lmk,Obs,Frm,Fac] = SOLVEGRAPHGTSAM(Rob,Sen,Lmk,Obs,Frm,Fac)
@@ -15,7 +15,7 @@ global Map
 % Also get index of factors to be removed due to replacement
 newFactors = gtsam.NonlinearFactorGraph;
 factorsToRemove = gtsam.KeyVector();
-[Fac, newFactors, factorsToRemove] = makeNewGtsamFactors(Rob,Sen,Lmk,Obs,Frm,Fac,newFactors,factorsToRemove);
+[Fac, newFactors, factorsToRemove] = makeNewGtsamFactors(Rob,Sen,Lmk,Obs,Frm,Fac,Opt,newFactors,factorsToRemove);
 
 % Gather indices of factors to be removed
 factorsToRemove = getFactorsToRemove(Fac,factorsToRemove);
@@ -46,7 +46,7 @@ end
 Fac = updateGtsamFactorIndices(Lmk, Fac, updateResult);
 
 % Do extra updates if requested
-for i = 1:options.niterations-1
+for i = 1:Opt.solver.niterations-1
     Map.gtsam.isam.update();
 end
 

@@ -1,8 +1,11 @@
-function [Facs, newFactors, factorsToRemove] = makeNewGtsamFactors(Rob,Sen,Lmks,Obss,Frms,Facs,newFactors,factorsToRemove)
+function [Facs, newFactors, factorsToRemove] = makeNewGtsamFactors(Rob,Sen,Lmks,Obss,Frms,Facs,Opt,newFactors,factorsToRemove)
 
 import gtsam.*
 
 neworreplacefac = [Facs.used] & ([Facs.new] | [Facs.replace]);
+
+verboseCheirality = Opt.map.gtsam.verboseCheirality;
+throwCheirality = Opt.map.gtsam.throwCheirality;
 
 for fac = [Facs(neworreplacefac).fac]
     switch Facs(fac).type
@@ -42,7 +45,7 @@ for fac = [Facs(neworreplacefac).fac]
                             symbol('x',Frms(Facs(fac).frames).id),                   ... %   Main anchor frame key
                             symbol('l',Lmks(Facs(fac).lmk).id),                      ... %   Landmark key
                             calibration,                                             ... %   Camera calibration
-                            false, true,                                             ... %   Flags: throw Cheirality? verbose Cheyrality?
+                            throwCheirality, verboseCheirality,                      ... %   Flags: throw Cheirality? verbose Cheyrality?
                             qpose2gtsampose( Sen(Facs(fac).sen).frame.x )));             %   Camera pose in robot frame
                     elseif numel(Facs(fac).frames) == 2
                         newFactors.add( PAPoint3AssoAnchorProjectionFactorCal3_S2( ... % Pap projection factor for a measurement from the associated anchor:
@@ -52,7 +55,7 @@ for fac = [Facs(neworreplacefac).fac]
                             symbol('x',Frms(Facs(fac).frames(2)).id),               ... %   Associated anchor frame key
                             symbol('l',Lmks(Facs(fac).lmk).id),                     ... %   Landmark key
                             calibration,                                            ... %   Camera calibration
-                            false, true,                                            ... %   Flags: throw Cheirality? verbose Cheyrality?
+                            throwCheirality, verboseCheirality,                     ... %   Flags: throw Cheirality? verbose Cheyrality?
                             qpose2gtsampose( Sen(Facs(fac).sen).frame.x )));            %   Camera pose in robot frame
                             
                     elseif numel(Facs(fac).frames) == 3
@@ -64,7 +67,7 @@ for fac = [Facs(neworreplacefac).fac]
                             symbol('x',Frms(Facs(fac).frames(3)).id),        ... %   Frame key from where the measurement was taken
                             symbol('l',Lmks(Facs(fac).lmk).id),              ... %   Landmark key
                             calibration,                                     ... %   Camera calibration
-                            false, true,                                     ... %   Flags: throw Cheirality? verbose Cheyrality?
+                            throwCheirality, verboseCheirality,              ... %   Flags: throw Cheirality? verbose Cheyrality?
                             qpose2gtsampose( Sen(Facs(fac).sen).frame.x )));     %   Camera pose in robot frame
                     else
                         error('??? Something went wrong: papPnt meas factor has ''%s'' frames (3 frames max allowed).', numel(Fac.frames))

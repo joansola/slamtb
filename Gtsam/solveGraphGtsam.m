@@ -32,14 +32,15 @@ Lmk = reinitLmkValuesOnGtsam(Lmk);
 try
     updateResult = Map.gtsam.isam.update(newFactors, initialEstimates, factorsToRemove);
 catch e
+    display(e.message);
     error('ISAM2 update threw an exeption. Use the lines below to inspect ISAM2 internals.')
-%     nonlinearFactorGraph = Map.gtsam.isam.getFactorsUnsafe();
-%     linearizationPoint = Map.gtsam.isam.getLinearizationPoint();
-%     gaussianFactorGraph = nonlinearFactorGraph.linearize(linearizationPoint);
+    nonlinearFactorGraph = Map.gtsam.isam.getFactorsUnsafe();
+    linearizationPoint = Map.gtsam.isam.getLinearizationPoint();
+    gaussianFactorGraph = nonlinearFactorGraph.linearize(linearizationPoint);
 %     jacobian = gaussianFactorGraph.augmentedJacobian(); % WARNING: This line crashes matlab
-%     hessian = gaussianFactorGraph.augmentedHessian();
-%     figure; spy(hessian);
-%     varIndex = Map.gtsam.isam.getVariableIndex
+    hessian = gaussianFactorGraph.augmentedHessian();
+    figure; spy(hessian);
+    varIndex = Map.gtsam.isam.getVariableIndex
 end
 
 % Update isam factor indexes from update result

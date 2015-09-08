@@ -64,16 +64,9 @@ if nargout <= 2  % No Jacobians requested
 
         ma  = Mcf.t;
         aa  = Acf.t;
-        py  = minpap(1:2,1);
-        par = minpap(3,1);
         
-        uvecMtoP = py2vec(py); % unit vector
-        uvecMtoA = (aa - ma) / norm(aa - ma); % unit vector
-
-        phi = acos( dot(uvecMtoP,uvecMtoA) );
-
-        vecCtoP = sin(par + phi)*norm(aa - ma)*uvecMtoP - sin(par)*(Cf.t - ma);
-
+        vecCtoP = papDirectionVecFromOther(minpap,ma,aa,Cf.t);
+        
         vecCtoPInCf = Cf.Rt*vecCtoP;
 
         u = pinHole(vecCtoPInCf,k,d);
@@ -108,44 +101,15 @@ else            % Jacobians requested
 
         ma  = Mcf.t;
         aa  = Acf.t;
-        py  = minpap(1:2,1);
-        par = minpap(3,1);
         
-        [uvecMtoP, UVECMTOP_py] = py2vec(py); % unit vector
-
-        aama = aa - ma;
-        AAMA_aa = eye(3);
-        AAMA_ma = -eye(3);
-
-        [uvecMtoA, UVECMTOA_aama] = normvec(aama); % unit vector
-
-        phi = acos( dot(uvecMtoP,uvecMtoA) );
-        PHI_uvecmtop = -1/(1 - dot(uvecMtoP,uvecMtoA)^2)^(1/2) * uvecMtoA';
-        PHI_uvecmtoa = -1/(1 - dot(uvecMtoP,uvecMtoA)^2)^(1/2) * uvecMtoP';
-
-        [normaama, NORMAAMA_aama] = vecnorm(aama);
-
-        sinparphi = sin(par + phi);
-        SINPARPHI_par = cos(par + phi);
-        SINPARPHI_phi = cos(par + phi);
-
-        vecCtoP = sinparphi*normaama*uvecMtoP - sin(par)*(Cf.t - ma);
-        %TODO: Check the jacobians below using info on https://en.wikipedia.org/wiki/Matrix_calculus
-        VECCTOP_ma  = kron(( (SINPARPHI_phi*PHI_uvecmtoa*UVECMTOA_aama*AAMA_ma)*normaama + sinparphi*(NORMAAMA_aama*AAMA_ma) ),uvecMtoP) + sin(par)*eye(3);
-        VECCTOP_aa  = kron(( (SINPARPHI_phi*PHI_uvecmtoa*UVECMTOA_aama*AAMA_aa)*normaama + sinparphi*(NORMAAMA_aama*AAMA_aa) ),uvecMtoP);
-        VECCTOP_py  = normaama*( uvecMtoP*(SINPARPHI_phi*PHI_uvecmtop*UVECMTOP_py) + sinparphi*(UVECMTOP_py) );
-        VECCTOP_par = SINPARPHI_par*normaama*uvecMtoP - cos(par)*(Cf.t - ma);
-        VECCTOP_cft = - sin(par)*eye(3);
-
-
+        [vecCtoP, VECCTOP_minpap, VECCTOP_ma, VECCTOP_aa, VECCTOP_cft] = papDirectionVecFromOther(minpap,ma,aa,Cf.t);
+        
         [vecCtoPInCf, VECCTOPINCF_cfq, VECCTOPINCF_vecctop] = Rtp(Cf.q, vecCtoP);
 
         [u, s, U_vecctopincf, U_k, U_d] = pinHole(vecCtoPInCf,k,d);
 
         % chain rule
-        U_py  = U_vecctopincf * VECCTOPINCF_vecctop * VECCTOP_py;
-        U_par = U_vecctopincf * VECCTOPINCF_vecctop * VECCTOP_par;
-        U_minpap = [U_py U_par];
+        U_minpap  = U_vecctopincf * VECCTOPINCF_vecctop * VECCTOP_minpap;
         
         U_ma  = U_vecctopincf * VECCTOPINCF_vecctop * VECCTOP_ma;
         U_mcf = [U_ma zeros(2,4)];
@@ -180,9 +144,47 @@ else            % Jacobians requested
 
 end
 
-end
+return
 
+%% 
+syms p y par real
+syms rx ry rz ra rb rc rd real
+syms sx sy sz sa sb sc sd real
+syms mx my mz ma mb mc md real
+syms ax ay az aa ab ac ad real
+syms au av u0 v0 real
+syms d1 d2 d3 real
 
+minpap = [p y par]';
+Rf.x = [rx;ry;rz;ra;rb;rc;rd];
+Rf   = updateFrame(Rf);
+Sf.x = [sx;sy;sz;sa;sb;sc;sd];
+Sf   = updateFrame(Sf);
+Mf.x = [mx;my;mz;ma;mb;mc;md];
+Mf   = updateFrame(Mf);
+Af.x = [ax;ay;az;aa;ab;ac;ad];
+Af   = updateFrame(Af);
+k    = [u0;v0;au;av];
+d    = [d1;d2;d3];
+
+[u,s,U_rf,U_sf,U_k,U_d,U_minpap,U_mf,U_af] = ...
+projPapPntWithAnchorsIntoPinHoleOnRob(Rf, Sf, k, d, minpap, Mf, Af);
+
+tic
+simplify(U_rf - jacobian(u,Rf.x))
+toc
+tic
+simplify(U_sf - jacobian(u,Sf.x))
+toc
+tic
+simplify(U_minpap - jacobian(u,minpap))
+toc
+tic
+simplify(U_mf - jacobian(u,Mf.x))
+toc
+tic
+simplify(U_af - jacobian(u,Af.x))
+toc
 
 % ========== End of function - Start GPL license ==========
 

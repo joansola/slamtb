@@ -111,7 +111,8 @@ switch Sen.type
 
                 end
 
-                vis = isVisible(e,depth,Sen.par.imSize);
+%                 vis = isVisible(e,depth,Sen.par.imSize);
+                vis = true;
             
             case {'hmgPnt'} % euclidean point
 

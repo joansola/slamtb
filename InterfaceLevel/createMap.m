@@ -78,9 +78,7 @@ switch lower(Opt.map.type)
                     % increase only once every iteraction. See
                     % https://research.cc.gatech.edu/borg/sites/edu.borg/html/a00065.html#a52e03ca11a892d070c911db43f22cf04
                     % for details.
-                    optimizer.setAdaptationMode('ONE_STEP_PER_ITERATION');
-%                     optimizer.setAdaptationMode('SEARCH_EACH_ITERATION');
-                    
+                    optimizer.setAdaptationMode(Opt.map.gtsam.doglegAdaptationMode);                    
             end
             Map.gtsam.params.setOptimizationParams(optimizer);
             Map.gtsam.params.setRelinearizeSkip( Opt.map.gtsam.relinearizeSkip );

@@ -237,6 +237,7 @@ Opt = struct(...
       'relinearizeTh',   0.0,...        % threshold to decide to relinearize a variable
       'factorization',   'CHOLESKY',... % factorization used to do matrix decomposition {'CHOLESKY', 'QR'}
       'nonlinearOptimizer', 'DOGLEG',...    % nonlinear optimizer used {'GAUSSNEWTON', 'DOGLEG'}
+      'doglegAdaptationMode', 'SEARCH_EACH_ITERATION',...    % type of adaptation of the trust region used by dogleg {'ONE_STEP_PER_ITERATION', 'SEARCH_EACH_ITERATION'}
       'wildfireTh', 0.0),...            % Stop updating the linear delta if the changes are below this threshold
     'numLmks',        200,...         % number of 3d landmarks
     'numFrames',      50,...         % number of frames in graph

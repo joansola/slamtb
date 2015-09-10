@@ -58,14 +58,27 @@ if FigOpt.map.showMotFac || FigOpt.map.showMeaFac
     [motMat, motCrd, meaMat, meaCrd] = adjacencyAndCoords(Lmk,Frm,Fac);
 end
 
+% Frame ids
+% if Trj.head < Trj.tail
+%     lala = [ Trj.tail:Trj.maxLength 1:Trj.head];
+% else
+%     lala = Trj.tail:Trj.head;
+% end
+posOffset = [0;0;.2];
+usedfrms = [Frm([Frm.used]).frm];
+for i = 1:numel(usedfrms)
+    drawLabel(MapFig.Rob(rob).trj.label(i), Frm(usedfrms(i)).state.x(1:3)+posOffset, num2str(Frm(usedfrms(i)).id));
+end
+set(MapFig.Rob(rob).trj.label(numel(usedfrms)+1:end), 'visible', 'off');
+
 % Motion factors
 if FigOpt.map.showMotFac
     [X,Y,Z] = factorLines(motMat,motCrd);
     n = size(X,2);
     for i=1:n
-        set(MapFig.Rob(rob).trj(i), 'visible', 'on', 'xdata', X(:,i), 'ydata', Y(:,i), 'zdata', Z(:,i));
+        set(MapFig.Rob(rob).trj.line(i), 'visible', 'on', 'xdata', X(:,i), 'ydata', Y(:,i), 'zdata', Z(:,i));
     end
-    set(MapFig.Rob(rob).trj(n+1:end), 'visible', 'off');
+    set(MapFig.Rob(rob).trj.line(n+1:end), 'visible', 'off');
 end
 
 % Measurement factors

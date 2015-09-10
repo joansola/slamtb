@@ -5,7 +5,8 @@ function [Lmk, Frm, Fac] = makeMeasFactor(Lmk, Obs, Frm, Fac)
 % [Lmk, Frm, Fac] = MAKEMEASFACTOR(Lmk, Obs, Frm, Fac) creates a new
 % measurement factor Fac linking frame Frm to landmark Lmk, using the
 % observation informaiton in Obs and the type in Lmk.
-%
+
+% FIXME: This help does not match the API:
 % [Lmk, Frm, Fac] = MAKEMEASFACTOR(Lmk, Obs, Frm, Fac, numFrames) creates a
 % new measurement factor Fac linking a NFrms number of frames Frm to
 % landmark Lmk, using the observation informaiton in Obs and the type in

@@ -2,17 +2,29 @@ function a = vecsAngle(u,v)
 
 % VECSANGLE  Angle between two vectors.
 %   VECSANGLE(U,V) returns the angle between column vectors U and V. The
-%   angle is defined between -pi/2 and pi/2.
+%   angle is defined between 0 and pi.
 %
-%   VECSANGLE(M,V) returns a row vector with the m angles between the
-%   colums of the n-by-m matrix M and the n-vector V.
+%   VECSANGLE(U,M) returns a row vector with the m angles between the
+%   n-vector U and the m colums of the n-by-m matrix M.
 
-%   Copyright 2008,2009,2010 Joan Sola @ LAAS-CNRS.
+%   Copyright 2008,2009,2010 Joan Sola @ LAAS-CNRS, old acos() version.
+%   Copyright 2015- Joan Sola @ IRI-CSIC-UPC, better atan2() version.
 
 
-a = acos((u'*v)./sqrt((u'*u).*sum(v.^2)));
-i = (a > pi/2);
-a(i) = pi-a(i);
+if size(v,2) == 1
+
+    a = atan2(norm(cross(u,v)), dot(u,v));
+
+else
+    
+    uxv  = hat(u)*v;            % cross(u,v) for v = M
+    nuxv = sqrt(sum(uxv.*uxv)); % all norms of the above
+    udv  = u'*v;                % all dot prods of u and M
+    
+    a    = atan2( nuxv , udv );
+    
+end
+
 end
 
 

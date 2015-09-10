@@ -1,4 +1,7 @@
 function [u,s,U_cf,U_k,U_d,U_pap]  = projPapPntIntoPinHole(Cf, k, d, pap)
+% FIXME: This function is not taking robot and camera frames, only camera
+% frame. Correct the HELP accordingly.
+%
 % PROJPAPPNTINTOPINHOLEONROB Project Pap pnt into pinhole on robot.
 %    [U,S] = PROJPAPPNTINTOPINHOLEONROB(RF, SF, SPK, SPD, L) projects 3D
 %    Parallax angle parametrization points into a pin-hole camera mounted
@@ -39,11 +42,11 @@ end
 if nargout <= 2  % No Jacobians requested
 
     uvecMtoP = py2vec(py); % unit vector
-    uvecMtoA = (xa - xm) / norm(xa - xm); % unit vector
+    uvecMtoA = normvec(xa - xm); % unit vector
     
     phi = acos( dot(uvecMtoP,uvecMtoA) );
     
-    vecCtoP = sin(par + phi)*norm(xa - xm)*uvecMtoP - sin(par)*(Cf.t - xm);
+    vecCtoP = sin(par + phi)*vecnorm(xa - xm)*uvecMtoP - sin(par)*(Cf.t - xm);
     
     vecCtoPInCf = Cf.Rt*vecCtoP;
     
@@ -103,7 +106,18 @@ else            % Jacobians requested
     end
 
 end
+return
 
+%%
+syms cx cy cz ca cb cc cd u0 v0 au av mx my mz ax ay az p y par real
+C.x   = [cx cy cz ca cb cc cd]';
+C     = updateFrame(C);
+k     = [u0 v0 au av]';
+pap   = [mx my mz ax ay az p y par]';
+d     = [];
+[u,s] = projPapPntIntoPinHole(C,k,d,pap);
+% U_c   = jacobian(u,C.x);
+% U_pap = jacobian(u,pap);
 
 
 % ========== End of function - Start GPL license ==========

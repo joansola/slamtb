@@ -74,8 +74,8 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
   'dx',                 [.08;0;0],...     % position increment
   'daDegrees',          [0;0;.9],...     % angle increment, degrees
-  'dxStd',              0.03*[1;1;1],...  % odo linear error std
-  'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
+  'dxStd',              0.005*[1;1;1],...  % odo linear error std
+  'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
 % % Robot moving around thick cloister
 % Robot{1} = struct(...                  % ODOMETRY EXAMPLE
@@ -89,8 +89,8 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %   'orientationStd',     [0.001;0.001;0.001],...     % orient. error, std, in degrees
 %   'dx',                 [0.1728;0;0],...     % position increment
 %   'daDegrees',          [0;0;.9],...     % angle increment, degrees
-%   'dxStd',              0.03*[1;1;1],...  % odo linear error std
-%   'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
+%   'dxStd',              0.005*[1;1;1],...  % odo linear error std
+%   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
 % % Tilted robot inside thick cloister
 % Robot{1} = struct(...                  % ODOMETRY EXAMPLE
@@ -104,8 +104,8 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
 %   'dx',                 [0;0;.08;],...     % position increment
 %   'daDegrees',          [0;-0.9;0;],...     % angle increment, degrees
-%   'dxStd',              0.03*[1;1;1],...  % odo linear error std
-%   'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
+%   'dxStd',              0.005*[1;1;1],...  % odo linear error std
+%   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
 % % Robot moving forward
 % Robot{1} = struct(...                  % ODOMETRY EXAMPLE
@@ -119,8 +119,8 @@ Robot{1} = struct(...                  % ODOMETRY EXAMPLE
 %   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
 %   'dx',                 [.08;0;0],...     % position increment
 %   'daDegrees',          [0;0;0],...     % angle increment, degrees
-%   'dxStd',              0.03*[1;1;1],...  % odo linear error std
-%   'daStd',              0.3*[1;1;1]);      % odo ang error std, degrees
+%   'dxStd',              0.005*[1;1;1],...  % odo linear error std
+%   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
 % Robot{2} = struct(...                  % ODOMETRY EXAMPLE
 %   'id',                 2,...           % robot identifier

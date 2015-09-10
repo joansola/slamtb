@@ -26,7 +26,15 @@ if MapOpt.showEllip
     drawEllipse(MapFig.Lmk(Lmk.lmk).ellipse, x, P, color.ellip)
 end
 if MapOpt.showLmkId
-    drawLabel  (MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
+    drawLabel(MapFig.Lmk(Lmk.lmk).label,   x+posOffset, num2str(Lmk.id))
+end
+if MapOpt.showAncLink 
+    ma = Lmk.state.x(1:3);
+    drawSeg(MapFig.Lmk(Lmk.lmk).mainlink,[x;ma],MapOpt.colors.mainLink);
+    if numel(Lmk.state.x) > 5
+        aa = Lmk.state.x(4:6);
+        drawSeg(MapFig.Lmk(Lmk.lmk).assolink,[x;aa],MapOpt.colors.assoLink);
+    end
 end
 
 

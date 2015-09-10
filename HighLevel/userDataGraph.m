@@ -324,6 +324,7 @@ FigOpt = struct(...
     'showMotFac',   true,...        % show motion factors?
     'showMotLabel', true,...        % show motion factor labels?
     'showMeaFac',   false,...       % show measurement factors?
+    'showAncLink',  true,...       % show anchor links for pap lmks?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      
       'axes',       [0 0 0],...      % with:
@@ -345,6 +346,8 @@ FigOpt = struct(...
         'frame',    'b',...           % frame
         'motion',   'b',...           % motion factors
         'meas',     [1 .8 .6]),...          % measurement factors
+      'mainLink',   [1 0 0],...      %   [r g b]
+      'assoLink',   [0 1 1],...      %   [r g b]
       'simu',       'b',...          %   or 'r', 'b', etc.   
       'est',        'g',...          % estimated robots and sensors
       'drest',      'r',...          % read reckoning estimated robots and sensors      

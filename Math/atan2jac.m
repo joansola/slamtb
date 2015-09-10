@@ -9,10 +9,21 @@ function [at, AT_y, AT_x] = atan2jac(y,x)
 
 %   Copyright 2015- Joan Sola @ IRI-CSIC-UPC
 
-at = atan2(y,x);
-
+if isnumeric([x y])
+    at = atan2(y,x);
+else % symbolic
+    at = atan(y,x);
+end
+    
 if nargout > 1
     AT_y = 1/(x*(y^2/x^2 + 1));
     AT_x = -y/(x^2*(y^2/x^2 + 1));
 end
 
+return
+
+%%
+syms y x real
+[at, AT_y, AT_x] = atan2jac(y,x);
+simplify(AT_y - jacobian(at,y))
+simplify(AT_x - jacobian(at,x))

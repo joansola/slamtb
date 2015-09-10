@@ -1,4 +1,4 @@
-function a = vecsAngle(u,v)
+function [a, A_u, A_v] = vecsAngle(u,v)
 
 % VECSANGLE  Angle between two vectors.
 %   VECSANGLE(U,V) returns the angle between column vectors U and V. The
@@ -6,14 +6,33 @@ function a = vecsAngle(u,v)
 %
 %   VECSANGLE(U,M) returns a row vector with the m angles between the
 %   n-vector U and the m colums of the n-by-m matrix M.
+%
+%   [A, A_u, A_v] = VECSANGLE(U,V) returns teh Jacobians wrt U and V. Note
+%   that this only works for single vectors U and V.
 
 %   Copyright 2008,2009,2010 Joan Sola @ LAAS-CNRS, old acos() version.
-%   Copyright 2015- Joan Sola @ IRI-CSIC-UPC, better atan2() version.
+%   Copyright 2015- Joan Sola @ IRI-CSIC-UPC, better atan2() version, jacs.
 
 
 if size(v,2) == 1
+    
+    if nargout == 1 
 
-    a = atan2(norm(cross(u,v)), dot(u,v));
+        a = atan2(norm(cross(u,v)), dot(u,v));
+    
+    else % we want Jacobians
+        
+        [uxv, UXV_u, UXV_v] = crossJ(u,v);          % OK
+        [nuxv, NUXV_uxv]    = vecnorm(uxv);         % OK
+        [udv, UDV_u, UDV_v] = dotJ(u,v);            % OK
+        [a, A_nuxv, A_udv]  = atan2jac(nuxv, udv);  % OK
+        
+        A_uxv = A_nuxv*NUXV_uxv;                    % OK
+        
+        A_u = A_uxv*UXV_u + A_udv*UDV_u;    % See note 1) below
+        A_v = A_uxv*UXV_v + A_udv*UDV_v;    % See note 1) below
+        
+    end
 
 else
     
@@ -25,8 +44,22 @@ else
     
 end
 
-end
+%% Notes
+%
+% 1) Let w=h(u,v), u=f(x), v=g(x). Then,
+%   dw/dx = dw/du * du/dx + dw/dv * dv/dx.
 
+
+return
+
+%%
+syms u v w x y z real
+U=[u;v;w];
+V=[x;y;z];
+[a,A_u,A_v]=vecsAngle(U,V);
+
+simplify(A_u - jacobian(a,u))
+simplify(A_v - jacobian(a,v))
 
 
 % ========== End of function - Start GPL license ==========

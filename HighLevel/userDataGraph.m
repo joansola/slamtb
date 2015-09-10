@@ -229,7 +229,7 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'type',           'graph',...    % type of map {'ekf','graph'}
-    'useGtsam',       true,...       % use GTSAM as optimization backend
+    'useGtsam',       false,...       % use GTSAM as optimization backend
     'gtsam',          struct(...      % options to gtsam (mostly related to ISAM2)
       'verboseCheirality', true,...     % print messages when the point is projected behind the camera
       'incremental',  true,...        % is gtsam in incremental mode (using ISAM2) or in batch mode?
@@ -322,6 +322,7 @@ FigOpt = struct(...
     'showLmkId',    true,...        % Show landmark id?
     'showEllip',    false,...        % show ellipsoids?
     'showMotFac',   true,...        % show motion factors?
+    'showMotLabel', true,...        % show motion factor labels?
     'showMeaFac',   false,...       % show measurement factors?
     'colors',       struct(...      % map figure colors
       'border',     [1 1 1],...      %   [r g b]      

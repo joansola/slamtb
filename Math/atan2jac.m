@@ -16,8 +16,8 @@ else % symbolic
 end
     
 if nargout > 1
-    AT_y = 1/(x*(y^2/x^2 + 1));
-    AT_x = -y/(x^2*(y^2/x^2 + 1));
+    AT_y = x/(x^2 + y^2);
+    AT_x = -y/(x^2 + y^2);
 end
 
 return

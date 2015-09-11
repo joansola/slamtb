@@ -1,4 +1,4 @@
-function [Lmks, Frms] = updateStatesFromGtsam(Lmks,Frms,result)
+function [Lmks, Frms] = updateStatesFromGtsam(Sen,Lmks,Frms,result)
 
 import gtsam.*
 
@@ -15,9 +15,15 @@ lmks = [Lmks.used] & [Lmks.optim];
 for lmk = [Lmks(lmks).lmk]
     mainanchorid = Frms(Lmks(lmk).par.mainfrm).id;
     assoanchorid = Frms(Lmks(lmk).par.assofrm).id;
-   
-    Lmks(lmk).state.x(1:3) = result.at( symbol('x',mainanchorid) ).translation.vector;
-    Lmks(lmk).state.x(4:6) = result.at( symbol('x',assoanchorid) ).translation.vector;
+    
+    mainFrame.x = gtsampose2qpose(result.at( symbol('x',mainanchorid) ));
+    assoFrame.x = gtsampose2qpose(result.at( symbol('x',assoanchorid) ));
+    
+    mainCamFrame = composeFrames(updateFrame(mainFrame),Sen.frame);
+    assoCamFrame = composeFrames(updateFrame(assoFrame),Sen.frame);
+    
+    Lmks(lmk).state.x(1:3) = mainCamFrame.t;
+    Lmks(lmk).state.x(4:6) = assoCamFrame.t;
     Lmks(lmk).state.x(7:9) = result.at( symbol('l',Lmks(lmk).id) ).vector;
     
 end

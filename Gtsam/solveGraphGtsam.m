@@ -53,7 +53,7 @@ end
 
 % Update Frm and Lmk from isam result
 result = Map.gtsam.isam.calculateEstimate();
-[Lmk, Frm] = updateStatesFromGtsam(Lmk,Frm,result);
+[Lmk, Frm] = updateStatesFromGtsam(Sen,Lmk,Frm,result);
 
 
 % ========== End of function - Start GPL license ==========

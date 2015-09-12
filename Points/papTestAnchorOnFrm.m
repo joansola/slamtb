@@ -23,8 +23,8 @@ if Lmk.par.mainfac == currFacIdx || Lmk.par.assofac == currFacIdx
     return
 end
  
-% Only continue if the current parallax is not good enough
-if Lmk.par.initialpar >= Opt.init.papPnt.noReanchorTh
+% If we have good anchors (aka lmk is fixed to anchors) we do nothing.
+if Lmk.fixedAnchors
     return
 end
 
@@ -56,8 +56,10 @@ switch bestParIdx
         % Update lmk state
         Lmk.state.x = papmaincurr;
         
-        % Store new initial parallax angle value
-        Lmk.par.initialpar = papmaincurr(9);
+        % Set fixedAnchors flag if parallax is good enough
+        if Lmk.state.x(9) >= Opt.init.papPnt.noReanchorTh
+            Lmk.fixedAnchors = true;
+        end
         
         % Mark the landmark to be reseted if it is not new (used by GTSAM)
         if ~Lmk.new
@@ -74,9 +76,11 @@ switch bestParIdx
         % Update lmk state
         Lmk.state.x = papassocurr;
         
-        % Store new initial parallax angle value
-        Lmk.par.initialpar = papassocurr(9);
-
+        % Set fixedAnchors flag if parallax is good enough
+        if Lmk.state.x(9) >= Opt.init.papPnt.noReanchorTh
+            Lmk.fixedAnchors = true;
+        end
+        
         % Mark the landmark to be reseted if it is not new (used by GTSAM)
         if ~Lmk.new
             Lmk.reset = true;

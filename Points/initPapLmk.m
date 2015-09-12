@@ -18,13 +18,19 @@ pap = measurements2pap(maincamframe, Lmk.par.mainmeas, ...
 % test for minimal parallax to initialize
 if pap(9) >= Opt.init.papPnt.minParTh
     Lmk.state.x = pap;
-    Lmk.par.initialpar = pap(9);
+
+    % set fixedAnchors flag if parallax is good enough
+    if Lmk.state.x(9) >= Opt.init.papPnt.noReanchorTh
+        Lmk.fixedAnchors = true;
+    else
+        Lmk.fixedAnchors = false;
+    end
 
     % update lmk sizes
     [lmkSize, lmkDSize] = lmkSizes(Lmk.type);
     Lmk.state.size  = lmkSize(2);
     Lmk.state.dsize = lmkDSize(2);
-
+    
     failed = false;
 else
     failed = true;

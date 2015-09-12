@@ -17,6 +17,7 @@ for lmk = 1:Opt.map.numLmks
     Lmk(lmk).new     = false; % Landmark is new? (used by GTSAM)
     Lmk(lmk).optim   = false; % Landmark should be optimized? (used by GTSAM)
     Lmk(lmk).reset   = false; % Landmark value should be reseted? (used by GTSAM)
+    Lmk(lmk).fixedAnchors = false; % Landmark anchors are fixed? (used and set by reanchoring test)
     Lmk(lmk).factors = []; % factors list
 
     % Landmark state

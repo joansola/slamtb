@@ -273,7 +273,7 @@ Opt = struct(...
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       10,...          % max simultaneus updates
+    'nUpdates',       20,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections

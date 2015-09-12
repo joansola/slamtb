@@ -130,7 +130,7 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
     for rob = [SimRob.rob]
 
         % Robot motion
-        SimRob(rob) = simMotion(SimRob(rob),Tim);
+        SimRob(rob) = simMotion(SimRob(rob),Tim,currentFrame);
         
         % Simulate sensor observations
         for sen = SimRob(rob).sensors
@@ -159,8 +159,13 @@ for currentFrame = Tim.firstFrame : Tim.lastFrame
         % is noised so that the simulated trajectory can be made perfect
         % and act as a clear reference. The noise is additive to the
         % control input 'u'.
-        Rob(rob).con.u = ...
-            SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
+        if size(SimRob(rob).con.u,2) == 1
+            Rob(rob).con.u = ...
+                SimRob(rob).con.u + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
+        else
+            Rob(rob).con.u = ...
+                SimRob(rob).con.u(:,currentFrame) + Rob(rob).con.uStd.*randn(size(Rob(rob).con.uStd));
+        end
         
         Rob(rob) = simMotion(Rob(rob),Tim);
         

@@ -1,4 +1,4 @@
-function Rob = simMotion(Rob, Tim)
+function Rob = simMotion(Rob, Tim, currentFrame)
 
 % SIMMOTION  Simulated robot motion.
 %   Rob = SIMMOTION(Rob, Tim) performs one motion step to robot Rob,
@@ -20,7 +20,11 @@ switch Rob.motion
         Rob.frame   = updateFrame(Rob.frame);
 
     case  {'odometry'}
-        Rob.frame   = odo3(Rob.frame,Rob.con.u);
+        if size(Rob.con.u,2) == 1
+            Rob.frame   = odo3(Rob.frame,Rob.con.u);
+        else
+            Rob.frame   = odo3(Rob.frame,Rob.con.u(:,currentFrame));
+        end
         Rob.state.x = Rob.frame.x;
         
     otherwise

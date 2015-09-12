@@ -30,7 +30,7 @@ end
 
 % Get main, associated and current camera frames
 [ maincamframe, assocamframe ] = papLmkCamAnchorFrames( Lmk, Sen, Frms );
-currcamframe = composeFrames(updateFrame(Frms(currFrmIdx).deadreckostate),Sen.frame);
+currcamframe = composeFrames(updateFrame(Frms(currFrmIdx).state),Sen.frame);
 
 % Get parallax angle between main anchor frame and current frame, and
 % between associated anchor frame and current frame

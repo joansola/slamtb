@@ -119,9 +119,6 @@ for rob = 1:numel(Rob)
     
     % create and draw robot - with ellipse
     MapFig.Rob(rob).patch = createObjPatch(Rob(rob),FigOpt.map.colors.est,MapFig.axes);
-    % dead reckoning (dr) robot estimation
-    MapFig.Rob(rob).drpatch = createObjPatch(Rob(rob),FigOpt.map.colors.drest,MapFig.axes);
-
     MapFig.Rob(rob).ellipse = line(...
         'parent', MapFig.axes,...
         'xdata',  [],    ...

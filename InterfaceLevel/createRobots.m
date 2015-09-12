@@ -67,9 +67,7 @@ for rob = 1:numel(Robot)
     Ro.frame.x = qp;
     Ro.frame.P = QP;
     Ro.frame = updateFrame(Ro.frame);
-
-    Ro.deadreckoframe = Ro.frame;
-
+    
     Rob(rob) = Ro; % output robot structure
     
 end

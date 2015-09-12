@@ -287,6 +287,8 @@ Opt = struct(...
       'nonObsMean',   .1,...         % mean of non obs
       'nonObsStd',    .5),...         % std of non obs
     'papPnt',         struct(...     % options for pap lmks
+      'allowDistAnc', false,...     % allow landmark with distant anchors?
+      'maxAncDistKf', 10,...       % max distance in keyframes between anchors (only used if 'allowDistAnc' is not set)
       'minParTh',     .0333,...       % minimal parallax to add the point (using rule of thumb: b/h = 1/30)
       'noReanchorTh', .5),...         % minimal parallax to stop reanchoring a point
     'plkLin',         struct(...     % opt. for Plucker and anchored Plucker lines init

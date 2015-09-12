@@ -46,6 +46,18 @@ switch bestParIdx
         % added.
         
     case 2 % Parallax main-current is better, perform the reanchoring.
+        % Before reanchoring, check the distance between the new anchors.
+        % If its bigger than a threshold, we do not reanchor, and mark the
+        % lmk current anchors as fixed. This is a workaround when
+        % simulating landmarks, to avoid anchors that are too far from each
+        % other, and which relative uncertainty would be big. 
+        if abs(Frms(Lmk.par.mainfrm).id - Frms(currFrmIdx).id) > Opt.init.papPnt.maxAncDistKf
+             Lmk.fixedAnchors = true;
+             return;
+        end
+        
+        % If we get here, proceed with reanchoring...
+        
         % Set the current frame as the associated anchor frame
         [ Lmk, Frms, Facs ] = papChangeAssoAnchorToFrm( Lmk, Frms, Facs, currFrmIdx, currFacIdx );
         
@@ -63,6 +75,16 @@ switch bestParIdx
         end
         
     case 3 % Parallax asso-current is better, perform the reanchoring
+        % As in the 'case 2' above, before reanchoring, check the distance
+        % between the new anchors, bur here the new main-asso anchors
+        % frames are the associated and the newest frame.
+        if abs(Frms(Lmk.par.assofrm).id - Frms(currFrmIdx).id) > Opt.init.papPnt.maxAncDistKf
+             Lmk.fixedAnchors = true;
+             return;
+        end
+        
+        % If we get here, proceed with reanchoring...
+        
         % First swap main and associated anchors
         [ Lmk, Frms, Facs ] = papSwapMainAssoAnchors( Lmk, Frms, Facs );
         % Then change the current associated anchor (in fact, the main

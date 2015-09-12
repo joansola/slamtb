@@ -110,11 +110,26 @@ if any(vis) % Consider only visible observations
                             % Store associate anchor information
                             [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm(currFrmIdx),Fac(fac));
 
-                            % init pap pnt to a complete parametrization
-                            [Lmk(lmk), initFailed]  = initPapLmk(Lmk(lmk),Sen,Frm,Opt);
+                            % try to init pap pnt to a complete parametrization
+                            [Lmk(lmk), initError]  = initPapLmk(Lmk(lmk),Sen,Frm,Opt);
 
-                            if initFailed
+                            if initError
+                                % Init failed. Clear the associate anchor information.
                                 Lmk(lmk) = clearLmkParams(Lmk(lmk),'asso');
+
+                                % Check if we failed because the anchors were too far. In this case we set
+                                % the current frame to be the new main anchor, and we hope that we'll
+                                % observe this landmark again from a frame that's not too far from the main
+                                % frame.
+                                if strcmp(initError,'ancTooFarAway')
+                                    % clear previous main anchor parameters
+                                    Lmk(lmk) = clearLmkParams(Lmk(lmk),'main');
+                                    % reinit main anchor parameters
+                                    [Lmk(lmk),Obs(lmk)] = initLmkParams(Rob,Sen,Lmk(lmk),Obs(lmk),Frm(currFrmIdx),Fac(fac));
+                                    % reproject landmark to new anchor
+                                    Lmk(lmk).state.x = retroProjLmk(Rob,Sen,Obs(lmk),Opt);
+                                end
+
                                 % TODO: continuing here will drop one of the landmark measurements. Change it to
                                 % store the measurement somewhere until we have the minimal baseline to add the lmk
                                 continue;

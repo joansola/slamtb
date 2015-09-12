@@ -66,20 +66,38 @@ World = struct(...
 %       'odometry'    6D Odometry model
 %       'inertial'    6D IMU-based model
 %   - See EULERANGLES for orientations specifications.
-% Robot inside thick cloister
+
+% Robot in a S trajectory
 Robot{1} = struct(...                  % ODOMETRY EXAMPLE
   'id',                 1,...           % robot identifier
   'name',               'Dala',...      % robot name
   'type',               'atrv',...      % type of robot
   'motion',             'odometry',...  % motion model
-  'position',           [0;-5;0.0],...     % robot position in map
+  'position',           [0;-10;0.0],...     % robot position in map
   'orientationDegrees', [0;0;0],...     % orientation, in degrees, [roll; pitch; yaw].
   'positionStd',        [0;0;0],...     % position error, std
   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
-  'dx',                 [.08;0;0],...     % position increment
-  'daDegrees',          [0;0;.9],...     % angle increment, degrees
+  'dx',                 repmat([.08;0;0],1,1200),...     % position increment
+  'daDegrees',          ...               % angle increment, degrees
+    [repmat([0;0;0],1,200) repmat([0;0;.9],1,200) repmat([0;0;0],1,400) repmat([0;0;-.9],1,200) repmat([0;0;0],1,200) ], ...
   'dxStd',              0.005*[1;1;1],...  % odo linear error std
   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
+
+
+% % Robot inside thick cloister
+% Robot{1} = struct(...                  % ODOMETRY EXAMPLE
+%   'id',                 1,...           % robot identifier
+%   'name',               'Dala',...      % robot name
+%   'type',               'atrv',...      % type of robot
+%   'motion',             'odometry',...  % motion model
+%   'position',           [0;-5;0.0],...     % robot position in map
+%   'orientationDegrees', [0;0;0],...     % orientation, in degrees, [roll; pitch; yaw].
+%   'positionStd',        [0;0;0],...     % position error, std
+%   'orientationStd',     [0;0;0],...     % orient. error, std, in degrees
+%   'dx',                 [.08;0;0],...     % position increment
+%   'daDegrees',          [0;0;.9],...     % angle increment, degrees
+%   'dxStd',              0.005*[1;1;1],...  % odo linear error std
+%   'daStd',              0.05*[1;1;1]);      % odo ang error std, degrees
 
 % % Robot moving around thick cloister
 % Robot{1} = struct(...                  % ODOMETRY EXAMPLE

@@ -41,7 +41,7 @@ Time = struct(...
 
 % Cage + Floor
 World = struct(...
-  'points',           [ YZWall(-30,30,0,20,-30,15,6) YZWall(-30,30,0,20,30,15,6) XZWall(-30,30,0,20,-30,15,6) XZWall(-30,30,0,20,30,15,6) XYWall(-30,30,-30,30,0,15,15)], ... % 3d point landmarks - see YZHALLWAY and YZWALL
+  'points',           [ YZWall(-30,30,0,20,-30,15,6) YZWall(-30,30,0,20,30,15,6) XZWall(-26,26,0,20,-30,13,6) XZWall(-26,26,0,20,30,13,6) XYWall(-26,26,-26,26,0,13,13)], ... % 3d point landmarks - see YZHALLWAY and YZWALL
   'segments',         []);  % 3D segments - see HOUSE. 
 
 % % Long hallway with far wide wall

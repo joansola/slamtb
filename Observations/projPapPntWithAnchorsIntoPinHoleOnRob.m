@@ -69,9 +69,7 @@ if nargout <= 2  % No Jacobians requested
         
         vecCtoPInCf = Cf.Rt*vecCtoP;
 
-        u = pinHole(vecCtoPInCf,k,d);
-
-        s = vecCtoPInCf(3);
+        [u, s] = pinHole(vecCtoPInCf,k,d);
 
     end
 
@@ -87,7 +85,7 @@ else            % Jacobians requested
         U_sf = U_cf*CF_sf;
         U_rf = U_cf*CF_rf;
         U_mf = U_rf;
-        U_af = [];
+        U_af = zeros(2,0);
         % projection does not depend on parallax here
         U_minpap = [U_idp(:,4:5) zeros(2,1)];
     else
@@ -147,6 +145,7 @@ end
 return
 
 %% 
+tic
 syms p y par real
 syms rx ry rz ra rb rc rd real
 syms sx sy sz sa sb sc sd real
@@ -169,13 +168,15 @@ d    = [d1;d2;d3];
 
 [u,s,U_rf,U_sf,U_k,U_d,U_minpap,U_mf,U_af] = ...
 projPapPntWithAnchorsIntoPinHoleOnRob(Rf, Sf, k, d, minpap, Mf, Af);
+toc
 
+% This lines below takes AGES!!!
 tic
 simplify(U_rf - jacobian(u,Rf.x))
 toc
-tic
-simplify(U_sf - jacobian(u,Sf.x))
-toc
+% tic
+% simplify(U_sf - jacobian(u,Sf.x))
+% toc
 tic
 simplify(U_minpap - jacobian(u,minpap))
 toc

@@ -256,12 +256,12 @@ Opt = struct(...
       'incremental',  true,...        % is gtsam in incremental mode (using ISAM2) or in batch mode?
       'verboseCheirality', true,...     % print messages when the point is projected behind the camera
       'throwCheirality',   false,...    % throw an error when the point is projected behind the camera
-      'relinearizeSkip', 1,...          % relinearize every 'relinearizeSkip' ISAM2 updates
-      'relinearizeTh',   0.0,...        % threshold to decide to relinearize a variable
+      'relinearizeSkip', 1,...          % relinearize every 'relinearizeSkip' ISAM2 updates ('default' selects GTSAM default value: 10)
+      'relinearizeTh',   0.0,...        % threshold to decide to relinearize a variable ('default' selects GTSAM default value: 0.1)
       'factorization',   'CHOLESKY',... % factorization used to do matrix decomposition {'CHOLESKY', 'QR'}
       'nonlinearOptimizer', 'DOGLEG',...    % nonlinear optimizer used {'GAUSSNEWTON', 'DOGLEG'}
       'doglegAdaptationMode', 'SEARCH_EACH_ITERATION',...    % type of adaptation of the trust region used by dogleg {'ONE_STEP_PER_ITERATION', 'SEARCH_EACH_ITERATION'}
-      'wildfireTh', 0.0),...            % Stop updating the linear delta if the changes are below this threshold
+      'wildfireTh', 0.0),...            % Stop updating the linear delta if the changes are below this threshold ('default' selects GTSAM default value: 0.001 for GAUSSNEWTON, 1e-5 for DOGLEG)
     'numLmks',        size(World.points,2) + 1,...         % number of 3d landmarks
     'numFrames',      100,...         % number of frames in graph
     'kfrmPeriod',     20),...        % period between keyframes

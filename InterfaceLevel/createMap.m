@@ -70,19 +70,24 @@ switch lower(Opt.map.type)
             switch Opt.map.gtsam.nonlinearOptimizer
                 case 'GAUSSNEWTON'
                     optimizer = gtsam.ISAM2GaussNewtonParams();
-                    optimizer.setWildfireThreshold( Opt.map.gtsam.wildfireTh )
                 case 'DOGLEG'
                     optimizer = gtsam.ISAM2DoglegParams();
-                    optimizer.setWildfireThreshold( Opt.map.gtsam.wildfireTh )
                     % ONE_STEP_PER_ITERATION makes the trust region
                     % increase only once every iteraction. See
                     % https://research.cc.gatech.edu/borg/sites/edu.borg/html/a00065.html#a52e03ca11a892d070c911db43f22cf04
                     % for details.
                     optimizer.setAdaptationMode(Opt.map.gtsam.doglegAdaptationMode);                    
             end
+            if ~ischar( Opt.map.gtsam.wildfireTh )
+                optimizer.setWildfireThreshold( Opt.map.gtsam.wildfireTh )
+            end
             Map.gtsam.params.setOptimizationParams(optimizer);
-            Map.gtsam.params.setRelinearizeSkip( Opt.map.gtsam.relinearizeSkip );
-            Map.gtsam.params.setRelinearizeThreshold( Opt.map.gtsam.relinearizeTh );
+            if ~ischar( Opt.map.gtsam.relinearizeSkip )
+                Map.gtsam.params.setRelinearizeSkip( Opt.map.gtsam.relinearizeSkip );
+            end
+            if ~ischar( Opt.map.gtsam.relinearizeTh )
+                Map.gtsam.params.setRelinearizeThreshold( Opt.map.gtsam.relinearizeTh );
+            end
             Map.gtsam.params.setFactorization( Opt.map.gtsam.factorization );
             % This option is always true because we're removing and
             % re-adding factors when reanchoring

@@ -251,10 +251,10 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'type',           'graph',...    % type of map {'ekf','graph'}
-    'useGtsam',       false,...       % use GTSAM as optimization backend
+    'useGtsam',       true,...       % use GTSAM as optimization backend
     'gtsam',          struct(...      % options to gtsam (mostly related to ISAM2)
-      'verboseCheirality', true,...     % print messages when the point is projected behind the camera
       'incremental',  true,...        % is gtsam in incremental mode (using ISAM2) or in batch mode?
+      'verboseCheirality', true,...     % print messages when the point is projected behind the camera
       'throwCheirality',   false,...    % throw an error when the point is projected behind the camera
       'relinearizeSkip', 1,...          % relinearize every 'relinearizeSkip' ISAM2 updates
       'relinearizeTh',   0.0,...        % threshold to decide to relinearize a variable
@@ -264,7 +264,7 @@ Opt = struct(...
       'wildfireTh', 0.0),...            % Stop updating the linear delta if the changes are below this threshold
     'numLmks',        size(World.points,2) + 1,...         % number of 3d landmarks
     'numFrames',      100,...         % number of frames in graph
-    'kfrmPeriod',     10),...        % period between keyframes
+    'kfrmPeriod',     20),...        % period between keyframes
   'solver',           struct(...    % graph solver
     'decomposition',  'Cholesky',...        % Matrix decomposition {'Cholesky', 'QR', 'Schur'}
     'niterations',    1,...           % number of iterations
@@ -273,7 +273,7 @@ Opt = struct(...
   'correct',          struct(...    % options for lmk correction
     'reprojectLmks',  false,...       % reproject lmks after active search?
     'reparametrize',  true,...       % reparametrize lmk?
-    'nUpdates',       50,...          % max simultaneus updates
+    'nUpdates',       10,...          % max simultaneus updates
     'MD2th',          9,...          % Threshold on Mahalanobis distance squared
     'linTestIdp',     0.1,...        % threshold on IDP linearity test
     'lines',          struct(...     % options for line corrections
@@ -281,7 +281,7 @@ Opt = struct(...
       'extPolicy',    false,...       % line extending policy ?
       'extSwitch',    10)),...        % extension policy switch point in pixels
   'init',             struct(...    % Options for initialization
-    'nbrInits',       [50 50],...      % number of inits [firstFrame, otherFrames]
+    'nbrInits',       [20 5],...      % number of inits [firstFrame, otherFrames]
     'initType',       'papPnt',...   % Type of lmk to use for init
     'idpPnt',         struct(...     % options for lmk initialization
       'nonObsMean',   .1,...         % mean of non obs
@@ -301,7 +301,7 @@ Opt = struct(...
 %   - random
 SimOpt = struct(...                    
   'random',           struct(...      % random generator options
-    'newSeed',        false,...         % select new random seed?
+    'newSeed',        true,...         % select new random seed?
     'fixedSeed',      209369,...       % random seed for non-random runs
     'seed',           []),...          % current seed
   'obs',              Opt.obs);       % Observation options
@@ -326,7 +326,7 @@ SimOpt = struct(...
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
   'renderer',       'zbuffer',...    % renderer
-  'rendPeriod',     10,...           % frames to skip for faster processing
+  'rendPeriod',     20,...           % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options
     'size',         [320 240],...   % map figure size

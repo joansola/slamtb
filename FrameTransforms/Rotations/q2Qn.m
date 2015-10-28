@@ -6,12 +6,12 @@ function Q = q2Qn(q)
 %
 %       q1 x q2 == q2Qn(q2) * q1
 %
-%   If q = [a b c d]' this matrix is
+%   If q = [a b c d]' = [a ; v] this matrix is
 %
-%       Q = [ a -b -c -d
-%             b  a  d -c
-%             c -d  a  b
-%             d  c -b  a ];
+%       Q = [ a -b -c -d ] = [ a     -v'    ]
+%           [ b  a  d -c ]   [ v  aI+hat(v) ]
+%           [ c -d  a  b ]
+%           [ d  c -b  a ];
 %
 %   See also QUATERNION, Q2Q, R2Q, Q2E, Q2V.
 

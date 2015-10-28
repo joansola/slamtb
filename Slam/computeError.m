@@ -62,7 +62,7 @@ switch Fac.type
         % inverse of F and G,
         %   composeFrames(invertFrame(F), G)
         % and minimal() is a 6 DoF expression of the frame, done using the
-        % function qframe2vframe().
+        % function qpose2vpose().
         [Fac.exp.e, E_x1, E_x2] = frameIncrement(...
             Frm(1).state.x, ...
             Frm(2).state.x);

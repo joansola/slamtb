@@ -251,7 +251,7 @@ Sensor{1} = struct(...
 Opt = struct(...
   'map',              struct(...    % options for the map
     'type',           'graph',...    % type of map {'ekf','graph'}
-    'useGtsam',       true,...       % use GTSAM as optimization backend
+    'useGtsam',       false,...       % use GTSAM as optimization backend
     'gtsam',          struct(...      % options to gtsam (mostly related to ISAM2)
       'incremental',  true,...        % is gtsam in incremental mode (using ISAM2) or in batch mode?
       'verboseCheirality', true,...     % print messages when the point is projected behind the camera

@@ -13,18 +13,17 @@
 %   number of landmarks that the SLAM map must support.
 %   * Use Opt.init.initType to select the type of landmarks to use. Try
 %   with one in this list:
-%       'eucPnt'.
-%   * Use World.points to create artificial worlds of points or segments.
+%       'eucPnt'. -- only this one is supported so far.
+%   * Use World.points to create artificial worlds of points.
 %   Check function THICKCLOISTER.
 %
 %   See further comments within the file for more detailed information.
 %
 %   NOTE: You can have multiple copies of this file with different names to
-%   store different simulation conditions. Just modify the call in SLAMTB
-%   to point to the particular 'USERDATA' file you want.
+%   store different simulation conditions. Just modify the call in
+%   SLAMTB_GRAPH to point to the particular 'USERDATAGRAPH' file you want.
 %
-%   See also SLAMTB, EULERANGLES, THICKCLOISTER, USERDATA, USERDATAPNT,
-%   USERDATALIN.
+%   See also SLAMTB_GRAPH, EULERANGLES, THICKCLOISTER.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 %   Copyright 2015-     Joan Sola @ IRI-CSIC-UPC.

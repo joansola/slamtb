@@ -9,7 +9,7 @@
 %   - Beginners should not modify this file, just edit USERDATA_GRAPH.M and
 %   enter and/or modify the data you wish to simulate.
 %
-%   See also USERDATA_GRAPH, SLAMTB.
+%   See also USERDATAGRAPH, SLAMTB.
 %
 %   Also consult slamToolbox.pdf and courseSLAM.pdf in the root directory.
 

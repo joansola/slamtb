@@ -27,15 +27,15 @@ if nargout > 1 % we want Jacobians
         [a,b,c,d] = split(q);
         [x,y,z]   = split(v);
 
-        axdycz = 2*(a*x - d*y + c*z);
-        bxcydz = 2*(b*x + c*y + d*z);
-        cxbyaz = 2*(c*x - b*y - a*z);
-        dxaybz = 2*(d*x + a*y - b*z);
+        sa = 2*(-b*x - c*y - d*z);
+        sb = 2*( a*x - d*y + c*z);
+        sc = 2*( d*x + a*y - b*z);
+        sd = 2*(-c*x + b*y + a*z);
 
         W_q = [...
-            [  axdycz,  bxcydz, -cxbyaz, -dxaybz]
-            [  dxaybz,  cxbyaz,  bxcydz,  axdycz]
-            [ -cxbyaz,  dxaybz, -axdycz,  bxcydz]];
+            [  sb, -sa,  sd, -sc]
+            [  sc, -sd, -sa,  sb]
+            [  sd,  sc, -sb, -sa]];
 
         W_v = q2R(q);
         

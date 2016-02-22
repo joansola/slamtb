@@ -8,7 +8,7 @@ I. Copyright and license.
 =========================
 (c) 2007, 2008, 2009, 2010  Joan Sola  @ LAAS-CNRS; 
 (c) 2010, 2011, 2012, 2013  Joan Sola
-(c) 2014, 2015              Joan Sola  @ IRI-UPC-CSIC; 
+(c) 2014, 2015, 2016        Joan Sola  @ IRI-UPC-CSIC; 
 (c) 2009  Joan Sola, David Marquez, Jean Marie Codol,
           Aurelien Gonzalez and Teresa Vidal-Calleja, @ LAAS-CNRS; 
 

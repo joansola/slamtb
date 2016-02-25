@@ -30,10 +30,12 @@ function Frm = updateKeyFrm(Frm)
 %       p = p + dp;
 %
 %   2) The orientation increment, dphi, is taken to be the imaginary vector
-%   of the orientation quaternion, so that
+%   of the orientation quaternion, so that we can define a quaternion step,
 %
 %       dq =    [ sqrt( 1 - || dphi || ) ]
 %               [          dphi          ]
+%
+%   from which we apply the update via quaternion product,
 %
 %       q = q ** dq
 %

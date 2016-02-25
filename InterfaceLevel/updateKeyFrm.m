@@ -1,5 +1,49 @@
 function Frm = updateKeyFrm(Frm)
 
+% UPDATEKEYFRM Update key-frame
+%   Frm = UPDATEKEYFRM(Frm) updates the state of the key-frame Frm
+%   according to the information in the global variable Map. For this, it
+%   accesses the correction step through the range stored in Frm.state.r,
+%
+%       dpose = Map.x(Frm.state.r),
+%
+%   and uses frame composition to update the frame state, Frm.state.x,
+%
+%       Frm.state.x = Frm.state.x ++ dpose,
+%
+%   where ++ is a nonlinear frame composition, explained below.
+%
+%   The frame composition operator ++ partitions the frame state, 
+%
+%       Frm.state.x = [p;q], 
+%
+%   with position p and orientation quaternion q, and the correction
+%   step, 
+%
+%       dpose = [dp;dphi], 
+%
+%   with position increment, dp, and orientation increment, dphi. The
+%   operator ++ is then decomposed in two parts.
+%
+%   1) The position increment, dp, acts linearly in the update:
+%
+%       p = p + dp;
+%
+%   2) The orientation increment, dphi, is taken to be the imaginary vector
+%   of the orientation quaternion, so that
+%
+%       dq =    [ sqrt( 1 - || dphi || ) ]
+%               [          dphi          ]
+%
+%       q = q ** dq
+%
+%   where ** is the quaternion product (using the Hamilton convention).
+%
+%   See also UPDATESTATES, SOLVEGRAPHQR, SOLVEGRAPHCHOLESKY,
+%   SOLVEGRAPHSCHUR.
+
+%   Copyright 2016 Joan Sola @ IRI-UPC-CSIC
+
 global Map
 
 % Get state error from Map
@@ -14,7 +58,7 @@ dphi = dp(4:6);
 dq = [sqrt(1 - dphi'*dphi) ; dphi]; 
 
 % Update pose
-Frm.state.x(1:3) = Frm.state.x(1:3) + dp(1:3);  % posotion in Euclidean
+Frm.state.x(1:3) = Frm.state.x(1:3) + dp(1:3);  % position in Euclidean
 Frm.state.x(4:7) = qProd(Frm.state.x(4:7), dq); % Quaternion uses manifold
 
 end

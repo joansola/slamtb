@@ -138,7 +138,7 @@ global Map
 %   H = Map.H(mr,mr) is the current Hessian matrix, using only the states
 %   currently active in the problem.
 %
-%   H = Map.b(mr) is the current error vector, using only the states
+%   b = Map.b(mr) is the current error vector, using only the states
 %   currently active in the problem.
 %
 % To filll the blocks of Map.H and Map.b, you need to access them via the

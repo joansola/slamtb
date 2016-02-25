@@ -111,20 +111,86 @@ function Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 global Map
 
-% Reset Hessian and rhs vector
-Map.H(Map.mr,Map.mr) = 0;
-Map.b(Map.mr)    = 0;
+% In this function, we build the problem to be solved by Cholesky
+% factorization. The goal, then, is to enter the right values in the
+% Hessian matrix,
+%
+%   Map.H
+%
+% and the error vector,
+%
+%   Map.b
+%
+% using the methods in the documentation, see graphSLAM.pdf.
 
-% Iterate all factors
+% The variable Map stores the following important fields (type
+% '> diginto(Map)' for the full structure)
+%
+%   Map.H : preallocated Hessian matrix
+%   Map.b : preallocated error vector
+%   Map.mr: vector of indices of all states used.
+%
+% the indices vector Map.mr is very useful to exploit sparsity. Use it as
+% follows:
+%
+%   mr = Map.mr:  <-- just to make a short name for these notes
+%
+%   H = Map.H(mr,mr) is the current Hessian matrix, using only the states
+%   currently active in the problem.
+%
+%   H = Map.b(mr) is the current error vector, using only the states
+%   currently active in the problem.
+%
+% To filll the blocks of Map.H and Map.b, you need to access them via the
+% ranges of the state blocks you are considering. Examples:
+%
+%   rr = Frm.state.r <-- vector of indices to the robot's state block
+%   lr = Lmk.state.r <-- vectos of indices to the landmark's state block
+%
+% you can use these ranges to access the appropriate blocks in the Hessian:
+%
+%   Map.H(rr,rr) is the Hessian block of the robot
+%   Map.H(lr,lr) is the Hessian block of the landmark
+%   Map.H(rr,lr) is the Hessian block of the robot and landmark
+%   Map.H(lr,rr) is the Hessian block of the landmark and robot
+%
+% Similarly, we can access the  error vector blocks with Map.b(rr) and
+% Map.b(lr).
+
+% To write this function, follow the Cholesky algorithm in courseSLAM.pdf.
+% We provide the error function computeError(), returning the following
+% fields (type '> help computeError' for help):
+%
+%   Fac: an updated structure for the factor Fac
+%   e  : the factor error
+%   W  : the factor information matrix
+%   Wsq: the square root of W
+%   J1 : the Jacobian wrt the first state block
+%   J2 : the Jacobian wrt the second state block
+%   r1 : the range of the first state block
+%   r2 : the range of the second state block
+%
+% Easily, the ranges r1 and r2 are used instead of rr and rl in the example
+% above.
+%
+% Similarly, the Jacobians J1 and J2 are used to compute the Hessian blocks
+% and error vector blocks. Again, consult the Cholesky algorithm in
+% courseSLAM.pdf.
+
+% It follows a guideline of the code you need to insert
+
+% 1) Reset Hessian H and error vector b
+
+% 2) Iterate for all factors present in the problem
 for fac = find([Fac.used])
     
-    % Extract some pointers
-    rob    = Fac(fac).rob;
-    sen    = Fac(fac).sen;
-    lmk    = Fac(fac).lmk;
-    frames = Fac(fac).frames;
+    % 2.a Extract relevant pointers for the factor
+    % rob    = <-- robot associated to the factor...
+    % sen    = <-- sensor   ... idem ...
+    % lmk    = <-- landmark ... idem ...
+    % frames = <-- frames   ... idem ...
     
-    % Compute factor error, info mat, and Jacobians
+    % 2.b Compute factor error, info mat, and Jacobians
     [Fac(fac), e, W, ~, J1, J2, r1, r2] = computeError(...
         Rob(rob),       ...
         Sen(sen),       ...
@@ -133,23 +199,19 @@ for fac = find([Fac.used])
         Frm(frames),    ...
         Fac(fac));
 
-    % Compute sparse Hessian blocks
-    H_11 = J1' * W * J1;
-    H_12 = J1' * W * J2;
-    H_22 = J2' * W * J2;
+    % 2.c Compute sparse Hessian blocks
+    % H_11 = <-- block 1-1;
+    % H_12 = <-- block 1-2;
+    % H_22 = <-- block 2-2;
+    % H_21 = <-- block 2-1;
     
-    % Compute rhs vector blocks
-    b1   = J1' * W * e;
-    b2   = J2' * W * e;
+    % 2.d Compute rhs vector blocks
+    % b1   = <-- block 1;
+    % b2   = <-- block 2;
     
-    % Update H and b
-    Map.H(r1,r1) = Map.H(r1,r1) + H_11;
-    Map.H(r1,r2) = Map.H(r1,r2) + H_12;
-    Map.H(r2,r1) = Map.H(r2,r1) + H_12';
-    Map.H(r2,r2) = Map.H(r2,r2) + H_22;
-    
-    Map.b(r1,1)  = Map.b(r1,1)  + b1;
-    Map.b(r2,1)  = Map.b(r2,1)  + b2;
+    % 2.e Update H and b
+    % Map.H(r1,r1) = <-- block 1-1;
+    % ... etc for the other blocks of Map.H and Map.b.
 
 end
 

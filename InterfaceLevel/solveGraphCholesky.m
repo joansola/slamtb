@@ -42,7 +42,7 @@ for it = 1:n_iter
     % file. You will find the prototype at the bottom of this file. You
     % have to write the whole function. There are some comments to help you
     % with this job.
-    
+    %
     % After this line, the global variable Map has been updated. Relevant
     % fields are:
     %   Map.H : Hessian matrix
@@ -53,7 +53,7 @@ for it = 1:n_iter
     %   H = Map.H(mr,mr)
     %   b = Map.b(mr)
     % From this point on, we should be able to solve for dx. For this,
-    % follow these steps:
+    % follow these steps (you must code steps 1 to 5):
     %
     
     % 1) Apply reordering
@@ -76,7 +76,7 @@ for it = 1:n_iter
     % At this point, we have the update step stored in the Map variable, in
     % Map.x, in the original ordering.
     
-    % We can use this step to update each of the state blocks:
+    % 5) We can use this step to update each of the state blocks:
     %   - All the Frames in Frm    --- use updateKeyFrame()
     %   - All the landmarks in Lmk --- use a linear update.
     % Type '> help updateKeyFrame' for help.

@@ -1,11 +1,23 @@
 function [Fac, e, W, Wsqrt, J1, J2, r1, r2] = computeError(Rob,Sen,Lmk,Obs,Frm,Fac)
 
 % COMPUTEERROR Compute factor error.
-%   [Fac, e, W, Wsqrt, J1, J2, r1, r2] = COMPUTEERROR(Rob,Sen,Lmk,Obs,Frm,Fac)
+%   [Fac, e, W, Wsq, J1, J2, r1, r2] = COMPUTEERROR(Rob,Sen,Lmk,Obs,Frm,Fac)
 %   computes the error associated to the factor Fac given the current
 %   states in Frm and / or Lmk.
+%
+%   The function returns:
+%
+%       Fac: an updated structure for the factor Fac.
+%       e  : the factor error
+%       W  : the factor information matrix
+%       Wsq: the square root of W
+%       J1 : the Jacobian wrt the first state block
+%       J2 : the Jacobian wrt the second state block
+%       r1 : the range of the first state block
+%       r2 : the range of the second state block
 
-%   Copyright 2015 Joan Sola @ IRI-UPC-CSIC.
+
+%   Copyright 2015,2016 Joan Sola @ IRI-UPC-CSIC.
 
 
 switch Fac.type

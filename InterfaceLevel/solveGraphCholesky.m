@@ -33,47 +33,59 @@ for it = 1:n_iter
     
 %     fprintf('----------------\nIteration: %d; \n',it)
 
-    
     % Compute Jacobians for projection onto the manifold
     [Frm,Lmk] = errorStateJacobians(Frm,Lmk);
     
     % Build Hessian H and rhs vector b, in global Map
     Fac       = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac);
+    % This function must be defined as a local function within this same
+    % file. You will find the prototype at the bottom of this file. You
+    % have to write the whole function. There are some comments to help you
+    % with this job.
     
-    if it == 1 % do this only once:
-        
-        % Column permutation
-        p  = colamd(Map.H(Map.mr,Map.mr))';
-        
-        % Permutated map range
-        pr = Map.mr(p);
-    end
-    
-    % Decomposition
-    [Map.R, ill] = chol(Map.H(pr,pr));
-    
-    if ill
-        error('Ill-conditioned Hessian')
-    end
-
-    % Solve for dx and reorder:
-    %   - dx is Map.x(mr)
-    %   - reordered dx is Map.x(pr)
-    y         = -Map.R'\Map.b(pr); % solve for y
-    Map.x(pr) = Map.R\y;
-    
-    % NOTE: Matlab is able to do all the reordering and Cholesky
-    % factorization for you. If you just use the operator '\', as in 
-    % 'dx = -H\b', Matlab will reorder H, then factor it as R'R, then solve
-    % the two subproblems, then reorder back the result into dx. Use the
-    % following line to accomplish this, and comment out the code from line
-    % 'if it == 1' until here:
+    % After this line, the global variable Map has been updated. Relevant
+    % fields are:
+    %   Map.H : Hessian matrix
+    %   Map.b : error vector
+    %   Map.mr: indices to all states being used
+    % Then, by doing mr = Map.mr, one can access the current Hessian and
+    % error vector:
+    %   H = Map.H(mr,mr)
+    %   b = Map.b(mr)
+    % From this point on, we should be able to solve for dx. For this,
+    % follow these steps:
     %
-    %     Map.x(Map.mr) = -Map.H(Map.mr,Map.mr)\Map.b(Map.mr);
     
-    % Update nominal states
-    [Rob,Lmk,Frm] = updateStates(Rob,Lmk,Frm);
+    % 1) Apply reordering
+    %   Use colamd() on matrix H
+    %   Store the result in permutation vector pr
     
+    % 2) Get the Choolesky decomposition of H
+    %   Use chol() on the reordered H
+    %   Check for ill-conditioning of H and issue an error if necessary
+    %   Type '> help chol' for help.
+    %   Store the result in Map.R
+    
+    % 3) Solve R'*y = b and R*dx = y
+    %   Use operator '\'. Type '> help \' for help
+    %   Store the result in variable dx
+    
+    % 4) Transfer dx to Map.x 
+    %   Use the permutation vector pr computed in 1).
+    
+    % At this point, we have the update step stored in the Map variable, in
+    % Map.x, in the original ordering.
+    
+    % We can use this step to update each of the state blocks:
+    %   - All the Frames in Frm    --- use updateKeyFrame()
+    %   - All the landmarks in Lmk --- use a linear update.
+    % Type '> help updateKeyFrame' for help.
+    
+    
+    % The algorithm continues by checking the new residual error and
+    % deciding on whether it is necessary to continue iterating. You do
+    % not have to code this part.
+        
     % Check resulting errors
     [res, err_max] = computeResidual(Rob,Sen,Lmk,Obs,Frm,Fac);
     dres           = res - res_old;

@@ -41,7 +41,7 @@ switch Fac.type
         Fac.err.W         = Fac.err.Z^-1;
         Fac.err.Wsqrt     = chol(Fac.err.W);
         Fac.state.r1      = Frm.state.r;
-        Fac.state.r2      = [];
+        Fac.state.r2      = zeros(1,0);
         
     case 'motion'
         % Given two expected poses and a pose increment measurement,

@@ -43,10 +43,12 @@ appearing in the References section in the documentation.
 III. Installation and quick usage.
 ==================================
 
-To make it work, start Matlab and follow these steps:
+To make it work, open a terminal and start Matlab, and follow these steps:
+
+To use EKF-SLAM
+-------------------
 
 A. In the terminal: 
--------------------
 
 1. Get the source code,
 
@@ -56,13 +58,45 @@ A. In the terminal:
         
         cd slamtb
 
-3. Select the correct project.
-
-    3a. For EKF SLAM toolbox:
+3. Select the EKF-SLAM project.
 
         git checkout master
 
-    3b. For graph-SLAM toolbox
+B. In the Matlab prompt:  
+
+1. Go to the toolbox 
+        
+        >> cd slamtb
+
+2. Add all subdirectories in slamtb/ to your Matlab path using the provided script: 
+        
+        >> slamrc
+
+3. Edit user data file, and enter the data of your experiment.
+
+        >> edit userData.m.
+
+4. Run the main script
+        
+        >> slamtb.
+
+5. To develop methods, read first slamToolbox.pdf and guidelines.pdf. 
+
+
+To use graph-SLAM
+-------------------
+
+A. In the terminal: 
+
+1. Get the source code,
+
+        git clone git://github.com/joansola/slamtb.git
+
+2. Go to the toolbox 
+        
+        cd slamtb
+
+3. Select the graph-SLAM project.
 
         git checkout graph
 
@@ -79,17 +113,9 @@ B. In the Matlab prompt:
 
 3. Edit user data file, and enter the data of your experiment.
 
-    3a. For EKF-SLAM, edit userData.m.
-
-    3b. For graph-SLAM, edit userDataGraph.m
+        >> edit userDataGraph.m
 
 4. Run the main script
-
-    4a. For EKF-SLAM, 
-        
-        >> slamtb.
-
-    4b. For graph-SLAM
 
         >> slamtb_graph
 

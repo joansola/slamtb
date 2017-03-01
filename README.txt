@@ -43,44 +43,44 @@ appearing in the References section in the documentation.
 III. Installation and quick usage.
 ==================================
 
-To make it work, open a terminal and start Matlab, and follow these steps:
+To make it work, (1) open a terminal (for example, a linux terminal) and (2) start Matlab. Then follow these steps:
 
 To use EKF-SLAM
 -------------------
 
 A. In the terminal: 
 
-1. Get the source code,
+  A.1. Get the source code,
 
         git clone git://github.com/joansola/slamtb.git
 
-2. Go to the toolbox 
+  A.2. Go to the toolbox 
         
         cd slamtb
 
-3. Select the EKF-SLAM project.
+  A.3. Select the EKF-SLAM project.
 
         git checkout master
 
-B. In the Matlab prompt:  
+B. In the Matlab command window:  
 
-1. Go to the toolbox 
+  B.1. Go to the toolbox 
         
         >> cd slamtb
 
-2. Add all subdirectories in slamtb/ to your Matlab path using the provided script: 
+  B.2. Add all subdirectories in slamtb/ to your Matlab path using the provided script: 
         
         >> slamrc
 
-3. Edit user data file, and enter the data of your experiment.
+  B.3. Edit user data file, and enter the data of your experiment.
 
         >> edit userData.m.
 
-4. Run the main script
+  B.4. Run the main script
         
         >> slamtb.
 
-5. To develop methods, read first slamToolbox.pdf and guidelines.pdf. 
+  B.5. To develop methods, read first slamToolbox.pdf and guidelines.pdf. 
 
 
 To use graph-SLAM
@@ -88,38 +88,37 @@ To use graph-SLAM
 
 A. In the terminal: 
 
-1. Get the source code,
+  A.1. Get the source code,
 
         git clone git://github.com/joansola/slamtb.git
 
-2. Go to the toolbox 
+  A.2. Go to the toolbox 
         
         cd slamtb
 
-3. Select the graph-SLAM project.
+  A.3. Select the graph-SLAM project.
 
         git checkout graph
 
 B. In the Matlab prompt:  
-------------------------
 
-1. Go to the toolbox 
+  B.1. Go to the toolbox 
         
         >> cd slamtb
 
-2. Add all subdirectories in slamtb/ to your Matlab path using the provided script: 
+  B.2. Add all subdirectories in slamtb/ to your Matlab path using the provided script: 
         
         >> slamrc
 
-3. Edit user data file, and enter the data of your experiment.
+  B.3. Edit user data file, and enter the data of your experiment.
 
         >> edit userDataGraph.m
 
-4. Run the main script
+  B.4. Run the main script
 
         >> slamtb_graph
 
-5. To develop methods, read first slamToolbox.pdf and guidelines.pdf. 
-   For graph-SLAM, read also courseSLAM.pdf.
+  B.5. To develop methods, read first slamToolbox.pdf and guidelines.pdf. 
+     For graph-SLAM, read also courseSLAM.pdf.
 
 Enjoy!

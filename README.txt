@@ -48,7 +48,7 @@ To make it work, (1) open a terminal (for example, a linux terminal) and (2) sta
 To use EKF-SLAM
 -------------------
 
-A. In the terminal: 
+A. In the [Linux / MacOSX] terminal: 
 
   A.1. Get the source code,
 
@@ -60,7 +60,7 @@ A. In the terminal:
 
   A.3. Select the EKF-SLAM project.
 
-        git checkout master
+        git checkout ekf
 
 B. In the Matlab command window:  
 
@@ -86,7 +86,7 @@ B. In the Matlab command window:
 To use graph-SLAM
 -------------------
 
-A. In the terminal: 
+A. In the [Linux / MacOSX] terminal: 
 
   A.1. Get the source code,
 

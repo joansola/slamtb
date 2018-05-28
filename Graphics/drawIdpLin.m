@@ -28,9 +28,9 @@ end
 
 % draw the label
 e = e2-e1;
-n = null([e e e]); 
+n = null([e e e],'r'); 
 n = n(:,2)*sign(n(3,2)); % Inverse depth line's normal vector
-posOffset = 0.2*n;     % label orthogonally out of the line.
+posOffset = 0.3*n;     % label orthogonally out of the line.
 drawLabel(MapFig.Lmk(Lmk.lmk).label,0.5*(e1+e2) + posOffset,num2str(Lmk.id))
 
 

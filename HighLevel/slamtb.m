@@ -35,9 +35,9 @@ global Map
 
 %% I. Specify user-defined options - EDIT USER DATA FILE userData.m
 
-userData;           % user-defined data. SCRIPT.
+% userData;           % user-defined data. SCRIPT.
 % userDataPnt;        % user-defined data for points. SCRIPT.
-% userDataLin;        % user-defined data for lines. SCRIPT.
+userDataLin;        % user-defined data for lines. SCRIPT.
 
 
 %% II. Initialize all data structures from user-defined data in userData.m

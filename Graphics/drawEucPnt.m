@@ -16,6 +16,13 @@ switch Map.type
     case 'graph'
         % Mean
         x = Lmk.state.x;
+        % Covariance
+        if ~isempty(Map.pr)
+            [~,r] = ismember(Lmk.state.r, Map.pr);
+            P = Map.P(r,r);
+        else
+            P = zeros(3);
+        end
     otherwise
         error('??? Unknown Map type ''%s''.',Map.type)
 end

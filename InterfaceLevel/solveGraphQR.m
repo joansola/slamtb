@@ -47,6 +47,8 @@ for it = 1:n_iter
         
         % Permutated map range
         pr = Map.mr(p);
+        Map.pr = pr;
+        
     end
     
     % Decomposition
@@ -81,8 +83,10 @@ for it = 1:n_iter
     
 end
 
-end
+% Compute full covariance matrix.
+Map.P = inv(full(Map.R))*inv(full(Map.R))';
 
+end
 
 function Fac = buildProblem(Rob,Sen,Lmk,Obs,Frm,Fac)
 

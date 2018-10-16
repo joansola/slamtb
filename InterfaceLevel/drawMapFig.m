@@ -37,9 +37,10 @@ for rob = 1:numel(Rob)
     % robots
     MapFig.Rob(rob).patch = drawObject(MapFig.Rob(rob).patch, Rob(rob));
     
-    if FigOpt.map.showEllip
-        r = Rob(rob).state.r(1:3);
-        drawEllipse(MapFig.Rob(rob).ellipse,Map.x(r),Map.P(r,r));
+    if FigOpt.map.showEllip && ~isempty(Map.pr)
+        [~, r] = ismember(Rob(rob).state.r(1:3), Map.pr);
+        P = Map.P(r,r);
+        drawEllipse(MapFig.Rob(rob).ellipse,Rob(rob).frame.x(1:3),P);
     end
     
     for sen = Rob(rob).sensors

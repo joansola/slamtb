@@ -206,7 +206,7 @@ FigOpt = struct(...
     'orbit',        [0 0],...       % Azimuth and Elevation orbit angle increments - use to animate figure
     'showSimLmk',   false,...        % show simulated landmarks?
     'showLmkId',    true,...        % Show landmark id?
-    'showEllip',    false,...        % show ellipsoids?
+    'showEllip',    true,...        % show ellipsoids?
     'showMotFac',   true,...        % show motion factors?
     'showMeaFac',   false,...       % show measurement factors?
     'colors',       struct(...      % map figure colors

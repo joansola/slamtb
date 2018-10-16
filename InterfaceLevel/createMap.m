@@ -60,6 +60,7 @@ switch lower(Opt.map.type)
         
         % State and manifold
         Map.x = zeros(n,1);
+        Map.P = zeros(n,n);
         
         switch Opt.solver.decomposition
             
@@ -78,6 +79,7 @@ switch lower(Opt.map.type)
                 Map.d  = zeros(n,1); % rhs vector.
                 Map.mr = []; % range of used states in A
                 Map.fr = []; % range of used factors in A
+                Map.pr = []; % permutation of re-ordered states in A
             
             case 'Schur'
                 % Hessian matrix in the manifold

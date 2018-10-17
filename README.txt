@@ -11,7 +11,7 @@ I. Copyright and license.
 (c) 2014, 2015, 2016--2018  Joan Sola  @ IRI-UPC-CSIC; 
 (c) 2009  Joan Sola, David Marquez, Jean Marie Codol,
           Aurelien Gonzalez and Teresa Vidal-Calleja, @ LAAS-CNRS;
-(c) 2018  Marjia Popovic @ ETH, thanks for the ellipse drawing in graph SLAM 
+(c) 2018  Marija Popovic @ ETH, thanks for the ellipse drawing in graph SLAM 
 
 Maintained by Joan Sola
 Please write feedback, suggestions and bugs to:

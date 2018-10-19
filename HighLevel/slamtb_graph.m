@@ -61,7 +61,6 @@ factorRob = Rob;
 % Clear user data - not needed anymore
 clear Robot Sensor World Time   % clear all user data
 
-
 %% III. Initialize data logging
 % TODO: Create source and/or destination files and paths for data input and
 % logs.

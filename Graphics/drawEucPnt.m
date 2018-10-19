@@ -18,7 +18,7 @@ switch Map.type
         x = Lmk.state.x;
         % Covariance
         if ~isempty(Map.pr)
-            [~,r] = ismember(Lmk.state.r, Map.pr);
+            r = Lmk.state.r;
             P = Map.P(r,r);
         else
             P = zeros(3);

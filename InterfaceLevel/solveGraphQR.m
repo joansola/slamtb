@@ -84,7 +84,7 @@ for it = 1:n_iter
 end
 
 % Compute full covariance matrix.
-Map.P = inv(full(Map.R))*inv(full(Map.R))';
+Map.P(pr,pr) = inv(full(Map.R))*inv(full(Map.R))';
 
 end
 

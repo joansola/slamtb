@@ -38,7 +38,7 @@ for rob = 1:numel(Rob)
     MapFig.Rob(rob).patch = drawObject(MapFig.Rob(rob).patch, Rob(rob));
     
     if FigOpt.map.showEllip && ~isempty(Map.pr)
-        [~, r] = ismember(Rob(rob).state.r(1:3), Map.pr);
+        r = Rob(rob).state.r(1:3);
         P = Map.P(r,r);
         drawEllipse(MapFig.Rob(rob).ellipse,Rob(rob).frame.x(1:3),P);
     end

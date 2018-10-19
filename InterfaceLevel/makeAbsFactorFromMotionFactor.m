@@ -9,13 +9,13 @@ Fac.state.r2 = [];
 
 % Measurement is the straight data
 Fac.meas.y = Frm.state.x;
+% TODO use real covariance of the robot state
+sigma = 1e-6; % 1mm error 
+Fac.meas.R = sigma*eye(numel(Fac.meas.y));
+Fac.meas.W = Fac.meas.R ^ (-1);
 
 % Expectation has zero covariance -- and info is not defined
-Fac.exp.e = Fac.meas.y; % expectation
-
-sigma = 1e4;
-Fac.err.Wsqrt = sigma*eye(numel(Fac.err.z));
-Fac.err.W     = sigma*Fac.err.Wsqrt;
+Fac.exp.e = Frm.state.x; % expectation is the state
 
 Fac.err.size  = numel(Fac.err.z);
 

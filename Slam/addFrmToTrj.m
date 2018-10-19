@@ -72,7 +72,7 @@ for fac = factors
     else
         % Delete factor after cleaning up graph
         
-        for frm = [Fac(fac).frames];
+        for frm = [Fac(fac).frames]
             % Remove this factor from frame's factors list
             Frm(frm).factors([Frm(frm).factors] == fac) = [];
         end

@@ -1,4 +1,4 @@
-function [e,Eq] = q2e(q)
+function [e,E_q] = q2e(q)
 
 % Q2E  Quaternion to Euler angles conversion.
 %   Q2E(Q) returns an Euler angles vector [roll;pitch;yaw] corresponding to

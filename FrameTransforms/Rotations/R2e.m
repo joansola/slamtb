@@ -9,8 +9,6 @@ function e = R2e(R)
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
-
-
 s = whos('R');
 
 if (strcmp(s.class,'sym'))
@@ -19,7 +17,7 @@ if (strcmp(s.class,'sym'))
     yaw   = atan(R(2,1)/R(1,1));
 else
     roll  = atan2(R(3,2),R(3,3));
-    pitch = asin(-R(3,1));
+    pitch = atan2(-R(3,1), sqrt(R(1,1)^2+R(2,1)^2));
     yaw   = atan2(R(2,1),R(1,1));
 end
 

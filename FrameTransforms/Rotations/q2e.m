@@ -9,54 +9,56 @@ function [e,E_q] = q2e(q)
 %   See also QUATERNION, EULERANGLES, R2Q, E2Q, Q2V.
 
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
+%   Revised 2018 Joan Sola - handle full gimbal range (2pi, pi, 2pi)
 
 
 
-a  = q(1);
+a  = q(1); % a: real part
 b  = q(2);
 c  = q(3);
 d  = q(4);
 
-y1 =  2*c*d + 2*a*b;
-x1 =  a^2   - b^2   - c^2 + d^2;
-z2 = -2*b*d + 2*a*c;
-y3 =  2*b*c + 2*a*d;
-x3 =  a^2   + b^2   - c^2 - d^2;
+r32 =  2*c*d + 2*a*b;
+r33 =  a^2   - b^2   - c^2 + d^2;
+r31 =  2*b*d - 2*a*c;
+r21 =  2*b*c + 2*a*d;
+r11 =  a^2   + b^2   - c^2 - d^2;
 
-w  = whos('q');
+n   = sqrt(r11^2+r21^2);
 
-if strcmp(w.class,'sym')
+e   = [ atan2( r32,r33)
+        atan2(-r31, n)
+        atan2( r21,r11) ];
     
-    e = [ atan(y1/x1)
-          asin(z2)
-          atan(y3/x3) ];
-      
-else
-    
-    e = [ atan2(y1,x1)
-          asin(z2)
-          atan2(y3,x3) ];
-      
-end
-
 if nargout >1 
     
-    dx1dq  = [ 2*a, -2*b, -2*c,  2*d];
-    dy1dq  = [ 2*b,  2*a,  2*d,  2*c];
-    dz2dq  = [ 2*c, -2*d,  2*a, -2*b];
-    dx3dq  = [ 2*a,  2*b, -2*c, -2*d];
-    dy3dq  = [ 2*d,  2*c,  2*b,  2*a];
+    % partials of R wrt q
+    dr11dq  = [  2*a,  2*b, -2*c, -2*d];
+    dr21dq  = [  2*d,  2*c,  2*b,  2*a];
+    dr31dq  = [ -2*c,  2*d, -2*a,  2*b];
+    dr32dq  = [  2*b,  2*a,  2*d,  2*c];
+    dr33dq  = [  2*a, -2*b, -2*c,  2*d];
     
-    de1dx1 = -y1/(x1^2 + y1^2);
-    de1dy1 =  x1/(x1^2 + y1^2);
-    de2dz2 =   1/sqrt(1-z2^2);
-    de3dx3 = -y3/(x3^2 + y3^2);
-    de3dy3 =  x3/(x3^2 + y3^2);
+    % partials of n wrt R elements
+    dndr11 = r11/n;
+    dndr21 = r21/n;
     
-    de1dq  = de1dx1*dx1dq + de1dy1*dy1dq;
-    de2dq  = de2dz2*dz2dq;
-    de3dq  = de3dx3*dx3dq + de3dy3*dy3dq;
+    % partials of e wrt n
+    de2dn   = r31/(n^2 + r31^2);
     
+    % partials of e wrt R elements
+    de1dr32 =  r33/(r33^2 + r32^2);
+    de1dr33 = -r32/(r33^2 + r32^2);
+    de2dr31 = -n /(n^2 + r31^2);
+    de3dr11 = -r21/(r11^2 + r21^2);
+    de3dr21 =  r11/(r11^2 + r21^2);
+    
+    % chain rule: rows of Jacobian
+    de1dq  = de1dr33*dr33dq + de1dr32*dr32dq;
+    de2dq  = de2dr31*dr31dq + de2dn*(dndr11*dr11dq+dndr21*dr21dq);
+    de3dq  = de3dr11*dr11dq + de3dr21*dr21dq;
+    
+    % assemble Jacobian
     E_q    = [de1dq;de2dq;de3dq];
 end
 
@@ -68,6 +70,17 @@ syms a b c d real
 q=[a;b;c;d];
 [e,E_q] = q2e(q);
 simplify(E_q-jacobian(e,q))
+
+%% test
+for i = 1 : 1000
+    e = [2/3;1/3;2/3] .* randn(3,1);
+    eo = q2e(e2q(e));
+    if any(e-eo > 1e-10) % Should never enter this IF
+        e
+        eo
+        disp('###########')
+    end
+end
 
 
 

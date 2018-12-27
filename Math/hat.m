@@ -19,7 +19,7 @@ function [SQ,SQw] = hat(W)
 %   Copyright 2008-2009 Joan Sola @ LAAS-CNRS.
 
 
-if numel(W) == 3;
+if numel(W) == 3 
     SQ = [...
         0     -W(3)  W(2)
         W(3)   0    -W(1)

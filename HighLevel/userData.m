@@ -238,7 +238,7 @@ SimOpt = struct(...
 %       'rgbcmykw'  1-char predifined Matlab colors
 %       [r g b]     RGB color vector. [0 0 0] is black, [1 1 1] is white.
 FigOpt = struct(...
-  'renderer',       'zbuffer',...    % renderer
+  'renderer',       'opengl',...    % renderer
   'rendPeriod',     1,...           % frames to skip for faster processing
   'createVideo',    false,...       % create video sequences?
   'map',            struct(...      % map figure options

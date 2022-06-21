@@ -1,4 +1,4 @@
-function [n, N_v] = vecnorm(v)
+function [n, N_v] = vnorm(v)
 % VECNORM Vector norm, with Jacobian
 %   VECNORM(V) is the same as NORM(V)
 %

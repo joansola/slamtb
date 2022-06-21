@@ -18,7 +18,7 @@ function f()
 %%
 syms v1 v2 real
 v = [v1;v2];
-[n,N_v] = vecnorm(v);
+[n,N_v] = vnorm(v);
 N_v - jacobian(n,v)
 
 end

@@ -10,13 +10,13 @@ function [a,u,A_q,U_q] = q2au(q)
 if nargout <= 2
     
     v = q(2:4);
-    a = 2*atan2(vecnorm(v),q(1));
+    a = 2*atan2(vnorm(v),q(1));
     u = normvec(v);
     
 else
     s = q(1); % scalar part
     v = q(2:4); % vector part
-    [n, N_v] = vecnorm(v);
+    [n, N_v] = vnorm(v);
     if isnumeric(n)
         a = 2*atan2(n,s);
     else

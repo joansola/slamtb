@@ -37,9 +37,13 @@ Time = struct(...
 
 % Simulated world
 %   - Simulation landmark sets, playground dimensions
+% World = struct(...
+%   'points',           thickCloister(-6,6,-6,6,1,7),... % 3d point landmarks - see THICKCLOISTER. 
+%   'segments',         []);  % 3D segments - see HOUSE. 
+% [CGGOS]
 World = struct(...
-  'points',           thickCloister(-6,6,-6,6,1,7),... % 3d point landmarks - see THICKCLOISTER. 
-  'segments',         []);  % 3D segments - see HOUSE. 
+    'points', thickCloister(-6,6,-6,6,1,7),...
+    'segments', house(0,0,0,10,10,8));
     
 % Robot things with their controls
 %   - each robot's type and initial configuration, and controls.
